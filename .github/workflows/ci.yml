@@ -21,6 +21,7 @@ jobs:
       - run: pytest --cov=apixly_jev_harness
       - run: python benchmarks/parameters.py --output local-results/parameter-ab.json
       - run: python benchmarks/progress.py --output local-results/evidence-progress-ab.json
+      - run: python benchmarks/diagnostics.py --output local-results/decision-diagnostics-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

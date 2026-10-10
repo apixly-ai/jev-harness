@@ -8,6 +8,8 @@ from jev_context.provider import evaluate as provider_evaluate
 from jev_filter import analysis as core
 from jev_filter.batch import run as native_run
 
+from .diagnostics import provider_failure_code
+
 _ACTIVE = ContextVar("apixly_jev_harness_transport", default=None)
 
 
@@ -18,6 +20,7 @@ class Session:
     def run(self, items, **kwargs):
         before = dict(self.client.stats)
         results = []
+        failure_codes = []
         for item in items:
             try:
                 row = {
@@ -25,6 +28,9 @@ class Session:
                     **provider_evaluate(item["request"], self.client, cache=None),
                 }
             except Exception as error:
+                code = provider_failure_code(error)
+                if code not in failure_codes:
+                    failure_codes.append(code)
                 row = {
                     "id": item["id"],
                     "ok": False,
@@ -47,6 +53,7 @@ class Session:
             "unknown_usage_attempts": max(0, delta["requests"] - sum(row["ok"] for row in results)),
             "workers": 1,
             "cache_enabled": False,
+            "provider_failure_codes": failure_codes,
         }
 
 
@@ -114,6 +121,8 @@ def evaluate(parts, task, workers, spec):
                 )
         if probabilities.get(choice) != top:
             reasons.append({"reason": "selected_option_not_top"})
+        if choice == "REVIEW":
+            reasons.append({"reason": "model_review"})
     if not row.get("ok") or reasons:
         choice = "REVIEW"
     selected = planned["routes"]["choose"].get(choice)

@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.1 for a reproducible release;
+package downloads still require network access. Pin v0.1.2 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.1'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.2'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -105,3 +105,56 @@ Intent is durably recorded before effects. No automatic retry of uncertain execu
 No cross-run resume/exactly-once promise. Business tools own identity, idempotency,
 transactions and external reconciliation. Wall budgets are checked between callbacks;
 each callback must enforce its I/O timeout. Inference has no result cache.
+
+## Decision diagnostics
+
+A terminal packet may include an optional host-generated `diagnostic` for an unresolved
+tool or parameter inference call. It does not change the terminal status, execution
+eligibility or authorization. For example:
+
+```json
+{
+  "status": "needs_review",
+  "complete": false,
+  "diagnostic": {
+    "stage": "parameter_selection",
+    "tool_id": "inspect_record",
+    "parameter": "record",
+    "reason_codes": ["model_review"],
+    "automatic_retry": false
+  }
+}
+```
+
+`stage` is `tool_selection` or `parameter_selection`. The parameter stage includes
+`tool_id` and `parameter` from the registered binding context. Each actual inference
+entry in `telemetry.calls` carries the same stage and applicable identifiers. Singleton
+bindings do not make inference calls. Static domain, policy and execution failures
+continue to use their existing terminal reasons; diagnostics cover selection calls only.
+
+`reason_codes` admits only these stable codes:
+
+- Provider: `credentials_missing`, `credentials_invalid`, `credential_file_permissions`,
+  `client_closed`, `response_too_large`, `transport_failed_usage_unknown`,
+  `response_invalid_usage_unknown`, `retry_exhausted`, `provider_unavailable`, and
+  `http_NNN_body_suppressed` for HTTP status codes 100–599.
+- Selection: `below_min_top_probability`, `below_min_margin`, `below_min_confidence`,
+  `selected_option_not_top`, `model_review`, `no_matching_candidate`, `invalid_selection`,
+  `unresolved_selection`, `decision_failed`.
+
+Diagnostics never export exception text, response bodies or bound parameter values.
+Unknown errors fall back to generic codes; a code is a handoff signal, not a diagnosis
+of the upstream root cause. Missing/unknown usage remains unknown.
+
+The primary agent can repair local credential configuration for a credential code,
+or inspect admitted context and narrow ambiguous candidates for a selection code.
+Inspect the status and journal before submitting a new task: a failed later decision
+does not undo earlier effects. Reconcile uncertain execution rather than retrying it.
+`automatic_retry: false` means the harness does not automatically repeat task calls;
+the pinned SDK's existing bounded 429/503/529 retries are unchanged. It does not promise
+one network request or automatic recovery.
+
+The [decision-diagnostics A/B](../reports/decision-diagnostics-ab.json) uses synthetic
+offline HTTP mocks and zero real model calls. It checks safe codes and stage metadata.
+The extra metadata increases terminal bytes, unknown errors lose detail, and no real
+semantic recovery success rate has been established.

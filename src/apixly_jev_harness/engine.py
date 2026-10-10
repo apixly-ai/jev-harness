@@ -15,6 +15,7 @@ from jev_filter import analysis as core_analysis
 
 from . import backend
 from .context import ContextPolicy
+from .diagnostics import provider_failure_code, selection_diagnostic, stage_context
 
 analysis = SimpleNamespace(
     validate=core_analysis.validate, summarize=core_analysis.summarize, evaluate=backend.evaluate
@@ -245,6 +246,7 @@ class Engine:
         pending = None
         executed = False
         executed_bindings = set()
+        diagnostic = None
         with os.fdopen(fd, "w", encoding="utf-8") as journal:
 
             def log(event, **data):
@@ -261,6 +263,7 @@ class Engine:
                     "telemetry": telemetry,
                     "elapsed_seconds": time.monotonic() - started,
                     "cache_enabled": False,
+                    **({"diagnostic": diagnostic} if diagnostic is not None else {}),
                     **extra,
                 }
                 log("terminal", result=result)
@@ -282,6 +285,9 @@ class Engine:
                 return finish("needs_context", missing_context=missing)
 
             def choose(records, selection_goal, extra_context=None):
+                nonlocal diagnostic
+                diagnostic = None
+                stage = stage_context(extra_context)
                 if expired():
                     raise DecisionStop("budget_exceeded", "wall_budget")
                 shared = {**decision_context, **(extra_context or {})}
@@ -299,17 +305,27 @@ class Engine:
                             "uncertainty": HOSTED_DEFAULT,
                         },
                     )
-                except Exception:
+                except Exception as error:
+                    code = provider_failure_code(error)
+                    diagnostic = {
+                        **stage,
+                        "reason_codes": [
+                            code if code != "provider_unavailable" else "decision_failed"
+                        ],
+                        "automatic_retry": False,
+                    }
                     telemetry["usage_complete"] = False
                     telemetry["usage"] = None
                     telemetry["calls"].append(
                         {
+                            **stage,
                             "usage_complete": False,
                             "elapsed_seconds": time.monotonic() - call_started,
                         }
                     )
                     raise
                 meta = copy.deepcopy(packet["telemetry"])
+                meta.update(stage)
                 meta["elapsed_seconds"] = time.monotonic() - call_started
                 meta["context_bytes"] = len(_json(shared).encode())
                 telemetry["calls"].append(meta)
@@ -328,6 +344,7 @@ class Engine:
                     for key in telemetry["usage"]:
                         telemetry["usage"][key] += usage[key]
                 log("decision", packet=packet)
+                diagnostic = selection_diagnostic(packet, records, stage)
                 return packet
 
             try:
@@ -406,6 +423,9 @@ class Engine:
                     if selected[0] == "__loop_needs_context":
                         return finish("needs_context", reason="model_needs_context")
                     action = workflow.bind(ctx, copy.deepcopy(state), by_id[selected[0]], choose)
+                    # A trusted binding may resolve an optional choice itself. Its returned
+                    # action completes binding; an old choice failure must not label execution.
+                    diagnostic = None
                     pending = action.id
                     if (
                         action.irreversible

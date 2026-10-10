@@ -58,3 +58,40 @@ The output must be a new file. Timings cover task creation, decisions, callbacks
 private journal writes, excluding interpreter/import and source-snapshot setup. CI runs
 both offline benchmarks on Python 3.10, 3.12 and 3.14. The earlier live browser evidence
 belongs to 0.1.0 and was not rerun for 0.1.1; desktop acceptance remains unverified.
+
+## Decision diagnostics (0.1.2)
+
+The [offline diagnostic A/B](decision-diagnostics-ab.json) compares the exact published
+0.1.1 source at `4f8e274bf598fbe674ee08eccccda1fa55655732` with the candidate. Ten fixed
+synthetic scenarios run three paired repeats each through the pinned SDK and typed-batch
+seam using HTTP mocks or injected sanitized ProviderError. No credentials, model calls,
+browser or desktop operations are needed.
+
+Both arms meet all 30 expected terminal statuses and execution counts, including
+intentional abstention/blocking, and preserve unknown usage. Diagnostic protocol checks
+change from 3/30 to 30/30: the baseline only meets the successful case's expected absence
+of a failure diagnostic; the candidate identifies credentials, safe HTTP status,
+uncertainty, explicit model review and no match at the tool or parameter stage. This is
+coverage of new metadata, not improved semantic accuracy or demonstrated AI recovery.
+
+Both arms have 36 scripted decisions and 33 mock HTTP attempts. The pinned SDK already
+retries 429/503/529 up to three times; those retries are simulated here and unchanged.
+Returned terminal bytes increase from 37,111 to 43,251 over this run. All measured times,
+context bytes, mocked model identities, unknown usage and statuses remain in the report.
+Real model usage is explicitly zero and distinct from synthetic response tokens.
+There is no latency or savings claim; unknown provider codes still lose detail, static
+candidate/policy/execution failures retain their existing reasons, and real AI recovery
+success has not been measured.
+
+Additional behavioral regressions cover a trusted Workflow binding that handles an
+optional failed choice itself: success and subsequent uncertain execution must not carry
+its old failure diagnostic. Prior effects are not undone by a later selection failure.
+
+```sh
+python benchmarks/diagnostics.py --output local-results/decision-diagnostics-ab.json
+```
+
+Use a full Git checkout with `.[dev]`; choose a new output file. CI runs this benchmark
+on Python 3.10, 3.12 and 3.14. Source hashes bind the candidate report to its runtime.
+Historical live browser evidence remains from 0.1.0; neither browser nor locked desktop
+was retried for 0.1.2. Search indexing and AI citation remain unproven.

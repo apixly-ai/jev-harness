@@ -1,0 +1,2660 @@
+{
+  "mode": "offline-http-mock",
+  "baseline_commit": "4f8e274bf598fbe674ee08eccccda1fa55655732",
+  "candidate": "working tree at invocation; published with its source commit",
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "06a3114d8c235eb4b8de43394b42e9aff72c0bffa29a5c0759ae0c8528649676",
+    "src/apixly_jev_harness/backend.py": "2b5d221ed19777eb338dedb7df091f6c1a0b18cc77b21b3cfeaa7ec4f251e43e",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "ebf1e908ff769dd62f8a51ff0a2ff4d67ebd704464800f2f14340246879ec7e6",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "d8429a53297fdedc6acb620a43c8f82a48b914664a7b1b9e2c2f3027b87a66da",
+    "src/apixly_jev_harness/task_cli.py": "15e2c927775dc405617ab76638722052a69dc2125a00bd4e8fac20ed5e558849",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "python_version": "3.14.2",
+  "reproduction": "python benchmarks/diagnostics.py --output local-results/decision-diagnostics-ab.json",
+  "scope": "Ten fixed synthetic scenarios, three paired repeats through the actual pinned SDK/typed-batch with HTTPMock or injected sanitized ProviderError. Mock model identity and token usage are synthetic, not real inference. Expected diagnostic checks are protocol checks, not AI recovery or semantic accuracy measurements.",
+  "negative_results": "Added diagnostics and stage tags increase terminal bytes. Unknown provider codes remain generic. Diagnostic coverage is actual selection calls; static candidate/policy/execution failures keep existing reasons. No live AI recovery trial.",
+  "cost_conversion": "Zero outbound model requests and no paid savings claim. HTTP retries are simulated; the pinned provider already retries 429/503/529 up to three network attempts, unchanged here. Timings include task/client construction, loop, callbacks and journal writes; exclude interpreter/import/snapshot setup.",
+  "summary": {
+    "baseline": {
+      "runs": 30,
+      "status_correct": 30,
+      "diagnostic_correct": 3,
+      "effects_correct": 30,
+      "unknown_usage_preserved": 30,
+      "statuses": {
+        "blocked": 3,
+        "done": 3,
+        "needs_review": 24
+      },
+      "private_terminal_exposures": 0,
+      "median_whole_operation_seconds": 0.0014928540003893431,
+      "returned_context_bytes": 37111,
+      "scripted_decisions": 36,
+      "scripted_context_bytes": 9977,
+      "mock_http_attempts": 33,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    "candidate": {
+      "runs": 30,
+      "status_correct": 30,
+      "diagnostic_correct": 30,
+      "effects_correct": 30,
+      "unknown_usage_preserved": 30,
+      "statuses": {
+        "blocked": 3,
+        "done": 3,
+        "needs_review": 24
+      },
+      "private_terminal_exposures": 0,
+      "median_whole_operation_seconds": 0.001488333502493333,
+      "returned_context_bytes": 43251,
+      "scripted_decisions": 36,
+      "scripted_context_bytes": 9978,
+      "mock_http_attempts": 33,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "scenario": "credentials_missing",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0006931250027264468,
+      "returned_context_bytes": 962,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "credentials_missing",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0011921249970328063,
+      "returned_context_bytes": 1151,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "credentials_missing",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.001179500002763234,
+      "returned_context_bytes": 1151,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "credentials_missing",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0008383329986827448,
+      "returned_context_bytes": 961,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "credentials_missing",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0010697089965105988,
+      "returned_context_bytes": 961,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "credentials_missing",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credentials_missing"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0012307079960010014,
+      "returned_context_bytes": 1151,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "credential_file_permissions",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0011928340027225204,
+      "returned_context_bytes": 970,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "credential_file_permissions",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0009390829945914447,
+      "returned_context_bytes": 1172,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "credential_file_permissions",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0017584590023034252,
+      "returned_context_bytes": 1174,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "credential_file_permissions",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0011140419956063852,
+      "returned_context_bytes": 969,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "credential_file_permissions",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0011765829985961318,
+      "returned_context_bytes": 969,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "credential_file_permissions",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "credential_file_permissions"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0010150419984711334,
+      "returned_context_bytes": 1175,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "http_401",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0013660419936059043,
+      "returned_context_bytes": 951,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "http_401",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0015132089974940754,
+      "returned_context_bytes": 1149,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "http_401",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0013088749983580783,
+      "returned_context_bytes": 1149,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "http_401",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.001377209002384916,
+      "returned_context_bytes": 951,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "http_401",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0013725829994655214,
+      "returned_context_bytes": 949,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "http_401",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_401_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0014317500026663765,
+      "returned_context_bytes": 1149,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "http_429",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0017216249980265275,
+      "returned_context_bytes": 950,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "http_429",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0017152910004369915,
+      "returned_context_bytes": 1147,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "http_429",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.001727208000374958,
+      "returned_context_bytes": 1149,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "http_429",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0016259580006590113,
+      "returned_context_bytes": 950,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "http_429",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0016095419996418059,
+      "returned_context_bytes": 950,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "http_429",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "http_429_body_suppressed"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0017179159985971637,
+      "returned_context_bytes": 1149,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "unknown_provider_code",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.001102374997572042,
+      "returned_context_bytes": 964,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "unknown_provider_code",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.001072332997864578,
+      "returned_context_bytes": 1154,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "unknown_provider_code",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0012162920029368252,
+      "returned_context_bytes": 1155,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "unknown_provider_code",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0011700000031851232,
+      "returned_context_bytes": 963,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "unknown_provider_code",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0010455000010551885,
+      "returned_context_bytes": 964,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "unknown_provider_code",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "provider_unavailable"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": true,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        null
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.000967583000601735,
+      "returned_context_bytes": 1154,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "tool_uncertainty",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0015039999998407438,
+      "returned_context_bytes": 1351,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "tool_uncertainty",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0015024999956949614,
+      "returned_context_bytes": 1545,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "tool_uncertainty",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0014299579997896217,
+      "returned_context_bytes": 1545,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "tool_uncertainty",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0020544169965432957,
+      "returned_context_bytes": 1351,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "tool_uncertainty",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.001476624995120801,
+      "returned_context_bytes": 1351,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "tool_uncertainty",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0014752920033060946,
+      "returned_context_bytes": 1545,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "parameter_uncertainty",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "parameter_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false,
+        "tool_id": "inspect",
+        "parameter": "target"
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null,
+        null
+      ],
+      "whole_operation_seconds": 0.0025341670043417253,
+      "returned_context_bytes": 2055,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "parameter_uncertainty",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "parameter_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false,
+        "tool_id": "inspect",
+        "parameter": "target"
+      },
+      "diagnostic": {
+        "stage": "parameter_selection",
+        "tool_id": "inspect",
+        "parameter": "target",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection",
+        "parameter_selection"
+      ],
+      "whole_operation_seconds": 0.0024089579965220764,
+      "returned_context_bytes": 2402,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "parameter_uncertainty",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "parameter_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false,
+        "tool_id": "inspect",
+        "parameter": "target"
+      },
+      "diagnostic": {
+        "stage": "parameter_selection",
+        "tool_id": "inspect",
+        "parameter": "target",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection",
+        "parameter_selection"
+      ],
+      "whole_operation_seconds": 0.0018508330031181686,
+      "returned_context_bytes": 2405,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 762,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "parameter_uncertainty",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "parameter_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false,
+        "tool_id": "inspect",
+        "parameter": "target"
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null,
+        null
+      ],
+      "whole_operation_seconds": 0.0019460839976090938,
+      "returned_context_bytes": 2055,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "parameter_uncertainty",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "parameter_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false,
+        "tool_id": "inspect",
+        "parameter": "target"
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null,
+        null
+      ],
+      "whole_operation_seconds": 0.0018254169990541413,
+      "returned_context_bytes": 2053,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "parameter_uncertainty",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "parameter_selection",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false,
+        "tool_id": "inspect",
+        "parameter": "target"
+      },
+      "diagnostic": {
+        "stage": "parameter_selection",
+        "tool_id": "inspect",
+        "parameter": "target",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection",
+        "parameter_selection"
+      ],
+      "whole_operation_seconds": 0.0017578750048414804,
+      "returned_context_bytes": 2406,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 762,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "model_review",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0014044999988982454,
+      "returned_context_bytes": 1193,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "model_review",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0013828329974785447,
+      "returned_context_bytes": 1380,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "model_review",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0015013750016805716,
+      "returned_context_bytes": 1380,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "model_review",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.001967541997146327,
+      "returned_context_bytes": 1193,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "model_review",
+      "runtime_version": "0.1.1",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.001520916004665196,
+      "returned_context_bytes": 1193,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "model_review",
+      "runtime_version": "0.1.2",
+      "expected_status": "needs_review",
+      "status": "needs_review",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0014643749964307062,
+      "returned_context_bytes": 1380,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "no_match",
+      "runtime_version": "0.1.1",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0014907500008121133,
+      "returned_context_bytes": 1132,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "no_match",
+      "runtime_version": "0.1.2",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0015116249996935949,
+      "returned_context_bytes": 1302,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "no_match",
+      "runtime_version": "0.1.2",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.001387666998198256,
+      "returned_context_bytes": 1302,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "no_match",
+      "runtime_version": "0.1.1",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.001494957999966573,
+      "returned_context_bytes": 1132,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "no_match",
+      "runtime_version": "0.1.1",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": null,
+      "diagnostic_correct": false,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null
+      ],
+      "whole_operation_seconds": 0.0015869589988142252,
+      "returned_context_bytes": 1132,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 224,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "no_match",
+      "runtime_version": "0.1.2",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "status_correct": true,
+      "expected_diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic": {
+        "stage": "tool_selection",
+        "reason_codes": [
+          "no_matching_candidate"
+        ],
+        "automatic_retry": false
+      },
+      "diagnostic_correct": true,
+      "effects": 0,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection"
+      ],
+      "whole_operation_seconds": 0.0015016249963082373,
+      "returned_context_bytes": 1302,
+      "scripted_decisions": 1,
+      "scripted_context_bytes": 225,
+      "mock_http_attempts": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "scenario": "successful_selection",
+      "runtime_version": "0.1.1",
+      "expected_status": "done",
+      "status": "done",
+      "status_correct": true,
+      "expected_diagnostic": null,
+      "diagnostic": null,
+      "diagnostic_correct": true,
+      "effects": 1,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null,
+        null
+      ],
+      "whole_operation_seconds": 0.002101874997606501,
+      "returned_context_bytes": 1846,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "scenario": "successful_selection",
+      "runtime_version": "0.1.2",
+      "expected_status": "done",
+      "status": "done",
+      "status_correct": true,
+      "expected_diagnostic": null,
+      "diagnostic": null,
+      "diagnostic_correct": true,
+      "effects": 1,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection",
+        "parameter_selection"
+      ],
+      "whole_operation_seconds": 0.0019843339978251606,
+      "returned_context_bytes": 2009,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "scenario": "successful_selection",
+      "runtime_version": "0.1.2",
+      "expected_status": "done",
+      "status": "done",
+      "status_correct": true,
+      "expected_diagnostic": null,
+      "diagnostic": null,
+      "diagnostic_correct": true,
+      "effects": 1,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection",
+        "parameter_selection"
+      ],
+      "whole_operation_seconds": 0.002251833000627812,
+      "returned_context_bytes": 2009,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "scenario": "successful_selection",
+      "runtime_version": "0.1.1",
+      "expected_status": "done",
+      "status": "done",
+      "status_correct": true,
+      "expected_diagnostic": null,
+      "diagnostic": null,
+      "diagnostic_correct": true,
+      "effects": 1,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null,
+        null
+      ],
+      "whole_operation_seconds": 0.0020552909991238266,
+      "returned_context_bytes": 1844,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "scenario": "successful_selection",
+      "runtime_version": "0.1.1",
+      "expected_status": "done",
+      "status": "done",
+      "status_correct": true,
+      "expected_diagnostic": null,
+      "diagnostic": null,
+      "diagnostic_correct": true,
+      "effects": 1,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        null,
+        null
+      ],
+      "whole_operation_seconds": 0.0021227499964879826,
+      "returned_context_bytes": 1846,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "scenario": "successful_selection",
+      "runtime_version": "0.1.2",
+      "expected_status": "done",
+      "status": "done",
+      "status_correct": true,
+      "expected_diagnostic": null,
+      "diagnostic": null,
+      "diagnostic_correct": true,
+      "effects": 1,
+      "effects_correct": true,
+      "private_payload_in_terminal": false,
+      "reported_usage_unknown": false,
+      "unknown_usage_preserved": true,
+      "reported_model_resolved": [
+        "jev-synthetic-resolved",
+        "jev-synthetic-resolved"
+      ],
+      "reported_selection_stages": [
+        "tool_selection",
+        "parameter_selection"
+      ],
+      "whole_operation_seconds": 0.0018181249979534186,
+      "returned_context_bytes": 2010,
+      "scripted_decisions": 2,
+      "scripted_context_bytes": 764,
+      "mock_http_attempts": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

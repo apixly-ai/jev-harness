@@ -8,6 +8,7 @@ import sys
 from importlib.resources import files
 from pathlib import Path
 
+from .diagnostics import HTTP_CODE_PATTERN, PROVIDER_CODES, SELECTION_CODES
 from .engine import AgentLoop, Workflow
 
 TEMPLATE = '''"""Synthetic counter task. Replace callbacks with your business operations.
@@ -153,7 +154,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "parameter_binding": "staged_candidate_choice",
     "commands": {
         "skill": {"offline": True},
@@ -211,6 +212,19 @@ SPEC = {
         "helper": "verify_state",
         "helper_requires": "nonempty_text_or_control_condition",
         "missing_control_fields": "do_not_match",
+    },
+    "diagnostic": {
+        "optional": True,
+        "scope": "selection_calls",
+        "stages": ["tool_selection", "parameter_selection"],
+        "fields": ["stage", "tool_id", "parameter", "reason_codes", "automatic_retry"],
+        "reason_codes": sorted(PROVIDER_CODES | SELECTION_CODES),
+        "http_code_pattern": HTTP_CODE_PATTERN,
+        "automatic_retry": False,
+        "call_telemetry_stage": True,
+        "raw_exception_text": False,
+        "bound_values": False,
+        "provider_transport_retry": "pinned SDK bounded policy unchanged",
     },
     "statuses": [
         "done",

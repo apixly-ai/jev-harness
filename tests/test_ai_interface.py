@@ -26,6 +26,20 @@ def test_machine_spec_exposes_progress_and_verification_contract(capsys):
     assert spec["verification"]["missing_control_fields"] == "do_not_match"
 
 
+def test_machine_spec_exposes_safe_optional_diagnostic(capsys):
+    assert main(["spec"]) == 0
+    diagnostic = json.loads(capsys.readouterr().out)["diagnostic"]
+    assert diagnostic["optional"] is True
+    assert diagnostic["scope"] == "selection_calls"
+    assert diagnostic["stages"] == ["tool_selection", "parameter_selection"]
+    assert diagnostic["automatic_retry"] is False
+    assert "credentials_missing" in diagnostic["reason_codes"]
+    assert "model_review" in diagnostic["reason_codes"]
+    assert diagnostic["http_code_pattern"] == "http_[1-5][0-9]{2}_body_suppressed"
+    assert diagnostic["raw_exception_text"] is False
+    assert diagnostic["bound_values"] is False
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

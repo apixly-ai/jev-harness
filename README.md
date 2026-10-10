@@ -8,7 +8,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.1**; no promise of general task success or universal savings.
+AI product. Early **0.1.2**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,7 +22,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.1'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.2'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -30,7 +30,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.1` only for active development.
+Use `@main` instead of `@v0.1.2` only for active development.
 
 `check-task` checks syntax/export without executing code; it does not prove callback
 correctness. `run` loads caller-trusted Python, not a sandbox. Only `done` exits 0;
@@ -80,6 +80,17 @@ only once; a repeated invocation stops before execution with `blocked/repeated_a
 Polling the same call against a fixed observation is unsupported. Handle polling inside
 a tool with its own bounds, or expose meaningful observed progress.
 
+Unresolved inference may return a host-generated `diagnostic` identifying
+`tool_selection` or `parameter_selection`, registered tool/parameter identifiers for
+the latter, allowlisted `reason_codes` and `automatic_retry: false`. Each inference
+entry in `telemetry.calls` carries its stage and applicable identifiers. The
+[contract](docs/agent-contract.md#decision-diagnostics) explains the codes and primary-agent
+handoff; exceptions, response bodies and bound values are not exported in diagnostics.
+Static domain, policy and execution errors keep their existing terminal reasons.
+Diagnostics do not change eligibility, status or authorization. The harness does not
+repeat task calls automatically; the pinned SDK's bounded 429/503/529 retries remain,
+so this is not a one-network-request guarantee.
+
 Browser and desktop are [tool adapters](docs/adapters.md), not application-specific
 programs in the runtime. Camofox uses fresh observed targets and allowed origins;
 desktop uses pinned macOS Accessibility/Windows UIA backends. Caller policy authorizes
@@ -92,6 +103,11 @@ Every expected control field must be observed; a missing field does not establis
 The [evidence-progress A/B](reports/evidence-progress-ab.json) uses synthetic offline
 decisions to check result-driven continuation and repeated-call blocking. It is not live
 model acceptance or evidence of general performance gains.
+
+The [decision-diagnostics A/B](reports/decision-diagnostics-ab.json) uses synthetic
+offline HTTP mocks with zero real model calls. It checks actionable codes and stage
+metadata; it adds terminal bytes, unknown errors fall back to generic codes, and real
+semantic recovery success has not been measured.
 
 A live Jev/Camofox synthetic form reached the independently checked final state in
 four tool executions. Early attempts requiring review are retained. Desktop live
