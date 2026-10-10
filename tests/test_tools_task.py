@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from jev_harness import Engine, Option, Task
+from apixly_jev_harness import Engine, Option, Task
 
 
 def test_register_tool_with_dynamic_parameters_and_named_private_value(monkeypatch):
@@ -35,7 +35,7 @@ def test_register_tool_with_dynamic_parameters_and_named_private_value(monkeypat
             "requests": 1,
         }
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", choose)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", choose)
     assert Engine().run(task, goal="Inspect the failing job")["status"] == "done"
     assert calls == [(1820, "secret-token")]
 
@@ -58,7 +58,7 @@ def test_multiple_tools_and_parameters_are_program_bound():
 
 
 def test_unknown_or_modified_action_cannot_dispatch():
-    from jev_harness import Action
+    from apixly_jev_harness import Action
 
     task = Task(observe=lambda ctx: {}, verify=lambda ctx, state: False)
 
@@ -98,7 +98,7 @@ def test_tool_effect_policy_and_empty_parameter_domain():
 
 
 def test_agent_loop_carries_admitted_results_and_execution_history(monkeypatch):
-    from jev_harness import AgentLoop
+    from apixly_jev_harness import AgentLoop
 
     task = Task(
         observe=lambda ctx: {"collected": len(ctx.results)},
@@ -126,6 +126,6 @@ def test_agent_loop_carries_admitted_results_and_execution_history(monkeypatch):
             for i, p in enumerate(parts)
         }, {"ok": True, "usage_complete": True, "usage": {"input_tokens": 0, "output_tokens": 0}}
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", choose)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", choose)
     assert AgentLoop().run(task, goal="Collect two records")["status"] == "done"
     assert len(requests) == 2

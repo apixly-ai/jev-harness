@@ -3,6 +3,10 @@
 The product is a reusable task runtime, not a library of application-specific cases.
 An agent should learn one interface and supply its business tools as a short script.
 
+Distribution: **apixly-jev-harness**. Python: `apixly_jev_harness`. CLI aliases:
+`apixly-jev-harness` and `jev-harness`. Install from the exact repository URL below;
+the existing PyPI jev-harness package is a different project.
+
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;

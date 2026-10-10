@@ -16,7 +16,7 @@ jobs:
       - run: pip install -e '.[dev]'
       - run: ruff check src tests benchmarks scripts
       - run: ruff format --check src tests benchmarks scripts
-      - run: pytest --cov=jev_harness
+      - run: pytest --cov=apixly_jev_harness
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

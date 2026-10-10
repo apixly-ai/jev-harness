@@ -1,6 +1,6 @@
 import pytest
 
-from jev_harness import AgentLoop, Option, Parameter, Task
+from apixly_jev_harness import AgentLoop, Option, Parameter, Task
 
 
 def test_dependent_domains_bound_after_parent_selection(monkeypatch):
@@ -37,7 +37,7 @@ def test_dependent_domains_bound_after_parent_selection(monkeypatch):
             "requests": 1,
         }
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", choose)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", choose)
     result = AgentLoop().run(task, goal="Inspect Bob's current failed job")
     assert result["status"] == "done"
     assert calls == [("bob", "bob-1")]

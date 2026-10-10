@@ -69,7 +69,7 @@ def home(zh=False):
         if zh
         else "AI defines the task, tools and parameter candidates. Jev chooses the next step. Your code executes and verifies the outcome."
     )
-    body = f'''<main class="wrap"><section class="hero"><div><div class="eyebrow">Jev native / AI native / Python</div><h1>{h}</h1><p>{lead}</p><div class="actions"><a class="button" href="{p}agent-contract.html">{"开始编写任务" if zh else "Build your first task"} →</a><a class="button secondary" href="{REPO}">View source ↗</a></div><p class="small">Typed choices. Explicit context. Independent verification.</p></div><div class="editor"><div class="editor-head">task.py <span>YOU DEFINE THE CONTRACT</span></div><pre><i>from</i> jev_harness <i>import</i> Task, Parameter
+    body = f'''<main class="wrap"><section class="hero"><div><div class="eyebrow">Jev native / AI native / Python</div><h1>{h}</h1><p>{lead}</p><div class="actions"><a class="button" href="{p}agent-contract.html">{"开始编写任务" if zh else "Build your first task"} →</a><a class="button secondary" href="{REPO}">View source ↗</a></div><p class="small">Typed choices. Explicit context. Independent verification.</p></div><div class="editor"><div class="editor-head">task.py <span>YOU DEFINE THE CONTRACT</span></div><pre><i>from</i> apixly_jev_harness <i>import</i> Task, Parameter
 
 workflow = <b>Task</b>(observe=observe, verify=verify)
 
@@ -169,7 +169,7 @@ def main():
                 slug + ".html",
             )
         )
-    from jev_harness.task_cli import SPEC
+    from apixly_jev_harness.task_cli import SPEC
 
     (OUT / "spec.json").write_text(json.dumps(SPEC, indent=2))
     shutil.copy(ROOT / "reports/acceptance.json", OUT / "acceptance.json")

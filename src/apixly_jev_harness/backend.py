@@ -8,7 +8,7 @@ from jev_context.provider import evaluate as provider_evaluate
 from jev_filter import analysis as core
 from jev_filter.batch import run as native_run
 
-_ACTIVE = ContextVar("jev_harness_transport", default=None)
+_ACTIVE = ContextVar("apixly_jev_harness_transport", default=None)
 
 
 class Session:

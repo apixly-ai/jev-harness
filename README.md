@@ -10,6 +10,10 @@ contracts. Jev chooses a tool and parameter candidates; code executes and indepe
 verifies completion. Independent community project by Apixly, not an official TypeSafe
 AI product. Early **0.1.0**; no promise of general task success or universal savings.
 
+The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
+and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
+installation URL; the PyPI name jev-harness belongs to an unrelated project.
+
 ## Start with the agent interface
 
 Python 3.10+ and Git are required. The runtime pins Jev Filter 0.4.1 from GitHub as its
@@ -33,7 +37,7 @@ exit 2 still returns a terminal JSON packet. Uncertain effects are never auto-re
 ## Define tools and parameter meaning
 
 ```python
-from jev_harness import Parameter, Task
+from apixly_jev_harness import Parameter, Task
 
 state = {"value": 0}
 workflow = Task(
@@ -89,7 +93,7 @@ cross-run resume or exactly-once effects.
 ```sh
 pip install -e '.[dev]'
 ruff check src tests benchmarks scripts
-pytest --cov=jev_harness
+pytest --cov=apixly_jev_harness
 python -m build
 python scripts/check_public.py
 ```

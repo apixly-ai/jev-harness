@@ -6,8 +6,8 @@ They are examples of extension seams; application-specific forms do not live in 
 ## Camofox browser
 
 ```python
-from jev_harness import AgentLoop
-from jev_harness.surfaces import browser_task
+from apixly_jev_harness import AgentLoop
+from apixly_jev_harness.surfaces import browser_task
 
 workflow = browser_task(
     url='http://127.0.0.1:8000/form.html', session='general',
@@ -34,7 +34,7 @@ need their owning business operator, not this example adapter.
 ## Native desktop
 
 ```python
-from jev_harness.surfaces import desktop_task
+from apixly_jev_harness.surfaces import desktop_task
 workflow = desktop_task(
     window='Exact synthetic test window', process='Specific test application',
     values={'fixture_text': 'Mira'},

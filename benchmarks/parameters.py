@@ -7,7 +7,7 @@ import time
 from pathlib import Path
 from unittest.mock import patch
 
-from jev_harness import AgentLoop, Parameter, Task
+from apixly_jev_harness import AgentLoop, Parameter, Task
 
 
 def trial(strategy, size):
@@ -43,7 +43,7 @@ def trial(strategy, size):
 
     with (
         tempfile.TemporaryDirectory() as directory,
-        patch("jev_harness.engine.analysis.evaluate", fake),
+        patch("apixly_jev_harness.engine.analysis.evaluate", fake),
     ):
         started = time.perf_counter()
         result = AgentLoop().run(

@@ -8,6 +8,9 @@
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
 项目，非 TypeSafe AI 官方产品。早期 0.1.0，不承诺通用任务成功或普遍降低费用。
 
+发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
+`apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
+
 ## AI 从接口开始
 
 需要 Python 3.10+ 和 Git。底层依赖固定为 GitHub 的 Jev Filter 0.4.1，安装不调用模型。
@@ -29,7 +32,7 @@ check-task 只检查语法和导出，不执行代码，也不证明回调正确
 ## 工具和参数语义
 
 ```python
-from jev_harness import Parameter, Task
+from apixly_jev_harness import Parameter, Task
 
 state = {"value": 0}
 workflow = Task(
@@ -76,7 +79,7 @@ Camofox 限定来源并使用新鲜观察目标，桌面依赖 macOS Accessibili
 ```sh
 pip install -e '.[dev]'
 ruff check src tests benchmarks scripts
-pytest --cov=jev_harness
+pytest --cov=apixly_jev_harness
 python -m build
 python scripts/check_public.py
 ```

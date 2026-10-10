@@ -1,6 +1,6 @@
 import json
 
-from jev_harness.task_cli import main
+from apixly_jev_harness.task_cli import main
 
 
 def test_machine_spec_is_self_describing(capsys):

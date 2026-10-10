@@ -1,4 +1,4 @@
-from jev_harness import AgentLoop, Task
+from apixly_jev_harness import AgentLoop, Task
 
 
 def test_native_choice_selects_tool_and_parameter_combination(monkeypatch):
@@ -33,7 +33,7 @@ def test_native_choice_selects_tool_and_parameter_combination(monkeypatch):
             ],
         }
 
-    monkeypatch.setattr("jev_harness.backend.native_run", provider)
+    monkeypatch.setattr("apixly_jev_harness.backend.native_run", provider)
     result = AgentLoop().run(task, goal="Inspect job 2 logs")
     assert result["status"] == "done"
     assert completed == [[2, "logs"]]
@@ -43,7 +43,7 @@ def test_oversized_context_remains_review_without_provider(monkeypatch):
     def never(*args, **kwargs):
         raise AssertionError("provider must not be called")
 
-    monkeypatch.setattr("jev_harness.backend.native_run", never)
+    monkeypatch.setattr("apixly_jev_harness.backend.native_run", never)
     task = Task(observe=lambda ctx: {"text": "x" * 50000}, verify=lambda ctx, state: False)
 
     @task.tool("Read")

@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from jev_harness import Action, Engine, Workflow
+from apixly_jev_harness import Action, Engine, Workflow
 
 
 class Counter(Workflow):
@@ -51,7 +51,7 @@ def select_first(parts, task, workers, spec):
 
 @pytest.fixture
 def engine(monkeypatch):
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", select_first)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", select_first)
     return Engine()
 
 
@@ -110,7 +110,7 @@ def test_partial_decision_never_executes(engine, monkeypatch):
             "requests": 1,
         }
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", partial)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", partial)
     workflow = Counter()
     result = engine.run(workflow, goal="Increment")
     assert result["status"] == "needs_review"
@@ -178,7 +178,7 @@ def test_parameters_are_not_sent_to_model(engine, monkeypatch):
         assert "secret-token" not in json.dumps([parts, spec])
         return select_first(parts, task, workers, spec)
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", inspect)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", inspect)
 
     class Private(Counter):
         def candidates(self, ctx, state):
@@ -208,7 +208,7 @@ def test_no_candidates_and_no_match(engine, monkeypatch):
             entry["decision"] = "EXCLUDE"
         return judgments, telemetry
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", none)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", none)
     assert engine.run(Counter(), goal="Increment")["reason"] == "no_qualifying_action"
 
 
@@ -219,7 +219,7 @@ def test_deadline_prevents_effect_after_slow_decision(engine, monkeypatch):
         time.sleep(0.01)
         return select_first(*args)
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", slow)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", slow)
     workflow = Counter()
     assert (
         engine.run(workflow, goal="Increment", timeout_seconds=0.005)["status"] == "budget_exceeded"
@@ -231,7 +231,7 @@ def test_transport_exception_keeps_unknown_usage(engine, monkeypatch):
     def unavailable(*args):
         raise TimeoutError("private debug data")
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", unavailable)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", unavailable)
     result = engine.run(Counter(), goal="Increment")
     assert result["status"] == "failed"
     assert result["telemetry"]["usage"] is None
@@ -253,7 +253,7 @@ def test_decide_missing_context_needs_no_inference(engine):
 
 
 def test_task_cli_template_and_execution(engine, tmp_path, capsys):
-    from jev_harness.task_cli import main
+    from apixly_jev_harness.task_cli import main
 
     script = tmp_path / "task.py"
     assert main(["init-task", str(script)]) == 0
@@ -294,7 +294,7 @@ def test_native_uncertainty_policy_blocks_low_margin(tmp_path, monkeypatch):
             ],
         }
 
-    monkeypatch.setattr("jev_harness.backend.native_run", runner)
+    monkeypatch.setattr("apixly_jev_harness.backend.native_run", runner)
     workflow = Counter()
     result = Engine().run(workflow, goal="Increment", archive=tmp_path / "uncertain.jsonl")
     assert result["status"] == "needs_review"
@@ -316,7 +316,7 @@ def test_model_exit_controls_cannot_claim_unverified_completion(monkeypatch, con
             for p in parts
         }, {"ok": True, "usage_complete": True, "usage": {"input_tokens": 0, "output_tokens": 0}}
 
-    monkeypatch.setattr("jev_harness.engine.analysis.evaluate", choose)
+    monkeypatch.setattr("apixly_jev_harness.engine.analysis.evaluate", choose)
     workflow = Counter()
     result = Engine().run(workflow, goal="Increment")
     assert result["status"] == status
@@ -324,7 +324,7 @@ def test_model_exit_controls_cannot_claim_unverified_completion(monkeypatch, con
 
 
 def test_control_stop_after_effect_is_uncertain(engine):
-    from jev_harness.engine import DecisionStop
+    from apixly_jev_harness.engine import DecisionStop
 
     class EffectThenStop(Counter):
         def execute(self, ctx, action):

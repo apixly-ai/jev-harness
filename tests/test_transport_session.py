@@ -3,7 +3,7 @@ import json
 import httpx
 from jev_context.provider import Client
 
-from jev_harness import AgentLoop, Parameter, Task
+from apixly_jev_harness import AgentLoop, Parameter, Task
 
 
 def test_loop_reuses_connection_and_never_result_caches(monkeypatch):
@@ -33,7 +33,7 @@ def test_loop_reuses_connection_and_never_result_caches(monkeypatch):
         )
 
     client = Client(api_key="synthetic-test-key", transport=httpx.MockTransport(transport))
-    monkeypatch.setattr("jev_harness.backend.Client", lambda **kwargs: client)
+    monkeypatch.setattr("apixly_jev_harness.backend.Client", lambda **kwargs: client)
     state = {"value": 0}
     task = Task(observe=lambda ctx: state.copy(), verify=lambda ctx, seen: seen["value"] == 2)
 

@@ -3,7 +3,7 @@ requires = ["hatchling==1.32.4"]
 build-backend = "hatchling.build"
 
 [project]
-name = "jev-harness"
+name = "apixly-jev-harness"
 version = "0.1.0"
 description = "Jev-native agent loops with typed tools, parameter choices and verified outcomes"
 requires-python = ">=3.10"
@@ -13,10 +13,11 @@ dependencies = ["jev-filter @ git+https://github.com/apixly-ai/jev-filter.git@v0
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "pytest-cov>=6,<8", "ruff>=0.11,<1", "build>=1.2,<2", "twine>=7,<8", "markdown>=3.7,<4"]
-desktop = ["pyobjc-framework-ApplicationServices>=10; sys_platform == 'darwin'", "pyobjc-framework-Quartz>=10; sys_platform == 'darwin'", "pyobjc-framework-Cocoa>=10; sys_platform == 'darwin'"]
+desktop = ["uiautomation>=2.0.20,<3; sys_platform == 'win32'", "pyobjc-framework-ApplicationServices>=10; sys_platform == 'darwin'", "pyobjc-framework-Quartz>=10; sys_platform == 'darwin'", "pyobjc-framework-Cocoa>=10; sys_platform == 'darwin'"]
 
 [project.scripts]
-jev-harness = "jev_harness.cli:entrypoint"
+jev-harness = "apixly_jev_harness.cli:entrypoint"
+apixly-jev-harness = "apixly_jev_harness.cli:entrypoint"
 
 [project.urls]
 Repository = "https://github.com/apixly-ai/jev-harness"
@@ -26,17 +27,17 @@ Documentation = "https://apixly-ai.github.io/jev-harness/"
 allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/jev_harness"]
+packages = ["src/apixly_jev_harness"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"skills/jev-harness" = "jev_harness/skill"
+"skills/jev-harness" = "apixly_jev_harness/skill"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["live: opt-in billable model tests", "desktop: native desktop acceptance"]
 
 [tool.coverage.run]
-source = ["jev_harness"]
+source = ["apixly_jev_harness"]
 [tool.coverage.report]
 fail_under = 80
 show_missing = true

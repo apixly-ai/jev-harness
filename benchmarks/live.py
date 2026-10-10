@@ -9,8 +9,8 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
 
-from jev_harness import AgentLoop, verify_state
-from jev_harness.surfaces import browser_task, desktop_task
+from apixly_jev_harness import AgentLoop, verify_state
+from apixly_jev_harness.surfaces import browser_task, desktop_task
 
 ROOT = Path(__file__).resolve().parents[1]
 

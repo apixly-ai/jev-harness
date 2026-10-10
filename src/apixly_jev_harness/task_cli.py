@@ -15,7 +15,7 @@ TEMPLATE = '''"""Synthetic counter task. Replace callbacks with your business op
 Run: jev-harness run task.py --goal "Reach the requested target" --inputs '{"target":2}'
 Running calls Jev and is billable. Script Python is trusted, not sandboxed.
 """
-from jev_harness import Parameter, Task
+from apixly_jev_harness import Parameter, Task
 
 
 state = {"value": 0}
@@ -68,7 +68,7 @@ def main(argv=None):
     run.add_argument("--archive", help="New private journal path; never overwritten")
     args = parser.parse_args(argv)
     if args.command == "skill":
-        bundled = files("jev_harness").joinpath("skill/SKILL.md")
+        bundled = files("apixly_jev_harness").joinpath("skill/SKILL.md")
         body = (
             bundled.read_text()
             if bundled.is_file()
@@ -151,6 +151,8 @@ def main(argv=None):
 
 SPEC = {
     "name": "jev-harness",
+    "distribution": "apixly-jev-harness",
+    "python_import": "apixly_jev_harness",
     "version": "0.1.0",
     "parameter_binding": "staged_candidate_choice",
     "commands": {

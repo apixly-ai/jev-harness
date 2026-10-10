@@ -1,4 +1,4 @@
-from jev_harness import Context, ContextPolicy
+from apixly_jev_harness import Context, ContextPolicy
 
 
 def test_compaction_keeps_action_ledger_and_references():
