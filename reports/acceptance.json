@@ -1,0 +1,178 @@
+{
+  "date": "2026-10-11",
+  "mode": "live-synthetic",
+  "cases": [
+    {
+      "attempt": "acceptance-01",
+      "case": "browser",
+      "status": "needs_review",
+      "steps": 1,
+      "whole_operation_seconds": 1.8189070000007632,
+      "requests": 2,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 4408,
+        "output_tokens": 154
+      },
+      "actual_usage_by_model": {
+        "unknown": {
+          "input_tokens": 4408,
+          "output_tokens": 154
+        }
+      },
+      "reason": null,
+      "returned_context_bytes": 1879
+    },
+    {
+      "attempt": "acceptance-01",
+      "case": "desktop",
+      "status": "failed",
+      "steps": null,
+      "whole_operation_seconds": null,
+      "requests": null,
+      "usage_complete": false,
+      "usage": null,
+      "actual_usage_by_model": {},
+      "reason": "RuntimeError",
+      "returned_context_bytes": 69
+    },
+    {
+      "attempt": "acceptance-02",
+      "case": "browser",
+      "status": "needs_review",
+      "steps": 2,
+      "whole_operation_seconds": 4.518309874998522,
+      "requests": 5,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 10144,
+        "output_tokens": 341
+      },
+      "actual_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 10144,
+          "output_tokens": 341
+        }
+      },
+      "reason": "unresolved_parameter:target",
+      "returned_context_bytes": 4663
+    },
+    {
+      "attempt": "acceptance-02",
+      "case": "desktop",
+      "status": "failed",
+      "steps": null,
+      "whole_operation_seconds": null,
+      "requests": null,
+      "usage_complete": false,
+      "usage": null,
+      "actual_usage_by_model": {},
+      "reason": "RuntimeError",
+      "returned_context_bytes": 94
+    },
+    {
+      "attempt": "browser-03",
+      "case": "browser",
+      "status": "needs_confirmation",
+      "steps": 2,
+      "whole_operation_seconds": 4.268635207998159,
+      "requests": 5,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 10412,
+        "output_tokens": 341
+      },
+      "actual_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 10412,
+          "output_tokens": 341
+        }
+      },
+      "reason": null,
+      "returned_context_bytes": 4585
+    },
+    {
+      "attempt": "browser-04",
+      "case": "browser",
+      "status": "done",
+      "steps": 4,
+      "whole_operation_seconds": 9.976301624999905,
+      "requests": 7,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 13796,
+        "output_tokens": 455
+      },
+      "actual_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 13796,
+          "output_tokens": 455
+        }
+      },
+      "reason": null,
+      "returned_context_bytes": 6208
+    },
+    {
+      "attempt": "browser-final",
+      "case": "browser",
+      "status": "done",
+      "steps": 4,
+      "whole_operation_seconds": 6.868842916999711,
+      "requests": 7,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 13790,
+        "output_tokens": 455
+      },
+      "actual_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 13790,
+          "output_tokens": 455
+        }
+      },
+      "returned_context_bytes": 5506,
+      "verification": "unique observed control values plus final DOM result text",
+      "connection_reuse": [
+        {
+          "clients_created": 1,
+          "client_reuses": 0,
+          "requests": 1
+        },
+        {
+          "clients_created": 0,
+          "client_reuses": 1,
+          "requests": 1
+        },
+        {
+          "clients_created": 0,
+          "client_reuses": 1,
+          "requests": 1
+        },
+        {
+          "clients_created": 0,
+          "client_reuses": 1,
+          "requests": 1
+        },
+        {
+          "clients_created": 0,
+          "client_reuses": 1,
+          "requests": 1
+        },
+        {
+          "clients_created": 0,
+          "client_reuses": 1,
+          "requests": 1
+        },
+        {
+          "clients_created": 0,
+          "client_reuses": 1,
+          "requests": 1
+        }
+      ]
+    }
+  ],
+  "browser_final_verifier": "Draft ready: Mira | London | flexible=true and observed field/control state",
+  "desktop_status": "blocked: host locked; independently confirmed; no completed native case",
+  "limits": "Small local fixtures, development tuning, no held-out calibration or production claims.",
+  "cost_conversion": "No invoice/cost savings claim. Raw input/output tokens retained; current tariff not assumed."
+}

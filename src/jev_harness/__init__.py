@@ -1,8 +1,22 @@
-"""Public Jev Filter namespace; legacy jev_context imports remain supported."""
+"""Jev-native task runtime for AI-authored workflows."""
 
-from jev_context import __version__
+__version__ = "0.1.0"
 
+from .context import ContextPolicy
 from .engine import Action, AgentLoop, Context, Engine, Workflow
-from .task import Option, Task
+from .task import Option, Parameter, Task
+from .verify import verify_state
 
-__all__ = ["__version__", "Action", "AgentLoop", "Context", "Engine", "Workflow", "Option", "Task"]
+__all__ = [
+    "__version__",
+    "verify_state",
+    "ContextPolicy",
+    "Action",
+    "AgentLoop",
+    "Context",
+    "Engine",
+    "Workflow",
+    "Option",
+    "Parameter",
+    "Task",
+]

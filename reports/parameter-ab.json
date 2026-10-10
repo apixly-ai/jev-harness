@@ -1,0 +1,377 @@
+{
+  "mode": "offline-scripted",
+  "rows": [
+    {
+      "strategy": "joint",
+      "size": 2,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0006122499980847351,
+      "returned_context_bytes": 495,
+      "scripted_decision_bytes": 2689,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 2,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0005442500041681342,
+      "returned_context_bytes": 495,
+      "scripted_decision_bytes": 2689,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 2,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0005415420018834993,
+      "returned_context_bytes": 496,
+      "scripted_decision_bytes": 2689,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 2,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0006592499994440004,
+      "returned_context_bytes": 857,
+      "scripted_decision_bytes": 4417,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 2,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0005999999993946403,
+      "returned_context_bytes": 858,
+      "scripted_decision_bytes": 4417,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 2,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0005555829993681982,
+      "returned_context_bytes": 859,
+      "scripted_decision_bytes": 4414,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 10,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0019490829945425503,
+      "returned_context_bytes": 495,
+      "scripted_decision_bytes": 31663,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 10,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0018955839987029321,
+      "returned_context_bytes": 496,
+      "scripted_decision_bytes": 31663,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 10,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.002015582998865284,
+      "returned_context_bytes": 493,
+      "scripted_decision_bytes": 31663,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 10,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0007654580040252768,
+      "returned_context_bytes": 856,
+      "scripted_decision_bytes": 7009,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 10,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0007053750014165416,
+      "returned_context_bytes": 857,
+      "scripted_decision_bytes": 7009,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 10,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0007761669985484332,
+      "returned_context_bytes": 858,
+      "scripted_decision_bytes": 7006,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 100,
+      "expected": "needs_review",
+      "status": "needs_review",
+      "correct": true,
+      "chosen": null,
+      "whole_operation_seconds": 0.0007186669972725213,
+      "returned_context_bytes": 369,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 100,
+      "expected": "needs_review",
+      "status": "needs_review",
+      "correct": true,
+      "chosen": null,
+      "whole_operation_seconds": 0.0007371250030701049,
+      "returned_context_bytes": 369,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "joint",
+      "size": 100,
+      "expected": "needs_review",
+      "status": "needs_review",
+      "correct": true,
+      "chosen": null,
+      "whole_operation_seconds": 0.0006615410020458512,
+      "returned_context_bytes": 369,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 100,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0029765420040348545,
+      "returned_context_bytes": 858,
+      "scripted_decision_bytes": 37789,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 100,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.0021847499956493266,
+      "returned_context_bytes": 858,
+      "scripted_decision_bytes": 37789,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "strategy": "staged",
+      "size": 100,
+      "expected": "done",
+      "status": "done",
+      "correct": true,
+      "chosen": [
+        0,
+        0
+      ],
+      "whole_operation_seconds": 0.002092457994876895,
+      "returned_context_bytes": 857,
+      "scripted_decision_bytes": 37789,
+      "scripted_decisions": 3,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  ],
+  "scope": "Fixed synthetic domains; no semantic inference or real model quality measurement.",
+  "negative_results": "Staged selection uses more decisions than joint binding for small independent domains. Joint rejects a 100x100 Cartesian space; staged supports it.",
+  "cost_conversion": "Zero actual model calls. No paid savings or tariff assumed."
+}

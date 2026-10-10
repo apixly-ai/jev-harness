@@ -22,6 +22,9 @@ jev-harness = "jev_harness.cli:entrypoint"
 Repository = "https://github.com/apixly-ai/jev-harness"
 Documentation = "https://apixly-ai.github.io/jev-harness/"
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/jev_harness"]
 

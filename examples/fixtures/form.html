@@ -1,0 +1,7 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Jev Harness form fixture</title><style>body{font:20px system-ui;max-width:720px;margin:70px auto;background:#f3f5fa}label{display:block;margin:25px 0}input,select,button{font:inherit;padding:10px}#result{padding:24px;background:white}</style>
+<h1>Prepare a travel request</h1><p>Local synthetic fixture. No real booking or message is sent.</p>
+<label>Traveler name <input id="name" aria-label="Traveler name"></label>
+<label>Destination <select id="destination" aria-label="Destination"><option>Choose destination</option><option>London</option><option>Paris</option><option>Tokyo</option></select></label>
+<label><input id="flexible" type="checkbox"> Flexible dates</label>
+<button id="apply" onclick="const n=document.querySelector('#name').value,d=document.querySelector('#destination').value,f=document.querySelector('#flexible').checked;document.querySelector('#result').textContent=(n&&d!=='Choose destination')?`Draft ready: ${n} | ${d} | flexible=${f}`:'Please complete traveler and destination'">Prepare draft</button>
+<p id="result" aria-live="polite">No draft prepared</p></html>

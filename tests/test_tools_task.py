@@ -41,7 +41,7 @@ def test_register_tool_with_dynamic_parameters_and_named_private_value(monkeypat
 
 
 def test_multiple_tools_and_parameters_are_program_bound():
-    task = Task(observe=lambda ctx: {}, verify=lambda ctx, state: False)
+    task = Task(observe=lambda ctx: {}, verify=lambda ctx, state: False, strategy="joint")
 
     @task.tool("Read one record", parameters={"job_id": [1, 2], "mode": ["logs", "status"]})
     def read(job_id, mode):
@@ -82,7 +82,7 @@ def test_registration_signature_and_candidate_limits():
     def many(a):
         return a
 
-    with pytest.raises(ValueError, match="narrow"):
+    with pytest.raises(ValueError, match="domain"):
         task.candidates(None, {})
 
 

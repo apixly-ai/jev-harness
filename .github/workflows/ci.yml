@@ -1,0 +1,22 @@
+name: CI
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      matrix:
+        python: ['3.10', '3.12', '3.14']
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e '.[dev]'
+      - run: ruff check src tests benchmarks scripts
+      - run: ruff format --check src tests benchmarks scripts
+      - run: pytest --cov=jev_harness
+      - run: python -m build
+      - run: python scripts/check_public.py
+      - run: python scripts/build_site.py

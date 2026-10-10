@@ -281,7 +281,7 @@ def test_native_uncertainty_policy_blocks_low_margin(tmp_path, monkeypatch):
             "usage": {"input_tokens": 5, "output_tokens": 1},
             "results": [
                 {
-                    "id": "choose",
+                    "id": items[0]["id"],
                     "ok": True,
                     "answers": {
                         "target": {
@@ -294,7 +294,7 @@ def test_native_uncertainty_policy_blocks_low_margin(tmp_path, monkeypatch):
             ],
         }
 
-    monkeypatch.setattr("jev_context.pool.run", runner)
+    monkeypatch.setattr("jev_harness.backend.native_run", runner)
     workflow = Counter()
     result = Engine().run(workflow, goal="Increment", archive=tmp_path / "uncertain.jsonl")
     assert result["status"] == "needs_review"
@@ -321,3 +321,17 @@ def test_model_exit_controls_cannot_claim_unverified_completion(monkeypatch, con
     result = Engine().run(workflow, goal="Increment")
     assert result["status"] == status
     assert workflow.calls == []
+
+
+def test_control_stop_after_effect_is_uncertain(engine):
+    from jev_harness.engine import DecisionStop
+
+    class EffectThenStop(Counter):
+        def execute(self, ctx, action):
+            super().execute(ctx, action)
+            raise DecisionStop("needs_context", "stop_after_effect")
+
+    workflow = EffectThenStop()
+    result = engine.run(workflow, goal="Increment")
+    assert result["status"] == "execution_uncertain"
+    assert len(workflow.calls) == 1

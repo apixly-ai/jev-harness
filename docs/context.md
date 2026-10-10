@@ -1,0 +1,33 @@
+# Context management for Jev decisions
+
+Every turn has distinct sections: goal, shared facts, explicitly admitted user/assistant
+messages, current observation, action/result history and budgets. Jev receives these
+sections plus available tools and parameter descriptions. It does not inherit an AI
+host's conversation implicitly.
+
+The default ContextPolicy keeps recent admitted results for eight actions and retains
+an ordered ledger for all older actions, with `step:N` evidence references. Full evidence
+stays in the private JSONL journal and `ctx.results`. Goal, constraints, facts and admitted
+messages remain intact. This is deterministic projection, not an inferred or cached summary.
+
+Parameter binding carries selected candidate references/descriptions forward, not private
+bound values. The committed action history records the parameters actually chosen, rather
+than the entire original candidate menu. Task authors should keep durable task facts in
+shared facts or observation and can derive older needed evidence from ctx.results in their
+registered tools. The runtime does not automatically decide which business facts are safe
+to drop.
+
+If admitted context remains too large (conservative 15,000-character decision-context
+budget), return review rather than silently truncating constraints. Existing provider
+question/state size limits also remain in force. Messages must be admitted user/assistant
+objects with text content; system policy belongs in the explicit goal and trusted program.
+
+Private journals use exclusive creation, POSIX mode 0600, JSONL append, flush/fsync, and
+never overwrite an existing path. They include raw observations, actual arguments and
+results. Do not publish them without review. CLI terminal output contains no raw evidence;
+trusted scripts must also avoid printing their own raw data.
+
+This design borrows explicit agent state and message projection from pi, lightweight
+references/progressive disclosure from Anthropic's context engineering guidance, and
+result-to-event history from MellowHarness. It does not claim their full feature sets.
+See [architecture references](architecture.md).
