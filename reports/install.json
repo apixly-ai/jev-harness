@@ -1,0 +1,14 @@
+{
+  "fresh_wheel_install": true,
+  "outside_checkout": true,
+  "distribution": "apixly-jev-harness",
+  "python_import": "apixly_jev_harness",
+  "task_check": {
+    "ok": true,
+    "model_calls": 0,
+    "code": "syntax_and_export_ok",
+    "scope": "syntax/export only; callbacks and imports are not executed"
+  },
+  "bundled_skill_readable": true,
+  "model_calls": 0
+}
