@@ -3,6 +3,31 @@
 The product is a reusable task runtime, not a library of application-specific cases.
 An agent should learn one interface and supply its business tools as a short script.
 
+## Install and run your first task
+
+Python 3.10+ and Git are required. Installation is offline with respect to model calls;
+package downloads still require network access. Pin v0.1.0 for a reproducible release
+once that tag is available, or use main for active development.
+
+```sh
+python -m venv .venv
+. .venv/bin/activate
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@main'
+jev-harness spec
+jev-harness skill
+jev-harness init-task task.py
+jev-harness check-task task.py
+# Billable: point to a private credential file configured locally.
+export TYPESAFE_API_KEY_FILE='/path/to/private/test-key'
+jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
+```
+
+TYPESAFE_API_KEY may be provided by the host's secret mechanism instead. Never commit
+keys or put their contents in the task script/CLI arguments. init-task creates a
+self-contained synthetic counter; no browser/desktop dependency is required for the
+first task. Inspect status/complete/archive/telemetry in the returned JSON. Use the
+[adapters](adapters.md) only when your task actually needs those surfaces.
+
 ## Adoption sequence
 
 1. Read `jev-harness spec` (offline JSON).

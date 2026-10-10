@@ -45,7 +45,20 @@ def shell(title, description, body, path="", lang="en"):
             "url": "https://github.com/apixly-ai",
         },
     }
-    return f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} · Jev Harness</title><meta name="description" content="{html.escape(description, quote=True)}"><link rel="canonical" href="{canonical}">{alternate}<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}social.svg"><link rel="stylesheet" href="{prefix}style.css"><script type="application/ld+json">{json.dumps(data)}</script></head><body><nav><a class="brand" href="{prefix}index.html">jev<span> / harness</span></a><a href="{prefix}agent-contract.html">Agent contract</a><a href="{prefix}context.html">Context</a><a href="{prefix}evidence.html">Evidence</a><a href="{REPO}">GitHub ↗</a><a href="{prefix}{"index.html" if lang == "zh-CN" else "zh/"}">{"EN" if lang == "zh-CN" else "中文"}</a></nav>{body}<footer><span>Jev Harness · Apixly independent community project · MIT</span><span>Not an official TypeSafe AI product. Early 0.1.0.</span></footer></body></html>'''
+    page = f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} · Jev Harness</title><meta name="description" content="{html.escape(description, quote=True)}"><link rel="canonical" href="{canonical}">{alternate}<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}social.png"><link rel="stylesheet" href="{prefix}style.css"><script type="application/ld+json">{json.dumps(data)}</script></head><body><nav><a class="brand" href="{prefix}index.html">jev<span> / harness</span></a><a href="{prefix}agent-contract.html">Agent contract</a><a href="{prefix}context.html">Context</a><a href="{prefix}evidence.html">Evidence</a><a href="{REPO}">GitHub ↗</a><a href="{prefix}{"index.html" if lang == "zh-CN" else "zh/"}">{"EN" if lang == "zh-CN" else "中文"}</a></nav>{body}<footer><span>Jev Harness · Apixly independent community project · MIT</span><span>Not an official TypeSafe AI product. Early 0.1.0.</span></footer></body></html>'''
+    if lang == "zh-CN":
+        for old, new in [
+            (">Agent contract<", ">任务协议<"),
+            (">Context<", ">上下文<"),
+            (">Evidence<", ">验收证据<"),
+            ("Apixly independent community project", "Apixly 独立社区项目"),
+            (
+                "Not an official TypeSafe AI product. Early 0.1.0.",
+                "非 TypeSafe AI 官方产品。早期 0.1.0。",
+            ),
+        ]:
+            page = page.replace(old, new)
+    return page
 
 
 def home(zh=False):
@@ -72,8 +85,41 @@ def inspect(job):
 jev-harness <b>init-task</b> task.py
 jev-harness <b>check-task</b> task.py
 jev-harness <b>run</b> task.py --goal "Reach target" --inputs '{{"target":3}}'</pre></div><p class="small">Python 3.10+ · Git-based installation · Inference is billable · Trusted scripts, not a sandbox</p><div class="actions"><a class="button secondary" href="{p}agent-contract.html">Installation &amp; task protocol</a><a class="button secondary" href="{p}spec.json">Machine-readable spec ↗</a></div></section></main>'''
+    if zh:
+        translations = {
+            "One reusable mechanism": "一套可复用机制",
+            "TOOLS + PARAMETERS": "工具与参数",
+            "CONTEXT + HISTORY": "上下文与历史",
+            "AGENT INTERFACE": "AI 接口",
+            "Meaning before values": "先描述语义，再绑定值",
+            "A useful working state": "保留有用的工作状态",
+            "Easy to discover and run": "易发现、易编写、易运行",
+            "Describe each parameter, supply observed candidates, and bind dependencies in order. Jev selects references; it never invents arguments.": "描述参数含义，提供现场候选，按依赖顺序绑定。Jev 选择引用，不凭空生成参数。",
+            "Keep constraints, admitted messages and recent results. Older actions retain evidence references. Raw journals stay private.": "保留约束、准入对话和近期结果，较早动作保留证据引用。原始记录留在私有日志。",
+            "Machine-readable spec, a runnable scaffold, offline syntax checks, typed Python and a task-oriented agent skill.": "机器可读 spec、可运行模板、离线语法检查、Python 接口和任务型 agent skill。",
+            "Typed choices. Explicit context. Independent verification.": "类型化选择，明确上下文，独立结果验证。",
+            "Explicit context": "明确上下文",
+            "Jev chooses": "Jev 选择",
+            "Program binds": "程序绑定",
+            "Prove completion": "验证完成",
+            "Goal, facts, dialogue and current state.": "目标、事实、对话与当前现场。",
+            "Registered tools and meaningful parameter options.": "注册工具与有语义的参数候选。",
+            "Resolve candidate IDs, check freshness and policy.": "解析候选 ID，检查现场与执行策略。",
+            "Record actual results. Continue, review or exit.": "记录实际结果，继续、复核或退出。",
+            "EVIDENCE, WITH LIMITS": "证据与适用范围",
+            "Live browser path verified": "真实浏览器路径已验证",
+            "Real Jev + headless Camofox. Four tool executions. Local synthetic fixture.": "真实 Jev + headless Camofox，四次工具执行，本地合成夹具。",
+            "Early review outcomes retained. Native desktop acceptance is pending: host locked.": "保留早期复核结果。原生桌面因主机锁屏仍待验收。",
+            "Inspect the evidence →": "查看验收证据 →",
+            "Installation &amp; task protocol": "安装与任务协议",
+            "Machine-readable spec ↗": "机器可读规范 ↗",
+            "View source ↗": "查看源码 ↗",
+            "Python 3.10+ · Git-based installation · Inference is billable · Trusted scripts, not a sandbox": "Python 3.10+ · Git 安装 · 推理付费 · 执行可信脚本，不是沙箱",
+        }
+        for old, new in translations.items():
+            body = body.replace(old, new)
     return shell(
-        "Jev-native agent loops for AI-authored tasks",
+        "AI 易用的 Jev 原生任务运行时" if zh else "Jev-native agent loops for AI-authored tasks",
         lead,
         body,
         "zh/" if zh else "",
@@ -106,6 +152,7 @@ def main():
     OUT.mkdir(exist_ok=True)
     (OUT / "zh").mkdir(exist_ok=True)
     shutil.copy(ROOT / "web/style.css", OUT / "style.css")
+    shutil.copy(ROOT / "web/social.png", OUT / "social.png")
     (OUT / "index.html").write_text(home())
     (OUT / "zh/index.html").write_text(home(True))
     for slug, (source, title) in PAGES.items():

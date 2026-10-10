@@ -5,6 +5,7 @@ import ast
 import importlib.util
 import json
 import sys
+from importlib.resources import files
 from pathlib import Path
 
 from .engine import AgentLoop, Workflow
@@ -45,6 +46,7 @@ def increment(amount):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
+    commands.add_parser("skill", help="Print bundled AI task instructions; offline")
     commands.add_parser("spec", help="Machine-readable interface and adoption contract; offline")
     check = commands.add_parser(
         "check-task", help="Check Python syntax and export without executing code; offline"
@@ -65,6 +67,15 @@ def main(argv=None):
     run.add_argument("--timeout", type=float, default=120)
     run.add_argument("--archive", help="New private journal path; never overwritten")
     args = parser.parse_args(argv)
+    if args.command == "skill":
+        bundled = files("jev_harness").joinpath("skill/SKILL.md")
+        body = (
+            bundled.read_text()
+            if bundled.is_file()
+            else (Path(__file__).resolve().parents[2] / "skills/jev-harness/SKILL.md").read_text()
+        )
+        print(body)
+        return 0
     if args.command == "spec":
         print(json.dumps(SPEC))
         return 0
@@ -143,6 +154,7 @@ SPEC = {
     "version": "0.1.0",
     "parameter_binding": "staged_candidate_choice",
     "commands": {
+        "skill": {"offline": True},
         "spec": {"offline": True},
         "init-task": {"required": ["script"], "offline": True},
         "check-task": {"required": ["script"], "offline": True, "scope": "syntax/export only"},

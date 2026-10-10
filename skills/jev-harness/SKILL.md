@@ -29,5 +29,5 @@ Camofox must preserve the named session; native desktop needs an unlocked target
 No declared adapter means no claim of application coverage. Exact selectors/IDs/computation
 and fixed sequences need no inference; open-ended generation remains with the primary AI.
 
-See the repository docs/agent-contract.md, docs/context.md and docs/adapters.md for the
-complete contracts. Tool and parameter domains are recomputed; no result caching.
+See https://apixly-ai.github.io/jev-harness/agent-contract.html and its context/adapters
+pages for complete contracts. Tool and parameter domains are recomputed; no result caching.

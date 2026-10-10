@@ -28,6 +28,9 @@ allow-direct-references = true
 [tool.hatch.build.targets.wheel]
 packages = ["src/jev_harness"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"skills/jev-harness" = "jev_harness/skill"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = ["live: opt-in billable model tests", "desktop: native desktop acceptance"]

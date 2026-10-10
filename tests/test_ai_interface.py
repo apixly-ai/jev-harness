@@ -20,3 +20,10 @@ def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script.write_text("workflow = (")
     assert main(["check-task", str(script)]) == 2
     assert json.loads(capsys.readouterr().out)["code"] == "invalid_python"
+
+
+def test_skill_instructions_are_available_offline(capsys):
+    assert main(["skill"]) == 0
+    body = capsys.readouterr().out
+    assert "name: jev-harness" in body
+    assert "jev-harness spec" in body

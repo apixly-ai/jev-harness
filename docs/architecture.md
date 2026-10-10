@@ -25,6 +25,12 @@ version-pinned browser/desktop surfaces. We do not duplicate its inference imple
 - [TypeSafeAI/jev-harness](https://github.com/TypeSafeAI/jev-harness): a community proposal
   review/routing contract, not the official TypeSafe team or a generic executor.
 
+- [parkavenue9639/jevloop](https://github.com/parkavenue9639/jevloop): a related pre-alpha
+  runtime with grounded argument candidates, separate transcript/workspace projections
+  and a shared execution kernel. Its Docker/LLM authoring stack is not a dependency here.
+- [zjunlp/JevLoop](https://github.com/zjunlp/JevLoop): a related TypeScript decision-centric
+  runtime. We have inspected its published interface, not reproduced its measurements.
+
 These are design references, not endorsement, dependency or evidence that this runtime
 inherits their benchmark results. Direct dependencies and licenses are declared in
 pyproject.toml and LICENSE. Apixly's Jev Harness is independent community software.
