@@ -14,6 +14,7 @@ from types import SimpleNamespace
 from jev_filter import analysis as core_analysis
 
 from . import backend
+from .callbacks import CallbackContractError, project_contract_error, require_synchronous
 from .context import ContextPolicy
 from .diagnostics import provider_failure_code, selection_diagnostic, stage_context
 
@@ -259,7 +260,18 @@ class Engine:
             max_steps=max_steps,
             timeout_seconds=timeout_seconds,
         )
+        for role in (
+            "observe",
+            "candidates",
+            "execute",
+            "verify",
+            "authorize",
+            "bind",
+            "result_context",
+        ):
+            require_synchronous(getattr(workflow, role), role, allow_generator=role == "candidates")
         policy = context_policy or ContextPolicy()
+        require_synchronous(policy.build, "context_policy")
         if archive is None:
             fd, name = tempfile.mkstemp(prefix="jev-task-", suffix=".jsonl")
             path = Path(name)
@@ -510,6 +522,13 @@ class Engine:
             except DecisionStop as error:
                 return finish(
                     "execution_uncertain" if executed else error.status, reason=error.reason
+                )
+            except CallbackContractError as error:
+                return finish(
+                    "execution_uncertain" if executed else "failed",
+                    error_type=type(error).__name__,
+                    contract_error=project_contract_error(error),
+                    **({"action_id": pending} if pending else {}),
                 )
             except Exception as error:
                 return finish(

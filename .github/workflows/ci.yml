@@ -25,6 +25,7 @@ jobs:
       - run: python benchmarks/tool_choice.py --output local-results/tool-choice-offline-ab.json
       - run: python benchmarks/static_check.py --output local-results/static-check-ab.json
       - run: python benchmarks/run_preflight.py --output local-results/run-preflight-ab.json
+      - run: python benchmarks/callback_contract.py --output local-results/callback-contract-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

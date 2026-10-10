@@ -1,0 +1,5772 @@
+{
+  "mode": "offline-synthetic-callback-contract",
+  "baseline_commit": "17fa46f76267da428f96f4ca4240a9a07de14b9a",
+  "candidate": "working tree at invocation; published with its source commit",
+  "baseline_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "5811636fdc5bed96a89d0bebbc8c1b374c77976b455b69315b97b45ec58eaec7",
+    "src/apixly_jev_harness/backend.py": "e4b4c80d88c63648c1392f41eb8796430fcbce6f81d1061c71519d0759432eda",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "cf96bb79196985fee59262f8022162b175ec0d0f65136d219cf79360feebed63",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "d8429a53297fdedc6acb620a43c8f82a48b914664a7b1b9e2c2f3027b87a66da",
+    "src/apixly_jev_harness/task_cli.py": "a798ff6850585902f6520e82b979964e404134dd5388eb58401db0d201fd3bbf",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "6bca71c17589daa97f7e26ce2f4a254a32a7a36882f42ecceca54b61ded2d936",
+    "src/apixly_jev_harness/backend.py": "e4b4c80d88c63648c1392f41eb8796430fcbce6f81d1061c71519d0759432eda",
+    "src/apixly_jev_harness/callbacks.py": "2d27ad4540d910354c54de7566546b4c9d99b5a5fa87705a1905885349078497",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "cdedf1ef3a769cc1557dfa63cf6b6e6c4b48a14eb7b0fc12d3d9a957a53b3be2",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "0f5801e9fdb5626e1db65d269c715e8bcf692ebaa3a91f46b9945158b4bbb6db",
+    "src/apixly_jev_harness/task_cli.py": "bc5f8733e607df9fed0f223ee199c160c53c59415439041871ab89e81e517e95",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "runner_sha256": "508ab671a820c448f82d5efd98a12328c3fe69423f0e9570dcb75abfadeba804",
+  "python_version": "3.14.2",
+  "cases": {
+    "task_async_observe": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "observe",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "task_async_verify": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "verify",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "task_async_authorize": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "authorize",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "tool_coroutine": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "execute",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "tool_generator": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "execute",
+        "kind": "generator"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "tool_async_generator": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "execute",
+        "kind": "async_generator"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "metadata_async_available": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "available",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "metadata_async_result_context": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "result_context",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "provider_coroutine": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "choices",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "provider_generator": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "choices",
+        "kind": "generator"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "provider_async_generator": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "choices",
+        "kind": "async_generator"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "partial_provider_coroutine": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "choices",
+        "kind": "coroutine"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "partial_provider_generator": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "choices",
+        "kind": "generator"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "partial_provider_async_generator": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "synchronous_callback_required",
+        "callback": "choices",
+        "kind": "async_generator"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "provider_required_keyword": {
+      "status": "rejected",
+      "contract_error": {
+        "code": "provider_signature_unsupported",
+        "callback": "choices"
+      },
+      "admission_body_invocations": 0,
+      "body_invocations": 0,
+      "effects": 0
+    },
+    "provider_two_arguments": {
+      "status": "bound",
+      "value": "synthetic",
+      "provider_calls": 2,
+      "admission_body_invocations": 0,
+      "effects": 1
+    },
+    "provider_three_arguments": {
+      "status": "bound",
+      "value": "A-child",
+      "provider_calls": 1,
+      "admission_body_invocations": 0,
+      "effects": 1
+    },
+    "provider_three_optional_keyword": {
+      "status": "bound",
+      "value": "A-child",
+      "provider_calls": 1,
+      "admission_body_invocations": 0,
+      "effects": 1
+    },
+    "provider_callable_with_lock": {
+      "status": "bound",
+      "value": "synthetic",
+      "provider_calls": 2,
+      "provider_identity_preserved": true,
+      "admission_body_invocations": 0,
+      "effects": 1
+    },
+    "provider_partial_with_lock": {
+      "status": "bound",
+      "value": "synthetic",
+      "provider_calls": 2,
+      "provider_identity_preserved": true,
+      "admission_body_invocations": 0,
+      "effects": 1
+    },
+    "static_snapshot": {
+      "status": "bound",
+      "value": {
+        "value": "original"
+      },
+      "admission_body_invocations": 0,
+      "effects": 1
+    },
+    "workflow_generator_candidates": {
+      "status": "done",
+      "admission_body_invocations": 0,
+      "effects": 1,
+      "scripted_decisions": 1
+    },
+    "sync_wraps_async_bridge": {
+      "status": "observed",
+      "value": {},
+      "admission_body_invocations": 0,
+      "effects": 0
+    },
+    "ambiguous_provider_prefers_three": {
+      "status": "bound",
+      "value": "A",
+      "provider_calls": 1,
+      "admission_body_invocations": 0,
+      "effects": 1
+    }
+  },
+  "reproduction": "python benchmarks/callback_contract.py --output local-results/callback-contract-ab.json",
+  "scope": "Twenty-four fixed synthetic fixtures, three paired repeats with alternating arm order. Deferred baseline callbacks are only constructed/registered, never invoked or materialized. Positive fixtures bind singleton values and one generator Workflow runs a scripted decision. Native inference entrypoints are forbidden in each worker; actual model/UI/network calls are zero. This measures Python callback admission and provider binding, not semantic accuracy, async execution or a sandbox.",
+  "negative_results": "Introspection and fixed contract metadata add local time/context overhead. Signature bindability does not prove callback return types or bound I/O. When both two and three positional arguments bind, three is preferred; optional/variadic providers previously called with two may now receive bound parents and need an explicit two-argument wrapper. Dynamic providers retain their callable identity and resource lifetime; static candidates retain a snapshot. No speed, accuracy or fee gain is claimed.",
+  "cost_conversion": "Zero actual model calls; no tariff or savings assumed. Whole-operation timing includes callback fixture construction, admission, successful singleton binding/execution and one permitted private synthetic journal where applicable; excludes process/import/snapshot setup. Scripted telemetry is separated from actual model usage. Returned context bytes measure compact fixture results with runtime archive paths excluded.",
+  "summary": {
+    "baseline": {
+      "runs": 72,
+      "correct": 15,
+      "statuses": {
+        "accepted": 45,
+        "bound": 12,
+        "done": 3,
+        "observed": 3,
+        "rejected": 9
+      },
+      "admission_body_invocations": 0,
+      "native_inference_attempts": 0,
+      "scripted_decisions": 3,
+      "median_whole_operation_seconds": 0.00016679200052749366,
+      "returned_context_bytes": 12258,
+      "scripted_decision_bytes": 4974,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    "candidate": {
+      "runs": 72,
+      "correct": 72,
+      "statuses": {
+        "bound": 21,
+        "done": 3,
+        "observed": 3,
+        "rejected": 45
+      },
+      "admission_body_invocations": 0,
+      "native_inference_attempts": 0,
+      "scripted_decisions": 3,
+      "median_whole_operation_seconds": 0.0001643959985813126,
+      "returned_context_bytes": 18885,
+      "scripted_decision_bytes": 4973,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "task_async_observe",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014400000509340316,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "task_async_observe",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00017433300672564656,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "task_async_observe",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00014633400132879615,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "task_async_observe",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013366701023187488,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "task_async_observe",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001413749996572733,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "task_async_observe",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "observe",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00014375000318977982,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "task_async_verify",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001455409947084263,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "task_async_verify",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001560829987283796,
+      "returned_context_bytes": 303,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "task_async_verify",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015449999773409218,
+      "returned_context_bytes": 303,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "task_async_verify",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013237498933449388,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "task_async_verify",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001434580044588074,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "task_async_verify",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "verify",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015441598952747881,
+      "returned_context_bytes": 303,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "task_async_authorize",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013866699009668082,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "task_async_authorize",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001620419934624806,
+      "returned_context_bytes": 306,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "task_async_authorize",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015958301082719117,
+      "returned_context_bytes": 306,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "task_async_authorize",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013720800052396953,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "task_async_authorize",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.000137166993226856,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "task_async_authorize",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "authorize",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015999999595806003,
+      "returned_context_bytes": 306,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "tool_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001894169981824234,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "tool_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00027358299121260643,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "tool_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00017225000192411244,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "tool_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00017366699466947466,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "tool_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00017029199807439,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "tool_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00017050000315066427,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "tool_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001724579924484715,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "tool_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001596670044818893,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "tool_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016004200733732432,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "tool_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00016912500723265111,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "tool_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001728750066831708,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "tool_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016554200556129217,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "tool_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001667500037001446,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "tool_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016549999418202788,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "tool_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016054100706242025,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "tool_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00017854200268629938,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "tool_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00017495900101494044,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "tool_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "execute",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016312500520143658,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "metadata_async_available",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00016762499581091106,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "metadata_async_available",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015924999024719,
+      "returned_context_bytes": 306,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "metadata_async_available",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001584169949637726,
+      "returned_context_bytes": 306,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "metadata_async_available",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00016683399735484272,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "metadata_async_available",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001679170090937987,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "metadata_async_available",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "available",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016329200298059732,
+      "returned_context_bytes": 306,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "metadata_async_result_context",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00016770799993537366,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "metadata_async_result_context",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015950000670272857,
+      "returned_context_bytes": 311,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "metadata_async_result_context",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001610409963177517,
+      "returned_context_bytes": 311,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "metadata_async_result_context",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00016620800306554884,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "metadata_async_result_context",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00016075000166893005,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "metadata_async_result_context",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "result_context",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016912500723265111,
+      "returned_context_bytes": 311,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00015395799709949642,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015470800281036645,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00014745800581295043,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00015266600530594587,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001475409953854978,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001615410001249984,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014200000441633165,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015720799274276942,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001532500027678907,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014345899398904294,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014154199743643403,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015150000399444252,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001482920051785186,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015033400268293917,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0002033749915426597,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013720899005420506,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001442079956177622,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016270899504888803,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "partial_provider_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014833400200586766,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "partial_provider_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015762500697746873,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "partial_provider_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001515420008217916,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "partial_provider_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013679100084118545,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "partial_provider_coroutine",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014454199117608368,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "partial_provider_coroutine",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "coroutine"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015545799396932125,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "partial_provider_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013862499326933175,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "partial_provider_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015425001038238406,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "partial_provider_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015449999773409218,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "partial_provider_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001502090017311275,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "partial_provider_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014058400120120496,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "partial_provider_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015366700245067477,
+      "returned_context_bytes": 304,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "partial_provider_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001400829933118075,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "partial_provider_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015804098802618682,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "partial_provider_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001510840083938092,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "partial_provider_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013454200234264135,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "partial_provider_async_generator",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014062499394640326,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "partial_provider_async_generator",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "synchronous_callback_required",
+          "callback": "choices",
+          "kind": "async_generator"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016620899259578437,
+      "returned_context_bytes": 310,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_required_keyword",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00014725000073667616,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_required_keyword",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016845899517647922,
+      "returned_context_bytes": 284,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_required_keyword",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00017087500600609928,
+      "returned_context_bytes": 284,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_required_keyword",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013995799235999584,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_required_keyword",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "accepted",
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00013649999164044857,
+      "returned_context_bytes": 160,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_required_keyword",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "rejected",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "admission_body_invocations": 0,
+        "body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "CallbackContractError",
+        "contract_error": {
+          "code": "provider_signature_unsupported",
+          "callback": "choices"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00017954199574887753,
+      "returned_context_bytes": 284,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_two_arguments",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00025229201128240675,
+      "returned_context_bytes": 179,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_two_arguments",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000305667010252364,
+      "returned_context_bytes": 179,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_two_arguments",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000287957998807542,
+      "returned_context_bytes": 179,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_two_arguments",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000270040996838361,
+      "returned_context_bytes": 179,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_two_arguments",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00034895900171250105,
+      "returned_context_bytes": 179,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_two_arguments",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00029099998937454075,
+      "returned_context_bytes": 179,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_three_arguments",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00025837500288616866,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_three_arguments",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003088329976890236,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_three_arguments",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003202920051990077,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_three_arguments",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0004166250000707805,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_three_arguments",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0002587079943623394,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_three_arguments",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003202499938197434,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_three_optional_keyword",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0002402909885859117,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_three_optional_keyword",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003001669974764809,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_three_optional_keyword",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000302958011161536,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_three_optional_keyword",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00026804200024344027,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_three_optional_keyword",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00026087500737048686,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_three_optional_keyword",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A-child",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A-child",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003169169940520078,
+      "returned_context_bytes": 177,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_callable_with_lock",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00020149999181739986,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_callable_with_lock",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "provider_identity_preserved": true,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00034729199251160026,
+      "returned_context_bytes": 216,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_callable_with_lock",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "provider_identity_preserved": true,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0005259579920675606,
+      "returned_context_bytes": 216,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_callable_with_lock",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00019824999617412686,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_callable_with_lock",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0001973750040633604,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_callable_with_lock",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "provider_identity_preserved": true,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003550420078681782,
+      "returned_context_bytes": 216,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "provider_partial_with_lock",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00021899999410379678,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "provider_partial_with_lock",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "provider_identity_preserved": true,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0004056250036228448,
+      "returned_context_bytes": 216,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "provider_partial_with_lock",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "provider_identity_preserved": true,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003717920044437051,
+      "returned_context_bytes": 216,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "provider_partial_with_lock",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00020391700672917068,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "provider_partial_with_lock",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "rejected",
+        "admission_body_invocations": 0,
+        "error_type": "TypeError",
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00020358400070108473,
+      "returned_context_bytes": 187,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "provider_partial_with_lock",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "synthetic",
+        "provider_calls": 2,
+        "provider_identity_preserved": true,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "provider_identity_preserved": true,
+        "value": "synthetic",
+        "body_invocations": 2,
+        "provider_calls": 2,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00036862499837297946,
+      "returned_context_bytes": 216,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "static_snapshot",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": {
+          "value": "original"
+        },
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": {
+          "value": "original"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0002479169925209135,
+      "returned_context_bytes": 189,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "static_snapshot",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": {
+          "value": "original"
+        },
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": {
+          "value": "original"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00025350000942125916,
+      "returned_context_bytes": 189,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "static_snapshot",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": {
+          "value": "original"
+        },
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": {
+          "value": "original"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0002487909951014444,
+      "returned_context_bytes": 189,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "static_snapshot",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": {
+          "value": "original"
+        },
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": {
+          "value": "original"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0002654160052770749,
+      "returned_context_bytes": 189,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "static_snapshot",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": {
+          "value": "original"
+        },
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": {
+          "value": "original"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003290409949840978,
+      "returned_context_bytes": 189,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "static_snapshot",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": {
+          "value": "original"
+        },
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": {
+          "value": "original"
+        },
+        "body_invocations": 0,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0002589579962659627,
+      "returned_context_bytes": 189,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "workflow_generator_candidates",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "effects": 1,
+        "scripted_decisions": 1
+      },
+      "result": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "runtime_terminal_bytes": 437,
+        "reported_scripted_usage_complete": true,
+        "body_invocations": 7,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 1
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011389999999664724,
+      "returned_context_bytes": 229,
+      "scripted_decision_bytes": 1658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "workflow_generator_candidates",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "effects": 1,
+        "scripted_decisions": 1
+      },
+      "result": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "runtime_terminal_bytes": 437,
+        "reported_scripted_usage_complete": true,
+        "body_invocations": 7,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 1
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017439590010326356,
+      "returned_context_bytes": 229,
+      "scripted_decision_bytes": 1657,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "workflow_generator_candidates",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "effects": 1,
+        "scripted_decisions": 1
+      },
+      "result": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "runtime_terminal_bytes": 436,
+        "reported_scripted_usage_complete": true,
+        "body_invocations": 7,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 1
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017113749927375466,
+      "returned_context_bytes": 229,
+      "scripted_decision_bytes": 1658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "workflow_generator_candidates",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "effects": 1,
+        "scripted_decisions": 1
+      },
+      "result": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "runtime_terminal_bytes": 438,
+        "reported_scripted_usage_complete": true,
+        "body_invocations": 7,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 1
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0014320840127766132,
+      "returned_context_bytes": 229,
+      "scripted_decision_bytes": 1658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "workflow_generator_candidates",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "effects": 1,
+        "scripted_decisions": 1
+      },
+      "result": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "runtime_terminal_bytes": 437,
+        "reported_scripted_usage_complete": true,
+        "body_invocations": 7,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 1
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012920419976580888,
+      "returned_context_bytes": 229,
+      "scripted_decision_bytes": 1658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "workflow_generator_candidates",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "effects": 1,
+        "scripted_decisions": 1
+      },
+      "result": {
+        "status": "done",
+        "admission_body_invocations": 0,
+        "runtime_terminal_bytes": 437,
+        "reported_scripted_usage_complete": true,
+        "body_invocations": 7,
+        "provider_calls": 0,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 1
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0015495410043513402,
+      "returned_context_bytes": 229,
+      "scripted_decision_bytes": 1658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "sync_wraps_async_bridge",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "observed",
+        "value": {},
+        "admission_body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "observed",
+        "admission_body_invocations": 0,
+        "value": {},
+        "body_invocations": 1,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001543749967822805,
+      "returned_context_bytes": 173,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "sync_wraps_async_bridge",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "observed",
+        "value": {},
+        "admission_body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "observed",
+        "admission_body_invocations": 0,
+        "value": {},
+        "body_invocations": 1,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00015545799396932125,
+      "returned_context_bytes": 173,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "sync_wraps_async_bridge",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "observed",
+        "value": {},
+        "admission_body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "observed",
+        "admission_body_invocations": 0,
+        "value": {},
+        "body_invocations": 1,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0001588340091984719,
+      "returned_context_bytes": 173,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "sync_wraps_async_bridge",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "observed",
+        "value": {},
+        "admission_body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "observed",
+        "admission_body_invocations": 0,
+        "value": {},
+        "body_invocations": 1,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00014104200818110257,
+      "returned_context_bytes": 173,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "sync_wraps_async_bridge",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "observed",
+        "value": {},
+        "admission_body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "observed",
+        "admission_body_invocations": 0,
+        "value": {},
+        "body_invocations": 1,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00014124999870546162,
+      "returned_context_bytes": 173,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "sync_wraps_async_bridge",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "observed",
+        "value": {},
+        "admission_body_invocations": 0,
+        "effects": 0
+      },
+      "result": {
+        "status": "observed",
+        "admission_body_invocations": 0,
+        "value": {},
+        "body_invocations": 1,
+        "provider_calls": 0,
+        "effects": 0,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00016066699754446745,
+      "returned_context_bytes": 173,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ambiguous_provider_prefers_three",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "NO_BOUND",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0002614159893710166,
+      "returned_context_bytes": 178,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ambiguous_provider_prefers_three",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0004058330086991191,
+      "returned_context_bytes": 171,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ambiguous_provider_prefers_three",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00029508399893529713,
+      "returned_context_bytes": 171,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ambiguous_provider_prefers_three",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "NO_BOUND",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00025345799804199487,
+      "returned_context_bytes": 178,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ambiguous_provider_prefers_three",
+      "runtime_version": "0.1.5",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "NO_BOUND",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0002617920108605176,
+      "returned_context_bytes": 178,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ambiguous_provider_prefers_three",
+      "runtime_version": "0.1.6",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "bound",
+        "value": "A",
+        "provider_calls": 1,
+        "admission_body_invocations": 0,
+        "effects": 1
+      },
+      "result": {
+        "status": "bound",
+        "admission_body_invocations": 0,
+        "value": "A",
+        "body_invocations": 1,
+        "provider_calls": 1,
+        "effects": 1,
+        "native_attempts": 0,
+        "scripted_decisions": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0003090000100200996,
+      "returned_context_bytes": 171,
+      "scripted_decision_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

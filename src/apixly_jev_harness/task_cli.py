@@ -9,6 +9,13 @@ import warnings
 from importlib.resources import files
 from pathlib import Path
 
+from .callbacks import (
+    CALLBACK_CODES,
+    CALLBACK_KINDS,
+    CALLBACK_ROLES,
+    CallbackContractError,
+    project_contract_error,
+)
 from .diagnostics import HTTP_CODE_PATTERN, PROVIDER_CODES, SELECTION_CODES
 from .engine import AgentLoop, Workflow, validate_run_options
 
@@ -180,6 +187,8 @@ def main(argv=None):
             exit_code = 0 if packet["complete"] else 2
     except Exception as error:
         packet = {"status": "failed", "complete": False, "error_type": type(error).__name__}
+        if isinstance(error, CallbackContractError):
+            packet["contract_error"] = project_contract_error(error)
         if phase == "configuration":
             packet.update(
                 phase="configuration",
@@ -196,7 +205,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "parameter_binding": "staged_candidate_choice",
     "tool_selection": {
         "scope": "next_step",
@@ -254,6 +263,25 @@ SPEC = {
             "Parameter": ["description", "choices", "depends_on"],
             "Option": ["id", "description", "value"],
         },
+    },
+    "callbacks": {
+        "execution": "synchronous",
+        "roles": sorted(CALLBACK_ROLES),
+        "rejected_declared_kinds": sorted(CALLBACK_KINDS),
+        "generator_exception": "Workflow.candidates",
+        "provider_positional_arguments": [2, 3],
+        "provider_preferred_arity": 3,
+        "provider_dynamic_identity": "preserved",
+        "provider_static_choices": "deepcopied_at_registration",
+        "provider_result_cache": False,
+        "admission_invokes_body": False,
+        "return_type_proven": False,
+        "error_codes": sorted(CALLBACK_CODES),
+        "fallback_error_code": "callback_contract_error",
+        "terminal_error_field": "contract_error",
+        "raw_exception_text": False,
+        "trusted_module_loading": "may_have_effects_before_registration",
+        "async_runtime": False,
     },
     "context": [
         "goal",

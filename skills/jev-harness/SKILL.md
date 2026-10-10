@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.5. Install the repository at `@v0.1.5` for a reproducible release;
+Contract version: 0.1.6. Install the repository at `@v0.1.6` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -50,6 +50,24 @@ still imports trusted Python and can have top-level effects. Preflight is not a 
 or a workflow/dependency/archive/credential/business check, and cannot guarantee no later
 effects or success. See the contract and reports/run-preflight-ab.json; its synthetic
 offline import-marker checks use model-free workflows and no actual API or UI.
+
+Register synchronous callbacks. Known coroutine/async-generator/generator declarations,
+including partials and callable objects, are rejected without invoking bodies; synchronous
+generator Workflow.candidates is allowed. Kind detection follows only partial .func
+chains, without inspect.unwrap/__wrapped__, preserving explicit synchronous blocking
+wrappers; ordinary wrapper return types cannot be statically proved. Task registration
+preserves dynamic provider identity and bound client/lock/state, deep-copies static
+choices, and calls the provider afresh when a step needs its domain, without result caching.
+Choice providers must bind (ctx, observation) or (ctx, observation, bound_arguments);
+optional keyword-only
+arguments are allowed. Three arguments win if both forms bind, including variadic/default
+signatures. Inspect fixed contract_error codes/roles/kinds rather than callable names or
+raw errors. Errors inside executing tools remain execution_uncertain; do not retry them.
+This is not an async engine or sandbox, and registration during trusted import does not
+prevent earlier top-level effects. check-task stays static; authorization/verification
+are unchanged. See the contract and reports/callback-contract-ab.json for offline synthetic
+admission/binding with scripted decisions and zero real model/network/UI calls, without
+general success, speed or cost claims.
 
 Describe each tool's preconditions and expected effect, and put task priority, order and
 exit criteria in the caller's goal and contracts. A next-step tool may gather evidence or

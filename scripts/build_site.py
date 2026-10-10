@@ -83,7 +83,7 @@ workflow = <b>Task</b>(observe=observe, verify=verify)
         )
     }})
 def inspect(job):
-    return service.inspect(job)</pre><div class="editor-foot">Goal → Tool choice → Parameter binding → Verified outcome</div></div></section><section class="loop"><div><small>01 / OBSERVE</small><strong>Explicit context</strong><p>Goal, facts, dialogue and current state.</p></div><div><small>02 / DECIDE</small><strong>Jev chooses</strong><p>Registered tools and meaningful parameter options.</p></div><div><small>03 / EXECUTE</small><strong>Program binds</strong><p>Resolve candidate IDs, check freshness and policy.</p></div><div><small>04 / VERIFY</small><strong>Prove completion</strong><p>Record actual results. Continue, review or exit.</p></div></section><section class="section"><div class="eyebrow">One reusable mechanism</div><h2>{"定义业务逻辑，复用运行时。" if zh else "Define your work. Reuse the runtime."}</h2><div class="cards"><article class="card"><div class="chip">TOOLS + PARAMETERS</div><h3>Meaning before values</h3><p>Describe each parameter, supply observed candidates, and bind dependencies in order. Jev selects references; it never invents arguments.</p></article><article class="card"><div class="chip">CONTEXT + HISTORY</div><h3>A useful working state</h3><p>Keep constraints, admitted messages and recent results. Older actions retain evidence references. Raw journals stay private.</p></article><article class="card"><div class="chip">AGENT INTERFACE</div><h3>Easy to discover and run</h3><p>Machine-readable spec, a runnable scaffold, offline syntax checks, typed Python and a task-oriented agent skill.</p></article></div></section><section class="section"><div class="proof"><div><div class="chip">EVIDENCE, WITH LIMITS</div><h3>Live browser path verified</h3><p>Real Jev + headless Camofox. Four tool executions. Local synthetic fixture.</p><p>Early review outcomes retained. Native desktop acceptance is pending: host locked.</p></div><a href="{p}evidence.html">Inspect the evidence →</a></div></section><section class="section"><h2>{"从一份接口说明开始。" if zh else "Start with one contract."}</h2><div class="editor"><pre>jev-harness <b>spec</b>
+    return service.inspect(job)</pre><div class="editor-foot">Goal → Tool choice → Parameter binding → Verified outcome</div></div></section><section class="loop"><div><small>01 / OBSERVE</small><strong>Explicit context</strong><p>Goal, facts, dialogue and current state.</p></div><div><small>02 / DECIDE</small><strong>Jev chooses</strong><p>Registered tools and meaningful parameter options.</p></div><div><small>03 / EXECUTE</small><strong>Program binds</strong><p>Resolve candidate IDs, check freshness and policy.</p></div><div><small>04 / VERIFY</small><strong>Prove completion</strong><p>Record actual results. Continue, review or exit.</p></div></section><section class="section"><div class="eyebrow">One reusable mechanism</div><h2>{"定义业务逻辑，复用运行时。" if zh else "Define your work. Reuse the runtime."}</h2><div class="cards"><article class="card"><div class="chip">TOOLS + PARAMETERS</div><h3>Meaning before values</h3><p>Describe each parameter, supply observed candidates, and bind dependencies in order. Jev selects references; it never invents arguments.</p></article><article class="card"><div class="chip">CONTEXT + HISTORY</div><h3>A useful working state</h3><p>Keep constraints, admitted messages and recent results. Older actions retain evidence references. Raw journals stay private.</p></article><article class="card"><div class="chip">AGENT INTERFACE</div><h3>Easy to discover and run</h3><p>Machine-readable spec, a runnable scaffold, offline syntax checks, typed Python and a task-oriented agent skill.</p></article></div></section><section class="section"><div class="proof"><div><div class="chip">EVIDENCE, WITH LIMITS</div><h3>Live browser path verified</h3><p>v0.1.0 evidence: real Jev + headless Camofox. Four tool executions. Local synthetic fixture.</p><p>Early review outcomes retained. Native desktop acceptance is pending: host last observed locked.</p></div><a href="{p}evidence.html">Inspect the evidence →</a></div></section><section class="section"><h2>{"从一份接口说明开始。" if zh else "Start with one contract."}</h2><div class="editor"><pre>jev-harness <b>spec</b>
 jev-harness <b>init-task</b> task.py
 jev-harness <b>check-task</b> task.py
 jev-harness <b>run</b> task.py --goal "Reach target" --inputs '{{"target":3}}'</pre></div><p class="small">Python 3.10+ · Git-based installation · Inference is billable · Trusted scripts, not a sandbox</p><div class="actions"><a class="button secondary" href="{p}agent-contract.html">Installation &amp; task protocol</a><a class="button secondary" href="{p}spec.json">Machine-readable spec ↗</a></div></section></main>'''
@@ -110,8 +110,8 @@ jev-harness <b>run</b> task.py --goal "Reach target" --inputs '{{"target":3}}'</
             "Record actual results. Continue, review or exit.": "记录实际结果，继续、复核或退出。",
             "EVIDENCE, WITH LIMITS": "证据与适用范围",
             "Live browser path verified": "真实浏览器路径已验证",
-            "Real Jev + headless Camofox. Four tool executions. Local synthetic fixture.": "真实 Jev + headless Camofox，四次工具执行，本地合成夹具。",
-            "Early review outcomes retained. Native desktop acceptance is pending: host locked.": "保留早期复核结果。原生桌面因主机锁屏仍待验收。",
+            "v0.1.0 evidence: real Jev + headless Camofox. Four tool executions. Local synthetic fixture.": "v0.1.0 验收：真实 Jev + headless Camofox，四次工具执行，本地合成夹具。",
+            "Early review outcomes retained. Native desktop acceptance is pending: host last observed locked.": "保留早期复核结果。原生桌面仍待验收；主机最近观察为锁屏。",
             "Inspect the evidence →": "查看验收证据 →",
             "Installation &amp; task protocol": "安装与任务协议",
             "Machine-readable spec ↗": "机器可读规范 ↗",
@@ -150,6 +150,8 @@ def rewrite_links(content):
         "../reports/static-check-ab.json": "static-check-ab.json",
         "run-preflight-ab.json": "run-preflight-ab.json",
         "../reports/run-preflight-ab.json": "run-preflight-ab.json",
+        "callback-contract-ab.json": "callback-contract-ab.json",
+        "../reports/callback-contract-ab.json": "callback-contract-ab.json",
     }
 
     def replace(match):
@@ -198,6 +200,7 @@ def main():
         "tool-choice-live-ab.json",
         "static-check-ab.json",
         "run-preflight-ab.json",
+        "callback-contract-ab.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)
     (OUT / "social.svg").write_text(

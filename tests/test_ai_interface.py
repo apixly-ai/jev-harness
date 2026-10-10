@@ -71,6 +71,18 @@ def test_machine_spec_describes_configuration_preflight(capsys):
     assert preflight["sandbox"] is False
 
 
+def test_machine_spec_exposes_synchronous_callback_contract(capsys):
+    assert main(["spec"]) == 0
+    callbacks = json.loads(capsys.readouterr().out)["callbacks"]
+    assert callbacks["execution"] == "synchronous"
+    assert callbacks["provider_positional_arguments"] == [2, 3]
+    assert callbacks["provider_preferred_arity"] == 3
+    assert callbacks["admission_invokes_body"] is False
+    assert callbacks["generator_exception"] == "Workflow.candidates"
+    assert "synchronous_callback_required" in callbacks["error_codes"]
+    assert callbacks["fallback_error_code"] == "callback_contract_error"
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

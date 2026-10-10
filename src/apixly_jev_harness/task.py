@@ -5,6 +5,7 @@ import inspect
 import itertools
 from dataclasses import dataclass
 
+from .callbacks import provider_arity, require_synchronous
 from .engine import Action, DecisionStop, Workflow, _json
 
 
@@ -33,6 +34,8 @@ class Parameter:
             raise ValueError("parameter_description_required")
         if not callable(self.choices) and not isinstance(self.choices, (list, tuple)):
             raise ValueError("parameter_domain_must_be_list_or_callable")
+        if callable(self.choices):
+            provider_arity(self.choices)
         if not isinstance(self.depends_on, tuple) or any(
             not isinstance(x, str) for x in self.depends_on
         ):
@@ -52,6 +55,9 @@ class Task(Workflow):
             raise ValueError("authorization_callable_required")
         if strategy not in ("staged", "joint"):
             raise ValueError("unknown_binding_strategy")
+        for callback, role in ((observe, "observe"), (verify, "verify"), (authorize, "authorize")):
+            if callback is not None:
+                require_synchronous(callback, role)
         self._observe, self._verify, self._authorize = observe, verify, authorize
         self.strategy, self._tools, self._offered = strategy, {}, {}
 
@@ -69,9 +75,11 @@ class Task(Workflow):
             key: value if isinstance(value, Parameter) else Parameter(key, value)
             for key, value in (parameters or {}).items()
         }
-        for callback in (available, result_context):
+        for callback, role in ((available, "available"), (result_context, "result_context")):
             if callback is not None and not callable(callback):
                 raise ValueError("tool_callback_required")
+            if callback is not None:
+                require_synchronous(callback, role)
         order, unresolved = [], dict(parameters)
         while unresolved:
             ready = [key for key, p in unresolved.items() if set(p.depends_on) <= set(order)]
@@ -82,6 +90,7 @@ class Task(Workflow):
                 del unresolved[key]
 
         def register(function):
+            require_synchronous(function, "execute")
             tool_name = name or function.__name__
             Action(tool_name, description, irreversible=irreversible)
             if tool_name in self._tools:
@@ -98,7 +107,14 @@ class Task(Workflow):
             self._tools[tool_name] = dict(
                 function=function,
                 description=description,
-                parameters=copy.deepcopy(parameters),
+                parameters={
+                    key: Parameter(
+                        p.description,
+                        p.choices if callable(p.choices) else copy.deepcopy(p.choices),
+                        p.depends_on,
+                    )
+                    for key, p in parameters.items()
+                },
                 order=order,
                 irreversible=irreversible,
                 available=available,
@@ -120,7 +136,7 @@ class Task(Workflow):
     def _domain(self, spec, ctx, state, bound):
         provider = spec.choices
         if callable(provider):
-            argc = len(inspect.signature(provider).parameters)
+            argc = provider_arity(provider)
             domain = (
                 provider(ctx, copy.deepcopy(state), copy.deepcopy(bound))
                 if argc == 3

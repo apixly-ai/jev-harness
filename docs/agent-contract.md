@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.5 for a reproducible release;
+package downloads still require network access. Pin v0.1.6 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.5'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.6'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -141,6 +141,16 @@ values or `Option(id, description, value)`. Literal values become descriptions; 
 separate a safe model-visible label from the actual value. Do not put credentials in
 model-visible labels or observations.
 
+Provider signatures must bind two or three positional arguments, rather than have a
+particular total parameter count. Optional keyword-only arguments are allowed. If both
+forms bind, three is preferred: a defaulted third argument or variadic signature receives
+the bound-arguments object. A required keyword-only argument that prevents either form
+from binding is unsupported. This binding check does not prove the provider's behavior.
+
+Task registration preserves a dynamic provider callable's identity, including its bound
+client, lock and state, while deep-copying static choices. Whenever a step needs the
+provider's domain, it invokes the provider afresh; no provider result is cached.
+
 `depends_on=('customer',)` constructs the job domain only after customer is selected.
 The graph must be acyclic and name existing parameters. Describe a parameter for the
 selected tool’s next invocation; do not ask one value to finish the whole task.
@@ -153,6 +163,49 @@ Default staged binding selects a tool, then each parameter in dependency order. 
 domains bind without inference. It avoids Cartesian explosion. Explicit `strategy='joint'`
 supports small complete-call catalogs for controlled comparisons. Maximum 250 tools/calls
 and 253 choices per parameter. Empty child domains request context, not guessed values.
+
+## Synchronous callback contract
+
+The runtime admits declared synchronous callbacks. Known coroutine, async-generator and
+generator functions are rejected for Task `observe`, `verify`, `authorize`, tool
+`execute`, `available`, `result_context`, and Parameter `choices`. The same check applies
+to custom Workflow `observe`, `candidates`, `execute`, `verify`, `authorize`, `bind`,
+`result_context`, and context-policy `build`. Synchronous generator `Workflow.candidates`
+is the exception; it may yield candidate actions.
+
+Introspection recognizes known deferred declarations through partials and callable
+objects without invoking their bodies. Callback-kind detection follows only partial
+`.func` chains, without `inspect.unwrap` or following `__wrapped__`; an explicit
+synchronous blocking wrapper is preserved. It cannot statically prove what an ordinary
+wrapper returns, and does not automatically await coroutine or async-generator results.
+This remains a synchronous runtime,
+not an async engine or sandbox. Registration can occur during trusted script import,
+after earlier top-level effects; `check-task` still checks parsing/compilation/export only.
+
+Known deferred callbacks report `synchronous_callback_required`; an unbindable choice
+provider reports `provider_signature_unsupported`. CLI/runtime packets may include
+`contract_error` with a fixed code, callback role and optional kind, for example:
+
+```json
+{
+  "contract_error": {
+    "code": "synchronous_callback_required",
+    "callback": "execute",
+    "kind": "coroutine"
+  }
+}
+```
+
+`callback` is a contract role, not the supplied callable's name. `kind`, when present,
+is `coroutine`, `async_generator` or `generator`; context-policy `build` uses callback role
+`context_policy`. No exception text, names or bound values
+are exported in this diagnostic. An error inside an already executing tool remains
+`execution_uncertain` and is not retried. Authorization and independent verification
+retain their existing requirements.
+
+The [callback-contract A/B](../reports/callback-contract-ab.json) checks offline synthetic
+callback admission and provider binding, with scripted decisions and zero real model,
+network or UI calls. It does not establish general task success, speed or cost savings.
 
 ## Context and results
 

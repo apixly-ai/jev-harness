@@ -6,7 +6,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.5，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.6，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -18,7 +18,7 @@
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.5'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.6'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -26,7 +26,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.5` 换成 `@main`。
+仅在开发时将 `@v0.1.6` 换成 `@main`。
 
 check-task 以 UTF-8 读取、解析并编译 Python，要求顶层显式向 workflow 赋值；
 单独的 workflow: object 注解不绑定它。不执行待检脚本、不加载其模块、不导入其依赖，
@@ -70,6 +70,17 @@ def increment(amount):
 候选可静态声明或从现场生成。depends_on 让子参数在父参数选定后再构造候选；
 Option(id, description, value) 分离模型可见语义与实际值。只有一个候选时直接绑定，
 其余由 Jev 选择，不凭空生成参数。
+Task 注册保留动态 provider 身份及绑定的 client/lock/state，静态候选仍深拷贝。
+每步需要其候选域时重新调用 provider，不缓存结果。
+
+回调必须声明为同步；已知 coroutine、async-generator 和 generator 回调会在不调用
+函数体的情况下被拒绝。Workflow.candidates 的同步 generator 和显式阻塞包装仍支持。
+回调类型检测只展开 partial 的 .func 链，不使用 inspect.unwrap。
+候选 provider 必须可绑定两个或三个位置参数，允许可选 keyword-only 参数；两种都可
+绑定时优先三个。见[回调契约](docs/agent-contract.md#synchronous-callback-contract) 与
+[离线 A/B](reports/callback-contract-ab.json)。这些检查不能证明普通 wrapper 返回类型、
+阻止可信导入的效果，也不把运行时变成异步引擎或沙箱。A/B 使用 scripted decisions，
+真实模型、网络和 UI 调用为零；未证明普遍成功、提速或降费收益。
 
 工具选择针对**下一步**。取证或满足前置条件可以推进任务，不要求一次调用完成总目标。
 由调用方在目标和契约中描述每个工具的前置条件、预期效果，以及适用的退出或优先级规则。

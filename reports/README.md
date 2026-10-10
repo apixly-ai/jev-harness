@@ -215,3 +215,48 @@ python benchmarks/run_preflight.py --output local-results/run-preflight-ab.json
 Use a full Git checkout with `.[dev]` and a new output path. CI runs only offline cases
 under Python 3.10, 3.12 and 3.14. No previous live matrix, UI operation, locked desktop
 or URL submission was repeated. Native desktop and search indexing remain unverified.
+
+## Callback and provider admission (0.1.6)
+
+The synchronous loop now rejects known coroutine, async-generator and generator
+callbacks before invoking their bodies. Ordinary generator `Workflow.candidates` remains
+supported. Kind checks cover callable objects and partial `.func` chains, while keeping
+explicit synchronous wrappers intact. Choice providers are checked by binding two or
+three positional arguments; optional keyword-only parameters no longer cause an
+incorrect argument count. Dynamic providers retain their identity and bound resources;
+static choices retain a deep-copied snapshot. Domains are still obtained afresh when
+needed, without result caching. Fixed `contract_error` codes/roles/kinds help an AI repair
+the script without exposing exception text or callable names.
+
+The [offline callback A/B](callback-contract-ab.json) compares exact published 0.1.5 source
+(`17fa46f76267da428f96f4ca4240a9a07de14b9a`) with the candidate on 24 fixed synthetic
+fixtures, three paired repetitions with alternating arm order. Conformance to the new
+local API expectations changes from 15/72 to 72/72. The baseline accepts all 45 deferred
+or unsupported-provider admission probes; the candidate rejects them. Neither arm
+invokes a callback body during admission. Positive fixtures cover two/three-argument
+binding, optional keywords, resource-bearing callable/partial providers, static snapshots,
+generator candidates and explicit synchronous wrappers. Native inference attempts and
+actual model/UI/network calls are zero; each arm makes three scripted loop decisions.
+Every result, expected value, exception type, context byte count and timing is retained.
+
+Negative results and compatibility: compact fixture results grow from 12,258 to 18,885
+bytes. The small mixed-fixture timings do not establish a speed benefit. If both two and
+three positional arguments bind, three is now preferred; an optional/variadic provider
+that previously received two may now receive bound parents. Use an explicit two-argument
+wrapper when that older behavior is intended. The comparison includes this deliberate
+migration boundary, so the conformance counts are not semantic accuracy measurements.
+No model cost benefit is claimed.
+
+Admission checks declarations and provider bindability, not every callback signature,
+wrapper return type, bounded I/O or business behavior. Trusted module import may already
+have effects before registration; `check-task` remains a non-executing static check.
+Errors after execution starts remain uncertain and are not automatically retried.
+This is still a synchronous runtime, not an async engine or a sandbox.
+
+```sh
+python benchmarks/callback_contract.py --output local-results/callback-contract-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI runs the offline fixtures
+under Python 3.10, 3.12 and 3.14. No earlier live matrix, UI operation, locked desktop or
+URL submission was repeated. Native desktop and search indexing remain unverified.
