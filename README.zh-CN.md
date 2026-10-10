@@ -6,7 +6,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.2，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.3，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -18,7 +18,7 @@
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.2'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.3'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -26,7 +26,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.2` 换成 `@main`。
+仅在开发时将 `@v0.1.3` 换成 `@main`。
 
 check-task 只检查语法和导出，不执行代码，也不证明回调正确。run 执行可信 Python，
 不是沙箱。只有 done 退出码 0，退出码 2 仍返回终态 JSON，不确定效果不自动重试。
@@ -54,6 +54,13 @@ def increment(amount):
 候选可静态声明或从现场生成。depends_on 让子参数在父参数选定后再构造候选；
 Option(id, description, value) 分离模型可见语义与实际值。只有一个候选时直接绑定，
 其余由 Jev 选择，不凭空生成参数。
+
+工具选择针对**下一步**。取证或满足前置条件可以推进任务，不要求一次调用完成总目标。
+由调用方在目标和契约中描述每个工具的前置条件、预期效果，以及适用的退出或优先级规则。
+核心没有通用 UI 表单次序规则；候选列表的位置不构成优先级。Host 提供
+decision_stage=tool_selection 或 parameter_selection 区分 loop 判断。
+直接使用 Engine.decide 筛选候选且不带这个 loop 标识时，保留一般候选选择语义。
+参数条件化、授权、独立验证和退出检查保持不变。
 
 ## 两种原生接口
 
@@ -91,6 +98,11 @@ verify_state 辅助函数必须有非空文本或至少一个控制条件。每�
 [决策诊断 A/B](reports/decision-diagnostics-ab.json) 使用合成离线 HTTP mock，真实模型
 调用为零，验证原因码和阶段信息；终态字节增加，未知错误退化为通用码，尚未测量真实
 语义恢复成功率。
+
+[工具选择离线 A/B](reports/tool-choice-offline-ab.json) 与
+[工具选择真实调用 A/B](reports/tool-choice-live-ab.json) 的范围是六个开发用合成单步
+决策 case，分别使用正序和反序候选。Probe 在 intent 前终止，不能证明完整任务、浏览器
+或桌面完成。测量结果和用量以报告为准，未证明普遍质量或费用收益。
 
 真实 Jev/Camofox 合成表单以四次工具执行达到独立校验终态，早期复核失败保留。
 桌面真实验收尚未证明：本机锁屏阻止了访问，离线测试不能替代。见[完整证据](reports/README.md)。

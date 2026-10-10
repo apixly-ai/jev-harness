@@ -5,6 +5,15 @@ messages, current observation, action/result history and budgets. Jev receives t
 sections plus available tools and parameter descriptions. It does not inherit an AI
 host's conversation implicitly.
 
+The host also marks loop inference context with `decision_stage=tool_selection` or
+`parameter_selection`. Tool questions concern the next step: evidence gathering and
+prerequisite actions may advance the task without completing the entire goal. Caller
+goals and tool contracts must supply preconditions, expected effects, priorities and
+ordering requirements; candidate position does not supply them. No general UI-form
+order is built into the core. A direct `Engine.decide` filter without the loop marker
+keeps general candidate-selection semantics. Conditional parameter selection, authorization,
+independent verification and exits retain their existing contracts.
+
 An execution may add useful evidence without changing the external observation. A
 non-None safe summary admitted through `result_context` is recorded in history and can
 advance the next decision in that case. Raw results remain available locally in

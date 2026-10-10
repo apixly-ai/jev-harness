@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "purpose": "Development synthetic tool-selection cases for a domain-neutral Jev harness; candidate tools are descriptions only and must not be executed.",
+  "split": "development_not_held_out",
+  "missing_essential_facts": [],
+  "fairness_limitations": [
+    "These cases are authored against the observed harness contract and are not held-out generalization evidence.",
+    "Every case has exactly three tool candidates and a clear next required condition; this does not cover large candidate sets or ambiguous real tasks.",
+    "Expected outcomes are annotation judgments. A successful selection does not establish actual execution, authorization, or completion.",
+    "Descriptions state preconditions and distractor limitations explicitly. Accuracy here may overestimate performance with incomplete or poorly documented tools.",
+    "Expected IDs occur twice in each candidate position across six cases, but tool IDs and wording may still create semantic cues.",
+    "The cases cover a single decision each, not complete multi-step live runs, parameter selection, or recovery from uncertain effects.",
+    "No new prompt is presumed better. Compare the same inputs, thresholds, permutations, model identity, and actual usage for both arms and retain failures."
+  ],
+  "cases": [
+    {
+      "id": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "goal": "Hand off the generated synthetic report. First establish that its bytes match the expected digest; only then hand it off. Finish only after an independent receipt confirms acceptance.",
+      "facts": {
+        "artifact_id": "artifact-synthetic-07",
+        "artifact_generated": true,
+        "expected_digest": "sha256:synthetic-reference-A",
+        "handoff_requires_verified_digest": true,
+        "digest_verification_status": "not_run",
+        "independent_acceptance_receipt": null,
+        "goal_verified_complete": false
+      },
+      "observation": {
+        "artifact_present": true,
+        "handoff_status": "not_submitted",
+        "digest_verification_status": "not_run"
+      },
+      "history": [],
+      "candidates": [
+        {
+          "id": "artifact.handoff",
+          "description": "Hand off the existing synthetic artifact. Requires digest_verification_status=match. Returns a submission identifier; this is not independent acceptance proof."
+        },
+        {
+          "id": "artifact.verify_digest",
+          "description": "Read the existing artifact bytes and compare their digest with expected_digest. Admit the exact match or mismatch result; does not submit the artifact."
+        },
+        {
+          "id": "artifact.read_receipt",
+          "description": "Read an independent acceptance receipt for a submitted handoff. Requires a handoff submission identifier."
+        }
+      ],
+      "expected_id": "artifact.verify_digest",
+      "expected_rationale": "The artifact exists but integrity has not been checked, so verifying its digest is the only action whose preconditions hold and that advances the next required condition. artifact.handoff is premature because its verified-digest prerequisite is unmet. artifact.read_receipt lacks a submission identifier. Completion is not proved."
+    },
+    {
+      "id": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "goal": "Approve the synthetic inventory record only if its quantity matches the authoritative source revision. When the record and source disagree, resolve the record from that source before validation and approval.",
+      "facts": {
+        "record_id": "record-synthetic-12",
+        "authoritative_revision": "revision-4",
+        "authoritative_quantity": 18,
+        "approval_requires_matching_revision_and_quantity": true,
+        "goal_verified_complete": false
+      },
+      "observation": {
+        "record_revision": "revision-3",
+        "record_quantity": 16,
+        "validated": false,
+        "approved": false
+      },
+      "history": [],
+      "candidates": [
+        {
+          "id": "record.approve",
+          "description": "Approve the current synthetic record. Requires validated=true for the authoritative revision and quantity."
+        },
+        {
+          "id": "record.validate",
+          "description": "Compare the current record with the authoritative revision and quantity. Returns pass or mismatch; does not repair the record. Current observation already reports a mismatch."
+        },
+        {
+          "id": "record.reconcile",
+          "description": "Update this synthetic record to the known authoritative revision and quantity. Requires those source facts to be present. Does not validate or approve it."
+        }
+      ],
+      "expected_id": "record.reconcile",
+      "expected_rationale": "The source values are already supplied and the observed record disagrees, so reconciliation is the requested next repair. record.validate would repeat an already established mismatch without resolving it. record.approve requires validation that has not passed. Approval and completion are still false."
+    },
+    {
+      "id": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "goal": "Compute the synthetic dataset total from the admitted normalized values, format that total as a report, and then store the report. Complete only when an independent readback matches the stored report.",
+      "facts": {
+        "normalized_values": [
+          3,
+          7,
+          11
+        ],
+        "values_admitted_and_complete": true,
+        "calculation_is_program_owned": true,
+        "format_requires_computed_total": true,
+        "store_requires_formatted_report": true,
+        "goal_verified_complete": false
+      },
+      "observation": {
+        "normalized_input_ready": true,
+        "computed_total": null,
+        "formatted_report": null,
+        "stored_report": null
+      },
+      "history": [
+        {
+          "action_id": "pipeline.normalize",
+          "description": "Normalize the synthetic input",
+          "result": {
+            "values": [
+              3,
+              7,
+              11
+            ],
+            "complete": true
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "id": "pipeline.compute",
+          "description": "Compute the exact total in trusted code from the admitted normalized_values. Requires complete normalized input; produces computed_total."
+        },
+        {
+          "id": "pipeline.store",
+          "description": "Store the formatted report. Requires formatted_report to exist. Returns a write acknowledgment; separate readback verifies completion."
+        },
+        {
+          "id": "pipeline.format",
+          "description": "Format a report using computed_total. Requires an actual computed total; does not calculate or store it."
+        }
+      ],
+      "expected_id": "pipeline.compute",
+      "expected_rationale": "Normalization is complete and a total is absent, so the calculation prerequisite must be satisfied next. pipeline.format cannot run without a computed total. pipeline.store cannot run without a formatted report. The model selects the computation tool rather than inventing a total."
+    },
+    {
+      "id": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "goal": "Identify the root-cause code for the failed synthetic job and record a conclusion supported by an authoritative stage-log entry. Do not rerun or repair the job.",
+      "facts": {
+        "job_id": "job-synthetic-09",
+        "authoritative_root_cause_source": "stage_log",
+        "job_mutation_permitted": false,
+        "conclusion_requires_root_cause_code": true,
+        "goal_verified_complete": false
+      },
+      "observation": {
+        "job_status": "failed",
+        "world_revision": "synthetic-static-1",
+        "recorded_conclusion": null
+      },
+      "history": [
+        {
+          "action_id": "job.inspect_status",
+          "description": "Read the synthetic job status",
+          "result": {
+            "job_id": "job-synthetic-09",
+            "failed_stage_id": "stage-transform",
+            "stage_log_available": true,
+            "root_cause_code": null
+          }
+        }
+      ],
+      "candidates": [
+        {
+          "id": "job.record_conclusion",
+          "description": "Record a conclusion for the synthetic job. Requires an admitted authoritative root-cause code from its stage log."
+        },
+        {
+          "id": "job.read_stage_log",
+          "description": "Read the authoritative stage log for the failed_stage_id admitted by job.inspect_status. Returns a root-cause code without mutating the job."
+        },
+        {
+          "id": "job.inspect_status",
+          "description": "Read the same static job status again. The same world_revision and status read provide no root-cause code; the stage log is separate."
+        }
+      ],
+      "expected_id": "job.read_stage_log",
+      "expected_rationale": "Admitted history identifies a failed stage and an available authoritative log, so reading that log can supply the missing root-cause code. job.record_conclusion lacks its evidence prerequisite. job.inspect_status repeats an unchanged query whose result lacks the needed code. No job mutation or guessed diagnosis is authorized."
+    },
+    {
+      "id": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "goal": "Submit the synthetic local enrollment form with name Test Reader, plan Basic, and terms accepted. Complete only when an independently read confirmation contains all three requested values.",
+      "facts": {
+        "surface": "synthetic_local_fixture",
+        "required_name": "Test Reader",
+        "required_plan": "Basic",
+        "required_terms": true,
+        "submission_requires_all_requested_controls": true,
+        "goal_verified_complete": false
+      },
+      "observation": {
+        "name_value": "",
+        "plan_value": "Basic",
+        "terms_checked": true,
+        "confirmation": null
+      },
+      "history": [],
+      "candidates": [
+        {
+          "id": "form.fill_name",
+          "description": "Fill the name control from the program-owned required_name candidate. This does not change the plan, terms, or submit the form."
+        },
+        {
+          "id": "form.submit",
+          "description": "Press the fixture submit control. Requires the requested name, plan, and accepted terms already to match the observed controls."
+        },
+        {
+          "id": "form.choose_plan",
+          "description": "Set the plan control to the requested Basic plan. The observed plan is already Basic. This does not fill the name or submit."
+        }
+      ],
+      "expected_id": "form.fill_name",
+      "expected_rationale": "Only the name is missing. form.fill_name advances that explicit prerequisite. form.submit is premature because the name is blank. form.choose_plan changes an already satisfied control and does not address the missing name. No UI is operated by this decision-only case."
+    },
+    {
+      "id": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "goal": "Prepare the synthetic preview. User priority is explicit: update the title first, then choose the color, then render. The order in which tools are listed is not task priority. Complete only when independent preview readback matches both requested settings.",
+      "facts": {
+        "requested_title": "Synthetic Preview",
+        "requested_color": "blue",
+        "user_priority": [
+          "title",
+          "color",
+          "render"
+        ],
+        "render_requires_requested_title_and_color": true,
+        "goal_verified_complete": false
+      },
+      "observation": {
+        "title": "Untitled",
+        "color": "gray",
+        "rendered": false,
+        "preview_readback": null
+      },
+      "history": [],
+      "candidates": [
+        {
+          "id": "preview.set_color",
+          "description": "Set the color to requested_color using a trusted supplied value. Does not update the title or render. Candidate listing order does not change the explicit user priority."
+        },
+        {
+          "id": "preview.render",
+          "description": "Render a preview. Requires the requested title and color already to be set. A render acknowledgment alone is not readback proof."
+        },
+        {
+          "id": "preview.set_title",
+          "description": "Set the title to requested_title using a trusted supplied value. Does not choose a color or render."
+        }
+      ],
+      "expected_id": "preview.set_title",
+      "expected_rationale": "The explicit user priority makes the unmet title update the next action. preview.set_color is eligible as an isolated change but violates the user's title-first instruction. preview.render is premature because both settings are wrong. Candidate position does not grant priority."
+    }
+  ],
+  "jev_api_calls_during_case_authoring": 0
+}

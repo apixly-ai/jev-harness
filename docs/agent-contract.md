@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.2 for a reproducible release;
+package downloads still require network access. Pin v0.1.3 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.2'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.3'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -45,6 +45,27 @@ first task. Inspect status/complete/archive/telemetry in the returned JSON. Use 
 Use the loop for bounded tasks requiring semantic branches. Exact calculations and fixed
 sequences stay in code; open-ended writing belongs to the primary agent or an explicit
 trusted generation tool. A tool-selection decision is not execution proof or authorization.
+
+## Next-step tool selection
+
+The loop asks Jev to select one offered tool or exit for the **next step**, using the
+entire goal as context. An evidence-gathering or prerequisite action can be suitable even
+when it cannot finish the goal in one call. State each tool's preconditions and expected
+effect, and supply task order, priority and exit criteria in the caller's goal and tool
+contracts. Candidate list position is not priority. The core imposes no general UI-form
+ordering rules; business sequencing belongs to the task author.
+
+The host adds `decision_stage=tool_selection` or `parameter_selection` to loop decision
+context. This marker scopes the question; it does not provide permission or success proof.
+Direct `Engine.decide` filtering without the loop marker retains general candidate-selection
+semantics. Parameters still choose a value conditional on the selected tool's next call.
+Authorization, independent completion verification and typed exit checks remain unchanged.
+
+The [offline](../reports/tool-choice-offline-ab.json) and
+[live](../reports/tool-choice-live-ab.json) tool-choice A/B reports concern six development
+synthetic single-decision cases with normal and reversed candidate order. The probe stops
+before intent. This scope cannot establish full-task, browser or desktop completion, or
+general quality/cost benefits; measured outcomes and usage belong in the reports.
 
 ## Parameter protocol
 

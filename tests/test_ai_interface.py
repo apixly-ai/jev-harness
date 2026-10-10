@@ -40,6 +40,17 @@ def test_machine_spec_exposes_safe_optional_diagnostic(capsys):
     assert diagnostic["bound_values"] is False
 
 
+def test_machine_spec_distinguishes_next_tool_from_record_choice(capsys):
+    assert main(["spec"]) == 0
+    spec = json.loads(capsys.readouterr().out)
+    tool = spec["tool_selection"]
+    assert tool["scope"] == "next_step"
+    assert tool["decision_stage_field"] == "decision_stage"
+    assert tool["requirements_source"] == "caller_task_contract"
+    assert tool["candidate_order_is_priority"] is False
+    assert tool["direct_choice_without_loop_marker"] == "unchanged"
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

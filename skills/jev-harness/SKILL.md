@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.2. Install the repository at `@v0.1.2` for a reproducible release;
+Contract version: 0.1.3. Install the repository at `@v0.1.3` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -22,6 +22,15 @@ are semantic and the available action domain and success condition can be bounde
 6. Tell the user what goal, observation and tool/parameter candidates Jev will receive.
 7. Submit one `jev-harness run ...` call. Inference is billable; use caller-approved credentials.
 8. Parse terminal JSON even on exit 2. Only independently verified done means completion.
+
+Describe each tool's preconditions and expected effect, and put task priority, order and
+exit criteria in the caller's goal and contracts. A next-step tool may gather evidence or
+satisfy a prerequisite without completing the entire goal. Candidate position is not
+priority; keep business rules in the task instead of the core. The host marks loop
+context with decision_stage=tool_selection or parameter_selection. Direct Engine.decide
+filtering without that loop marker keeps general candidate-selection semantics. Parameter
+binding remains conditional on the selected tool; authorization, independent verification
+and exit checks are unchanged.
 
 Admitted non-None tool summaries can advance the next decision when the observation is
 unchanged; unadmitted raw results cannot. In one run, the same observation, action ID and

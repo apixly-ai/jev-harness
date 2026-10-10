@@ -8,7 +8,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.2**; no promise of general task success or universal savings.
+AI product. Early **0.1.3**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,7 +22,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.2'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.3'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -30,7 +30,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.2` only for active development.
+Use `@main` instead of `@v0.1.3` only for active development.
 
 `check-task` checks syntax/export without executing code; it does not prove callback
 correctness. `run` loads caller-trusted Python, not a sandbox. Only `done` exits 0;
@@ -60,6 +60,15 @@ Domains may be static or derived from the observed state. `depends_on` construct
 candidates only after parent arguments are selected. `Option(id, description, value)`
 separates model-visible semantics from the actual bound value. Singleton domains bind
 without inference. Parameters are selected from supplied candidates, never invented.
+
+Tool selection asks for the **next step**. Gathering evidence or satisfying a prerequisite
+can advance the task without completing the entire goal in one call. Describe each tool's
+preconditions, expected effect and applicable exit or priority rules in the caller's goal
+and contracts. The core has no general UI-form ordering rules; candidate position does
+not establish priority. The host supplies `decision_stage=tool_selection` or
+`parameter_selection` to distinguish loop decisions. Direct `Engine.decide` filtering
+without this loop marker retains general candidate-selection semantics. Conditional
+parameter binding, authorization, independent verification and exit checks are unchanged.
 
 ## Two native interfaces
 
@@ -108,6 +117,12 @@ The [decision-diagnostics A/B](reports/decision-diagnostics-ab.json) uses synthe
 offline HTTP mocks with zero real model calls. It checks actionable codes and stage
 metadata; it adds terminal bytes, unknown errors fall back to generic codes, and real
 semantic recovery success has not been measured.
+
+[Tool-choice offline A/B](reports/tool-choice-offline-ab.json) and
+[tool-choice live A/B](reports/tool-choice-live-ab.json) cover six development synthetic
+single-decision cases with normal and reversed candidate order. The probe stops before
+intent, so these reports cannot prove full-task, browser or desktop completion. Read the
+reports for measured outcomes and usage; no general quality or cost benefit is established.
 
 A live Jev/Camofox synthetic form reached the independently checked final state in
 four tool executions. Early attempts requiring review are retained. Desktop live

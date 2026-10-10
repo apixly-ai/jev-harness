@@ -95,3 +95,52 @@ Use a full Git checkout with `.[dev]`; choose a new output file. CI runs this be
 on Python 3.10, 3.12 and 3.14. Source hashes bind the candidate report to its runtime.
 Historical live browser evidence remains from 0.1.0; neither browser nor locked desktop
 was retried for 0.1.2. Search indexing and AI citation remain unproven.
+
+## Domain-neutral next-tool scope (0.1.3)
+
+The core no longer imposes browser form requirements on every task. A host-owned
+`decision_stage` marks loop tool and parameter calls; the tool question asks for the
+next step and permits evidence/prerequisite actions without requiring them to complete
+the whole goal. Direct record selection without the marker keeps its general selection
+semantics. Task authors provide domain constraints, priorities and preconditions.
+
+[Offline protocol A/B](tool-choice-offline-ab.json) and
+[live next-decision A/B](tool-choice-live-ab.json) compare the exact published 0.1.2
+source (`b51614e8acfbac5a64bbad3c7da34a5a3698fa27`) with the candidate. Six fixed
+development cases span artifact handoff, record review, calculation dependencies,
+read-only evidence, a synthetic form and explicit priority. Each has three tool choices
+plus loop exits, tested in original and reversed candidate order with paired arm order.
+The fixtures and expected-ID rationales are included. No held-out calibration is claimed.
+
+The live experiment made 24 logical decisions and 24 network attempts. Every response
+resolved to Jev 1.13.0, with complete reported usage. Both arms selected and admitted the
+expected tool in 12/12 probes, including both permutations of the form case. There were
+no provider failures or uncertainty reviews. Scope protocol checks change from 0/12 to
+12/12; those checks describe request construction, not a gain in semantic accuracy.
+The probes deliberately stop during binding, before intent or execution. Their
+`max_steps/decision_probe_no_execution` terminals are not completed task claims.
+
+There is no measured correctness gain here. Input tokens increase from 13,925 to
+14,828 (903 more); both arms report 972 output tokens. Median complete probe time is
+approximately 0.812 versus 0.810 seconds, too close in this small serial trial to claim
+a speed improvement. Full benchmark time, per-probe timing, context bytes, raw choice,
+admission, actual model and usage remain in the live report. At an explicitly supplied
+input rate R USD/million, known input cost is `tokens * R / 1000000`; no current tariff
+or invoice amount is assumed. Unknown or interrupted attempts remain unknown.
+
+The offline answers are scripted and establish protocol/routing behavior only. New
+behavioral regressions test final request scope, order-independent ID binding, private
+parameter binding, direct-record compatibility and uncertain-attempt accounting.
+Results do not establish full task, browser/desktop execution or general AI recovery.
+Clear development descriptions may overstate quality on incomplete real contracts.
+
+```sh
+python benchmarks/tool_choice.py --output local-results/tool-choice-offline.json
+# Opt-in, billable; configure a supplied private credential through the environment.
+python benchmarks/tool_choice.py --live --output local-results/tool-choice-live.json
+```
+
+Use a full Git checkout and a new output path. The live runner reserves each dispatch,
+checkpoints atomically, stops on provider/runtime failure, and never resumes uncertain
+submissions automatically. CI runs only the offline mode. Native desktop acceptance and
+search indexing remain unverified; no browser UI or desktop operation was repeated.

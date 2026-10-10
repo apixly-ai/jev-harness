@@ -154,8 +154,15 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "parameter_binding": "staged_candidate_choice",
+    "tool_selection": {
+        "scope": "next_step",
+        "decision_stage_field": "decision_stage",
+        "requirements_source": "caller_task_contract",
+        "candidate_order_is_priority": False,
+        "direct_choice_without_loop_marker": "unchanged",
+    },
     "commands": {
         "skill": {"offline": True},
         "spec": {"offline": True},
@@ -194,6 +201,7 @@ SPEC = {
         "history",
         "compacted_steps",
         "budgets",
+        "decision_stage",
     ],
     "progress": {
         "unchanged_observation_requires": "non_none_admitted_result",
