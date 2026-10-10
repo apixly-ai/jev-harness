@@ -12,6 +12,20 @@ def test_machine_spec_is_self_describing(capsys):
     assert spec["script_contract"]["export"] == "workflow"
 
 
+def test_machine_spec_exposes_progress_and_verification_contract(capsys):
+    assert main(["spec"]) == 0
+    spec = json.loads(capsys.readouterr().out)
+    assert spec["progress"]["unchanged_observation_requires"] == "non_none_admitted_result"
+    duplicate = spec["progress"]["duplicate_invocation"]
+    assert duplicate["scope"] == "single_run"
+    assert duplicate["key"] == ["observation", "action_id", "bound_parameters"]
+    assert duplicate["status"] == "blocked"
+    assert duplicate["reason"] == "repeated_action_state"
+    assert duplicate["effect"] == "not_executed"
+    assert spec["verification"]["helper_requires"] == "nonempty_text_or_control_condition"
+    assert spec["verification"]["missing_control_fields"] == "do_not_match"
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

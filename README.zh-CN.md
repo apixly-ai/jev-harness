@@ -6,7 +6,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.0，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.1，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -18,13 +18,15 @@
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@main'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.1'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
 # 付费：在环境中配置 TYPESAFE_API_KEY 或 TYPESAFE_API_KEY_FILE。
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
+
+仅在开发时将 `@v0.1.1` 换成 `@main`。
 
 check-task 只检查语法和导出，不执行代码，也不证明回调正确。run 执行可信 Python，
 不是沙箱。只有 done 退出码 0，退出码 2 仍返回终态 JSON，不确定效果不自动重试。
@@ -62,11 +64,21 @@ Option(id, description, value) 分离模型可见语义与实际值。只有一�
 [上下文管理](docs/context.md) 保留目标、事实、对话、动作账本、近期准入结果与较早
 证据引用。原文留在私有日志，预算溢出返回复核，不静默丢失约束。
 
+准入的工具结果摘要可以在观察不变时推进下一轮判断。未经 result_context 准入的
+原始结果不能推进这种状态。同一次运行中，相同观察、动作 ID 和实际绑定参数最多
+执行一次；重复调用在执行前返回 blocked/repeated_action_state。
+不支持观察固定时反复轮询相同调用；应在有界工具内部处理轮询，或暴露有意义的现场进度。
+
 浏览器和桌面是[工具适配器](docs/adapters.md)，不是运行时里的专用业务程序。
 Camofox 限定来源并使用新鲜观察目标，桌面依赖 macOS Accessibility/Windows UIA。
 调用方授权确切点击动作；身份、业务幂等由脚本负责。
 
 ## 验证范围
+
+verify_state 辅助函数必须有非空文本或至少一个控制条件。每个预期控制字段都必须
+被观察到，字段缺失不等于观察到了 null。
+[证据进展 A/B](reports/evidence-progress-ab.json) 使用合成离线判断，验证结果驱动的
+继续执行和重复调用阻断；不代表真实模型验收或普遍性能收益。
 
 真实 Jev/Camofox 合成表单以四次工具执行达到独立校验终态，早期复核失败保留。
 桌面真实验收尚未证明：本机锁屏阻止了访问，离线测试不能替代。见[完整证据](reports/README.md)。

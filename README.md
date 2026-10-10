@@ -8,7 +8,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.0**; no promise of general task success or universal savings.
+AI product. Early **0.1.1**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,13 +22,15 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@main'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.1'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
 # Billable: configure TYPESAFE_API_KEY or TYPESAFE_API_KEY_FILE in your environment.
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
+
+Use `@main` instead of `@v0.1.1` only for active development.
 
 `check-task` checks syntax/export without executing code; it does not prove callback
 correctness. `run` loads caller-trusted Python, not a sandbox. Only `done` exits 0;
@@ -71,12 +73,25 @@ without inference. Parameters are selected from supplied candidates, never inven
 recent admitted tool results and references to older evidence. Raw evidence stays in
 private journals. Budget overflow returns review instead of silently losing constraints.
 
+An admitted tool-result summary can advance the next decision even when the observation
+is unchanged. Raw results without `result_context` admission cannot advance that state.
+Within one run, the same observation, action ID and actual bound parameters may execute
+only once; a repeated invocation stops before execution with `blocked/repeated_action_state`.
+Polling the same call against a fixed observation is unsupported. Handle polling inside
+a tool with its own bounds, or expose meaningful observed progress.
+
 Browser and desktop are [tool adapters](docs/adapters.md), not application-specific
 programs in the runtime. Camofox uses fresh observed targets and allowed origins;
 desktop uses pinned macOS Accessibility/Windows UIA backends. Caller policy authorizes
 exact click actions; scripts must own business identity and idempotency.
 
 ## Verification, not promises
+
+The `verify_state` helper requires nonempty text or at least one control condition.
+Every expected control field must be observed; a missing field does not establish `null`.
+The [evidence-progress A/B](reports/evidence-progress-ab.json) uses synthetic offline
+decisions to check result-driven continuation and repeated-call blocking. It is not live
+model acceptance or evidence of general performance gains.
 
 A live Jev/Camofox synthetic form reached the independently checked final state in
 four tool executions. Early attempts requiring review are retained. Desktop live

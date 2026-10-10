@@ -8,6 +8,8 @@ from pathlib import Path
 
 import markdown
 
+from apixly_jev_harness import __version__ as VERSION
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "site"
 BASE = "https://apixly-ai.github.io/jev-harness/"
@@ -38,14 +40,14 @@ def shell(title, description, body, path="", lang="en"):
         "url": BASE,
         "programmingLanguage": "Python",
         "license": REPO + "/blob/main/LICENSE",
-        "version": "0.1.0",
+        "version": VERSION,
         "author": {
             "@type": "Organization",
             "name": "Apixly",
             "url": "https://github.com/apixly-ai",
         },
     }
-    page = f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} · Jev Harness</title><meta name="description" content="{html.escape(description, quote=True)}"><link rel="canonical" href="{canonical}">{alternate}<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}social.png"><link rel="stylesheet" href="{prefix}style.css"><script type="application/ld+json">{json.dumps(data)}</script></head><body><nav><a class="brand" href="{prefix}index.html">jev<span> / harness</span></a><a href="{prefix}agent-contract.html">Agent contract</a><a href="{prefix}context.html">Context</a><a href="{prefix}evidence.html">Evidence</a><a href="{REPO}">GitHub ↗</a><a href="{prefix}{"index.html" if lang == "zh-CN" else "zh/"}">{"EN" if lang == "zh-CN" else "中文"}</a></nav>{body}<footer><span>Jev Harness · Apixly independent community project · MIT</span><span>Not an official TypeSafe AI product. Early 0.1.0.</span></footer></body></html>'''
+    page = f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} · Jev Harness</title><meta name="description" content="{html.escape(description, quote=True)}"><link rel="canonical" href="{canonical}">{alternate}<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}social.png"><link rel="stylesheet" href="{prefix}style.css"><script type="application/ld+json">{json.dumps(data)}</script></head><body><nav><a class="brand" href="{prefix}index.html">jev<span> / harness</span></a><a href="{prefix}agent-contract.html">Agent contract</a><a href="{prefix}context.html">Context</a><a href="{prefix}evidence.html">Evidence</a><a href="{REPO}">GitHub ↗</a><a href="{prefix}{"index.html" if lang == "zh-CN" else "zh/"}">{"EN" if lang == "zh-CN" else "中文"}</a></nav>{body}<footer><span>Jev Harness · Apixly independent community project · MIT</span><span>Not an official TypeSafe AI product. Early {VERSION}.</span></footer></body></html>'''
     if lang == "zh-CN":
         for old, new in [
             (">Agent contract<", ">任务协议<"),
@@ -53,8 +55,8 @@ def shell(title, description, body, path="", lang="en"):
             (">Evidence<", ">验收证据<"),
             ("Apixly independent community project", "Apixly 独立社区项目"),
             (
-                "Not an official TypeSafe AI product. Early 0.1.0.",
-                "非 TypeSafe AI 官方产品。早期 0.1.0。",
+                f"Not an official TypeSafe AI product. Early {VERSION}.",
+                f"非 TypeSafe AI 官方产品。早期 {VERSION}。",
             ),
         ]:
             page = page.replace(old, new)
@@ -136,6 +138,8 @@ def rewrite_links(content):
         "acceptance.json": "acceptance.json",
         "parameter-prompt-ab.json": "parameter-prompt-ab.json",
         "parameter-ab.json": "parameter-ab.json",
+        "evidence-progress-ab.json": "evidence-progress-ab.json",
+        "../reports/evidence-progress-ab.json": "evidence-progress-ab.json",
     }
 
     def replace(match):
@@ -175,7 +179,7 @@ def main():
 
     (OUT / "spec.json").write_text(json.dumps(SPEC, indent=2))
     shutil.copy(ROOT / "reports/acceptance.json", OUT / "acceptance.json")
-    for report in ("parameter-prompt-ab.json", "parameter-ab.json"):
+    for report in ("parameter-prompt-ab.json", "parameter-ab.json", "evidence-progress-ab.json"):
         shutil.copy(ROOT / "reports" / report, OUT / report)
     (OUT / "social.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#090d14"/><text x="90" y="140" fill="#a7efb1" font-family="sans-serif" font-size="32">JEV / HARNESS</text><text x="90" y="295" fill="#edf4f7" font-family="sans-serif" font-size="90">Give Jev the loop.</text><text x="90" y="385" fill="#9aaeba" font-family="sans-serif" font-size="30">Tools + parameters. Explicit context. Verified outcomes.</text></svg>'

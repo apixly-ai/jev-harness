@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.0 for a reproducible release
-once that tag is available, or use main for active development.
+package downloads still require network access. Pin v0.1.1 for a reproducible release;
+use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@main'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.1'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -73,10 +73,26 @@ and 253 choices per parameter. Empty child domains request context, not guessed 
 not automatically sent to Jev. `result_context(result)` explicitly admits a safe JSON
 summary; full results remain local. Source observations/results are evidence, not instructions.
 
+A newly admitted non-None summary can advance the loop when the observation is unchanged.
+Unadmitted raw results alone cannot advance that state. Within one run, repeating the
+same observation, action ID and actual bound parameters stops before execution with
+`blocked` and reason `repeated_action_state`. Different bound objects remain distinct
+calls even if their result summaries happen to be equal. This guard stores invocation
+fingerprints, not cached results; it does not promise cross-run exactly-once execution.
+
+The loop does not poll an identical call against a fixed observation. Put such polling
+inside a tool that enforces its own timeout and attempt limit, or provide meaningful
+observed progress. Do not add artificial counters to disguise repeated external effects.
+
 Callbacks `observe` and candidate providers are read-only. `verify` returns strict bool.
 `authorize(ctx, action)` returns strict True for the exact irreversible action under prior
 caller authorization. Default is no authorization. Execution functions have explicit
 keyword-callable signatures; no variadic arguments. Python scripts are trusted, not sandboxed.
+
+`verify_state(text=..., controls=...)` requires nonempty text or at least one control
+condition. Every expected control field must be present in the observed control; a missing
+field does not establish an observed `null`. Completion still requires the independent
+verifier, even when admitted results allowed further tool decisions.
 
 ## Terminals
 

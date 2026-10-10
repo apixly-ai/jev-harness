@@ -244,6 +244,7 @@ class Engine:
         steps = 0
         pending = None
         executed = False
+        executed_bindings = set()
         with os.fdopen(fd, "w", encoding="utf-8") as journal:
 
             def log(event, **data):
@@ -417,8 +418,16 @@ class Engine:
                         return finish("stale", action_id=action.id)
                     if expired():
                         return finish("budget_exceeded")
+                    invocation = _fingerprint(
+                        {"state": state, "action_id": action.id, "params": action.params}
+                    )
+                    if invocation in executed_bindings:
+                        return finish(
+                            "blocked", reason="repeated_action_state", action_id=action.id
+                        )
                     # Durable intent precedes any effect. Never retry an uncertain execution.
                     log("intent", action_id=action.id, params=action.params)
+                    executed_bindings.add(invocation)
                     executed = True
                     result = workflow.execute(ctx, copy.deepcopy(action))
                     steps += 1
@@ -438,7 +447,9 @@ class Engine:
                     if _fingerprint(state) == _fingerprint(previous):
                         if verified(state):
                             return finish("done")
-                        return finish("blocked", reason="unchanged_state")
+                        if admitted is None:
+                            return finish("blocked", reason="unchanged_state")
+                        log("progress", observation_changed=False, admitted_evidence=True)
                     executed = False
                     pending = None
             except DecisionStop as error:

@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
@@ -17,6 +19,8 @@ jobs:
       - run: ruff check src tests benchmarks scripts
       - run: ruff format --check src tests benchmarks scripts
       - run: pytest --cov=apixly_jev_harness
+      - run: python benchmarks/parameters.py --output local-results/parameter-ab.json
+      - run: python benchmarks/progress.py --output local-results/evidence-progress-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

@@ -5,6 +5,25 @@ messages, current observation, action/result history and budgets. Jev receives t
 sections plus available tools and parameter descriptions. It does not inherit an AI
 host's conversation implicitly.
 
+An execution may add useful evidence without changing the external observation. A
+non-None safe summary admitted through `result_context` is recorded in history and can
+advance the next decision in that case. Raw results remain available locally in
+`ctx.results` and the journal, but without admission they cannot advance an unchanged
+observation. Admission does not establish task completion; the independent verifier
+must still pass.
+
+Within one run, the tuple of observation, action ID and actual bound parameters identifies
+an invocation. A repeated invocation returns `blocked/repeated_action_state` before
+execution. Different bound objects can supply separate evidence even if the summaries
+are identical. Fingerprints are execution guards, not result caches. This is not a
+cross-run idempotency or exactly-once guarantee.
+
+Repeated polling of the same call against a fixed observation is unsupported. Implement
+polling inside a trusted tool with an explicit timeout and attempt bound, or expose
+meaningful observed progress. Growing history alone does not authorize another identical
+invocation. See the [synthetic offline A/B](../reports/evidence-progress-ab.json); these
+checks do not establish live model success or universal performance improvements.
+
 The default ContextPolicy keeps recent admitted results for eight actions and retains
 an ordered ledger for all older actions, with `step:N` evidence references. Full evidence
 stays in the private JSONL journal and `ctx.results`. Goal, constraints, facts and admitted

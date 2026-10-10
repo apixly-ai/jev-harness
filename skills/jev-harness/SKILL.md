@@ -5,6 +5,9 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
+Contract version: 0.1.1. Install the repository at `@v0.1.1` for a reproducible release;
+use `@main` for active development.
+
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
 or a replacement for the primary AI. Prefer it when repeated next-tool/parameter decisions
 are semantic and the available action domain and success condition can be bounded.
@@ -19,6 +22,17 @@ are semantic and the available action domain and success condition can be bounde
 6. Tell the user what goal, observation and tool/parameter candidates Jev will receive.
 7. Submit one `jev-harness run ...` call. Inference is billable; use caller-approved credentials.
 8. Parse terminal JSON even on exit 2. Only independently verified done means completion.
+
+Admitted non-None tool summaries can advance the next decision when the observation is
+unchanged; unadmitted raw results cannot. In one run, the same observation, action ID and
+actual bound parameters execute at most once. A repeat stops before execution with
+`blocked/repeated_action_state`; history growth is not permission to repeat an effect.
+Polling an identical call against a fixed observation is unsupported. Handle it inside
+a trusted tool with bounded attempts/time, or expose meaningful observed progress.
+
+When using `verify_state`, supply nonempty text or at least one control condition.
+Each expected control field must be observed; a missing field is not observed `null`.
+Admitted results and model exit choices never replace independent completion verification.
 
 Do not retry ambiguous external execution. Caller tools own identity, authorization,
 idempotency, business transactions and reconciliation. Scripts are trusted Python, not a

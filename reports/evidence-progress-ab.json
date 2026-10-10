@@ -1,0 +1,1114 @@
+{
+  "mode": "offline-scripted",
+  "baseline_commit": "e00bb1c1c6e063030446e7e795d33cc371f21032",
+  "candidate": "working tree at invocation; published with its source commit",
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "90488ee76d210e08497b74faa723cc68cf387bb8e266719097d592d9b885b14d",
+    "src/apixly_jev_harness/backend.py": "898029892ecfd98e625a9674a88c6825dbf6e3b419d24b9ed02bbd217d192913",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/engine.py": "801825e98375b2c487f95aadec3d3f707eb027a585e76477c3018ee855e55683",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "d8429a53297fdedc6acb620a43c8f82a48b914664a7b1b9e2c2f3027b87a66da",
+    "src/apixly_jev_harness/task_cli.py": "9053ab4d76bc62be3dc29c7725c5803605afab9faae27976f17fb3c8352820e5",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "python_version": "3.14.2",
+  "reproduction": "python benchmarks/progress.py --output local-results/evidence-progress-ab.json",
+  "scope": "Seven fixed synthetic scenarios, three paired repeats. No semantic accuracy or native UI measurement. Decisions and inference telemetry are scripted; actual model calls are zero.",
+  "negative_results": "Fresh admitted evidence needs another decision even when observation is unchanged, increasing decision/context overhead. Identical invocation under identical observed state cannot be used for repeated polling. No cross-run deduplication promise.",
+  "cost_conversion": "Zero paid calls; no tariff or savings assumed. Timing excludes interpreter/import/snapshot setup and includes task creation, decisions, tool callbacks and private journal writes.",
+  "summary": {
+    "baseline": {
+      "correct": 9,
+      "runs": 21,
+      "statuses": {
+        "blocked": 15,
+        "done": 6
+      },
+      "median_whole_operation_seconds": 0.0010544579999987036,
+      "returned_context_bytes": 10367,
+      "scripted_decision_bytes": 27360,
+      "scripted_decisions": 15,
+      "private_terminal_exposures": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    "candidate": {
+      "correct": 21,
+      "runs": 21,
+      "statuses": {
+        "blocked": 12,
+        "done": 6,
+        "invalid_configuration": 3
+      },
+      "median_whole_operation_seconds": 0.0013544169996748678,
+      "returned_context_bytes": 12391,
+      "scripted_decision_bytes": 57333,
+      "scripted_decisions": 30,
+      "private_terminal_exposures": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "read_then_act",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0007190420001279563,
+      "returned_context_bytes": 550,
+      "scripted_decision_bytes": 1729,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "read_then_act",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 2,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0018318750007892959,
+      "returned_context_bytes": 697,
+      "scripted_decision_bytes": 3645,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "read_then_act",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 2,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0015486249976675026,
+      "returned_context_bytes": 698,
+      "scripted_decision_bytes": 3645,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "read_then_act",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0011757910033338703,
+      "returned_context_bytes": 549,
+      "scripted_decision_bytes": 1729,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "read_then_act",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0011907500011147931,
+      "returned_context_bytes": 548,
+      "scripted_decision_bytes": 1728,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "read_then_act",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 2,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0016647080046823248,
+      "returned_context_bytes": 698,
+      "scripted_decision_bytes": 3645,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "different_objects_same_result",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0012058330030413345,
+      "returned_context_bytes": 564,
+      "scripted_decision_bytes": 2027,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "different_objects_same_result",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 2,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.001824832994316239,
+      "returned_context_bytes": 714,
+      "scripted_decision_bytes": 4277,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "different_objects_same_result",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 2,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.001746540998283308,
+      "returned_context_bytes": 713,
+      "scripted_decision_bytes": 4277,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "different_objects_same_result",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0011945409933105111,
+      "returned_context_bytes": 565,
+      "scripted_decision_bytes": 2028,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "different_objects_same_result",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0013630840039695613,
+      "returned_context_bytes": 565,
+      "scripted_decision_bytes": 2028,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "different_objects_same_result",
+      "expected": {
+        "status": "done",
+        "effects": 2
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 2,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0019005830035894178,
+      "returned_context_bytes": 713,
+      "scripted_decision_bytes": 4277,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "duplicate_query",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.001015624999126885,
+      "returned_context_bytes": 551,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "duplicate_query",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "repeated_action_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0013465839947457425,
+      "returned_context_bytes": 763,
+      "scripted_decision_bytes": 3799,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "duplicate_query",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "repeated_action_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0016033749998314306,
+      "returned_context_bytes": 763,
+      "scripted_decision_bytes": 3800,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "duplicate_query",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0011947079983656295,
+      "returned_context_bytes": 551,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "duplicate_query",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0008406250053667463,
+      "returned_context_bytes": 551,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "duplicate_query",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "repeated_action_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0015867910042288713,
+      "returned_context_bytes": 763,
+      "scripted_decision_bytes": 3800,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "duplicate_known_effect",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0010007090022554621,
+      "returned_context_bytes": 557,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "duplicate_known_effect",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "repeated_action_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0015412920038215816,
+      "returned_context_bytes": 769,
+      "scripted_decision_bytes": 3800,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "duplicate_known_effect",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "repeated_action_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0012093340046703815,
+      "returned_context_bytes": 770,
+      "scripted_decision_bytes": 3800,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "duplicate_known_effect",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0010544579999987036,
+      "returned_context_bytes": 558,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "duplicate_known_effect",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0012787079976988025,
+      "returned_context_bytes": 558,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "duplicate_known_effect",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "repeated_action_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.001349334001133684,
+      "returned_context_bytes": 769,
+      "scripted_decision_bytes": 3798,
+      "scripted_decisions": 2,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "unadmitted_result",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0013056660027359612,
+      "returned_context_bytes": 553,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "unadmitted_result",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0009204160014633089,
+      "returned_context_bytes": 554,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "unadmitted_result",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.001286166996578686,
+      "returned_context_bytes": 554,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "unadmitted_result",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0012319170054979622,
+      "returned_context_bytes": 551,
+      "scripted_decision_bytes": 1787,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "unadmitted_result",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0012992499978281558,
+      "returned_context_bytes": 553,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "unadmitted_result",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.001331041996309068,
+      "returned_context_bytes": 553,
+      "scripted_decision_bytes": 1788,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "empty_verifier",
+      "expected": {
+        "status": "invalid_configuration",
+        "effects": 0
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 0,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0007257499964907765,
+      "returned_context_bytes": 338,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "empty_verifier",
+      "expected": {
+        "status": "invalid_configuration",
+        "effects": 0
+      },
+      "status": "invalid_configuration",
+      "reason": "completion_condition_required",
+      "effects": 0,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.00012645799870369956,
+      "returned_context_bytes": 78,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "empty_verifier",
+      "expected": {
+        "status": "invalid_configuration",
+        "effects": 0
+      },
+      "status": "invalid_configuration",
+      "reason": "completion_condition_required",
+      "effects": 0,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.00012783300189767033,
+      "returned_context_bytes": 78,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "empty_verifier",
+      "expected": {
+        "status": "invalid_configuration",
+        "effects": 0
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 0,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0007549580041086301,
+      "returned_context_bytes": 338,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "empty_verifier",
+      "expected": {
+        "status": "invalid_configuration",
+        "effects": 0
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 0,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0008285830044769682,
+      "returned_context_bytes": 338,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "empty_verifier",
+      "expected": {
+        "status": "invalid_configuration",
+        "effects": 0
+      },
+      "status": "invalid_configuration",
+      "reason": "completion_condition_required",
+      "effects": 0,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.00011866700515383855,
+      "returned_context_bytes": 78,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "missing_is_not_null",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 0,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0007895000017015263,
+      "returned_context_bytes": 342,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "missing_is_not_null",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0013544169996748678,
+      "returned_context_bytes": 556,
+      "scripted_decision_bytes": 1802,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "missing_is_not_null",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0011426659984863363,
+      "returned_context_bytes": 555,
+      "scripted_decision_bytes": 1802,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "missing_is_not_null",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 0,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.000698207993991673,
+      "returned_context_bytes": 343,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "runtime_version": "0.1.0",
+      "scenario": "missing_is_not_null",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "done",
+      "reason": null,
+      "effects": 0,
+      "correct": false,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0006107080043875612,
+      "returned_context_bytes": 344,
+      "scripted_decision_bytes": 0,
+      "scripted_decisions": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "runtime_version": "0.1.1",
+      "scenario": "missing_is_not_null",
+      "expected": {
+        "status": "blocked",
+        "effects": 1
+      },
+      "status": "blocked",
+      "reason": "unchanged_state",
+      "effects": 1,
+      "correct": true,
+      "private_payload_in_terminal": false,
+      "whole_operation_seconds": 0.0013869160029571503,
+      "returned_context_bytes": 555,
+      "scripted_decision_bytes": 1802,
+      "scripted_decisions": 1,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}
