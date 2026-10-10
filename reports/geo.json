@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-11",
+  "audit_kind": "static_metadata_and_http",
+  "summary": {
+    "page_count": 7,
+    "page_failure_count": 0,
+    "sitemap_failure_count": 0,
+    "excluded_count": 0,
+    "duplicate_count": 1,
+    "unfetched_count": 0
+  },
+  "duplicate_note": "The seed homepage also occurs in the sitemap; this is URL acquisition deduplication, not duplicate content.",
+  "pages": [
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/",
+      "http_status": 200,
+      "title": "Jev-native agent loops for AI-authored tasks · Jev Harness",
+      "h1": [
+        "Give Jevthe loop."
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/",
+          "in_scope": true
+        }
+      ],
+      "language": "en"
+    },
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/zh/",
+      "http_status": 200,
+      "title": "Jev-native agent loops for AI-authored tasks · Jev Harness",
+      "h1": [
+        "让 Jev拥有执行循环。"
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/zh/",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/zh/",
+          "in_scope": true
+        }
+      ],
+      "language": "zh-CN"
+    },
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/agent-contract.html",
+      "http_status": 200,
+      "title": "AI-native task contract · Jev Harness",
+      "h1": [
+        "The AI-native task contract"
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/agent-contract.html",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/agent-contract.html",
+          "in_scope": true
+        }
+      ],
+      "language": "en"
+    },
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/context.html",
+      "http_status": 200,
+      "title": "Context management · Jev Harness",
+      "h1": [
+        "Context management for Jev decisions"
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/context.html",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/context.html",
+          "in_scope": true
+        }
+      ],
+      "language": "en"
+    },
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/adapters.html",
+      "http_status": 200,
+      "title": "Browser and desktop adapters · Jev Harness",
+      "h1": [
+        "Browser and desktop tool adapters"
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/adapters.html",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/adapters.html",
+          "in_scope": true
+        }
+      ],
+      "language": "en"
+    },
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/architecture.html",
+      "http_status": 200,
+      "title": "Architecture and references · Jev Harness",
+      "h1": [
+        "Architecture and prior art"
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/architecture.html",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/architecture.html",
+          "in_scope": true
+        }
+      ],
+      "language": "en"
+    },
+    {
+      "url": "https://apixly-ai.github.io/jev-harness/evidence.html",
+      "http_status": 200,
+      "title": "Acceptance evidence · Jev Harness",
+      "h1": [
+        "Acceptance evidence and scope"
+      ],
+      "canonical": [
+        {
+          "declared_url": "https://apixly-ai.github.io/jev-harness/evidence.html",
+          "trusted": false,
+          "resolved_url": "https://apixly-ai.github.io/jev-harness/evidence.html",
+          "in_scope": true
+        }
+      ],
+      "language": "en"
+    }
+  ],
+  "sitemap_status": 200,
+  "indexing": "unknown",
+  "search_discovery": "not established",
+  "ai_citation": "not_measured",
+  "adoption": "not_measured",
+  "queries": [
+    "Jev Harness Apixly",
+    "Jev agent loop tool parameter candidates"
+  ],
+  "search_entrypoint": "web search tool; not a geographic ranking measurement",
+  "source_guidance": "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+  "limitations": "HTTP and metadata success do not prove indexing, AI citation or recommendation."
+}

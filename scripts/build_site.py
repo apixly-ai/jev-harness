@@ -153,6 +153,8 @@ def main():
     (OUT / "zh").mkdir(exist_ok=True)
     shutil.copy(ROOT / "web/style.css", OUT / "style.css")
     shutil.copy(ROOT / "web/social.png", OUT / "social.png")
+    key = (ROOT / "web/indexnow-key.txt").read_text().strip()
+    (OUT / (key + ".txt")).write_text(key)
     (OUT / "index.html").write_text(home())
     (OUT / "zh/index.html").write_text(home(True))
     for slug, (source, title) in PAGES.items():
