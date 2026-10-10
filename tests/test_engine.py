@@ -335,3 +335,14 @@ def test_control_stop_after_effect_is_uncertain(engine):
     result = engine.run(workflow, goal="Increment")
     assert result["status"] == "execution_uncertain"
     assert len(workflow.calls) == 1
+
+
+def test_program_stop_cannot_bypass_completion_verifier(engine):
+    from apixly_jev_harness.engine import DecisionStop
+
+    class FalseComplete(Counter):
+        def candidates(self, ctx, state):
+            raise DecisionStop("done", "not independently verified")
+
+    result = engine.run(FalseComplete(), goal="Reach two")
+    assert result["complete"] is False

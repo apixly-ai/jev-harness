@@ -53,6 +53,18 @@ def missing_context(spec):
 
 class DecisionStop(ValueError):
     def __init__(self, status, reason):
+        if status not in {
+            "needs_context",
+            "needs_review",
+            "needs_confirmation",
+            "blocked",
+            "stale",
+            "max_steps",
+            "budget_exceeded",
+            "execution_uncertain",
+            "failed",
+        }:
+            raise ValueError("stop_cannot_claim_completion")
         self.status, self.reason = status, reason
         super().__init__(reason)
 
