@@ -134,6 +134,8 @@ def rewrite_links(content):
         "adapters.md": "adapters.html",
         "agent-contract.md": "agent-contract.html",
         "acceptance.json": "acceptance.json",
+        "parameter-prompt-ab.json": "parameter-prompt-ab.json",
+        "parameter-ab.json": "parameter-ab.json",
     }
 
     def replace(match):
@@ -173,6 +175,8 @@ def main():
 
     (OUT / "spec.json").write_text(json.dumps(SPEC, indent=2))
     shutil.copy(ROOT / "reports/acceptance.json", OUT / "acceptance.json")
+    for report in ("parameter-prompt-ab.json", "parameter-ab.json"):
+        shutil.copy(ROOT / "reports" / report, OUT / report)
     (OUT / "social.svg").write_text(
         '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#090d14"/><text x="90" y="140" fill="#a7efb1" font-family="sans-serif" font-size="32">JEV / HARNESS</text><text x="90" y="295" fill="#edf4f7" font-family="sans-serif" font-size="90">Give Jev the loop.</text><text x="90" y="385" fill="#9aaeba" font-family="sans-serif" font-size="30">Tools + parameters. Explicit context. Verified outcomes.</text></svg>'
     )

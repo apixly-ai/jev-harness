@@ -250,6 +250,7 @@ class Task(Workflow):
                     + spec.description,
                     {
                         "selected_tool": action.params["tool"],
+                        "tool_contract": self.describe()[action.params["tool"]],
                         "parameter": key,
                         "parameter_description": spec.description,
                         "bound_references": references,
