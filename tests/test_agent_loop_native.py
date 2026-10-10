@@ -53,3 +53,22 @@ def test_oversized_context_remains_review_without_provider(monkeypatch):
     result = AgentLoop().run(task, goal="Read")
     assert result["status"] == "needs_review"
     assert result["telemetry"]["requests"] == 0
+
+
+def test_failed_transport_does_not_claim_requested_model_as_resolved(monkeypatch):
+    from apixly_jev_harness import Engine
+
+    def unavailable(items, **kwargs):
+        return {
+            "ok": False,
+            "usage_complete": False,
+            "usage": {"input_tokens": 0, "output_tokens": 0},
+            "results": [{"id": "choose", "ok": False, "model": "jev-1.13.0"}],
+        }
+
+    monkeypatch.setattr("apixly_jev_harness.backend.native_run", unavailable)
+    packet = Engine().decide(
+        [{"id": "a", "text": "Act"}], goal="Choose", analysis_spec={"mode": "choose"}
+    )
+    assert packet["telemetry"]["model_resolved"] is None
+    assert packet["telemetry"]["models"] == {}

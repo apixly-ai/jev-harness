@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-11",
+  "url_count": 7,
+  "urls": [
+    "https://apixly-ai.github.io/jev-harness/",
+    "https://apixly-ai.github.io/jev-harness/zh/",
+    "https://apixly-ai.github.io/jev-harness/agent-contract.html",
+    "https://apixly-ai.github.io/jev-harness/context.html",
+    "https://apixly-ai.github.io/jev-harness/adapters.html",
+    "https://apixly-ai.github.io/jev-harness/architecture.html",
+    "https://apixly-ai.github.io/jev-harness/evidence.html"
+  ],
+  "proof_verified": true,
+  "indexing": "unknown",
+  "http_status": 202,
+  "disposition": "received_or_pending_validation"
+}

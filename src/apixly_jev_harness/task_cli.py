@@ -31,8 +31,8 @@ workflow = Task(
 
 @workflow.tool(
     "Increase the value toward target without exceeding it",
-    parameters={"amount": Parameter("Choose the largest allowed increment to reach target with the fewest tool calls",
-        lambda ctx, seen: [n for n in (1, 2) if seen["value"] + n <= seen["target"]])},
+    parameters={"amount": Parameter("Program-computed increment bounded by the remaining target",
+        lambda ctx, seen: [min(2, seen["target"] - seen["value"])])},
     result_context=lambda result: result,
 )
 def increment(amount):

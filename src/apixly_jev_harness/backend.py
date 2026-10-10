@@ -128,12 +128,15 @@ def evaluate(parts, task, workers, spec):
         for p in parts
     }
     telemetry = {k: v for k, v in result.items() if k != "results"}
-    model = row.get("model")
+    model = row.get("model") if row.get("ok") else None
+    if not result.get("usage_complete"):
+        telemetry["reported_usage"] = result.get("usage")
+        telemetry["usage"] = None
     telemetry.update(
         selection=answer,
         model_requested=spec.get("model", "jev-1.13.0"),
         model_resolved=model,
-        models={model: result.get("usage")} if model else {},
+        models={model: result.get("usage")} if model and result.get("usage_complete") else {},
         selection_review_reasons=reasons,
     )
     return judgments, telemetry

@@ -211,6 +211,48 @@
       },
       "reason": null,
       "verification": "code-observed counter reaches supplied target"
+    },
+    {
+      "attempt": "browser-release",
+      "case": "browser",
+      "status": "done",
+      "steps": 4,
+      "whole_operation_seconds": 7.389547790997312,
+      "requests": 7,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 14191,
+        "output_tokens": 455
+      },
+      "actual_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 14191,
+          "output_tokens": 455
+        }
+      },
+      "reason": null,
+      "verification": "independent code/observable final state"
+    },
+    {
+      "attempt": "onboarding-final",
+      "case": "generated_task_template",
+      "status": "done",
+      "steps": 2,
+      "whole_operation_seconds": 1.2455607920055627,
+      "requests": 2,
+      "usage_complete": true,
+      "usage": {
+        "input_tokens": 1844,
+        "output_tokens": 130
+      },
+      "actual_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 1844,
+          "output_tokens": 130
+        }
+      },
+      "reason": null,
+      "verification": "independent code/observable final state"
     }
   ],
   "browser_final_verifier": "Draft ready: Mira | London | flexible=true and observed field/control state",

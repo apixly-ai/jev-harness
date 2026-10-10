@@ -55,7 +55,9 @@ separate a safe model-visible label from the actual value. Do not put credential
 model-visible labels or observations.
 
 `depends_on=('customer',)` constructs the job domain only after customer is selected.
-The graph must be acyclic and name existing parameters. Every returned value belongs to
+The graph must be acyclic and name existing parameters. Describe a parameter for the
+selected tool’s next invocation; do not ask one value to finish the whole task.
+Compute exact arithmetic and fixed values in code; singleton domains need no inference. Every returned value belongs to
 an actually supplied candidate. No model-generated tool names, paths, scripts or selectors.
 No arbitrary free-text argument generation or general JSON Schema validation in v0.1.
 Tools must validate business conditions themselves.
