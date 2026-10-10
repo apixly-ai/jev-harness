@@ -178,3 +178,40 @@ Use a full Git checkout with `.[dev]` and a new output path. CI repeats offline 
 under Python 3.10, 3.12 and 3.14. No live Jev matrix, browser UI, locked desktop or URL
 submission was repeated for this change. Native desktop and search indexing remain
 unverified.
+
+## Run configuration admission (0.1.5)
+
+CLI `run` now parses and validates configuration before creating, registering or
+loading the trusted task module. The engine shares the same pure validation: nonempty
+goal, positive step/time budgets, object inputs/context, valid admitted message lists,
+required-path syntax and finite UTF-8-encodable JSON. CLI explicit JSON `null` is rejected;
+Python API omitted/None arguments still supply the documented defaults. Falsey values
+of the wrong type no longer silently become defaults. Missing facts for a valid required
+path remain the normal runtime `needs_context` outcome.
+
+The [offline preflight A/B](run-preflight-ab.json) compares exact published 0.1.4 source
+(`26cb69ae54e879043e6f18511da1f39446337de1`) with the candidate on 26 fixed synthetic
+configurations, three paired repetitions each. Correct terminal classification changes
+from 66/78 to 78/78; correct module-loading policy changes from 21/78 to 78/78. Baseline
+invalid configurations create 57 synthetic import markers, while the candidate creates
+zero. Both arms still load the valid script in nine probes, including three valid
+missing-fact configurations that return `needs_context`. Reported configuration-failure
+metadata, per-run timing, returned bytes and every outcome remain in the report.
+
+Negative results and scope: preflight adds local validation and diagnostic bytes. Valid
+configuration still loads caller-trusted Python and can have top-level effects; this is
+not a sandbox or a module-safety guarantee. Archive, credential, runtime, workflow and
+business conditions retain their existing validation. Static `check-task` remains a
+separate non-executing compile/assignment check. The synthetic complete state needs no
+model decisions; both arms use zero actual model/UI/network calls, and no cost or whole
+task performance benefit is claimed. Shared validation also tightens wrong falsey SDK
+types and invalid Unicode before observation/journal creation; the SDK None-default
+and one-pass required-path cases have dedicated regressions.
+
+```sh
+python benchmarks/run_preflight.py --output local-results/run-preflight-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI runs only offline cases
+under Python 3.10, 3.12 and 3.14. No previous live matrix, UI operation, locked desktop
+or URL submission was repeated. Native desktop and search indexing remain unverified.

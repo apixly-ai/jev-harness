@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.4. Install the repository at `@v0.1.4` for a reproducible release;
+Contract version: 0.1.5. Install the repository at `@v0.1.5` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -34,6 +34,22 @@ decoding failure. source_warnings contains only python_source_warning codes and 
 without warning/source text in output or stderr. See the contract's Static task checking
 section and reports/static-check-ab.json for fixed offline samples with no checked-script
 execution, model calls or real UI.
+
+`run` validates configuration before creating/registering/loading the task module: parse
+inputs/context/messages JSON, use a nonempty goal, positive integer max_steps, positive
+finite timeout, dict inputs/context, user/assistant message list with string content, valid
+required_context paths and finite JSON data. CLI JSON must have object inputs/context and
+list messages; explicit null is rejected. Only omitted/None Python API fields supply
+defaults; wrong false-valued types are rejected. Goal and these fields must serialize as
+finite JSON and encode as UTF-8; isolated surrogates are rejected.
+Required-path iterables are normalized once; valid paths
+missing facts remain runtime needs_context. Invalid CLI configuration returns
+failed/phase configuration/code invalid_run_configuration, script_loaded=false,
+model_calls=0 and error_type, without raw values or exception text. Valid configuration
+still imports trusted Python and can have top-level effects. Preflight is not a sandbox
+or a workflow/dependency/archive/credential/business check, and cannot guarantee no later
+effects or success. See the contract and reports/run-preflight-ab.json; its synthetic
+offline import-marker checks use model-free workflows and no actual API or UI.
 
 Describe each tool's preconditions and expected effect, and put task priority, order and
 exit criteria in the caller's goal and contracts. A next-step tool may gather evidence or

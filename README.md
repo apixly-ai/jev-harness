@@ -8,7 +8,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.4**; no promise of general task success or universal savings.
+AI product. Early **0.1.5**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,7 +22,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.4'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.5'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -30,7 +30,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.4` only for active development.
+Use `@main` instead of `@v0.1.5` only for active development.
 
 `check-task` reads UTF-8, parses and compiles Python, and requires an explicit top-level
 assignment to `workflow`; `workflow: object` alone does not bind it. It never executes the
@@ -38,7 +38,19 @@ script, loads its module, imports its dependencies or invokes callbacks. Passing
 prove runtime validity or compatibility with another Python version or warning policy.
 See the [static-check contract](docs/agent-contract.md#static-task-checking) and
 [offline A/B](reports/static-check-ab.json), which executes no checked scripts and uses
-zero models or real UI. `run` loads caller-trusted Python, not a sandbox. Only `done` exits 0;
+zero models or real UI.
+
+`run` validates JSON inputs/context/messages, goal, bounds and required-context path syntax
+before creating or loading the task module. CLI inputs/context must be JSON objects and
+messages a JSON list; explicit `null` is rejected. Only omitted/`None` Python API
+inputs/context/messages receive defaults. Goal and these fields must serialize as finite JSON and encode as UTF-8;
+isolated surrogates are rejected. Invalid configuration returns
+`failed/configuration/invalid_run_configuration`, with `script_loaded: false` and
+`model_calls: 0`. Valid configuration still imports trusted Python, which can have
+top-level effects; this preflight is not a sandbox or runtime-validity check. See the
+[preflight contract](docs/agent-contract.md#run-configuration-preflight) and
+[offline A/B](reports/run-preflight-ab.json), using synthetic import markers and model-free workflows,
+with no actual API or UI calls. Only `done` exits 0;
 exit 2 still returns a terminal JSON packet. Uncertain effects are never auto-retried.
 
 ## Define tools and parameter meaning

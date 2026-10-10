@@ -61,6 +61,16 @@ def test_machine_spec_describes_static_checker_without_execution(capsys):
     assert check["source_warning_code"] == "python_source_warning"
 
 
+def test_machine_spec_describes_configuration_preflight(capsys):
+    assert main(["spec"]) == 0
+    preflight = json.loads(capsys.readouterr().out)["commands"]["run"]["configuration_preflight"]
+    assert preflight["before_task_module_loading"] is True
+    assert preflight["shared_with_engine"] is True
+    assert preflight["defaults_for"] == "None only"
+    assert preflight["failure_code"] == "invalid_run_configuration"
+    assert preflight["sandbox"] is False
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

@@ -115,6 +115,51 @@ class Context:
     messages: list = field(default_factory=list)
 
 
+def validate_run_options(
+    *,
+    goal,
+    inputs=None,
+    context=None,
+    messages=None,
+    required_context=(),
+    max_steps=20,
+    timeout_seconds=120,
+):
+    """Pure configuration admission shared by CLI and engine; no script or model call."""
+    if not isinstance(goal, str) or not goal.strip():
+        raise ValueError("goal_required")
+    if type(max_steps) is not int or max_steps < 1:
+        raise ValueError("positive_max_steps_required")
+    if (
+        type(timeout_seconds) not in (int, float)
+        or timeout_seconds <= 0
+        or not math.isfinite(timeout_seconds)
+    ):
+        raise ValueError("positive_timeout_required")
+    ctx = Context(
+        goal,
+        copy.deepcopy({} if inputs is None else inputs),
+        copy.deepcopy({} if context is None else context),
+    )
+    if not isinstance(ctx.inputs, dict) or not isinstance(ctx.facts, dict):
+        raise ValueError("context_and_inputs_must_be_objects")
+    ctx.messages = copy.deepcopy([] if messages is None else messages)
+    if not isinstance(ctx.messages, list) or any(
+        not isinstance(message, dict)
+        or message.get("role") not in ("user", "assistant")
+        or not isinstance(message.get("content"), str)
+        for message in ctx.messages
+    ):
+        raise ValueError("invalid_messages")
+    if isinstance(required_context, (str, bytes)):
+        raise ValueError("required_context_paths_required")
+    spec = analysis.validate({"context": ctx.facts, "required_context": list(required_context)})
+    _json(
+        {"goal": goal, "inputs": ctx.inputs, "context": ctx.facts, "messages": ctx.messages}
+    ).encode("utf-8")
+    return ctx, spec
+
+
 class Workflow:
     """Implement observation, candidates, execution and independent verification.
 
@@ -205,30 +250,16 @@ class Engine:
         """
         if not isinstance(workflow, Workflow):
             raise TypeError("workflow_required")
-        if not isinstance(goal, str) or not goal.strip():
-            raise ValueError("goal_required")
-        if type(max_steps) is not int or max_steps < 1:
-            raise ValueError("positive_max_steps_required")
-        if (
-            type(timeout_seconds) not in (int, float)
-            or timeout_seconds <= 0
-            or not math.isfinite(timeout_seconds)
-        ):
-            raise ValueError("positive_timeout_required")
-        ctx = Context(goal, copy.deepcopy(inputs or {}), copy.deepcopy(context or {}))
-        if not isinstance(ctx.inputs, dict) or not isinstance(ctx.facts, dict):
-            raise ValueError("context_and_inputs_must_be_objects")
-        ctx.messages = copy.deepcopy(messages or [])
-        if not isinstance(ctx.messages, list) or any(
-            not isinstance(m, dict)
-            or m.get("role") not in ("user", "assistant")
-            or not isinstance(m.get("content"), str)
-            for m in ctx.messages
-        ):
-            raise ValueError("invalid_messages")
+        ctx, spec = validate_run_options(
+            goal=goal,
+            inputs=inputs,
+            context=context,
+            messages=messages,
+            required_context=required_context,
+            max_steps=max_steps,
+            timeout_seconds=timeout_seconds,
+        )
         policy = context_policy or ContextPolicy()
-        spec = analysis.validate({"context": ctx.facts, "required_context": list(required_context)})
-        _json({"inputs": ctx.inputs, "context": ctx.facts})
         if archive is None:
             fd, name = tempfile.mkstemp(prefix="jev-task-", suffix=".jsonl")
             path = Path(name)

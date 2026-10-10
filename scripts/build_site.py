@@ -148,6 +148,8 @@ def rewrite_links(content):
         "../reports/tool-choice-live-ab.json": "tool-choice-live-ab.json",
         "static-check-ab.json": "static-check-ab.json",
         "../reports/static-check-ab.json": "static-check-ab.json",
+        "run-preflight-ab.json": "run-preflight-ab.json",
+        "../reports/run-preflight-ab.json": "run-preflight-ab.json",
     }
 
     def replace(match):
@@ -195,6 +197,7 @@ def main():
         "tool-choice-offline-ab.json",
         "tool-choice-live-ab.json",
         "static-check-ab.json",
+        "run-preflight-ab.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)
     (OUT / "social.svg").write_text(

@@ -6,7 +6,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.4，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.5，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -18,7 +18,7 @@
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.4'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.5'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -26,14 +26,25 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.4` 换成 `@main`。
+仅在开发时将 `@v0.1.5` 换成 `@main`。
 
 check-task 以 UTF-8 读取、解析并编译 Python，要求顶层显式向 workflow 赋值；
 单独的 workflow: object 注解不绑定它。不执行待检脚本、不加载其模块、不导入其依赖，
 也不调用回调。通过不证明运行时有效，或兼容其他 Python 版本及警告策略。
 见[静态检查契约](docs/agent-contract.md#static-task-checking) 与
 [离线 A/B](reports/static-check-ab.json)，不执行待检脚本，无模型或真实 UI 调用。
-run 执行可信 Python，不是沙箱。只有 done 退出码 0，退出码 2 仍返回终态 JSON，
+
+run 在创建或加载任务模块前，校验 JSON inputs/context/messages、目标、预算边界与
+required-context 路径语法。CLI 的 inputs/context 必须是 JSON object，messages 必须是
+JSON list，显式 null 被拒绝；只有 Python API 省略或 None 的 inputs/context/messages
+才使用默认值。
+目标及这些数据必须可序列化为有限 JSON 并编码为 UTF-8，孤立 surrogate 被拒绝。
+配置无效时返回 failed/configuration/invalid_run_configuration，
+并标记 script_loaded: false、model_calls: 0。合法配置仍会导入可信 Python，可能产生
+顶层效果；预检不是沙箱，也不验证运行时有效性。见
+[预检契约](docs/agent-contract.md#run-configuration-preflight) 与
+[离线 A/B](reports/run-preflight-ab.json)，使用合成导入标记与无需模型的工作流，无真实 API 或
+UI 调用。只有 done 退出码 0，退出码 2 仍返回终态 JSON，
 不确定效果不自动重试。
 
 ## 工具和参数语义

@@ -1,0 +1,5003 @@
+{
+  "mode": "offline-synthetic-config-admission",
+  "baseline_commit": "26cb69ae54e879043e6f18511da1f39446337de1",
+  "candidate": "working tree at invocation; published with its source commit",
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "5811636fdc5bed96a89d0bebbc8c1b374c77976b455b69315b97b45ec58eaec7",
+    "src/apixly_jev_harness/backend.py": "e4b4c80d88c63648c1392f41eb8796430fcbce6f81d1061c71519d0759432eda",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "cf96bb79196985fee59262f8022162b175ec0d0f65136d219cf79360feebed63",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "d8429a53297fdedc6acb620a43c8f82a48b914664a7b1b9e2c2f3027b87a66da",
+    "src/apixly_jev_harness/task_cli.py": "a798ff6850585902f6520e82b979964e404134dd5388eb58401db0d201fd3bbf",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "runner_sha256": "75b3ac857100f775db5c03df5d982a0d12a76323c2a32bba4169bc0bcdf79a36",
+  "python_version": "3.14.2",
+  "cases": {
+    "blank_goal": [
+      "--goal",
+      " "
+    ],
+    "messages_bad_json": [
+      "--messages",
+      "{"
+    ],
+    "messages_wrong_empty_type": [
+      "--messages",
+      "{}"
+    ],
+    "messages_system_role": [
+      "--messages",
+      "[{\"role\":\"system\",\"content\":\"policy\"}]"
+    ],
+    "messages_content_number": [
+      "--messages",
+      "[{\"role\":\"user\",\"content\":1}]"
+    ],
+    "zero_steps": [
+      "--max-steps",
+      "0"
+    ],
+    "negative_steps": [
+      "--max-steps",
+      "-1"
+    ],
+    "zero_timeout": [
+      "--timeout",
+      "0"
+    ],
+    "nan_timeout": [
+      "--timeout",
+      "nan"
+    ],
+    "infinite_timeout": [
+      "--timeout",
+      "inf"
+    ],
+    "empty_required_path": [
+      "--required-context",
+      ""
+    ],
+    "malformed_required_path": [
+      "--required-context",
+      "tenant..id"
+    ],
+    "nan_inputs": [
+      "--inputs",
+      "{\"amount\":NaN}"
+    ],
+    "infinite_context": [
+      "--context",
+      "{\"amount\":Infinity}"
+    ],
+    "nan_message_metadata": [
+      "--messages",
+      "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+    ],
+    "inputs_wrong_type": [
+      "--inputs",
+      "[]"
+    ],
+    "context_wrong_type": [
+      "--context",
+      "[]"
+    ],
+    "null_inputs": [
+      "--inputs",
+      "null"
+    ],
+    "null_context": [
+      "--context",
+      "null"
+    ],
+    "null_messages": [
+      "--messages",
+      "null"
+    ],
+    "surrogate_inputs": [
+      "--inputs",
+      "{\"text\":\"\\ud800\"}"
+    ],
+    "surrogate_context": [
+      "--context",
+      "{\"text\":\"\\ud800\"}"
+    ],
+    "surrogate_messages": [
+      "--messages",
+      "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+    ],
+    "valid_defaults": [],
+    "valid_message": [
+      "--messages",
+      "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+    ],
+    "missing_required_fact": [
+      "--required-context",
+      "tenant.id"
+    ]
+  },
+  "synthetic_script": "from pathlib import Path\nPath('import-marker.txt').write_text('synthetic trusted import')\nfrom apixly_jev_harness import Task\nworkflow = Task(observe=lambda ctx: {'complete': True},\n                verify=lambda ctx, seen: seen['complete'])\n",
+  "reproduction": "python benchmarks/run_preflight.py --output local-results/run-preflight-ab.json",
+  "scope": "Twenty-six fixed configurations, three paired repeats. The only script import effect is a local synthetic marker. Valid scripts deliberately import and return an observed complete state or runtime needs_context; no tool execution or model/UI/network calls. This is configuration admission, not semantic accuracy or a sandbox.",
+  "negative_results": "Preflight adds local work and configuration metadata bytes; Engine revalidates options for direct API parity. Valid imports may have effects. This does not check archive/credential/runtime conditions or workflow correctness. No runtime/model latency or fee improvement is claimed.",
+  "cost_conversion": "Zero actual model calls, no tariff or savings assumed. Timing covers CLI parsing, admission, permitted synthetic import, engine validation/journaling and compact output; excludes process/import/snapshot setup.",
+  "summary": {
+    "baseline": {
+      "runs": 78,
+      "classification_correct": 66,
+      "load_policy_correct": 21,
+      "configuration_metadata_correct": 9,
+      "invalid_config_imports": 57,
+      "valid_config_imports": 9,
+      "statuses": {
+        "done": 18,
+        "failed": 57,
+        "needs_context": 3
+      },
+      "median_whole_operation_seconds": 0.0010118540012626909,
+      "returned_context_bytes": 10783,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    "candidate": {
+      "runs": 78,
+      "classification_correct": 78,
+      "load_policy_correct": 78,
+      "configuration_metadata_correct": 78,
+      "invalid_config_imports": 0,
+      "valid_config_imports": 9,
+      "statuses": {
+        "done": 6,
+        "failed": 69,
+        "needs_context": 3
+      },
+      "median_whole_operation_seconds": 0.0006181039934745058,
+      "returned_context_bytes": 15031,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "blank_goal",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--goal",
+        " "
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009119159949477762,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "blank_goal",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--goal",
+        " "
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006604999944102019,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "blank_goal",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--goal",
+        " "
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005749160045525059,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "blank_goal",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--goal",
+        " "
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009631670109229162,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "blank_goal",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--goal",
+        " "
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009360840049339458,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "blank_goal",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--goal",
+        " "
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005919999966863543,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "messages_bad_json",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "{"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "JSONDecodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.00100787500559818,
+      "returned_context_bytes": 73,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "messages_bad_json",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "{"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "JSONDecodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0008537089888704941,
+      "returned_context_bytes": 178,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "messages_bad_json",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "{"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "JSONDecodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006796249945182353,
+      "returned_context_bytes": 178,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "messages_bad_json",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "{"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "JSONDecodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010176670039072633,
+      "returned_context_bytes": 73,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "messages_bad_json",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "{"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "JSONDecodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009316669893451035,
+      "returned_context_bytes": 73,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "messages_bad_json",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "{"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "JSONDecodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005718329921364784,
+      "returned_context_bytes": 178,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "messages_wrong_empty_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "{}"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012459580029826611,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "messages_wrong_empty_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "{}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005711669946322218,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "messages_wrong_empty_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "{}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005632499960483983,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "messages_wrong_empty_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "{}"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013199170061852783,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "messages_wrong_empty_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "{}"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001409208998666145,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "messages_wrong_empty_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "{}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006415410025510937,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "messages_system_role",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"system\",\"content\":\"policy\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009958339942386374,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "messages_system_role",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"system\",\"content\":\"policy\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005875000060768798,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "messages_system_role",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"system\",\"content\":\"policy\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005753339937655255,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "messages_system_role",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"system\",\"content\":\"policy\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009592919959686697,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "messages_system_role",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"system\",\"content\":\"policy\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009540419996483251,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "messages_system_role",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"system\",\"content\":\"policy\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005867919971933588,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "messages_content_number",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":1}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009523330081719905,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "messages_content_number",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":1}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006262910028453916,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "messages_content_number",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":1}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005810000002384186,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "messages_content_number",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":1}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009408750047441572,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "messages_content_number",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":1}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009630419954191893,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "messages_content_number",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":1}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005775000026915222,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "zero_steps",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--max-steps",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009406669996678829,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "zero_steps",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--max-steps",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005922499985899776,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "zero_steps",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--max-steps",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005854580085724592,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "zero_steps",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--max-steps",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010105830006068572,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "zero_steps",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--max-steps",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.001145083995652385,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "zero_steps",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--max-steps",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005716660089092329,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "negative_steps",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--max-steps",
+        "-1"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009540829923935235,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "negative_steps",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--max-steps",
+        "-1"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005902500124648213,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "negative_steps",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--max-steps",
+        "-1"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.00058470900694374,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "negative_steps",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--max-steps",
+        "-1"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009780410036910325,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "negative_steps",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--max-steps",
+        "-1"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010388750088168308,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "negative_steps",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--max-steps",
+        "-1"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005904170102439821,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "zero_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009303330007242039,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "zero_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005788330017821863,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "zero_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005670840037055314,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "zero_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009155000007012859,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "zero_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009500419982941821,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "zero_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "0"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005703339993488044,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "nan_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "nan"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.001033249995089136,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "nan_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "nan"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005858749937033281,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "nan_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "nan"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005667500081472099,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "nan_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "nan"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009315830102423206,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "nan_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "nan"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009708329889690503,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "nan_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "nan"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005707079981220886,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "infinite_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "inf"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010207079903921112,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "infinite_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "inf"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006004580063745379,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "infinite_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "inf"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0007516670011682436,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "infinite_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "inf"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.000978915995801799,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "infinite_timeout",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--timeout",
+        "inf"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.001032291998853907,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "infinite_timeout",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--timeout",
+        "inf"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006375840021064505,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "empty_required_path",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        ""
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.001113249993068166,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "empty_required_path",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        ""
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006297090003499761,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "empty_required_path",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        ""
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006264159892452881,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "empty_required_path",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        ""
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009986660006688908,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "empty_required_path",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        ""
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0011054169881390408,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "empty_required_path",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        ""
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006487500068033114,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "malformed_required_path",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        "tenant..id"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010180829995078966,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "malformed_required_path",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        "tenant..id"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.00065533300221432,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "malformed_required_path",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        "tenant..id"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006362919957609847,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "malformed_required_path",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        "tenant..id"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010085840040119365,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "malformed_required_path",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        "tenant..id"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.00100712499988731,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "malformed_required_path",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        "tenant..id"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006223329983185977,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "nan_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "{\"amount\":NaN}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010060000058729202,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "nan_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "{\"amount\":NaN}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006228749989531934,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "nan_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "{\"amount\":NaN}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006269590085139498,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "nan_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "{\"amount\":NaN}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0012650830030906945,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "nan_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "{\"amount\":NaN}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010131250019185245,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "nan_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "{\"amount\":NaN}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006255839980440214,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "infinite_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "{\"amount\":Infinity}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009973330015782267,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "infinite_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "{\"amount\":Infinity}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006441660079872236,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "infinite_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "{\"amount\":Infinity}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0007718749984633178,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "infinite_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "{\"amount\":Infinity}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0012131670082453638,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "infinite_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "{\"amount\":Infinity}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009685000113677233,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "infinite_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "{\"amount\":Infinity}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006062079919502139,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "nan_message_metadata",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0011924160062335432,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "nan_message_metadata",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006248330028029159,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "nan_message_metadata",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006393329967977479,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "nan_message_metadata",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001251124995178543,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "nan_message_metadata",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013856250006938353,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "nan_message_metadata",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"text\",\"extra\":NaN}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006423750019166619,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "inputs_wrong_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006076249992474914,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "inputs_wrong_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006436249968828633,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "inputs_wrong_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005848340078955516,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "inputs_wrong_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006016659899614751,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "inputs_wrong_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0005994999955873936,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "inputs_wrong_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005901249969610944,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "context_wrong_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0007223339925985783,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "context_wrong_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005610829975921661,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "context_wrong_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005602500023087487,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "context_wrong_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006047920032870024,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "context_wrong_type",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006046250055078417,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "context_wrong_type",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "[]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005812500021420419,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "null_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0005869579908903688,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "null_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005614999972749501,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "null_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005763329972978681,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "null_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006203329976415262,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "null_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006265839911065996,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "null_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005712499987566844,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "null_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006244999967748299,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "null_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005674169951817021,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "null_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005689579993486404,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "null_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0006034590041963384,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "null_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0009004169987747446,
+      "returned_context_bytes": 68,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "null_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005830000009154901,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "null_messages",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012766659929184243,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "null_messages",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.00058149998949375,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "null_messages",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005671249964507297,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "null_messages",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0011550000053830445,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "null_messages",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.002381625003181398,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "null_messages",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "null"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "ValueError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0005968339974060655,
+      "returned_context_bytes": 173,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "surrogate_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0013892499991925433,
+      "returned_context_bytes": 76,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "surrogate_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006241249939193949,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "surrogate_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0008073330100160092,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "surrogate_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0011687920050462708,
+      "returned_context_bytes": 76,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "surrogate_inputs",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--inputs",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.001101624991861172,
+      "returned_context_bytes": 76,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "surrogate_inputs",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--inputs",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006296670035226271,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "surrogate_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0024962079914985225,
+      "returned_context_bytes": 76,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "surrogate_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0007142499962355942,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "surrogate_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006346250011119992,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "surrogate_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010697079997044057,
+      "returned_context_bytes": 76,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "surrogate_context",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--context",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": null,
+      "whole_operation_seconds": 0.0010395420104032382,
+      "returned_context_bytes": 76,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "surrogate_context",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--context",
+        "{\"text\":\"\\ud800\"}"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0007127499993657693,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "surrogate_messages",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001302332995692268,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "surrogate_messages",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.000613874988630414,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "surrogate_messages",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0006259579968173057,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "surrogate_messages",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012525829952210188,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "surrogate_messages",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": false,
+      "expected_script_import": false,
+      "script_import_marker": true,
+      "load_policy_correct": false,
+      "configuration_metadata_correct": false,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013973329914733768,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "surrogate_messages",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"\\ud800\"}]"
+      ],
+      "expected_status": "failed",
+      "status": "failed",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": false,
+      "script_import_marker": false,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": "configuration",
+      "code": "invalid_run_configuration",
+      "error_type": "UnicodeEncodeError",
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.000658958000713028,
+      "returned_context_bytes": 181,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "valid_defaults",
+      "runtime_version": "0.1.4",
+      "options": [],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001186333000077866,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "valid_defaults",
+      "runtime_version": "0.1.5",
+      "options": [],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001253750000614673,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "valid_defaults",
+      "runtime_version": "0.1.5",
+      "options": [],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012938750005559996,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "valid_defaults",
+      "runtime_version": "0.1.4",
+      "options": [],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012723330000881106,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "valid_defaults",
+      "runtime_version": "0.1.4",
+      "options": [],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001165541005320847,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "valid_defaults",
+      "runtime_version": "0.1.5",
+      "options": [],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013411660038400441,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "valid_message",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+      ],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001311499989242293,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "valid_message",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+      ],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012421249994076788,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "valid_message",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+      ],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013447499950416386,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "valid_message",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+      ],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013240830012364313,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "valid_message",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+      ],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0013100840005790815,
+      "returned_context_bytes": 319,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "valid_message",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--messages",
+        "[{\"role\":\"user\",\"content\":\"synthetic evidence\"}]"
+      ],
+      "expected_status": "done",
+      "status": "done",
+      "exit_code": 0,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": null,
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012823750003008172,
+      "returned_context_bytes": 320,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "missing_required_fact",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        "tenant.id"
+      ],
+      "expected_status": "needs_context",
+      "status": "needs_context",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": [
+        "tenant.id"
+      ],
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001204541011247784,
+      "returned_context_bytes": 363,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "missing_required_fact",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        "tenant.id"
+      ],
+      "expected_status": "needs_context",
+      "status": "needs_context",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": [
+        "tenant.id"
+      ],
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001311499989242293,
+      "returned_context_bytes": 363,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "missing_required_fact",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        "tenant.id"
+      ],
+      "expected_status": "needs_context",
+      "status": "needs_context",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": [
+        "tenant.id"
+      ],
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012504999904194847,
+      "returned_context_bytes": 363,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "missing_required_fact",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        "tenant.id"
+      ],
+      "expected_status": "needs_context",
+      "status": "needs_context",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": [
+        "tenant.id"
+      ],
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012635419989237562,
+      "returned_context_bytes": 363,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "missing_required_fact",
+      "runtime_version": "0.1.4",
+      "options": [
+        "--required-context",
+        "tenant.id"
+      ],
+      "expected_status": "needs_context",
+      "status": "needs_context",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": [
+        "tenant.id"
+      ],
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.0012092920078430325,
+      "returned_context_bytes": 364,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "missing_required_fact",
+      "runtime_version": "0.1.5",
+      "options": [
+        "--required-context",
+        "tenant.id"
+      ],
+      "expected_status": "needs_context",
+      "status": "needs_context",
+      "exit_code": 2,
+      "classification_correct": true,
+      "expected_script_import": true,
+      "script_import_marker": true,
+      "load_policy_correct": true,
+      "configuration_metadata_correct": true,
+      "phase": null,
+      "code": null,
+      "error_type": null,
+      "missing_context": [
+        "tenant.id"
+      ],
+      "reported_model_requests": 0,
+      "whole_operation_seconds": 0.001433167009963654,
+      "returned_context_bytes": 363,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.4 for a reproducible release;
+package downloads still require network access. Pin v0.1.5 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.4'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.5'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -69,6 +69,48 @@ or semantically validate a task.
 The [static-check A/B](../reports/static-check-ab.json) uses fixed offline script samples
 without executing any checked script, with zero model or real UI calls. It tests static
 admission and safe diagnostics, not runtime task success.
+
+## Run configuration preflight
+
+Before creating, registering or loading the trusted task module, CLI `run` parses its
+inputs/context/messages JSON and validates configuration with the engine's shared helper:
+
+- A nonempty goal, positive integer `max_steps`, and positive finite timeout.
+- CLI inputs/context must be JSON objects and messages a JSON list of user/assistant
+  messages with string content; explicit `null` is rejected.
+- Valid `required_context` path syntax. Goal, inputs, context and messages must serialize
+  as finite JSON and encode as UTF-8; isolated surrogates are rejected.
+
+In the Python API, only omitted/`None` fields supply the default `{}` inputs/context or
+`[]` messages. Other false-valued arguments must have the correct type; `[]`/`False`
+inputs and `{}`/`False` messages are not silently replaced. This API default is distinct
+from CLI JSON `null`. A required-context iterable is normalized once and preserved for
+the runtime. A valid path whose fact is missing still yields runtime `needs_context`,
+distinct from invalid configuration.
+
+Invalid CLI configuration returns a packet such as:
+
+```json
+{
+  "status": "failed",
+  "complete": false,
+  "phase": "configuration",
+  "code": "invalid_run_configuration",
+  "script_loaded": false,
+  "model_calls": 0,
+  "error_type": "ValueError"
+}
+```
+
+Raw values and exception text are not included. A valid configuration proceeds to import
+trusted Python, including any top-level effects. Preflight does not check workflow
+signatures, dependencies, archive availability, credentials or business conditions, and
+does not promise no subsequent effects or task success. It is not a sandbox; the separate
+`check-task` command retains its compilation/export-only scope.
+
+The [run-preflight A/B](../reports/run-preflight-ab.json) uses offline synthetic import
+markers and model-free workflows with no actual API or UI calls. It tests configuration admission
+before loading, not real model or task performance.
 
 ## Next-step tool selection
 

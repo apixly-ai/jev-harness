@@ -10,7 +10,7 @@ from importlib.resources import files
 from pathlib import Path
 
 from .diagnostics import HTTP_CODE_PATTERN, PROVIDER_CODES, SELECTION_CODES
-from .engine import AgentLoop, Workflow
+from .engine import AgentLoop, Workflow, validate_run_options
 
 TEMPLATE = '''"""Synthetic counter task. Replace callbacks with your business operations.
 
@@ -121,7 +121,28 @@ def main(argv=None):
             packet = {"ok": False, "code": "script_unreadable", "model_calls": 0}
         print(json.dumps(packet))
         return 0 if packet["ok"] else 2
+    phase = "configuration" if args.command == "run" else None
     try:
+        if args.command == "run":
+            inputs, context, messages = (
+                json.loads(args.inputs),
+                json.loads(args.context),
+                json.loads(args.messages),
+            )
+            if not isinstance(inputs, dict) or not isinstance(context, dict):
+                raise ValueError("inputs_and_context_must_be_objects")
+            if not isinstance(messages, list):
+                raise ValueError("invalid_messages")
+            admitted, run_spec = validate_run_options(
+                goal=args.goal,
+                inputs=inputs,
+                context=context,
+                messages=messages,
+                required_context=args.required_context,
+                max_steps=args.max_steps,
+                timeout_seconds=args.timeout,
+            )
+            phase = "script_loading"
         path = Path(args.script).expanduser().resolve(strict=args.command == "run")
         if args.command == "init-task":
             with path.open("x", encoding="utf-8") as stream:
@@ -129,9 +150,6 @@ def main(argv=None):
             packet = {"status": "created", "script": str(path), "model_calls": 0}
             exit_code = 0
         else:
-            inputs, context = json.loads(args.inputs), json.loads(args.context)
-            if not isinstance(inputs, dict) or not isinstance(context, dict):
-                raise ValueError("inputs_and_context_must_be_objects")
             spec = importlib.util.spec_from_file_location("_jev_task", path)
             if spec is None or spec.loader is None:
                 raise ValueError("python_script_required")
@@ -146,10 +164,10 @@ def main(argv=None):
                 packet = AgentLoop().run(
                     workflow,
                     goal=args.goal,
-                    inputs=inputs,
-                    context=context,
-                    messages=json.loads(args.messages),
-                    required_context=args.required_context,
+                    inputs=admitted.inputs,
+                    context=admitted.facts,
+                    messages=admitted.messages,
+                    required_context=run_spec.get("required_context", []),
                     max_steps=args.max_steps,
                     timeout_seconds=args.timeout,
                     archive=args.archive,
@@ -162,6 +180,13 @@ def main(argv=None):
             exit_code = 0 if packet["complete"] else 2
     except Exception as error:
         packet = {"status": "failed", "complete": False, "error_type": type(error).__name__}
+        if phase == "configuration":
+            packet.update(
+                phase="configuration",
+                code="invalid_run_configuration",
+                script_loaded=False,
+                model_calls=0,
+            )
         exit_code = 2
     print(json.dumps(packet, ensure_ascii=False, allow_nan=False))
     return exit_code
@@ -171,7 +196,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "parameter_binding": "staged_candidate_choice",
     "tool_selection": {
         "scope": "next_step",
@@ -197,6 +222,17 @@ SPEC = {
         "run": {
             "required": ["script", "goal"],
             "billable": True,
+            "configuration_preflight": {
+                "before_task_module_loading": True,
+                "shared_with_engine": True,
+                "defaults_for": "None only",
+                "finite_json": ["inputs", "context", "messages"],
+                "failure_code": "invalid_run_configuration",
+                "failure_phase": "configuration",
+                "script_loaded_on_failure": False,
+                "model_calls_on_failure": 0,
+                "sandbox": False,
+            },
             "optional": [
                 "inputs",
                 "context",
