@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.3. Install the repository at `@v0.1.3` for a reproducible release;
+Contract version: 0.1.4. Install the repository at `@v0.1.4` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -18,10 +18,22 @@ are semantic and the available action domain and success condition can be bounde
    static/dynamic choices and depends_on for related arguments. Use Option to separate
    safe descriptions from private values. Never ask Jev to invent an ID or command.
 4. Keep observe/candidate callbacks read-only. Admit safe results via result_context.
-5. Test synthetic callback behavior. `check-task` checks syntax/export only, no execution.
+5. Test synthetic callback behavior. `check-task` performs static checks only, no execution.
 6. Tell the user what goal, observation and tool/parameter candidates Jev will receive.
 7. Submit one `jev-harness run ...` call. Inference is billable; use caller-approved credentials.
 8. Parse terminal JSON even on exit 2. Only independently verified done means completion.
+
+`check-task` reads UTF-8, parses and compiles without executing the checked script, loading
+its module, importing its dependencies or invoking callbacks. Declare an explicit top-level
+workflow assignment; a valued annotated assignment counts, an annotation alone does not.
+Dynamic/conditional exports are not inferred. A passing syntax_and_export_ok proves only
+compilability and the assignment declaration, not workflow type, imports, execution
+reachability, tool signatures, candidate providers or effects. It does not guarantee another
+Python version or warning policy. invalid_python includes a line; source_not_utf8 identifies
+decoding failure. source_warnings contains only python_source_warning codes and line numbers,
+without warning/source text in output or stderr. See the contract's Static task checking
+section and reports/static-check-ab.json for fixed offline samples with no checked-script
+execution, model calls or real UI.
 
 Describe each tool's preconditions and expected effect, and put task priority, order and
 exit criteria in the caller's goal and contracts. A next-step tool may gather evidence or

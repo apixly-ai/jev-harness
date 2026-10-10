@@ -5,6 +5,7 @@ import ast
 import importlib.util
 import json
 import sys
+import warnings
 from importlib.resources import files
 from pathlib import Path
 
@@ -50,7 +51,7 @@ def main(argv=None):
     commands.add_parser("skill", help="Print bundled AI task instructions; offline")
     commands.add_parser("spec", help="Machine-readable interface and adoption contract; offline")
     check = commands.add_parser(
-        "check-task", help="Check Python syntax and export without executing code; offline"
+        "check-task", help="Parse/compile Python and check assignment without executing; offline"
     )
     check.add_argument("script")
     init = commands.add_parser("init-task", help="Write a synthetic task template; offline")
@@ -83,9 +84,13 @@ def main(argv=None):
     if args.command == "check-task":
         try:
             path = Path(args.script).expanduser().resolve(strict=True)
-            tree = ast.parse(path.read_text(encoding="utf-8"), filename="task.py")
+            with warnings.catch_warnings(record=True) as source_warnings:
+                warnings.simplefilter("always")
+                tree = ast.parse(path.read_text(encoding="utf-8"), filename="task.py")
+                compile(tree, "task.py", "exec", dont_inherit=True)
             exported = any(
                 isinstance(node, (ast.Assign, ast.AnnAssign))
+                and node.value is not None
                 and any(
                     isinstance(target, ast.Name) and target.id == "workflow"
                     for target in (node.targets if isinstance(node, ast.Assign) else [node.target])
@@ -96,10 +101,22 @@ def main(argv=None):
                 "ok": exported,
                 "model_calls": 0,
                 "code": "syntax_and_export_ok" if exported else "workflow_export_missing",
-                "scope": "syntax/export only; callbacks and imports are not executed",
+                "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed",
+                **(
+                    {
+                        "source_warnings": [
+                            {"code": "python_source_warning", "line": warning.lineno}
+                            for warning in source_warnings
+                        ]
+                    }
+                    if source_warnings
+                    else {}
+                ),
             }
         except SyntaxError as error:
             packet = {"ok": False, "code": "invalid_python", "line": error.lineno, "model_calls": 0}
+        except UnicodeDecodeError:
+            packet = {"ok": False, "code": "source_not_utf8", "model_calls": 0}
         except OSError:
             packet = {"ok": False, "code": "script_unreadable", "model_calls": 0}
         print(json.dumps(packet))
@@ -154,7 +171,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "parameter_binding": "staged_candidate_choice",
     "tool_selection": {
         "scope": "next_step",
@@ -167,7 +184,16 @@ SPEC = {
         "skill": {"offline": True},
         "spec": {"offline": True},
         "init-task": {"required": ["script"], "offline": True},
-        "check-task": {"required": ["script"], "offline": True, "scope": "syntax/export only"},
+        "check-task": {
+            "required": ["script"],
+            "offline": True,
+            "scope": "parse/compile/top-level assignment only",
+            "checks": ["utf8_decode", "ast_parse", "python_compile", "top_level_assignment"],
+            "python_scope": "current_interpreter",
+            "source_execution": False,
+            "runtime_validation": False,
+            "source_warning_code": "python_source_warning",
+        },
         "run": {
             "required": ["script", "goal"],
             "billable": True,

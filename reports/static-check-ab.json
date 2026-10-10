@@ -1,0 +1,2806 @@
+{
+  "mode": "offline-static-check",
+  "baseline_commit": "37358ff83a83203b270c4cf92f8db7272239cca6",
+  "candidate": "working tree at invocation; published with its source commit",
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "d090d604f554a132b46c6ea1e7958543c402a5eb2a347a01233c67d8645fba86",
+    "src/apixly_jev_harness/backend.py": "e4b4c80d88c63648c1392f41eb8796430fcbce6f81d1061c71519d0759432eda",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "503a8fd6f3c2f11c9f41e0d0090a09e55fc3fe248a78793c3d9f5a0cb2b9e4e6",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "d8429a53297fdedc6acb620a43c8f82a48b914664a7b1b9e2c2f3027b87a66da",
+    "src/apixly_jev_harness/task_cli.py": "22b13dd241c8e341a64d9d8a74cca742b772736c89d3b4131bf975fad88383fa",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "runner_sha256": "9afe95fb6087ef7cd3a050e7ef70757a3727ac026cc6d6b4a01a8a3f9faa7d24",
+  "python_version": "3.14.2",
+  "fixtures": {
+    "assignment": {
+      "source": "workflow = None\n",
+      "source_hex": null,
+      "expected_exit": 0,
+      "expected_code": "syntax_and_export_ok",
+      "expected_warning_count": 0
+    },
+    "assigned_annotation": {
+      "source": "workflow: object = None\n",
+      "source_hex": null,
+      "expected_exit": 0,
+      "expected_code": "syntax_and_export_ok",
+      "expected_warning_count": 0
+    },
+    "annotation_only": {
+      "source": "workflow: object\n",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "workflow_export_missing",
+      "expected_warning_count": 0
+    },
+    "module_return": {
+      "source": "workflow = None\nreturn\n",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "invalid_python",
+      "expected_warning_count": 0
+    },
+    "module_break": {
+      "source": "workflow = None\nbreak\n",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "invalid_python",
+      "expected_warning_count": 0
+    },
+    "module_continue": {
+      "source": "workflow = None\ncontinue\n",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "invalid_python",
+      "expected_warning_count": 0
+    },
+    "duplicate_arguments": {
+      "source": "workflow = None\ndef duplicate(x, x):\n    pass\n",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "invalid_python",
+      "expected_warning_count": 0
+    },
+    "unbound_nonlocal": {
+      "source": "workflow = None\ndef missing():\n    nonlocal unknown\n",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "invalid_python",
+      "expected_warning_count": 0
+    },
+    "parse_failure": {
+      "source": "workflow = (",
+      "source_hex": null,
+      "expected_exit": 2,
+      "expected_code": "invalid_python",
+      "expected_warning_count": 0
+    },
+    "non_utf8": {
+      "source": null,
+      "source_hex": "776f726b666c6f77203d204e6f6e650a232053594e5448455449435f505249564154455f534f5552434520ff0a",
+      "expected_exit": 2,
+      "expected_code": "source_not_utf8",
+      "expected_warning_count": 0
+    },
+    "unavailable_import_not_run": {
+      "source": "import synthetic_module_that_does_not_exist\nworkflow = None\n",
+      "source_hex": null,
+      "expected_exit": 0,
+      "expected_code": "syntax_and_export_ok",
+      "expected_warning_count": 0
+    },
+    "effects_and_raise_not_run": {
+      "source": "from pathlib import Path\nPath('effect.txt').write_text('must never execute')\nraise RuntimeError('SYNTHETIC_PRIVATE_SOURCE')\nworkflow = None\n",
+      "source_hex": null,
+      "expected_exit": 0,
+      "expected_code": "syntax_and_export_ok",
+      "expected_warning_count": 0
+    },
+    "compiler_warning": {
+      "source": "workflow = None\nif 'SYNTHETIC_PRIVATE_SOURCE' is 'SYNTHETIC_PRIVATE_SOURCE':\n    pass\n",
+      "source_hex": null,
+      "expected_exit": 0,
+      "expected_code": "syntax_and_export_ok",
+      "expected_warning_count": 1
+    }
+  },
+  "reproduction": "python benchmarks/static_check.py --output local-results/static-check-ab.json",
+  "scope": "Thirteen fixed synthetic scripts, three paired repeats against published source. Checks run on the current Python interpreter. The checker does not execute inspected scripts, imports or callbacks. No model/UI calls. Static acceptance is not workflow-type, import, callback, provider or runtime-success verification.",
+  "negative_results": "Compilation adds deterministic work and diagnostic bytes. Nonfatal source warnings remain nonfatal; unknown imports and workflow=None remain statically accepted. No model cost or latency improvement is measured. Other interpreter versions are tested separately by CI, not inferred from this run.",
+  "cost_conversion": "Zero actual model calls, no tariff or savings assumed. Whole-operation timing covers CLI argument parsing, source reading, parse/compile and compact output, excluding interpreter/import/snapshot setup.",
+  "summary": {
+    "baseline": {
+      "runs": 39,
+      "classification_correct": 18,
+      "protocol_correct": 15,
+      "unhandled_exceptions": 3,
+      "script_effects": 0,
+      "private_source_exposures": 0,
+      "median_whole_operation_seconds": 0.0006259579968173057,
+      "returned_context_bytes": 4629,
+      "source_bytes": 1704,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    "candidate": {
+      "runs": 39,
+      "classification_correct": 39,
+      "protocol_correct": 39,
+      "unhandled_exceptions": 0,
+      "script_effects": 0,
+      "private_source_exposures": 0,
+      "median_whole_operation_seconds": 0.0006635000027017668,
+      "returned_context_bytes": 4998,
+      "source_bytes": 1704,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  },
+  "rows": [
+    {
+      "fixture": "assignment",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006696659984299913,
+      "source_bytes": 16,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "assignment",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006988329987507313,
+      "source_bytes": 16,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "assignment",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006563329952768981,
+      "source_bytes": 16,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "assignment",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006154580041766167,
+      "source_bytes": 16,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "assignment",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006859589921077713,
+      "source_bytes": 16,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "assignment",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006426670006476343,
+      "source_bytes": 16,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "assigned_annotation",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0007212920027086511,
+      "source_bytes": 24,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "assigned_annotation",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006434589886339381,
+      "source_bytes": 24,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "assigned_annotation",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006422500009648502,
+      "source_bytes": 24,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "assigned_annotation",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006087500078137964,
+      "source_bytes": 24,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "assigned_annotation",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006602079956792295,
+      "source_bytes": 24,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "assigned_annotation",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006512919935630634,
+      "source_bytes": 24,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "annotation_only",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "workflow_export_missing",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006548750097863376,
+      "source_bytes": 17,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "annotation_only",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "workflow_export_missing",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "model_calls": 0,
+        "code": "workflow_export_missing",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006500830058939755,
+      "source_bytes": 17,
+      "returned_context_bytes": 191,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "annotation_only",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "workflow_export_missing",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "model_calls": 0,
+        "code": "workflow_export_missing",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006618750048801303,
+      "source_bytes": 17,
+      "returned_context_bytes": 191,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "annotation_only",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "workflow_export_missing",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006244170072022825,
+      "source_bytes": 17,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "annotation_only",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "workflow_export_missing",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006229170103324577,
+      "source_bytes": 17,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "annotation_only",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "workflow_export_missing",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "model_calls": 0,
+        "code": "workflow_export_missing",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.000756709006964229,
+      "source_bytes": 17,
+      "returned_context_bytes": 191,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "module_return",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0007263750012498349,
+      "source_bytes": 23,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "module_return",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006715000054100528,
+      "source_bytes": 23,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "module_return",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006667919951723889,
+      "source_bytes": 23,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "module_return",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.000668541993945837,
+      "source_bytes": 23,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "module_return",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006148330139694735,
+      "source_bytes": 23,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "module_return",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006631669966736808,
+      "source_bytes": 23,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "module_break",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006149170076241717,
+      "source_bytes": 22,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "module_break",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006443750025937334,
+      "source_bytes": 22,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "module_break",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006750419997842982,
+      "source_bytes": 22,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "module_break",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006335409998428077,
+      "source_bytes": 22,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "module_break",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006047080096323043,
+      "source_bytes": 22,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "module_break",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0007001659978413954,
+      "source_bytes": 22,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "module_continue",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006110410031396896,
+      "source_bytes": 25,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "module_continue",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006545420037582517,
+      "source_bytes": 25,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "module_continue",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006949999951757491,
+      "source_bytes": 25,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "module_continue",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006030829972587526,
+      "source_bytes": 25,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "module_continue",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006337499944493175,
+      "source_bytes": 25,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "module_continue",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006616249884245917,
+      "source_bytes": 25,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "duplicate_arguments",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006219579954631627,
+      "source_bytes": 46,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "duplicate_arguments",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006702090031467378,
+      "source_bytes": 46,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "duplicate_arguments",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006758750096196309,
+      "source_bytes": 46,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "duplicate_arguments",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006137919990578666,
+      "source_bytes": 46,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "duplicate_arguments",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006239170033950359,
+      "source_bytes": 46,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "duplicate_arguments",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 2,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006754579953849316,
+      "source_bytes": 46,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "unbound_nonlocal",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006330000032903627,
+      "source_bytes": 52,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "unbound_nonlocal",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 3,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0008220410090871155,
+      "source_bytes": 52,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "unbound_nonlocal",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 3,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006494590052170679,
+      "source_bytes": 52,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "unbound_nonlocal",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006272080063354224,
+      "source_bytes": 52,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "unbound_nonlocal",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": false,
+      "warning_reporting_correct": true,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006141669873613864,
+      "source_bytes": 52,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "unbound_nonlocal",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 3,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006642079970333725,
+      "source_bytes": 52,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "parse_failure",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 1,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006217920017661527,
+      "source_bytes": 12,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "parse_failure",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 1,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.000785625001299195,
+      "source_bytes": 12,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "parse_failure",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 1,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006302910041995347,
+      "source_bytes": 12,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "parse_failure",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 1,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006312079931376502,
+      "source_bytes": 12,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "parse_failure",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 1,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006096249999245629,
+      "source_bytes": 12,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "parse_failure",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "invalid_python",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "invalid_python",
+        "line": 1,
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006664579996140674,
+      "source_bytes": 12,
+      "returned_context_bytes": 69,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "non_utf8",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "source_not_utf8",
+        "warning_count": 0
+      },
+      "exit_code": null,
+      "packet": null,
+      "exception_type": "UnicodeDecodeError",
+      "classification_correct": false,
+      "warning_reporting_correct": false,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.000606624991632998,
+      "source_bytes": 45,
+      "returned_context_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "non_utf8",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "source_not_utf8",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "source_not_utf8",
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006454999966081232,
+      "source_bytes": 45,
+      "returned_context_bytes": 59,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "non_utf8",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "source_not_utf8",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "source_not_utf8",
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006199579947860911,
+      "source_bytes": 45,
+      "returned_context_bytes": 59,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "non_utf8",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "source_not_utf8",
+        "warning_count": 0
+      },
+      "exit_code": null,
+      "packet": null,
+      "exception_type": "UnicodeDecodeError",
+      "classification_correct": false,
+      "warning_reporting_correct": false,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0005785409884992987,
+      "source_bytes": 45,
+      "returned_context_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "non_utf8",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 2,
+        "code": "source_not_utf8",
+        "warning_count": 0
+      },
+      "exit_code": null,
+      "packet": null,
+      "exception_type": "UnicodeDecodeError",
+      "classification_correct": false,
+      "warning_reporting_correct": false,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006047910137567669,
+      "source_bytes": 45,
+      "returned_context_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "non_utf8",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 2,
+        "code": "source_not_utf8",
+        "warning_count": 0
+      },
+      "exit_code": 2,
+      "packet": {
+        "ok": false,
+        "code": "source_not_utf8",
+        "model_calls": 0
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006315409991657361,
+      "source_bytes": 45,
+      "returned_context_bytes": 59,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "unavailable_import_not_run",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006304580019786954,
+      "source_bytes": 60,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "unavailable_import_not_run",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006572499987669289,
+      "source_bytes": 60,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "unavailable_import_not_run",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006551669939653948,
+      "source_bytes": 60,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "unavailable_import_not_run",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006350000039674342,
+      "source_bytes": 60,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "unavailable_import_not_run",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006287080032052472,
+      "source_bytes": 60,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "unavailable_import_not_run",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006949999951757491,
+      "source_bytes": 60,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "effects_and_raise_not_run",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006312500045169145,
+      "source_bytes": 140,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "effects_and_raise_not_run",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0008712499984540045,
+      "source_bytes": 140,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "effects_and_raise_not_run",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006972089904593304,
+      "source_bytes": 140,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "effects_and_raise_not_run",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006259579968173057,
+      "source_bytes": 140,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "effects_and_raise_not_run",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006237500056158751,
+      "source_bytes": 140,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "effects_and_raise_not_run",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 0
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006785000005038455,
+      "source_bytes": 140,
+      "returned_context_bytes": 187,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "fixture": "compiler_warning",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 1
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": false,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006457910058088601,
+      "source_bytes": 86,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "fixture": "compiler_warning",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 1
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed",
+        "source_warnings": [
+          {
+            "code": "python_source_warning",
+            "line": 2
+          }
+        ]
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006635000027017668,
+      "source_bytes": 86,
+      "returned_context_bytes": 254,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "fixture": "compiler_warning",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 1
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed",
+        "source_warnings": [
+          {
+            "code": "python_source_warning",
+            "line": 2
+          }
+        ]
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006854999955976382,
+      "source_bytes": 86,
+      "returned_context_bytes": 254,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "fixture": "compiler_warning",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 1
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": false,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006386669992934912,
+      "source_bytes": 86,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "fixture": "compiler_warning",
+      "runtime_version": "0.1.3",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 1
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "syntax/export only; callbacks and imports are not executed"
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": false,
+      "protocol_correct": false,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.000673082991852425,
+      "source_bytes": 86,
+      "returned_context_bytes": 134,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "fixture": "compiler_warning",
+      "runtime_version": "0.1.4",
+      "expected": {
+        "exit_code": 0,
+        "code": "syntax_and_export_ok",
+        "warning_count": 1
+      },
+      "exit_code": 0,
+      "packet": {
+        "ok": true,
+        "model_calls": 0,
+        "code": "syntax_and_export_ok",
+        "scope": "Python parsing/compilation and top-level workflow assignment only; code, callbacks and imports are not executed",
+        "source_warnings": [
+          {
+            "code": "python_source_warning",
+            "line": 2
+          }
+        ]
+      },
+      "exception_type": null,
+      "classification_correct": true,
+      "warning_reporting_correct": true,
+      "protocol_correct": true,
+      "script_effect_detected": false,
+      "private_source_in_output": false,
+      "stderr_bytes": 0,
+      "whole_operation_seconds": 0.0006538750021718442,
+      "source_bytes": 86,
+      "returned_context_bytes": 254,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

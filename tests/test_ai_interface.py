@@ -51,6 +51,16 @@ def test_machine_spec_distinguishes_next_tool_from_record_choice(capsys):
     assert tool["direct_choice_without_loop_marker"] == "unchanged"
 
 
+def test_machine_spec_describes_static_checker_without_execution(capsys):
+    assert main(["spec"]) == 0
+    check = json.loads(capsys.readouterr().out)["commands"]["check-task"]
+    assert check["checks"] == ["utf8_decode", "ast_parse", "python_compile", "top_level_assignment"]
+    assert check["python_scope"] == "current_interpreter"
+    assert check["source_execution"] is False
+    assert check["runtime_validation"] is False
+    assert check["source_warning_code"] == "python_source_warning"
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

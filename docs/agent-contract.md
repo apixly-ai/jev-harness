@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.3 for a reproducible release;
+package downloads still require network access. Pin v0.1.4 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.3'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.4'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -38,13 +38,37 @@ first task. Inspect status/complete/archive/telemetry in the returned JSON. Use 
 2. Define the goal, scope, admitted facts/messages and observable success condition.
 3. Generate `jev-harness init-task task.py` and register tools with explicit signatures.
 4. Describe parameters with `Parameter(description, choices, depends_on=...)`.
-5. Test callback behavior with synthetic inputs; use `check-task` for syntax/export only.
+5. Test callback behavior with synthetic inputs; use `check-task` for static checks only.
 6. Make one `run` call; parse the terminal packet even on exit 2.
 7. Recover unresolved context or reconcile ambiguous execution in the primary agent.
 
 Use the loop for bounded tasks requiring semantic branches. Exact calculations and fixed
 sequences stay in code; open-ended writing belongs to the primary agent or an explicit
 trusted generation tool. A tool-selection decision is not execution proof or authorization.
+
+## Static task checking
+
+`check-task` reads UTF-8 source, parses an AST and compiles it without execution. It never
+executes the checked script, loads its module, imports its dependencies or calls callbacks.
+The static export check accepts an explicit top-level `workflow` assignment (`Assign` or
+`AnnAssign` with a value). For example, `workflow = expression` and
+`workflow: object = expression` declare an assignment; `workflow: object` alone does not
+bind a value. Dynamic or conditional exports are not inferred.
+
+A passing result retains the JSON code `syntax_and_export_ok`. It means only that this
+Python interpreter can compile the source and the AST declares that assignment. It does
+not prove the `workflow` type, successful imports, reachable execution, tool signatures,
+candidate providers or effects. Other Python versions and warning policies may differ.
+
+Uncompilable source returns `invalid_python` with `line`; non-UTF-8 source returns
+`source_not_utf8`. Parsing/compilation warnings, when present, are exposed only as
+`source_warnings: [{"code": "python_source_warning", "line": N}]`; warning text and
+source excerpts are not exported or printed to stderr. These diagnostics do not execute
+or semantically validate a task.
+
+The [static-check A/B](../reports/static-check-ab.json) uses fixed offline script samples
+without executing any checked script, with zero model or real UI calls. It tests static
+admission and safe diagnostics, not runtime task success.
 
 ## Next-step tool selection
 

@@ -8,7 +8,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.3**; no promise of general task success or universal savings.
+AI product. Early **0.1.4**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,7 +22,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.3'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.4'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -30,10 +30,15 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.3` only for active development.
+Use `@main` instead of `@v0.1.4` only for active development.
 
-`check-task` checks syntax/export without executing code; it does not prove callback
-correctness. `run` loads caller-trusted Python, not a sandbox. Only `done` exits 0;
+`check-task` reads UTF-8, parses and compiles Python, and requires an explicit top-level
+assignment to `workflow`; `workflow: object` alone does not bind it. It never executes the
+script, loads its module, imports its dependencies or invokes callbacks. Passing does not
+prove runtime validity or compatibility with another Python version or warning policy.
+See the [static-check contract](docs/agent-contract.md#static-task-checking) and
+[offline A/B](reports/static-check-ab.json), which executes no checked scripts and uses
+zero models or real UI. `run` loads caller-trusted Python, not a sandbox. Only `done` exits 0;
 exit 2 still returns a terminal JSON packet. Uncertain effects are never auto-retried.
 
 ## Define tools and parameter meaning

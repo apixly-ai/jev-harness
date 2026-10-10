@@ -146,6 +146,8 @@ def rewrite_links(content):
         "tool-choice-live-ab.json": "tool-choice-live-ab.json",
         "../reports/tool-choice-offline-ab.json": "tool-choice-offline-ab.json",
         "../reports/tool-choice-live-ab.json": "tool-choice-live-ab.json",
+        "static-check-ab.json": "static-check-ab.json",
+        "../reports/static-check-ab.json": "static-check-ab.json",
     }
 
     def replace(match):
@@ -192,6 +194,7 @@ def main():
         "decision-diagnostics-ab.json",
         "tool-choice-offline-ab.json",
         "tool-choice-live-ab.json",
+        "static-check-ab.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)
     (OUT / "social.svg").write_text(

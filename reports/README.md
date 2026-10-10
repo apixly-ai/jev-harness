@@ -144,3 +144,37 @@ Use a full Git checkout and a new output path. The live runner reserves each dis
 checkpoints atomically, stops on provider/runtime failure, and never resumes uncertain
 submissions automatically. CI runs only the offline mode. Native desktop acceptance and
 search indexing remain unverified; no browser UI or desktop operation was repeated.
+
+## Static task admission (0.1.4)
+
+`check-task` now parses and compiles UTF-8 source without executing it, then checks for
+an explicit top-level `workflow` assignment. An annotation without a value is not an
+assignment. Compiler/parser warnings are projected to a fixed code and line number;
+source excerpts and exception text do not become output. Non-UTF-8 input returns a
+structured failure. Inference, prompts, tool execution and runtime gates are unchanged.
+
+The [offline static A/B](static-check-ab.json) compares the exact published 0.1.3 source
+(`37358ff83a83203b270c4cf92f8db7272239cca6`) with the candidate on 13 fixed synthetic
+scripts, three paired repetitions each. Correct acceptance/rejection changes from 18/39
+to 39/39. Combined classification and warning-count checks change from 15/39 to 39/39; baseline
+non-UTF-8 input throws in three probes, while the candidate returns structured failures.
+Both arms record zero inspected-script effects, source exposures and model calls.
+Fixtures include parseable but uncompilable scope/control statements, duplicate
+arguments, annotation-only exports, unknown imports, a possible file effect and a
+nonfatal compiler warning. All source inputs and expected results are included.
+
+Negative results and boundaries: compilation adds local deterministic work and returned
+diagnostic bytes. A missing dependency, `workflow = None` or unreachable assignment can
+still be accepted statically. This is not Task type-checking, import/dependency checking,
+callback/provider validation, execution proof or a cross-version guarantee. Warning
+policy can differ at runtime. Per-check elapsed times, context bytes, exceptions and
+zero actual model usage remain in the report; no model savings or speed gain is claimed.
+
+```sh
+python benchmarks/static_check.py --output local-results/static-check-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI repeats offline checks
+under Python 3.10, 3.12 and 3.14. No live Jev matrix, browser UI, locked desktop or URL
+submission was repeated for this change. Native desktop and search indexing remain
+unverified.
