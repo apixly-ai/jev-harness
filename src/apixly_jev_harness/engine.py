@@ -299,6 +299,9 @@ class Engine:
                 os.fsync(journal.fileno())
 
             def finish(status, **extra):
+                owned = backend.owned_transport()
+                if owned is not None:
+                    telemetry["owned_transport"] = owned
                 result = {
                     "status": status,
                     "complete": status == "done",

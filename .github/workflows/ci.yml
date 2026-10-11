@@ -31,6 +31,7 @@ jobs:
       - run: python benchmarks/context_budget.py --output local-results/context-budget-ab.json
       - run: python benchmarks/planning_diagnostics.py --output local-results/planning-diagnostics-ab.json
       - run: python benchmarks/execution_identity.py --output local-results/execution-identity-ab.json
+      - run: python benchmarks/owned_transport.py --output local-results/transport-counters-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

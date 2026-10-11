@@ -521,3 +521,56 @@ python benchmarks/execution_identity.py --output local-results/execution-identit
 Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
 operation, locked-desktop retry or URL submission was repeated. Native desktop completion,
 crawler visits, indexing and AI citations retain their separate evidence limits.
+
+## Transport counters owned by the run (0.1.12)
+
+Existing `telemetry.requests` and per-call `transport` evidence are retained: native
+Choice counts logical packed requests. Optional `telemetry.owned_transport` separately
+captures the owned provider client's `Client.stats` deltas from Session start to terminal
+finish, before the journal's terminal write and client close. It reports SDK
+`request_attempts` (including retries), HTTP client-object creation/reuse and
+`counters_complete`, with fixed ownership/snapshot scope. Starting/ending counters must
+be exact nonnegative integers; the finish must not fall below the start or a witnessed Session.run value;
+missing/invalid/decreasing fields become null rather than zero. This does not detect every
+unobserved reset. No active owned Session means omitted metadata, not zero ownership proof.
+
+The [offline counter A/B](transport-counters-ab.json) compares exact published 0.1.11
+source (`95276bd77eef162645b45bfcd8c40c7a06dac212`) with the candidate on 16 fixed
+synthetic fixtures, three paired repetitions with alternating arm order: 48 rows per arm.
+New snapshot conformance changes from 6/48 to 48/48; both arms retain 48/48 expected
+behaviors with exact pairwise parity. The candidate has 42 owned snapshots, including
+12 with partial unknown counters; six inactive/standalone rows omit metadata as required.
+Both arms retain 42 logical requests, 45 operation MockTransport entries plus three
+excluded seed entries, 27 synthetic effects and 15 rows with unknown mock usage. Real
+model/network/UI calls and forbidden real transport attempts are zero. These are protocol
+checks, not semantic-quality gains.
+
+The initial offline report and its matching source were retained locally. This published
+report was rerun after clarifying the spec's fixed snapshot literal and separate timing
+description; runtime counter behavior and all case/count expectations remained unchanged.
+
+Fixtures exercise retries, credential rejection, nonzero starting counters, nullable
+invalid/bool/string/negative fields, a reset below a witnessed high, fixed-key projection,
+early terminals, inactive ownership and unchanged failure/usage handling. A separate SDK
+encoding counterexample records one attempt and zero MockTransport handler entries; it
+does not produce an Engine terminal snapshot. This demonstrates why the SDK counter is
+not an HTTP-dispatch count. A seeded operation is outside the run-owned deltas. One
+logical request can have three SDK attempts after retries or none on credential rejection.
+
+Negative results: returned context grows from 45,627 to 53,319 bytes (+7,692); the mixed
+whole-operation median rises from about 1.660 to 1.698 ms, with slower local fixtures
+retained. Timing includes loop admission, pinned planning, bounded mock retry/validation,
+effects, snapshotting and journal flush/fsync; it excludes process/import/client/task
+setup, seed operations and post-call analysis. Complete counters do not make unknown token
+usage known. Attempts prove neither HTTP delivery, server receipt, inference nor billing;
+HTTP client objects/reuse are not TCP connections, and other tool traffic is excluded.
+Model identity, authorization, execution, exit and retry handling are unchanged. No
+real-provider measurement, speed, model-quality or fee benefit is claimed.
+
+```sh
+python benchmarks/owned_transport.py --output local-results/transport-counters-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
+operation, locked-desktop retry or URL submission was repeated. Historical acceptance
+and GEO claims retain their existing scope.

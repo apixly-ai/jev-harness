@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.11. Install the repository at `@v0.1.11` for a reproducible release;
+Contract version: 0.1.12. Install the repository at `@v0.1.12` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -170,6 +170,24 @@ model choices change. Generic full-spec ValueError and dispatched HTTP413 are no
 reclassified (HTTP413 keeps its safe code and unknown usage). See the planning contract
 and reports/planning-diagnostics-ab.json for offline synthetic checks with no real
 model/network/UI calls or accuracy/speed/fee claim.
+
+Read spec.transport_counters separately from telemetry.requests. Native Choice's existing
+requests counts logical packed requests; per-call transport evidence is retained.
+Optional telemetry.owned_transport has scope=run_owned_provider_client,
+snapshot=terminal_finish and request_attempts/clients_created/client_reuses deltas from
+Session start, plus counters_complete. It is captured before the journal terminal write
+and client close. Start/end must be exact nonnegative integers; end must be at or above
+start and every witnessed Session.run counter. Missing, unreadable, bool, negative, string
+or decreasing values become null, not zero. These observed bounds do not detect every
+unobserved reset. No active Session means omitted metadata, not zero evidence. Attempts include
+SDK retries and can be counted before encoding fails without HTTP transport entry;
+one logical request may have three attempts, or none on credential rejection. Client
+counts describe HTTP client objects/reuse, not TCP connections. Do not infer server receipt,
+inference, billing or other tool traffic. counters_complete is not usage_complete;
+unknown usage/model identity and authorization/execution/exit/retry handling are unchanged.
+spec.transport_counters.snapshot is the exact runtime literal; snapshot_timing is descriptive,
+not JSON Schema validation.
+See the counter contract and reports/transport-counters-ab.json; no price or savings claim.
 
 Use generic browser/desktop adapters only within their platform and target scope. Headless
 Camofox must preserve the named session; native desktop needs an unlocked target app.

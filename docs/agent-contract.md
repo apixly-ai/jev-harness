@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.11 for a reproducible release;
+package downloads still require network access. Pin v0.1.12 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -484,3 +484,48 @@ cap, authorization, verification and uncertainty handling are unchanged. The
 [planning-diagnostics A/B](../reports/planning-diagnostics-ab.json) uses offline synthetic
 planning/dispatch checks with no real model, network or UI calls, and does not establish
 semantic accuracy, speed or fee savings.
+
+## Transport counters owned by the run
+
+`telemetry.requests` retains its existing meaning: the sum of decision telemetry, with
+native Choice reporting logical packed requests. Existing per-call `transport` evidence
+is retained. Optional `telemetry.owned_transport` separately records this run's owned
+provider-client counters from Session start to terminal finish, for example:
+
+```json
+{
+  "owned_transport": {
+    "scope": "run_owned_provider_client",
+    "snapshot": "terminal_finish",
+    "request_attempts": 3,
+    "clients_created": 1,
+    "client_reuses": 2,
+    "counters_complete": true
+  }
+}
+```
+
+The counts illustrate the metadata shape, not A/B measurements. They are differences of the
+owned `Client.stats` fields `requests`, `clients_created` and `client_reuses`. One logical
+request can have three SDK attempts after retries, while credential rejection can leave
+one logical request and zero attempts. Snapshotting occurs before the journal's terminal
+write and client close; the returned packet and journal use the same snapshot.
+`spec.transport_counters.snapshot` is the exact runtime value `terminal_finish`;
+`snapshot_timing` separately describes ordering. This machine contract is not a JSON Schema validator.
+
+Each counter requires exact nonnegative integers at the start and finish, with a finish
+value no lower than the start or a witnessed Session.run counter. Missing, unreadable,
+boolean, negative, string or decreasing counters become `null`, not an inferred zero.
+This checks the observed bounds, not every reset between observations.
+`counters_complete` means all three counter deltas are available; it does not establish
+complete token usage. With no active owned Session, the metadata is omitted. Absence is
+unknown rather than evidence of zero attempts.
+
+These are SDK attempt counters, including its existing retries, not proof that HTTP was
+sent, a server received it, inference occurred or billing is complete. An attempt can be
+counted before JSON encoding fails, without entering the HTTP transport. Client counts
+refer to HTTP client objects/reuse, not TCP connections; other tool traffic and provider
+clients are outside this scope. Model identity, unknown usage, authorization, execution,
+exit states and retry policy are unchanged. See the
+[transport-counters A/B](../reports/transport-counters-ab.json) for the test scope;
+no price, cost-saving or speed guarantee follows from these counters.

@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.11 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.12 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -452,3 +452,43 @@ loop 中为 `telemetry.calls[].planning`，直接 choice 为 `telemetry.planning
 的 15,000 JSON 字符预算、授权、验证及不确定性处理均不变。
 [规划诊断 A/B](../reports/planning-diagnostics-ab.json) 使用离线合成的规划/派发检查，
 没有真实模型、网络或 UI 调用，不能证明语义准确率、提速或费用收益。
+
+<a id="transport-counters-owned-by-the-run"></a>
+## 本次运行拥有的传输计数
+
+telemetry.requests 保留原有口径：累加各次决策遥测，原生 Choice 报告逻辑打包请求。
+已有逐次调用的 transport 证据保留。可选 telemetry.owned_transport 单独记录本次
+拥有的提供方 client 从 Session 起点到终态 finish 的计数，例如：
+
+```json
+{
+  "owned_transport": {
+    "scope": "run_owned_provider_client",
+    "snapshot": "terminal_finish",
+    "request_attempts": 3,
+    "clients_created": 1,
+    "client_reuses": 2,
+    "counters_complete": true
+  }
+}
+```
+
+计数仅演示结构，不是 A/B 测量值。它们是本次拥有的 Client.stats 中 requests、
+clients_created、client_reuses 的差值。一个逻辑请求在重试后可有三次 SDK 尝试，
+凭据拒绝时也可能逻辑请求为一而尝试为零。快照取于日志终态写入及 client close 之前，
+返回数据包和日志使用同一快照。
+spec.transport_counters.snapshot 是实际固定值 terminal_finish，snapshot_timing
+另行描述采样顺序；这个机器契约不是 JSON Schema 验证器。
+
+每个计数要求起点和终点是精确的非负整数，终点不低于起点或已见的 Session.run 计数。
+缺失、无法读取、bool、负数、字符串或回退的计数都为 null，不推断成零。
+只检查这些已观察值，不检测观察间的每一次重置。
+counters_complete 只表示三个差值都可用，不证明 token 用量完整。没有活跃的本次
+Session 时省略元数据；缺省是未知，不证明尝试为零。
+
+这是 SDK 尝试计数，包含已有重试，不证明 HTTP 已发出、服务端收到、推理发生或计费
+完整。JSON 编码失败前也可能已计一次尝试，而没有进入 HTTP transport。Client 计数
+是 HTTP client 对象/复用次数，不是 TCP 连接；其他工具流量或 provider client 不在
+此范围。模型身份、未知用量、授权、执行、退出状态及重试策略均不变。见
+[传输计数 A/B](../reports/transport-counters-ab.json)的测试范围；这些计数不带来价格、
+降费或提速保证。

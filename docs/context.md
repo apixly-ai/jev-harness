@@ -87,6 +87,18 @@ validation errors and dispatched HTTP413 retain their existing handling. See the
 [offline A/B](../reports/planning-diagnostics-ab.json); these do not prove semantic quality,
 speed or fee savings.
 
+Transport telemetry has a separate unit and scope. Existing `telemetry.requests` and
+per-call transport evidence are unchanged; native Choice counts logical packed requests.
+Optional `telemetry.owned_transport` snapshots the owned provider client's SDK attempts
+and HTTP client-object creation/reuse from Session start to terminal finish, before client
+close, and uses the same snapshot in the returned packet and journal. Invalid/unreliable
+counter deltas are `null`; omitted metadata is unknown, not zero. SDK attempts include
+retries and can be counted before encoding fails without HTTP transport entry. They do
+not establish server receipt, inference, billing, TCP connections or other tool traffic.
+Unknown token usage remains unknown, and context admission/execution/retry rules are unchanged.
+See the [counter contract](agent-contract.md#transport-counters-owned-by-the-run) and
+[A/B scope](../reports/transport-counters-ab.json).
+
 Private journals use exclusive creation, POSIX mode 0600, JSONL append, flush/fsync, and
 never overwrite an existing path. They include raw observations, actual arguments and
 results. Do not publish them without review. CLI terminal output contains no raw evidence;

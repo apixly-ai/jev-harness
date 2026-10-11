@@ -11,11 +11,61 @@ from jev_filter.batch import run as native_run
 from .diagnostics import PLANNING_STATUS_CODES, provider_failure_code
 
 _ACTIVE = ContextVar("apixly_jev_harness_transport", default=None)
+_COUNTER_FIELDS = {
+    "requests": "request_attempts",
+    "clients_created": "clients_created",
+    "client_reuses": "client_reuses",
+}
+
+
+def _client_counters(client):
+    try:
+        stats = client.stats
+        return (
+            {
+                key: value if type(value := stats.get(key)) is int and value >= 0 else None
+                for key in _COUNTER_FIELDS
+            }
+            if isinstance(stats, dict)
+            else dict.fromkeys(_COUNTER_FIELDS)
+        )
+    except Exception:
+        # Instrumentation failures must not change a task's terminal status or expose text.
+        return dict.fromkeys(_COUNTER_FIELDS)
+
+
+def owned_transport():
+    session = _ACTIVE.get()
+    return session.snapshot() if session is not None else None
 
 
 class Session:
     def __init__(self, client):
         self.client = client
+        self._starting = _client_counters(client)
+        self._seen = dict(self._starting)
+
+    def snapshot(self):
+        current = _client_counters(self.client)
+        counts = {}
+        for key, name in _COUNTER_FIELDS.items():
+            start, value, seen = self._starting[key], current[key], self._seen[key]
+            counts[name] = (
+                value - start
+                if (
+                    start is not None
+                    and value is not None
+                    and seen is not None
+                    and value >= seen >= start
+                )
+                else None
+            )
+        return {
+            "scope": "run_owned_provider_client",
+            "snapshot": "terminal_finish",
+            **counts,
+            "counters_complete": all(value is not None for value in counts.values()),
+        }
 
     def run(self, items, **kwargs):
         before = dict(self.client.stats)
@@ -39,6 +89,10 @@ class Session:
                 }
             results.append(row)
         delta = {key: self.client.stats[key] - before[key] for key in before}
+        for key, value in _client_counters(self.client).items():
+            if value is not None:
+                previous = self._seen[key]
+                self._seen[key] = value if previous is None else max(previous, value)
         return {
             "ok": all(row["ok"] for row in results),
             "results": results,

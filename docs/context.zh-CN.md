@@ -71,6 +71,16 @@ scope `loop_shared_context`、失败阶段、unit `json_characters`、limit 及 
 HTTP413 保留已有处理。见[规划契约](agent-contract.zh-CN.md#request-planning-handoff)
 与[离线 A/B](../reports/planning-diagnostics-ab.json)；它们不能证明语义质量、提速或降费。
 
+传输遥测另有单位和范围。已有 telemetry.requests 与逐次调用的 transport 证据不变；
+原生 Choice 计逻辑打包请求。可选 telemetry.owned_transport 从 Session 起点到终态
+finish、client close 前，记录本次拥有的 provider client 的 SDK 尝试及 HTTP client
+对象创建/复用差值；返回数据包和日志使用同一快照。不可靠差值为 null，元数据缺省
+是未知，不是零。SDK 尝试包含重试，可能在编码失败前计数而没有进入 HTTP transport，
+不证明服务端收到、推理、计费、TCP 连接或其他工具流量。未知 token 用量仍未知，
+上下文准入/执行/重试规则不变。见
+[计数契约](agent-contract.zh-CN.md#transport-counters-owned-by-the-run) 与
+[A/B 范围](../reports/transport-counters-ab.json)。
+
 私有日志使用独占创建、POSIX 模式 0600、JSONL 追加，以及 flush/fsync；绝不会覆盖
 已有路径。日志包含原始观察、实际参数和结果，未经审阅不要公开。CLI 终态输出不含
 原始证据；可信脚本也必须避免打印自己的原始数据。

@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.11**; no promise of general task success or universal savings.
+AI product. Early **0.1.12**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.11` only for active development.
+Use `@main` instead of `@v0.1.12` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -238,6 +238,16 @@ includes the current bound `action_id` when available. Use it to locate private 
 evidence and reconcile the target; it proves no success or execution count and is neither
 an idempotency key nor permission to rerun. No bound arguments are added to the terminal;
 unknown usage remains unknown. See the [identity A/B](reports/execution-identity-ab.json).
+
+Optional `telemetry.owned_transport` now reports the run's owned provider-client counter
+deltas at terminal finish: SDK request attempts (including retries), created HTTP client
+objects and client reuse. Existing `telemetry.requests` and per-call transport evidence
+are unchanged; native Choice reports logical packed requests. A logical request can have
+three attempts after retries, or none when credentials fail. Missing/unreliable counters
+are `null`; absent metadata is unknown, not zero. These counters prove neither HTTP/server
+receipt, inference or billing nor TCP connections or other tool traffic. See the
+[counter contract](docs/agent-contract.md#transport-counters-owned-by-the-run) and
+[A/B scope](reports/transport-counters-ab.json). Unknown usage remains unknown.
 
 ## Development
 

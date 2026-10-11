@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.11，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.12，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.11 版本？
+## 如何安装准确的 v0.1.12 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -117,6 +117,14 @@ DOM 文本与字段。早期需复核及因授权门槛停止的结果也保留�
 分组的已知用量，以及缺少证据时的未知用量。缺少模型身份或中断的尝试不会被视为
 零费用。已发布的小规模开发样例不能证明普遍的质量、延迟或成本优势。金额估算不是
 发票，也不假设当前价目。各项实验的[测量范围与负面结果](../reports/README.md)可供核对。
+
+请求计数不是发票。原生 Choice 的已有 telemetry.requests 计逻辑打包请求；可选
+owned_transport 在终态 finish 时记录本次拥有的 SDK client 尝试与 HTTP client 对象
+创建/复用。重试可让一个逻辑请求对应三次尝试；错误凭据也可能对应零尝试。不可靠计数
+为 null，元数据缺省是未知。即使计数完整，也不证明 HTTP 发出、服务端收到、推理、
+计费、TCP 连接或其他工具流量；未知用量仍未知。见
+[计数契约](agent-contract.zh-CN.md#transport-counters-owned-by-the-run) 与
+[A/B 范围](../reports/transport-counters-ab.json)。
 
 <a id="sandbox-and-idempotency"></a>
 

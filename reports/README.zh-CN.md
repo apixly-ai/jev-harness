@@ -491,3 +491,46 @@ python benchmarks/execution_identity.py --output local-results/execution-identit
 
 使用安装了 `.[dev]` 的完整 Git 检出和新输出路径。没有重跑付费矩阵、浏览器操作、
 锁屏桌面或 URL 提交。原生桌面完成、真实抓取、索引及 AI 引用仍保留各自证据边界。
+
+## 本次运行拥有的传输计数（0.1.12）
+
+已有 telemetry.requests 和逐次调用的 transport 证据保留：原生 Choice 计逻辑打包
+请求。可选 telemetry.owned_transport 单独在日志终态写入和 client close 前，记录
+本次拥有的 provider client 从 Session 起点到终态 finish 的 Client.stats 差值，包含
+SDK request_attempts（已有重试也计入）、HTTP client 对象创建/复用及
+counters_complete，scope 和 snapshot 固定。起点/终点须为精确的非负整数，终点不
+低于起点或已见 Session.run 值；缺失/无效/回退字段为 null，不补零。不检测观察间的
+每一次重置；没有活跃的本次 Session 时省略元数据，不证明本次拥有的尝试为零。
+
+[离线计数 A/B](transport-counters-ab.json)对比已发布的完整 0.1.11 源码
+（`95276bd77eef162645b45bfcd8c40c7a06dac212`）与候选版本，使用 16 个固定合成
+夹具、三次配对重复并交替顺序，每组 48 条记录。新快照契约符合次数从 6/48 变为
+48/48，两组均保留 48/48 个预期行为，逐对完全一致。候选组有 42 个本次拥有的快照，
+其中 12 个计数部分未知；六条不活跃/独立 SDK 记录按契约省略元数据。两组均保留
+42 个逻辑请求、45 次操作内 MockTransport 进入，加上三次不在运行范围内的 seed
+进入、27 次合成效果和 15 条未知 mock 用量记录。真实模型/网络/UI 调用及被禁止的
+真实 transport 尝试均为零。这些是协议检查，不是语义质量提升。
+
+初始离线报告及对应源码仍保留在本地。本次发布报告在澄清 spec 的固定 snapshot 值
+与独立采样顺序描述后离线重测，运行时计数行为及全部场景/计数预期均未变。
+
+夹具覆盖重试、凭据拒绝、非零起始计数、nullable 无效/bool/字符串/负数字段、低于
+已见高位的重置、固定 key 投影、早期终态、不活跃归属，以及原有失败/用量处理。
+独立 SDK 编码反例记录一次尝试、零次 MockTransport handler 进入，不产生 Engine
+终态快照，说明 SDK 计数不等于 HTTP 派发次数。Seed 操作不在本次差值内；一个
+逻辑请求在重试后可有三次 SDK 尝试，也可因凭据拒绝而没有尝试。
+
+负面结果：返回上下文从 45,627 增至 53,319 字节（+7,692）；混合测试夹具的整段
+耗时中位数约从 1.660 增至 1.698 毫秒，较慢的局部记录保留。计时包括 loop 准入、
+固定版本规划、有界 mock 重试/验证、效果、快照及日志 flush/fsync，不含进程/导入/
+client/任务准备、seed 操作及调用后分析。完整计数不会让未知 token 用量变为已知。
+尝试不证明 HTTP 发出、服务端收到、推理或计费；HTTP client 对象/复用不是 TCP
+连接，其他工具流量不在范围内。模型身份、授权、执行、退出和重试处理不变。
+不声称真实 provider 测量、提速、模型质量或费用收益。
+
+```sh
+python benchmarks/owned_transport.py --output local-results/transport-counters-ab.json
+```
+
+使用安装了 `.[dev]` 的完整 Git 检出和新输出路径。没有重跑付费矩阵、浏览器操作、
+锁屏桌面或 URL 提交，历史验收及 GEO 声明保留已有范围。

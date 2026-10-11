@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.11. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.12. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.11 release?
+## How do I install the exact v0.1.12 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -134,6 +134,16 @@ missing. Missing model identity or interrupted attempts are not counted as zero 
 Published small development fixtures do not establish universal quality, latency or savings.
 Monetary estimates are not invoices and assume no current tariff. Check the
 [measurement scope and negative results](../reports/README.md) for each experiment.
+
+Request counts are not invoices. Native Choice's existing telemetry.requests counts
+logical packed requests; optional owned_transport records this run's owned SDK-client
+attempts and HTTP client-object creation/reuse at terminal finish. Retries can make one
+logical request count as three attempts; bad credentials can leave it at zero attempts.
+Invalid counters are null, and absent metadata is unknown. Even complete counters do not
+prove HTTP delivery, server receipt, inference, billing, TCP connections or other tool
+traffic; unknown usage stays unknown. See the
+[counter contract](agent-contract.md#transport-counters-owned-by-the-run) and
+[A/B scope](../reports/transport-counters-ab.json).
 
 <a id="sandbox-and-idempotency"></a>
 
