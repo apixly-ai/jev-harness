@@ -1,11 +1,15 @@
 """Jev-native task runtime for AI-authored workflows."""
 
-__version__ = "0.1.17"
+__version__ = "0.2.0"
 
 from .context import ContextPolicy
 from .engine import Action, AgentLoop, Context, Engine, Workflow
+from .evidence import EvidenceStore
 from .task import Option, Parameter, Task
+from .toolkit import EvidenceTask, TaskScript, ToolkitSession
 from .verify import verify_state
+from .web_tools import CamofoxProvider, HttpProvider, WebTools
+from .workspace import WorkspaceTools
 
 __all__ = [
     "__version__",
@@ -19,4 +23,12 @@ __all__ = [
     "Option",
     "Parameter",
     "Task",
+    "EvidenceStore",
+    "EvidenceTask",
+    "ToolkitSession",
+    "TaskScript",
+    "HttpProvider",
+    "CamofoxProvider",
+    "WebTools",
+    "WorkspaceTools",
 ]

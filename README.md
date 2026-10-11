@@ -2,7 +2,7 @@
 
 # Jev Harness
 
-[简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [FAQ](docs/faq.md) · [Use cases](docs/use-cases.md) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
+[简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [Toolkits](docs/toolkits.md) · [FAQ](docs/faq.md) · [Use cases](docs/use-cases.md) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
 
 **Give an open goal. Let AI define the tools. Let Jev explore the next step.**
 
@@ -11,7 +11,7 @@ primary AI defines tool capabilities, fresh parameter providers, observation and
 checks. Jev uses the goal, admitted conversation, new state and history to choose the next
 tool and arguments. Code executes, refreshes the state and checks completion. Bounds
 control permissions and resources while Jev discovers the route from new observations.
-An independent Apixly community project. Current runtime: **0.1.17**.
+An independent Apixly community project. Current runtime: **0.2.0**.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -58,7 +58,14 @@ Browser and desktop adapters can host your own task tools. Each script supplies 
 inputs, dynamic argument candidates and completion checks; the runtime supplies the loop
 and result records. Integration details and acceptance records are linked in the docs.
 
-## Start with the agent interface
+## Reuse tools, write a thin task
+
+Start with `WorkspaceTools` for local files or `WebTools` with HTTP/Camofox acquisition.
+An `EvidenceStore` keeps captured text; `EvidenceTask` supplies progressive reads,
+labeled quotes and a saved report checked by your verifier. Both
+[research](examples/research_task.py) and [workspace](examples/workspace_task.py) examples
+are 28-line scripts: runtime inputs supply scope and criteria, while Jev chooses the route.
+The [toolkit guide](docs/toolkits.md) covers the shared API and optional MCP access.
 
 Python 3.10+ and Git are required. The runtime pins Jev Filter 0.4.1 from GitHub as its
 inference and platform dependency. Installation makes no model calls.
@@ -66,15 +73,25 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
 jev-harness spec
-jev-harness init-task task.py
+jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
 # Billable: configure TYPESAFE_API_KEY or TYPESAFE_API_KEY_FILE in your environment.
-jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
+jev-harness run task.py --goal 'Investigate source evidence and save categorized quotes' --inputs '{"root":"permitted-corpus","queries":["relevant_identifier"],"markers":{"implementation":"<source marker>"},"output":"local-results/report.json"}'
 ```
 
-Use `@main` instead of `@v0.1.17` only for active development.
+Use `@main` instead of `@v0.2.0` only for active development. Replace illustrative inputs
+with your permitted sources and quote criteria. Marker checks demonstrate the hook;
+business correctness belongs in the caller verifier.
+
+For primary-agent integration, expose the same script with
+`python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...`. MCP advertises
+`observe`, `arguments`, `operate` and `run_task`. Reference-based direct operation and
+Jev delegation use the same tools, goal and artifact checks. Choose one route for a
+session; arguments and operations carry the current `observe.state_ref` and run in
+sequence. See the [interface contract](docs/agent-contract.md#toolkit-and-mcp-interface)
+and [acceptance evidence](reports/README.md).
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with

@@ -1,4 +1,6 @@
-"""Explicit trusted-script entrypoint; no model-generated imports or scripts."""
+"""Trusted task scripts and offline scaffolds. Use 'jev-harness mcp SCRIPT --goal GOAL'
+to expose the same script for primary-AI operation or Jev delegation over stdio.
+"""
 
 import argparse
 import ast
@@ -9,6 +11,7 @@ import warnings
 from importlib.resources import files
 from pathlib import Path
 
+from . import __version__
 from .callbacks import (
     CALLBACK_CODES,
     CALLBACK_KINDS,
@@ -53,6 +56,38 @@ def increment(amount):
 
 '''
 
+TOOLKIT_TEMPLATES = ("workspace", "http", "browser")
+
+
+def _template(toolkit):
+    if toolkit is None:
+        return TEMPLATE
+    bundled = files("apixly_jev_harness").joinpath("templates/" + toolkit + ".py")
+    if bundled.is_file():
+        return bundled.read_text(encoding="utf-8")
+    return (Path(__file__).resolve().parents[2] / "templates" / (toolkit + ".py")).read_text(
+        encoding="utf-8"
+    )
+
+
+def _close_toolkits(workflow):
+    from .toolkit import EvidenceTask, TaskScript
+
+    if isinstance(workflow, TaskScript):
+        task = workflow._task
+    elif isinstance(workflow, EvidenceTask):
+        task = workflow
+    else:
+        return []
+    errors = []
+    for pack in getattr(task, "toolkits", []):
+        try:
+            if callable(getattr(pack, "close", None)):
+                pack.close()
+        except Exception as error:
+            errors.append({"toolkit_type": type(pack).__name__, "error_type": type(error).__name__})
+    return errors
+
 
 class _CLIArgumentError(ValueError):
     pass
@@ -73,8 +108,9 @@ def main(argv=None):
         "check-task", help="Parse/compile Python and check assignment without executing; offline"
     )
     check.add_argument("script")
-    init = commands.add_parser("init-task", help="Write a synthetic task template; offline")
+    init = commands.add_parser("init-task", help="Write a counter or thin toolkit task; offline")
     init.add_argument("script")
+    init.add_argument("--toolkit", choices=TOOLKIT_TEMPLATES)
     run = commands.add_parser("run", help="Run caller-trusted Python; Jev inference is billable")
     run.add_argument("script")
     run.add_argument("--goal", required=True)
@@ -157,6 +193,7 @@ def main(argv=None):
         return 0 if packet["ok"] else 2
     phase = "configuration" if args.command == "run" else None
     task_output = None
+    cleanup_errors = []
     try:
         if args.command == "run":
             inputs, context, messages = (
@@ -180,9 +217,12 @@ def main(argv=None):
             phase = "script_loading"
         path = Path(args.script).expanduser().resolve(strict=args.command == "run")
         if args.command == "init-task":
+            body = _template(args.toolkit)
             with path.open("x", encoding="utf-8") as stream:
-                stream.write(TEMPLATE)
+                stream.write(body)
             packet = {"status": "created", "script": str(path), "model_calls": 0}
+            if args.toolkit is not None:
+                packet["toolkit"] = args.toolkit
             exit_code = 0
         else:
             task_output = TaskOutput()
@@ -193,6 +233,7 @@ def main(argv=None):
                 module = importlib.util.module_from_spec(spec)
                 previous = sys.modules.get("_jev_task")
                 sys.modules["_jev_task"] = module
+                workflow = None
                 try:
                     spec.loader.exec_module(module)
                     workflow = getattr(module, "workflow", None)
@@ -210,6 +251,7 @@ def main(argv=None):
                         archive=args.archive,
                     )
                 finally:
+                    cleanup_errors = _close_toolkits(workflow)
                     if previous is None:
                         sys.modules.pop("_jev_task", None)
                     else:
@@ -241,6 +283,8 @@ def main(argv=None):
         exit_code = 2
     if task_output is not None and (summary := task_output.summary()) is not None:
         packet["task_output"] = summary
+    if cleanup_errors:
+        packet["cleanup_errors"] = cleanup_errors
     print(json.dumps(packet, ensure_ascii=False, allow_nan=False))
     return exit_code
 
@@ -249,7 +293,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.17",
+    "version": __version__,
     "parameter_binding": "staged_candidate_choice",
     "argument_parsing": {
         "scope": "all command parsers when argparse reports an error",
@@ -275,7 +319,25 @@ SPEC = {
     "commands": {
         "skill": {"offline": True},
         "spec": {"offline": True},
-        "init-task": {"required": ["script"], "offline": True},
+        "init-task": {
+            "required": ["script"],
+            "offline": True,
+            "default": "counter",
+            "optional": ["toolkit"],
+            "toolkit_choices": list(TOOLKIT_TEMPLATES),
+            "writes_existing_script": False,
+            "source_acquisition": False,
+            "inference": False,
+        },
+        "mcp": {
+            "entrypoint": "jev-harness mcp",
+            "required": ["script", "goal"],
+            "optional": ["inputs", "context", "max-steps", "timeout", "archive", "direct-only"],
+            "transport": "stdio_json_rpc",
+            "task_source": "caller_trusted_script",
+            "jev_delegation_billable": True,
+            "direct_operations_use_jev": False,
+        },
         "check-task": {
             "required": ["script"],
             "offline": True,
@@ -289,6 +351,15 @@ SPEC = {
         "run": {
             "required": ["script", "goal"],
             "billable": True,
+            "toolkit_cleanup": {
+                "workflows": ["EvidenceTask", "materialized_TaskScript"],
+                "scope": "registered_toolkit_close_methods",
+                "metadata_field": "cleanup_errors",
+                "error_fields": ["toolkit_type", "error_type"],
+                "raw_error_text": False,
+                "terminal_and_usage_preserved_on_cleanup_exception": True,
+                "resource_release_proven": False,
+            },
             "task_output": {
                 "policy": "discard",
                 "scope": "python_streams",
@@ -334,14 +405,79 @@ SPEC = {
     },
     "script_contract": {
         "export": "workflow",
-        "type": "Task or Workflow",
+        "type": "Task, Workflow or TaskScript",
         "trusted_python": True,
         "callbacks": ["observe", "verify"],
         "tool_registration": "Task.tool",
-        "parameters": {
-            "Parameter": ["description", "choices", "depends_on"],
-            "Option": ["id", "description", "value"],
+        "factory": {
+            "wrapper": "TaskScript",
+            "signature": "build(inputs) -> Task",
+            "inputs": "validated_runtime_inputs",
+            "materialization": "once_per_TaskScript_instance",
+            "during_script_import": False,
+            "source_acquisition": "when_factory_materializes_or_a_registered_tool_acquires",
+            "result_cache": False,
         },
+        "parameters": {
+            "Parameter": ["description", "choices", "depends_on", "selection"],
+            "Option": ["id", "description", "value"],
+            "selection": {"match": "supported_fact_candidate", "explore": "worth_inspecting_next"},
+        },
+    },
+    "toolkits": {
+        "built_in": list(TOOLKIT_TEMPLATES),
+        "interface": {
+            "name": "unique_string",
+            "observe": "compact_json",
+            "install": "register_on_Task",
+        },
+        "observation": "stable_compact_source_references",
+        "business_logic": "caller_tools_and_independent_verifier",
+        "workspace": {
+            "class": "WorkspaceTools",
+            "scope": "caller_selected_root",
+            "source_execution": False,
+        },
+        "http": {
+            "classes": ["HttpProvider", "WebTools"],
+            "methods": ["GET"],
+            "origin_checks": "before_each_redirect_hop",
+        },
+        "browser": {
+            "classes": ["CamofoxProvider", "WebTools"],
+            "identity": "named_session_and_fixed_tab",
+            "cleanup": "owned_tab_only",
+            "origin_checks": "target_and_final_observation; not_network_firewall",
+        },
+        "raw_candidate_arguments": "program_bound_values_only",
+        "model_generated_selectors_or_code": False,
+        "free_text_generation": "explicit_caller_registered_trusted_tool",
+    },
+    "evidence": {
+        "store": "EvidenceStore",
+        "capture": "private_original_text_and_source_metadata",
+        "reference": "capture_specific; not_result_cache",
+        "raw_text_read_limit": 1200,
+        "recording": "previously_read_source_window_and_registered_label",
+        "record_checks": "caller_optional_source_field_checks",
+        "completion": "saved_artifact_matches_records_and_independent_verifier_passes",
+        "verifier_records": "full_set",
+        "task_observation_records": "bounded_summaries",
+        "template_marker_scope": "known_schema_prefix_presence; customize_semantic_verification",
+        "template_markers_are_expected_answers_or_routes": False,
+    },
+    "mcp": {
+        "tools": ["observe", "arguments", "operate", "delegate"],
+        "route_selection": "before_first_operation",
+        "direct": "primary_AI_selects_registered_tool_and_parameter_refs",
+        "delegate": "Jev_runs_same_task_and_returns_terminal_evidence",
+        "switch_after_operations": False,
+        "state_transfer_between_routes": False,
+        "automatic_delegation_claim": False,
+        "dependent_parameters": "arguments_after_parent_refs",
+        "completion": "independent_verifier; not_primary_final_message",
+        "uncertain_execution": "reconcile_before_any_new_operation",
+        "scope": "in_process_session; not_durable_resume",
     },
     "task_action_identity": {
         "scope": "Task.bind_and_execute_against_latest_offered_snapshot",
@@ -548,7 +684,7 @@ SPEC = {
         "failed",
     ],
     "exit_codes": {"0": "done or offline operation successful", "2": "parse_terminal_packet"},
-    "adoption": "Use for bounded tasks with semantic choices and an independent verifier. Keep exact/fixed work in code. Inspect spec, generate template, check script, run once, consume terminal result. Reconcile uncertain effects before any rerun.",
+    "adoption": "Give the primary AI an open goal, define trusted tools and fresh parameter providers, then choose direct operation or Jev delegation before the first operation. Inspect spec, generate a thin task, check it offline and consume independently verified artifact evidence. Keep exact work in code; reconcile uncertain effects before any rerun.",
     "limits": {
         "tools": 250,
         "parameter_options": 253,

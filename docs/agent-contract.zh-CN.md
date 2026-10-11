@@ -16,39 +16,70 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.17 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.2.0 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
 jev-harness spec
-jev-harness skill
-jev-harness init-task task.py
+jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
-# 产生计费调用：指定在本地配置的私有凭据文件。
-export TYPESAFE_API_KEY_FILE='/path/to/private/test-key'
-jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
+# 付费：使用调用方配置的 TYPESAFE_API_KEY 或 TYPESAFE_API_KEY_FILE。
+jev-harness run task.py --goal 'Investigate source evidence and save categorized quotes' --inputs '{"root":"permitted-corpus","queries":["relevant_identifier"],"markers":{"implementation":"<source marker>"},"output":"local-results/report.json"}'
 ```
 
-也可以通过宿主的密钥机制提供 TYPESAFE_API_KEY。绝不要提交密钥，也不要把密钥内容
-写入任务脚本或 CLI 参数。init-task 创建一个自包含的合成计数器；第一个任务不需要
-浏览器或桌面依赖。检查返回 JSON 中的 status/complete/archive/telemetry。
-只有任务确实需要相应操作界面时，才使用[适配器](adapters.md)。
+凭据保存在宿主密钥机制中，不写入任务代码或 CLI 值。Workspace 模板复用来源/证据
+工具，输入允许的 root、引用类别/marker 和新输出路径。Marker 检查演示调用方
+verifier，不是完整业务验证。检查 status/complete/archive/telemetry 和真实保存产物。
+[工具包](toolkits.zh-CN.md)另支持 HTTP 和 Camofox 渲染来源。
 
 <a id="adoption-sequence"></a>
 ## 接入步骤
 
 1. 阅读 `jev-harness spec`（离线 JSON）。
 2. 定义目标、范围、纳入的事实/消息，以及可观察的成功条件。
-3. 通过 `jev-harness init-task task.py` 生成脚本，并注册带明确签名的工具。
-4. 使用 `Parameter(description, choices, depends_on=...)` 描述参数。
+3. 通过 jev-harness init-task task.py --toolkit workspace 生成脚本，或在 TaskScript(build)
+   中组合可复用包；只在任务需要时注册额外工具。
+4. 提供运行时范围和引用判定条件；自定义参数使用
+   Parameter(description, choices, depends_on=..., selection=...)。
 5. 使用合成输入测试回调行为；`check-task` 只用于静态检查。
 6. 发起一次 `run` 调用；即使退出码是 2，也要解析终态数据包。
 7. 由主代理补齐尚未解决的上下文，或核对执行结果不明确的情况。
 
-需要语义分支的有界任务适合使用循环。精确计算和固定步骤留在代码中；开放式写作
+路线未知且需要语义分支的目标适合使用循环。精确计算和固定步骤留在代码中；开放式写作
 交给主代理或显式的可信生成工具。工具选择决策不构成执行证明，也不构成授权。
+
+<a id="toolkit-and-mcp-interface"></a>
+## 工具包与 MCP 接口
+
+EvidenceStore 在进程中保留采集文本和出处。WorkspaceTools/WebTools 注册普通 Task
+工具，执行时刷新来源/参数域，提供简洁稳定观察。EvidenceTask 增加按需段落读取、
+可用引用类别、依赖段落选择和已保存报告检查。
+[28 行示例](toolkits.zh-CN.md#start-with-a-thin-script)从运行时 inputs 获取范围、marker
+和输出；业务谓词保留在调用方 record_checks/verify 中，不写下一步 router 或 fixture 答案。
+
+TaskScript(build) 根据已校验的 ctx.inputs 构建一次注册任务，这是配置复用，不是
+推理或采集结果缓存。来源/记录观察保留最后八个摘要和有界 last_read；真实产物匹配
+当前记录后，verifier 获取全部 records。artifact_receipt() 提供 path/exists/
+matches_records/record_count/sha256/sources。采集文本和 session 不自动跨进程续接。
+
+stdio MCP 使用 python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...，可加
+--context、--max-steps、--timeout、--archive。observe 返回当前目标、工具、参数引用、
+state_ref 及委托/产物详情。广告的 arguments/operate 必须带这个 state_ref；先给
+arguments 父 option ID，再选依赖子 ID。operate 接受已提供 ID，不接受任意绑定值。
+一个 session 内顺序操作。既有 Python 方法的 state_ref 参数保持可选兼容，MCP 客户端必传。
+
+开始时选择直接 operate 或 Jev run_task。直接执行后或尝试委托后拒绝切换路线。
+Python 使用 session.delegate()，旧 MCP incoming alias 保留但不广告。run_task
+使用同一目标、inputs、注册能力和独立检查。直接模式的主模型用量不在 Jev 遥测内；
+路径发现/采用与任务成功是不同证据。见
+[工具包指南](toolkits.zh-CN.md)和[验收账本](../reports/README.zh-CN.md)。
+
+selection="explore" 用于值得探索的来源/规划候选，不要求未知目的地已经证明目标。
+EvidenceTask 工具选择和 explore 参数使用开发校准的 0.30 top probability/0 margin，
+默认 match 保留 0.55/0.10；其他检查和执行权限不变。小范围开发选择不证明质量、
+普遍提速或费用改善。
 
 <a id="cli-argument-parsing"></a>
 ## CLI 参数解析

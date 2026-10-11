@@ -2,7 +2,7 @@
 
 # Jev Harness
 
-[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [常见问题](docs/faq.zh-CN.md) · [使用案例](docs/use-cases.zh-CN.md) · [AI 接口](docs/agent-contract.zh-CN.md) · [验收证据](reports/README.zh-CN.md)
+[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [工具包](docs/toolkits.zh-CN.md) · [常见问题](docs/faq.zh-CN.md) · [使用案例](docs/use-cases.zh-CN.md) · [AI 接口](docs/agent-contract.zh-CN.md) · [验收证据](reports/README.zh-CN.md)
 
 **给开放目标，AI 定义工具，Jev 自主选择下一步。**
 
@@ -10,7 +10,7 @@
 主 AI 定义工具能力、动态参数提供器、观测与完成检查；Jev 根据目标、准入对话、
 新现场和历史选择下一项工具与参数。程序执行、刷新现场并独立验证结果。
 工具权限和资源预算由程序控制，探索路径由 Jev 根据新观察选择。
-这是 Apixly 独立社区项目，当前运行时版本为 0.1.17。
+这是 Apixly 独立社区项目，当前运行时版本为 0.2.0。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -53,22 +53,36 @@
 浏览器和桌面适配器可以承载自己的任务工具。任务脚本负责具体输入、动态参数候选
 和完成条件，运行时提供统一循环与结果记录。接入方式与验收记录见文档。
 
-## AI 从接口开始
+## 复用工具包，编写薄任务
+
+本地文件使用 WorkspaceTools，网页使用带 HTTP/Camofox provider 的 WebTools。
+EvidenceStore 保留采集文本，EvidenceTask 提供按需读取、分类引用，以及由自身
+verifier 核验的已保存报告。[调研](examples/research_task.py)和
+[仓库](examples/workspace_task.py)示例均为 28 行：运行时输入提供范围和判定条件，
+路线由 Jev 选择。[工具包指南](docs/toolkits.zh-CN.md)说明共享 API 与按需 MCP 接入。
 
 需要 Python 3.10+ 和 Git。底层依赖固定为 GitHub 的 Jev Filter 0.4.1，安装不调用模型。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
 jev-harness spec
-jev-harness init-task task.py
+jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
 # 付费：在环境中配置 TYPESAFE_API_KEY 或 TYPESAFE_API_KEY_FILE。
-jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
+jev-harness run task.py --goal 'Investigate source evidence and save categorized quotes' --inputs '{"root":"permitted-corpus","queries":["relevant_identifier"],"markers":{"implementation":"<source marker>"},"output":"local-results/report.json"}'
 ```
 
-仅在开发时将 `@v0.1.17` 换成 `@main`。
+仅在开发时将 @v0.2.0 换成 @main。把示意输入替换成允许的来源与引用判定条件。
+Marker 检查演示接入点，业务正确性由调用方 verifier 负责。
+
+主 AI 需要接入时，可用 python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...
+暴露同一脚本。MCP 广告 observe、arguments、operate、run_task；直接引用操作与 Jev
+托管使用相同工具、目标和产物检查。同一 session 选择一条路线，arguments/operate
+传入当前 observe.state_ref 并顺序调用。见
+[接口契约](docs/agent-contract.zh-CN.md#toolkit-and-mcp-interface)与
+[验收证据](reports/README.zh-CN.md)。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记

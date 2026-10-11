@@ -29,8 +29,11 @@ class Parameter:
     description: str
     choices: object
     depends_on: tuple = ()
+    selection: str = "match"
 
     def __post_init__(self):
+        if self.selection not in ("match", "explore"):
+            raise ValueError("invalid_parameter_selection_kind")
         if not isinstance(self.description, str) or not self.description:
             raise ValueError("parameter_description_required")
         if not callable(self.choices) and not isinstance(self.choices, (list, tuple)):
@@ -113,6 +116,7 @@ class Task(Workflow):
                         p.description,
                         p.choices if callable(p.choices) else copy.deepcopy(p.choices),
                         p.depends_on,
+                        p.selection,
                     )
                     for key, p in parameters.items()
                 },
@@ -282,6 +286,11 @@ class Task(Workflow):
                         "parameter": key,
                         "parameter_description": spec.description,
                         "bound_references": references,
+                        **(
+                            {"parameter_selection_kind": "explore"}
+                            if spec.selection == "explore"
+                            else {}
+                        ),
                     },
                 )
                 selected = packet["selected_ids"]

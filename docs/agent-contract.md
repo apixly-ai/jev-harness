@@ -15,41 +15,79 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.17 for a reproducible release;
+package downloads still require network access. Pin v0.2.0 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
 jev-harness spec
-jev-harness skill
-jev-harness init-task task.py
+jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
-# Billable: point to a private credential file configured locally.
-export TYPESAFE_API_KEY_FILE='/path/to/private/test-key'
-jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
+# Billable: use caller-configured TYPESAFE_API_KEY or TYPESAFE_API_KEY_FILE.
+jev-harness run task.py --goal 'Investigate source evidence and save categorized quotes' --inputs '{"root":"permitted-corpus","queries":["relevant_identifier"],"markers":{"implementation":"<source marker>"},"output":"local-results/report.json"}'
 ```
 
-TYPESAFE_API_KEY may be provided by the host's secret mechanism instead. Never commit
-keys or put their contents in the task script/CLI arguments. init-task creates a
-self-contained synthetic counter; no browser/desktop dependency is required for the
-first task. Inspect status/complete/archive/telemetry in the returned JSON. Use the
-[adapters](adapters.md) only when your task actually needs those surfaces.
+Keep credentials in the host's secret mechanism, never in task code or CLI values.
+The workspace template reuses source/evidence tools; supply a permitted root, quote
+categories/markers and a new output path. Marker checks demonstrate a caller verifier,
+not complete business validation. Inspect status/complete/archive/telemetry and the
+saved artifact. [Toolkits](toolkits.md) also support HTTP and rendered Camofox sources.
 
 ## Adoption sequence
 
 1. Read `jev-harness spec` (offline JSON).
 2. Define the goal, scope, admitted facts/messages and observable success condition.
-3. Generate `jev-harness init-task task.py` and register tools with explicit signatures.
-4. Describe parameters with `Parameter(description, choices, depends_on=...)`.
+3. Generate `jev-harness init-task task.py --toolkit workspace`, or compose reusable packs
+   in `TaskScript(build)`; register additional tools only when the task needs them.
+4. Supply runtime scope and quote criteria; describe custom parameters with
+   `Parameter(description, choices, depends_on=..., selection=...)`.
 5. Test callback behavior with synthetic inputs; use `check-task` for static checks only.
 6. Make one `run` call; parse the terminal packet even on exit 2.
 7. Recover unresolved context or reconcile ambiguous execution in the primary agent.
 
-Use the loop for bounded tasks requiring semantic branches. Exact calculations and fixed
+Use the loop for goals with unknown routes and semantic branches. Exact calculations and fixed
 sequences stay in code; open-ended writing belongs to the primary agent or an explicit
 trusted generation tool. A tool-selection decision is not execution proof or authorization.
+
+## Toolkit and MCP interface
+
+`EvidenceStore` retains captured source text and provenance in process. `WorkspaceTools`
+and `WebTools` install ordinary Task tools, refresh source/argument domains on execution,
+and expose compact stable observations. `EvidenceTask` adds progressive passage reads,
+eligible quote labels, dependent passage selection and saved-report checks. The
+[28-line examples](toolkits.md#start-with-a-thin-script) receive scope, markers and output
+through runtime inputs. Business predicates live in caller `record_checks` and `verify`,
+without a next-step router or a fixture answer in the script.
+
+`TaskScript(build)` materializes a registered task once from validated `ctx.inputs`;
+this is configuration reuse, not cached inference or acquisition results. Source and
+record observations retain the last eight summaries and a bounded last-read window;
+the verifier receives all records after the real artifact matches current records.
+`artifact_receipt()` exposes path/exists/matches_records/record_count/sha256/sources.
+Captured text and the session do not automatically resume in another process.
+
+For stdio MCP, use `python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...`
+with optional `--context`, `--max-steps`, `--timeout` and `--archive`. `observe` returns
+the current goal, tools, argument references, `state_ref` and delegation/artifact details.
+Advertised `arguments` and `operate` require that exact `state_ref`; supply parent option
+IDs to `arguments` before selecting dependent child IDs. `operate` accepts offered IDs,
+not arbitrary bound values. Operations in one session are sequential. Existing Python
+methods keep their optional `state_ref` argument for compatibility; MCP clients must send it.
+
+Select direct `operate` calls or Jev `run_task` at the start. After executing directly or
+attempting delegation, switching routes is rejected. Python uses `session.delegate()`;
+the old incoming MCP alias is retained without advertising it. `run_task` uses the same
+goal, inputs, registered capabilities and independent checks. Direct-mode primary-model
+usage is outside Jev telemetry, and route discovery/adoption is distinct from task success.
+See the [toolkit guide](toolkits.md) and [evidence ledger](../reports/README.md).
+
+`selection="explore"` chooses promising discovery/planning candidates without requiring
+an unknown destination to already prove the goal. EvidenceTask tool choice and explore
+parameters use a development-calibrated 0.30 top probability/0 margin; default `match`
+keeps 0.55/0.10. Other checks and execution permissions remain. No quality, general speed
+or fee improvement follows from these small development choices.
 
 ## CLI argument parsing
 

@@ -1,0 +1,4261 @@
+{
+  "schema": 1,
+  "release": "0.2.0",
+  "date": "2026-10-11",
+  "scope": "local synthetic source research, repository evidence and actual headless Camofox; no desktop/customer/production data",
+  "comparison": "one continuous primary Codex CLI MCP session vs one Jev-native loop over the same registered task tools; setup/authoring not measured",
+  "primary_requested": "gpt-6.1-sol/high",
+  "primary_resolved": null,
+  "costs": {
+    "currency_conversion": null,
+    "invoice": null,
+    "reason": "No current tariff or account invoice established. Actual provider usage is retained separately; cached input is a subset of primary input, not extra tokens."
+  },
+  "neutral_choice": "Product skills disabled and both routes available before first effect. Earlier prompts also requested state/reference inspection, a possible direct-route bias; the separate neutral-goal group omits that instruction. No preference rule mandates a route.",
+  "timing": "wall perf_counter includes task creation/capture, model/tool decisions, effects, artifact verification, journals and CLI startup/final answer where applicable; excludes fixture/server preparation and script authoring",
+  "context": "Jev shared-context-byte sum and primary MCP returned-result bytes are different observed quantities, not directly comparable token savings.",
+  "negative_results": "Includes development groups as explicitly labeled; failures and unknown identity/usage are retained. Small samples do not prove general speed/cost or autonomous adoption.",
+  "groups": [
+    {
+      "run": "toolkit-live-first-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 0.8775129999994533,
+          "terminal_status": "needs_review",
+          "reason": null,
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 0,
+          "chosen_route": "jev",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 1,
+            "actual_usage": {
+              "input_tokens": 2242,
+              "output_tokens": 81
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 2242,
+                "output_tokens": 81
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 1532
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 4.033332167004119,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 1.5791737499966985,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 1
+      }
+    },
+    {
+      "run": "toolkit-live-policy-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 1.6327034999994794,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:link",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 1,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.read_section"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 3,
+            "actual_usage": {
+              "input_tokens": 7135,
+              "output_tokens": 219
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 7135,
+                "output_tokens": 219
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 6956
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 0
+      }
+    },
+    {
+      "run": "toolkit-primary-diagnostic-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 3.929723457986256,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 0
+      }
+    },
+    {
+      "run": "toolkit-live-discovery-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 1.20824070800154,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:link",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 0,
+          "chosen_route": "jev",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 2,
+            "actual_usage": {
+              "input_tokens": 3840,
+              "output_tokens": 130
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 3840,
+                "output_tokens": 130
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 3815
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 25.12005520799721,
+          "terminal_status": "failed",
+          "reason": "unexpected_item_activity",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 46176,
+              "cached_input_tokens": 30336,
+              "output_tokens": 301,
+              "reasoning_output_tokens": 150
+            },
+            "ok": false,
+            "unexpected_item_count": 1
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 22.80078575000516,
+          "terminal_status": "failed",
+          "reason": "unexpected_item_activity",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 46190,
+              "cached_input_tokens": 30336,
+              "output_tokens": 259,
+              "reasoning_output_tokens": 96
+            },
+            "ok": false,
+            "unexpected_item_count": 1
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 1
+      }
+    },
+    {
+      "run": "toolkit-live-open-step-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 1.27966658299556,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:link",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 0,
+          "chosen_route": "jev",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 2,
+            "actual_usage": {
+              "input_tokens": 3846,
+              "output_tokens": 130
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 3846,
+                "output_tokens": 130
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 3815
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 28.749834165995708,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 48437,
+              "cached_input_tokens": 31488,
+              "output_tokens": 367,
+              "reasoning_output_tokens": 211
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 4,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 26.728737792000175,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 48597,
+              "cached_input_tokens": 31488,
+              "output_tokens": 358,
+              "reasoning_output_tokens": 199
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 4,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 1
+      }
+    },
+    {
+      "run": "toolkit-live-explore-mode-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 5.564344375001383,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 9,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 15,
+            "actual_usage": {
+              "input_tokens": 63426,
+              "output_tokens": 1111
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 63426,
+                "output_tokens": 1111
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 88983
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "db0dc545dec68c8f2143777a1c511ec4442527db17947437f2a3b35f8abd1003",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 2.7138657080067787,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:query",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 3,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 7,
+            "actual_usage": {
+              "input_tokens": 18671,
+              "output_tokens": 619
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 18671,
+                "output_tokens": 619
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 20031
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 0
+      }
+    },
+    {
+      "run": "toolkit-primary-continuous-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 23.317328124991036,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 48445,
+              "cached_input_tokens": 31488,
+              "output_tokens": 306,
+              "reasoning_output_tokens": 151
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 4,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 22.81573445799586,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 65373,
+              "cached_input_tokens": 48000,
+              "output_tokens": 252,
+              "reasoning_output_tokens": 52
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 8,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 1
+      }
+    },
+    {
+      "run": "toolkit-continuous-owned-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 4.455163749997155,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:passage",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 5,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "read_evidence"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 12,
+            "actual_usage": {
+              "input_tokens": 40076,
+              "output_tokens": 836
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 40076,
+                "output_tokens": 836
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 53437
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 0.11139462499704678,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 0.1143678749940591,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 4.976136625002255,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 7,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 13,
+            "actual_usage": {
+              "input_tokens": 49235,
+              "output_tokens": 1097
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 49235,
+                "output_tokens": 1097
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 64584
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "77fc7a124158bdb635a07008f1e663e7c77f23567519c8e2b56c369625a3d2a0",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:4",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 0.09940458300116006,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 0.08856712499982677,
+          "terminal_status": "failed",
+          "reason": "cli_failed",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "unknown",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": false,
+            "usage": null,
+            "ok": false,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 0,
+          "artifact": null,
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 2
+      }
+    },
+    {
+      "run": "toolkit-final-protocol-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 6.689526542002568,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 3
+          },
+          "verification_scope": "original trial checker",
+          "steps": 11,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "record_evidence",
+            "save_report",
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 20,
+            "actual_usage": {
+              "input_tokens": 88494,
+              "output_tokens": 1476
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 88494,
+                "output_tokens": 1476
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 133131
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "29dd676214de994054f9a42866de36ff739ef8150a3a5b8896dc932cc8ef2d92",
+            "records": [
+              {
+                "end": 78,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 50.31172237500141,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "arguments",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 255554,
+              "cached_input_tokens": 217216,
+              "output_tokens": 603,
+              "reasoning_output_tokens": 34
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 63379,
+          "artifact": {
+            "sha256": "45db25a4d482a6943ff57d66ad539c4b7ed98f64861fe2248510543ef5a34e2d",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 61.88286504200369,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 372134,
+              "cached_input_tokens": 338944,
+              "output_tokens": 836,
+              "reasoning_output_tokens": 46
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 63261,
+          "artifact": {
+            "sha256": "2d0904c4e5d30e99e59a6e8e4c6e9bab8f750e74029af26713590eedad48844c",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 3.3610613330092747,
+          "terminal_status": "needs_review",
+          "reason": "model_completion_requires_verification",
+          "independent_verification": {
+            "passed": false,
+            "labels": {
+              "cause": true,
+              "proof": false
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 5,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 9,
+            "actual_usage": {
+              "input_tokens": 27727,
+              "output_tokens": 737
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 27727,
+                "output_tokens": 737
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 31522
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "0dcee7dca401c4c194fb56b4ae9cf21058ab0e760e56fde3093d6e4581a3b9ce",
+            "records": [
+              {
+                "end": 115,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 39.76518637499248,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 190442,
+              "cached_input_tokens": 157952,
+              "output_tokens": 550,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 50148,
+          "artifact": {
+            "sha256": "74ea7d948490c690532a836cdaa74a9769c79f3cdf6fcdae89787e9f0b27fffe",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 48.458204292008304,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "observe"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 228340,
+              "cached_input_tokens": 194944,
+              "output_tokens": 720,
+              "reasoning_output_tokens": 24
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 54827,
+          "artifact": {
+            "sha256": "74ea7d948490c690532a836cdaa74a9769c79f3cdf6fcdae89787e9f0b27fffe",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "browser",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 5.321442625005147,
+          "terminal_status": "needs_context",
+          "reason": "empty_parameter_domain:passage",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 4,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "web.open_link"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 9,
+            "actual_usage": {
+              "input_tokens": 28021,
+              "output_tokens": 641
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 28021,
+                "output_tokens": 641
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 33798
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-dependency.html": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b",
+            "spruce-event.html": "1df29953b7a47d4aaa0be34c73af6933635d775dc86fc76f44d5c4860bb77e56",
+            "spruce-index.html": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "browser",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 44.93357604199264,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 238227,
+              "cached_input_tokens": 188672,
+              "output_tokens": 627,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 60145,
+          "artifact": {
+            "sha256": "d3e58c95c7bff173ef6d341be9fe0185490fd086a533549d3ba19f75d34182d9",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-dependency.html": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b",
+            "spruce-event.html": "1df29953b7a47d4aaa0be34c73af6933635d775dc86fc76f44d5c4860bb77e56",
+            "spruce-index.html": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        },
+        {
+          "case": "browser",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 57.93734587499057,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 355079,
+              "cached_input_tokens": 317696,
+              "output_tokens": 604,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 60145,
+          "artifact": {
+            "sha256": "e07dd09a20342b196a106d94cedcb5e4cde1d210788d266af89ce6f9d1815ef6",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-dependency.html": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b",
+            "spruce-event.html": "1df29953b7a47d4aaa0be34c73af6933635d775dc86fc76f44d5c4860bb77e56",
+            "spruce-index.html": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "development answer phrases (not a blind task)"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 3
+      }
+    },
+    {
+      "run": "toolkit-ready-interface-20261011",
+      "stage": "development, retained negatives and wiring diagnosis",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 3.7978798339900095,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:passage",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 4,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.read_section",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 10,
+            "actual_usage": {
+              "input_tokens": 30124,
+              "output_tokens": 681
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 30124,
+                "output_tokens": 681
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 39150
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-deployment.html": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542",
+            "maple-index.html": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601",
+            "maple-storage.html": "275e321a0a16857416562ca5542989ec2e3dadecf481a992eb94c12212fe0a1e"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "http",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 53.49872358399443,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 376881,
+              "cached_input_tokens": 336512,
+              "output_tokens": 614,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 67657,
+          "artifact": {
+            "sha256": "9ce12f3a6e0334bf90f03873b348a3f6c1ac93d5d39d7f14f6c172e995cb09a0",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-deployment.html": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542",
+            "maple-index.html": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601",
+            "maple-storage.html": "275e321a0a16857416562ca5542989ec2e3dadecf481a992eb94c12212fe0a1e"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 5.087787917000242,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 7,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 13,
+            "actual_usage": {
+              "input_tokens": 48240,
+              "output_tokens": 1097
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 48240,
+                "output_tokens": 1097
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 64559
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "ea401c2724e6cf112bc9eeb301de8dabbcc0388fd6fbb42eab205c3ab4c23ac7",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:4",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 45.84251737501472,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 211687,
+              "cached_input_tokens": 180608,
+              "output_tokens": 754,
+              "reasoning_output_tokens": 51
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 53662,
+          "artifact": {
+            "sha256": "2c8b10cc7b463ebf433266c9a019d818473ef251a38054871dcc54026251b781",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "browser",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 11.478370124998037,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 3
+          },
+          "verification_scope": "original trial checker",
+          "steps": 10,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "record_evidence",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 19,
+            "actual_usage": {
+              "input_tokens": 80819,
+              "output_tokens": 1371
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 80819,
+                "output_tokens": 1371
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 118097
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "163a4b181a9002d1131ac8aa39285afefade9bc3360670da41201148f417c430",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 82,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-dependency.html": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76",
+            "maple-event.html": "6a320fb653e6a23f75056ef3f187bc40c56cbf18767f24a9d5a67000566a8d8c",
+            "maple-index.html": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "browser",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 58.202679459005594,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": null,
+          "chosen_route": "direct",
+          "tool_sequence": [],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 367187,
+              "cached_input_tokens": 327936,
+              "output_tokens": 617,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 64258,
+          "artifact": {
+            "sha256": "ec5eb57d35990d4160fd4029f0138179601831d29b4988f2e688b3f452410680",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-dependency.html": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76",
+            "maple-event.html": "6a320fb653e6a23f75056ef3f187bc40c56cbf18767f24a9d5a67000566a8d8c",
+            "maple-index.html": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 3
+      }
+    },
+    {
+      "run": "toolkit-acceptance-frozen-20261011",
+      "stage": "bounded acceptance",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 5.6266787920030765,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 10,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.read_section",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 15,
+            "actual_usage": {
+              "input_tokens": 62715,
+              "output_tokens": 1143
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 62715,
+                "output_tokens": 1143
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 87516
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "256270d02f73fc5f5ba6fe00059f54d25abe66334fbb0dd822165271268a2a79",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-deployment.html": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542",
+            "maple-index.html": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601",
+            "maple-storage.html": "275e321a0a16857416562ca5542989ec2e3dadecf481a992eb94c12212fe0a1e"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "http",
+          "variant": 1,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 54.978442209016066,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 9,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 370649,
+              "cached_input_tokens": 330752,
+              "output_tokens": 618,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 67255,
+          "artifact": {
+            "sha256": "000a98b946f3bf5a2550c31f61b94258901b5b2da2c03653dae701ec50cc91a6",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-deployment.html": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542",
+            "maple-index.html": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601",
+            "maple-storage.html": "275e321a0a16857416562ca5542989ec2e3dadecf481a992eb94c12212fe0a1e"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "http",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 53.48840941701201,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 9,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 376804,
+              "cached_input_tokens": 336384,
+              "output_tokens": 655,
+              "reasoning_output_tokens": 32
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 67255,
+          "artifact": {
+            "sha256": "f96d9ed5f6f14d46824a709d4e902225bb91c609dc3f4c7e661b6e17cc0fd106",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-deployment.html": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542",
+            "maple-index.html": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601",
+            "maple-storage.html": "275e321a0a16857416562ca5542989ec2e3dadecf481a992eb94c12212fe0a1e"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 4.396972000016831,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 7,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 11,
+            "actual_usage": {
+              "input_tokens": 42377,
+              "output_tokens": 999
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 42377,
+                "output_tokens": 999
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 52938
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "ea401c2724e6cf112bc9eeb301de8dabbcc0388fd6fbb42eab205c3ab4c23ac7",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:4",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 36.792819417023566,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 8,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "files.list",
+            "files.read",
+            "read_evidence",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 194406,
+              "cached_input_tokens": 174208,
+              "output_tokens": 536,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 53981,
+          "artifact": {
+            "sha256": "2c8b10cc7b463ebf433266c9a019d818473ef251a38054871dcc54026251b781",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 57.3461017080117,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 9,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "files.list",
+            "files.read",
+            "files.read",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "arguments",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 388338,
+              "cached_input_tokens": 350848,
+              "output_tokens": 895,
+              "reasoning_output_tokens": 75
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 69591,
+          "artifact": {
+            "sha256": "2c8b10cc7b463ebf433266c9a019d818473ef251a38054871dcc54026251b781",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "browser",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 8.891665500006638,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "same static fixture, cross-arm DOM capture",
+          "steps": 9,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 15,
+            "actual_usage": {
+              "input_tokens": 59632,
+              "output_tokens": 1127
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 59632,
+                "output_tokens": 1127
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 80295
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "010c3619cd96a12a991a30f0decb08e16fa2915da2733616625afa05726a9a2c",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-dependency.html": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76",
+            "maple-event.html": "6a320fb653e6a23f75056ef3f187bc40c56cbf18767f24a9d5a67000566a8d8c",
+            "maple-index.html": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "browser",
+          "variant": 1,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 55.648511417006375,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 9,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 364930,
+              "cached_input_tokens": 326144,
+              "output_tokens": 612,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 63866,
+          "artifact": {
+            "sha256": "2be529bbcada2528eb4f7cd32e2a99274b4e23441c9c7064a993b3ce53f9189e",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-dependency.html": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76",
+            "maple-event.html": "6a320fb653e6a23f75056ef3f187bc40c56cbf18767f24a9d5a67000566a8d8c",
+            "maple-index.html": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "browser",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 56.76954474998638,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "own captured original plus fixture source check",
+          "steps": 9,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "web.open_link",
+            "web.open_link",
+            "web.read_section",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 366603,
+              "cached_input_tokens": 327552,
+              "output_tokens": 684,
+              "reasoning_output_tokens": 16
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 63866,
+          "artifact": {
+            "sha256": "f439bae6ef9e3398011421bbaa618f15138f358e78b427d19b6c0d929728364e",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "maple-dependency.html": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76",
+            "maple-event.html": "6a320fb653e6a23f75056ef3f187bc40c56cbf18767f24a9d5a67000566a8d8c",
+            "maple-index.html": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+          },
+          "provenance": null,
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 3
+      }
+    },
+    {
+      "run": "toolkit-state-ref-variant0-20261011",
+      "stage": "bounded acceptance",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 4.408354749990394,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 7,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 11,
+            "actual_usage": {
+              "input_tokens": 42524,
+              "output_tokens": 999
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 42524,
+                "output_tokens": 999
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 53077
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "77fc7a124158bdb635a07008f1e663e7c77f23567519c8e2b56c369625a3d2a0",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:4",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "011913f13ae6c45dcac83b3e2f9ead9f0c282b41b64c75cb7b746b6def037a2b",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "643aec1f9007f8d0041e63aeb4b42995ceed0d4c8ccf8ff9be32bff8991ff2bc",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "73a558c36c15943e91a96c5302fcb0ab9034f007ad57ad206889da066b2e02da",
+              "benchmarks/open_tasks.py": "c8982767d27497c398a0f4101dc3539a5e0903e88d1ba4735598a46198e62fe2",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+              "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+              "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+              "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 64.03949291599565,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 8,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "files.list",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 335827,
+              "cached_input_tokens": 300544,
+              "output_tokens": 1218,
+              "reasoning_output_tokens": 9
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 53757,
+          "artifact": {
+            "sha256": "74ea7d948490c690532a836cdaa74a9769c79f3cdf6fcdae89787e9f0b27fffe",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "011913f13ae6c45dcac83b3e2f9ead9f0c282b41b64c75cb7b746b6def037a2b",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "643aec1f9007f8d0041e63aeb4b42995ceed0d4c8ccf8ff9be32bff8991ff2bc",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "73a558c36c15943e91a96c5302fcb0ab9034f007ad57ad206889da066b2e02da",
+              "benchmarks/open_tasks.py": "c8982767d27497c398a0f4101dc3539a5e0903e88d1ba4735598a46198e62fe2",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+              "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+              "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+              "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 0,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 65.47477333401912,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 9,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "files.list",
+            "files.read",
+            "files.read",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 355767,
+              "cached_input_tokens": 320896,
+              "output_tokens": 1320,
+              "reasoning_output_tokens": 57
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 68703,
+          "artifact": {
+            "sha256": "4e3d9ac83b54d131e5e66b2ed8063c18bb352cc444b42d5e54688ea76ff4e115",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "011913f13ae6c45dcac83b3e2f9ead9f0c282b41b64c75cb7b746b6def037a2b",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "643aec1f9007f8d0041e63aeb4b42995ceed0d4c8ccf8ff9be32bff8991ff2bc",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "73a558c36c15943e91a96c5302fcb0ab9034f007ad57ad206889da066b2e02da",
+              "benchmarks/open_tasks.py": "c8982767d27497c398a0f4101dc3539a5e0903e88d1ba4735598a46198e62fe2",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+              "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+              "src/spruce_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+              "tests/test_spruce_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 1
+      }
+    },
+    {
+      "run": "toolkit-variant0-sources-20261011",
+      "stage": "bounded acceptance",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "http",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 6.4554798750032205,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "deployment": true,
+              "storage": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 10,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "read_evidence",
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 17,
+            "actual_usage": {
+              "input_tokens": 72984,
+              "output_tokens": 1297
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 72984,
+                "output_tokens": 1297
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 104147
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "8c40077be1551f2453f76d5c515c91fe644d28db74bad371a807661433be31a6",
+            "records": [
+              {
+                "end": 78,
+                "label": "deployment",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "4393eec42169233d3fa7ff836caf0f10550086910bfac7b8ed0dd2665f74aeee",
+                "total": 78
+              },
+              {
+                "end": 71,
+                "label": "storage",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "b8ba07b976f652f374c9751289e5cd543fe97812c4b2fb09fb9d0d9f0f27f050",
+                "total": 71
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+            "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+            "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "b6eafebd53804dfd08bb375cbdb47ffac409c80b343e0bf87158a86f5f1fd017",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "643aec1f9007f8d0041e63aeb4b42995ceed0d4c8ccf8ff9be32bff8991ff2bc",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "73a558c36c15943e91a96c5302fcb0ab9034f007ad57ad206889da066b2e02da",
+              "benchmarks/open_tasks.py": "c8982767d27497c398a0f4101dc3539a5e0903e88d1ba4735598a46198e62fe2",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+              "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+              "spruce-deployment.html": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf",
+              "spruce-index.html": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7",
+              "spruce-storage.html": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "browser",
+          "variant": 0,
+          "arm": "jev",
+          "missing_source": false,
+          "whole_operation_seconds": 10.009385457989993,
+          "terminal_status": "done",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "dependency": true,
+              "event": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 11,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "web.open_link",
+            "read_evidence",
+            "record_evidence",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 18,
+            "actual_usage": {
+              "input_tokens": 82274,
+              "output_tokens": 1370
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 82274,
+                "output_tokens": 1370
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 114758
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": {
+            "sha256": "27a1f6903971f5c41f5175ff71cf5a57aa16d6843574d880cee56a114bdfd594",
+            "records": [
+              {
+                "end": 82,
+                "label": "dependency",
+                "offset": 0,
+                "ref": "evidence:5",
+                "sha256": "f5671f6772b6a69f61db13713093dad26aebf867812b1b72b2ea91c837396504",
+                "total": 82
+              },
+              {
+                "end": 91,
+                "label": "event",
+                "offset": 0,
+                "ref": "evidence:7",
+                "sha256": "afa5cae197cfe24e80e0931b40d55807883c5a9fe19c37bf974615a8eae5487b",
+                "total": 91
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+            "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+            "spruce-dependency.html": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b",
+            "spruce-event.html": "1df29953b7a47d4aaa0be34c73af6933635d775dc86fc76f44d5c4860bb77e56",
+            "spruce-index.html": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "b6eafebd53804dfd08bb375cbdb47ffac409c80b343e0bf87158a86f5f1fd017",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "73a558c36c15943e91a96c5302fcb0ab9034f007ad57ad206889da066b2e02da",
+              "benchmarks/open_tasks.py": "c8982767d27497c398a0f4101dc3539a5e0903e88d1ba4735598a46198e62fe2",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "index.html": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6",
+              "legacy.html": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424",
+              "spruce-dependency.html": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b",
+              "spruce-event.html": "1df29953b7a47d4aaa0be34c73af6933635d775dc86fc76f44d5c4860bb77e56",
+              "spruce-index.html": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 0
+      }
+    },
+    {
+      "run": "toolkit-missing-source-20261011",
+      "stage": "bounded acceptance",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "jev",
+          "missing_source": true,
+          "whole_operation_seconds": 5.77590833400609,
+          "terminal_status": "needs_review",
+          "reason": "unresolved_parameter:query",
+          "independent_verification": {
+            "passed": false,
+            "reason": "artifact_missing_or_invalid"
+          },
+          "verification_scope": "original trial checker",
+          "steps": 8,
+          "chosen_route": "jev",
+          "tool_sequence": [
+            "files.search",
+            "read_evidence",
+            "record_evidence",
+            "files.search",
+            "read_evidence",
+            "read_evidence",
+            "files.search",
+            "read_evidence"
+          ],
+          "primary_mcp_sequence": [],
+          "jev": {
+            "model_requested": [
+              "jev-1.13.0"
+            ],
+            "model_resolved": [
+              "jev-1.13.0"
+            ],
+            "requests": 16,
+            "actual_usage": {
+              "input_tokens": 64367,
+              "output_tokens": 1672
+            },
+            "usage_complete": true,
+            "models": {
+              "jev-1.13.0": {
+                "input_tokens": 64367,
+                "output_tokens": 1672
+              }
+            },
+            "unknown_usage_attempts": 0,
+            "shared_context_bytes_sum": 89145
+          },
+          "primary": null,
+          "returned_mcp_result_bytes": null,
+          "artifact": null,
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "b6eafebd53804dfd08bb375cbdb47ffac409c80b343e0bf87158a86f5f1fd017",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "643aec1f9007f8d0041e63aeb4b42995ceed0d4c8ccf8ff9be32bff8991ff2bc",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "73a558c36c15943e91a96c5302fcb0ab9034f007ad57ad206889da066b2e02da",
+              "benchmarks/open_tasks.py": "c8982767d27497c398a0f4101dc3539a5e0903e88d1ba4735598a46198e62fe2",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+              "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+              "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "earlier instruction included inspecting state and argument references",
+          "actor_verification_fields": "schema prefixes"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 0
+      }
+    },
+    {
+      "run": "toolkit-neutral-goal-20261011",
+      "stage": "bounded acceptance",
+      "runtime_snapshot_scope": "before-trial source hashes where present, not an imported-bytecode attestation; first 9-arm group predates MCP state_ref requirement and JSON preflight hardening",
+      "rows": [
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "direct",
+          "missing_source": false,
+          "whole_operation_seconds": 56.03264091597521,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 8,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "files.search",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 338827,
+              "cached_input_tokens": 300416,
+              "output_tokens": 1073,
+              "reasoning_output_tokens": 8
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 64278,
+          "artifact": {
+            "sha256": "c8c86bcf5a6f9048705459548f80957d9c9ae50739bc427c84c97ef7bd12a7ee",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:3",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "b6eafebd53804dfd08bb375cbdb47ffac409c80b343e0bf87158a86f5f1fd017",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "69adc0546f5dc281cdfc721f9ff638d0a6d3ae83681ca5999a88de95af228629",
+              "benchmarks/open_tasks.py": "0ed7d0fce463be9f03a7cf619a8f2b95d8179f13d9ad930397f77d431627f298",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+              "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+              "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+              "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "goal plus saved-artifact result requirement; no instruction to inspect references or prefer a route",
+          "actor_verification_fields": "schema prefixes"
+        },
+        {
+          "case": "files",
+          "variant": 1,
+          "arm": "choice",
+          "missing_source": false,
+          "whole_operation_seconds": 61.469551500020316,
+          "terminal_status": "completed",
+          "reason": null,
+          "independent_verification": {
+            "passed": true,
+            "labels": {
+              "cause": true,
+              "proof": true
+            },
+            "records": 2
+          },
+          "verification_scope": "original trial checker",
+          "steps": 8,
+          "chosen_route": "direct",
+          "tool_sequence": [
+            "files.list",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "files.read",
+            "read_evidence",
+            "record_evidence",
+            "save_report"
+          ],
+          "primary_mcp_sequence": [
+            "observe",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate",
+            "operate",
+            "arguments",
+            "operate",
+            "operate"
+          ],
+          "jev": null,
+          "primary": {
+            "model_requested": "gpt-6.1-sol",
+            "model_resolved": null,
+            "usage_scope": "codex_exec_turn_completed",
+            "usage_complete": true,
+            "usage": {
+              "input_tokens": 299807,
+              "cached_input_tokens": 278400,
+              "output_tokens": 1018,
+              "reasoning_output_tokens": 0
+            },
+            "ok": true,
+            "unexpected_item_count": 0
+          },
+          "returned_mcp_result_bytes": 52831,
+          "artifact": {
+            "sha256": "2c8b10cc7b463ebf433266c9a019d818473ef251a38054871dcc54026251b781",
+            "records": [
+              {
+                "end": 115,
+                "label": "cause",
+                "offset": 0,
+                "ref": "evidence:1",
+                "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+                "total": 115
+              },
+              {
+                "end": 68,
+                "label": "proof",
+                "offset": 0,
+                "ref": "evidence:2",
+                "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328",
+                "total": 68
+              }
+            ]
+          },
+          "fixture_sha256": {
+            "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+            "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+            "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+            "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+          },
+          "provenance": {
+            "runtime": {
+              "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+              "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+              "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+              "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+              "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+              "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+              "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+              "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+              "src/apixly_jev_harness/mcp.py": "b6eafebd53804dfd08bb375cbdb47ffac409c80b343e0bf87158a86f5f1fd017",
+              "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+              "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+              "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+              "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+              "src/apixly_jev_harness/toolkit.py": "355391ea9f4b9cf4418081765a85691362f3817596ec67de874987a2b6f6668a",
+              "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+              "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+              "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+            },
+            "runner": {
+              "benchmarks/toolkit_acceptance.py": "69adc0546f5dc281cdfc721f9ff638d0a6d3ae83681ca5999a88de95af228629",
+              "benchmarks/open_tasks.py": "0ed7d0fce463be9f03a7cf619a8f2b95d8179f13d9ad930397f77d431627f298",
+              "benchmarks/primary_cli.py": "2d46411b499a34f6798179c6fc9545e2e9c5156803b8d10fecce18a6cf590f51"
+            },
+            "fixtures": {
+              "README.md": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2",
+              "docs/legacy.txt": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160",
+              "src/maple_worker.py": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c",
+              "tests/test_maple_worker.txt": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+            }
+          },
+          "actor_received_route_oracle": false,
+          "prompt_scope": "goal plus saved-artifact result requirement; no instruction to inspect references or prefer a route",
+          "actor_verification_fields": "schema prefixes"
+        }
+      ],
+      "natural_choice": {
+        "delegated": 0,
+        "trials": 1
+      }
+    }
+  ]
+}

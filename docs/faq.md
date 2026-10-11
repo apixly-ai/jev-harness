@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.17. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.2.0. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -55,7 +55,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.17 release?
+## How do I install the exact v0.2.0 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -63,7 +63,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py

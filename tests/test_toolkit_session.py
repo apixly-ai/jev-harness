@@ -1,0 +1,292 @@
+import io
+import json
+
+import pytest
+
+from apixly_jev_harness import Task
+from apixly_jev_harness.mcp import serve
+from apixly_jev_harness.toolkit import ToolkitSession
+
+
+def session():
+    state = {"value": 0}
+    task = Task(observe=lambda c: dict(state), verify=lambda c, s: s["value"] == 2)
+
+    @task.tool("Advance the value", parameters={"amount": [1, 2]}, result_context=lambda x: x)
+    def advance(amount):
+        state["value"] += amount
+        return dict(state)
+
+    return ToolkitSession(task, goal="Reach two", max_steps=4), state
+
+
+def test_direct_calls_bind_only_current_refs_and_need_no_jev():
+    client, state = session()
+    seen = client.observe()
+    assert seen["tools"][0]["tool"] == "advance"
+    with pytest.raises(ValueError):
+        client.operate("advance", {"amount": "invented"})
+    assert state["value"] == 0
+    reply = client.operate("advance", {"amount": "1"})
+    assert reply["complete"] is True and state["value"] == 2
+    assert client.steps == 1
+
+
+def test_stale_state_and_invalid_arguments_do_not_execute():
+    client, state = session()
+    client.observe()
+    state["value"] = 1
+    with pytest.raises(ValueError, match="stale"):
+        client.operate("advance", {"amount": "0"})
+    assert state["value"] == 1
+    client.observe()
+    for args in [{"amount": True}, {"amount": "0", "other": "x"}]:
+        with pytest.raises(ValueError):
+            client.operate("advance", args)
+    assert state["value"] == 1
+
+
+def test_mcp_supports_both_routes_without_preferring_either():
+    client, state = session()
+    requests = [
+        {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {"protocolVersion": "2024-11-05"},
+        },
+        {"jsonrpc": "2.0", "method": "notifications/initialized"},
+        {"jsonrpc": "2.0", "id": 2, "method": "tools/list"},
+        {
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "tools/call",
+            "params": {"name": "observe", "arguments": {}},
+        },
+        {
+            "jsonrpc": "2.0",
+            "id": 4,
+            "method": "tools/call",
+            "params": {
+                "name": "operate",
+                "arguments": {
+                    "tool": "advance",
+                    "parameters": {"amount": "1"},
+                    "state_ref": client.observe()["state_ref"],
+                },
+            },
+        },
+    ]
+    out = io.StringIO()
+    serve(
+        client,
+        source=io.StringIO("\n".join(json.dumps(x) for x in requests) + "\n"),
+        destination=out,
+    )
+    replies = [json.loads(x) for x in out.getvalue().splitlines()]
+    assert len(replies) == 4
+    names = {x["name"] for x in replies[1]["result"]["tools"]}
+    assert names == {"observe", "arguments", "operate", "run_task"}
+    assert json.loads(replies[-1]["result"]["content"][0]["text"])["complete"] is True
+    assert state["value"] == 2
+
+
+def test_direct_only_server_does_not_expose_delegation():
+    client, _ = session()
+    source = io.StringIO(json.dumps({"id": 1, "method": "tools/list"}) + "\n")
+    out = io.StringIO()
+    serve(client, source=source, destination=out, allow_delegate=False)
+    names = {x["name"] for x in json.loads(out.getvalue())["result"]["tools"]}
+    assert names == {"observe", "arguments", "operate"}
+
+
+def test_thin_script_factory_receives_runtime_inputs_once():
+    from apixly_jev_harness.toolkit import TaskScript
+
+    builds = []
+
+    def build(inputs):
+        builds.append(dict(inputs))
+        task, _ = session()
+        return task.task
+
+    script = TaskScript(build)
+    assert builds == []
+    client = ToolkitSession(script, goal="Reach two", inputs={"root": "caller-owned"})
+    client.observe()
+    client.observe()
+    assert builds == [{"root": "caller-owned"}]
+    assert client.operate("advance", {"amount": "1"})["complete"] is True
+
+
+def test_invalid_rpc_does_not_reuse_previous_request_identity():
+    client, _ = session()
+    out = io.StringIO()
+    serve(client, source=io.StringIO('{"id":9,"method":"ping"}\n{broken\n'), destination=out)
+    rows = [json.loads(x) for x in out.getvalue().splitlines()]
+    assert rows[1]["id"] is None
+    assert rows[1]["error"]["code"] == -32600
+
+
+def test_server_observation_does_not_lose_fact_requiring_dependency_first():
+    from apixly_jev_harness import Option, Parameter
+
+    state = {"done": False}
+    task = Task(observe=lambda c: dict(state), verify=lambda c, s: s["done"])
+
+    @task.tool(
+        "Read a selected resource field",
+        parameters={
+            "resource": [Option("a", "Resource A", "resource-a")],
+            "field": Parameter(
+                "Field belonging to chosen resource",
+                lambda c, s, b: [Option("state", "Resource state", "state")],
+                depends_on=("resource",),
+            ),
+        },
+    )
+    def read(resource, field):
+        state["done"] = True
+        return {"resource": resource, "field": field}
+
+    client = ToolkitSession(task, goal="Read state")
+    client.observe()
+    assert client.operate("read", {"resource": "a", "field": "state"})["complete"] is True
+
+
+def test_direct_does_not_reacquire_parameter_provider_or_accept_joint():
+    calls = []
+    state = {"done": False}
+    task = Task(observe=lambda c: dict(state), verify=lambda c, s: s["done"])
+
+    @task.tool("Read", parameters={"value": lambda c, s: calls.append(1) or [1, 2]})
+    def read(value):
+        state["done"] = True
+
+    client = ToolkitSession(task, goal="Read")
+    client.observe()
+    calls.clear()
+    client.operate("read", {"value": "0"})
+    assert len(calls) == 1
+    with pytest.raises(ValueError, match="staged"):
+        ToolkitSession(
+            Task(observe=lambda c: {}, verify=lambda c, s: False, strategy="joint"), goal="Read"
+        )
+
+
+def test_resolve_exposes_child_refs_and_route_cannot_switch_after_an_effect():
+    from apixly_jev_harness import Option, Parameter
+
+    t = Task(observe=lambda c: {}, verify=lambda c, s: False)
+
+    @t.tool(
+        "Inspect",
+        parameters={
+            "parent": [Option("root", "Root", "root")],
+            "child": Parameter(
+                "Child of parent",
+                lambda c, s, b: [Option("new-child", "New child", 3)],
+                depends_on=("parent",),
+            ),
+        },
+    )
+    def inspect(parent, child):
+        return {"read": child}
+
+    c = ToolkitSession(t, goal="Inspect")
+    c.observe()
+    resolved = c.resolve("inspect", {"parent": "root"})
+    assert resolved["parameters"]["child"]["choices"][0]["id"] == "new-child"
+    c.operate("inspect", {"parent": "root", "child": "new-child"})
+    with pytest.raises(ValueError, match="after_direct"):
+        c.delegate()
+
+
+def test_ready_task_contract_and_artifact_receipt_are_visible_before_choice(tmp_path):
+    from apixly_jev_harness import EvidenceStore, EvidenceTask
+
+    store = EvidenceStore()
+    task = EvidenceTask(
+        [], store=store, labels=["fact"], output=tmp_path / "out.json", verify=lambda c, s: False
+    )
+    client = ToolkitSession(task, goal="Investigate")
+    info = client.observe()["delegation"]
+    assert info["ready"] is True and info["goal"] == "Investigate"
+    assert info["artifact"]["path"] == str(tmp_path / "out.json")
+    assert info["artifact"]["exists"] is False
+
+
+def test_direct_cannot_resume_after_delegation_without_guard_transfer(monkeypatch):
+    from apixly_jev_harness import AgentLoop
+
+    c, _ = session()
+    c.observe()
+    monkeypatch.setattr(
+        AgentLoop, "run", lambda *a, **k: {"status": "needs_review", "complete": False, "steps": 1}
+    )
+    c.delegate()
+    c.observe()
+    with pytest.raises(ValueError, match="after_delegation"):
+        c.operate("advance", {"amount": "0"})
+
+
+def test_direct_verifier_requires_builtin_boolean():
+    task = Task(observe=lambda c: {}, verify=lambda c, s: 1)
+    c = ToolkitSession(task, goal="Inspect")
+    with pytest.raises(ValueError, match="bool"):
+        c.observe()
+
+
+def test_expired_session_does_not_materialize_or_resolve_providers():
+    from apixly_jev_harness import TaskScript
+
+    calls = []
+
+    def build(inputs):
+        calls.append("build")
+        return Task(observe=lambda c: {}, verify=lambda c, s: False)
+
+    c = ToolkitSession(TaskScript(build), goal="Inspect", timeout_seconds=1)
+    c._started -= 2
+    with pytest.raises(ValueError, match="budget"):
+        c.observe()
+    assert calls == []
+
+
+def test_provider_that_exhausts_budget_does_not_execute():
+    task = Task(observe=lambda c: {}, verify=lambda c, s: False)
+    effects = []
+    exhausted = [False]
+
+    def options(c, s):
+        if exhausted[0]:
+            client._started -= 2
+        return [1]
+
+    @task.tool("Read", parameters={"value": options})
+    def read(value):
+        effects.append(value)
+
+    client = ToolkitSession(task, goal="Read", timeout_seconds=1)
+    client.observe()
+    exhausted[0] = True
+    with pytest.raises(ValueError, match="budget"):
+        client.operate("read", {"value": "0"})
+    assert effects == []
+
+
+def test_uncertain_effect_never_advertises_ready_delegation_or_direct_tools():
+    task = Task(observe=lambda c: {}, verify=lambda c, s: False)
+
+    @task.tool("Inspect")
+    def inspect():
+        raise RuntimeError("external effect outcome not established")
+
+    client = ToolkitSession(task, goal="Inspect")
+    client.observe()
+    with pytest.raises(RuntimeError):
+        client.operate("inspect", {})
+    state = client.observe()
+    assert state["delegation_available"] is False
+    assert state["delegation"]["ready"] is False
+    assert state["tools"] == []

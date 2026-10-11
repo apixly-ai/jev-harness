@@ -1,0 +1,518 @@
+{
+  "schema": 1,
+  "scope": "synthetic fixtures only; expected oracle is excluded from actor config and toolkit providers",
+  "rows": [
+    {
+      "case": "http",
+      "variant": 0,
+      "missing_source": false,
+      "goal": "Research the current AsterDesk deployment requirements from the entry page. Save source evidence for deployment method and persistent datastore under deployment and storage.",
+      "actor_inputs": {
+        "kind": "http",
+        "requirements": {
+          "deployment": "Deployment method:",
+          "storage": "Persistent datastore:"
+        }
+      },
+      "independent_expected_sources": {
+        "deployment": "spruce-deployment.html",
+        "storage": "spruce-storage.html"
+      },
+      "independent_expected_values": {
+        "deployment": "Deployment method: OCI container.",
+        "storage": "Persistent datastore: SQLite."
+      },
+      "files": {
+        "spruce-storage.html": {
+          "text": "<h1>Storage reference</h1><p>Persistent datastore: SQLite.</p><a href=\"spruce-index.html\">Other current resources</a>",
+          "sha256": "dbb1176131ad3d28919cdff8736a4b31caabd8818eba8cfca342a3d89cc0dca4"
+        },
+        "index.html": {
+          "text": "<h1>Service information</h1><p>Follow current resources and their references.</p>\n<a href=\"legacy.html\">Details</a>\n<a href=\"spruce-index.html\">Details</a>",
+          "sha256": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "spruce-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"spruce-deployment.html\">Deployment resource</a><a href=\"spruce-storage.html\">Storage resource</a>",
+          "sha256": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7"
+        },
+        "spruce-deployment.html": {
+          "text": "<h1>Deployment reference</h1><p>Deployment method: OCI container.</p><a href=\"spruce-index.html\">Other current resources</a>",
+          "sha256": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf"
+        }
+      }
+    },
+    {
+      "case": "http",
+      "variant": 0,
+      "missing_source": true,
+      "goal": "Research the current AsterDesk deployment requirements from the entry page. Save source evidence for deployment method and persistent datastore under deployment and storage.",
+      "actor_inputs": {
+        "kind": "http",
+        "requirements": {
+          "deployment": "Deployment method:",
+          "storage": "Persistent datastore:"
+        }
+      },
+      "independent_expected_sources": {
+        "deployment": "spruce-deployment.html",
+        "storage": "spruce-storage.html"
+      },
+      "independent_expected_values": {
+        "deployment": "Deployment method: OCI container.",
+        "storage": "Persistent datastore: SQLite."
+      },
+      "files": {
+        "spruce-storage.html": {
+          "text": "<h1>Resource unavailable</h1><p>The required current source is unavailable.</p>",
+          "sha256": "612d680eb862b0ca85edabdd6a2ccfd50c9e151ff76dbd77869f213d3fdcb6d7"
+        },
+        "index.html": {
+          "text": "<h1>Service information</h1><p>Follow current resources and their references.</p>\n<a href=\"legacy.html\">Details</a>\n<a href=\"spruce-index.html\">Details</a>",
+          "sha256": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "spruce-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"spruce-deployment.html\">Deployment resource</a><a href=\"spruce-storage.html\">Storage resource</a>",
+          "sha256": "cf50a21dd47d21abbf7eb08312da24dd7481ecdd732e2261de7ac35d16c689c7"
+        },
+        "spruce-deployment.html": {
+          "text": "<h1>Deployment reference</h1><p>Deployment method: OCI container.</p><a href=\"spruce-index.html\">Other current resources</a>",
+          "sha256": "a253f7280e49fce94ab33898f768814c962b7903ed51fdd094d4af3178e8c3cf"
+        }
+      }
+    },
+    {
+      "case": "http",
+      "variant": 1,
+      "missing_source": false,
+      "goal": "Research the current AsterDesk deployment requirements from the entry page. Save source evidence for deployment method and persistent datastore under deployment and storage.",
+      "actor_inputs": {
+        "kind": "http",
+        "requirements": {
+          "deployment": "Deployment method:",
+          "storage": "Persistent datastore:"
+        }
+      },
+      "independent_expected_sources": {
+        "deployment": "maple-deployment.html",
+        "storage": "maple-storage.html"
+      },
+      "independent_expected_values": {
+        "deployment": "Deployment method: OCI container.",
+        "storage": "Persistent datastore: SQLite."
+      },
+      "files": {
+        "maple-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"maple-deployment.html\">Deployment resource</a><a href=\"maple-storage.html\">Storage resource</a>",
+          "sha256": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601"
+        },
+        "index.html": {
+          "text": "<a href=\"maple-index.html\">Details</a>\n<a href=\"legacy.html\">Details</a>\n<h1>Service information</h1><p>Follow current resources and their references.</p>",
+          "sha256": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015"
+        },
+        "maple-storage.html": {
+          "text": "<h1>Storage reference</h1><p>Persistent datastore: SQLite.</p><a href=\"maple-index.html\">Other current resources</a>",
+          "sha256": "275e321a0a16857416562ca5542989ec2e3dadecf481a992eb94c12212fe0a1e"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "maple-deployment.html": {
+          "text": "<h1>Deployment reference</h1><p>Deployment method: OCI container.</p><a href=\"maple-index.html\">Other current resources</a>",
+          "sha256": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542"
+        }
+      }
+    },
+    {
+      "case": "http",
+      "variant": 1,
+      "missing_source": true,
+      "goal": "Research the current AsterDesk deployment requirements from the entry page. Save source evidence for deployment method and persistent datastore under deployment and storage.",
+      "actor_inputs": {
+        "kind": "http",
+        "requirements": {
+          "deployment": "Deployment method:",
+          "storage": "Persistent datastore:"
+        }
+      },
+      "independent_expected_sources": {
+        "deployment": "maple-deployment.html",
+        "storage": "maple-storage.html"
+      },
+      "independent_expected_values": {
+        "deployment": "Deployment method: OCI container.",
+        "storage": "Persistent datastore: SQLite."
+      },
+      "files": {
+        "maple-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"maple-deployment.html\">Deployment resource</a><a href=\"maple-storage.html\">Storage resource</a>",
+          "sha256": "5401c1c99b877b3988494b8495898879d5963c517b492a21c48bd333ad1ed601"
+        },
+        "index.html": {
+          "text": "<a href=\"maple-index.html\">Details</a>\n<a href=\"legacy.html\">Details</a>\n<h1>Service information</h1><p>Follow current resources and their references.</p>",
+          "sha256": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015"
+        },
+        "maple-storage.html": {
+          "text": "<h1>Resource unavailable</h1><p>The required current source is unavailable.</p>",
+          "sha256": "612d680eb862b0ca85edabdd6a2ccfd50c9e151ff76dbd77869f213d3fdcb6d7"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "maple-deployment.html": {
+          "text": "<h1>Deployment reference</h1><p>Deployment method: OCI container.</p><a href=\"maple-index.html\">Other current resources</a>",
+          "sha256": "042664f3b10ac6e43e2c52414ef49eb6d8cdfcfb99b5a695b78c743449b3b542"
+        }
+      }
+    },
+    {
+      "case": "files",
+      "variant": 0,
+      "missing_source": false,
+      "goal": "Investigate the current worker duplicate-submission failure. Find source evidence for the cause and a recorded reproduction; save both under cause and proof.",
+      "actor_inputs": {
+        "kind": "files",
+        "queries": [
+          "submit",
+          "retry",
+          "duplicate"
+        ],
+        "requirements": {
+          "cause": "Cause:",
+          "proof": "Recorded reproduction:"
+        }
+      },
+      "independent_expected_sources": {
+        "cause": "src/spruce_worker.py",
+        "proof": "tests/test_spruce_worker.txt"
+      },
+      "independent_expected_values": {
+        "cause": "retry dispatch precedes duplicate reservation",
+        "proof": "the same job is dispatched twice after retry"
+      },
+      "files": {
+        "README.md": {
+          "text": "Worker service. Inspect submit and retry paths and existing tests.",
+          "sha256": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2"
+        },
+        "tests/test_spruce_worker.txt": {
+          "text": "Recorded reproduction: the same job is dispatched twice after retry.",
+          "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+        },
+        "docs/legacy.txt": {
+          "text": "Old release: retries were disabled. Not the current worker behavior.",
+          "sha256": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160"
+        },
+        "src/spruce_worker.py": {
+          "text": "def submit(job):\n    # Cause: retry dispatch precedes duplicate reservation.\n    dispatch(job)\n    reserve(job.id)\n",
+          "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c"
+        }
+      }
+    },
+    {
+      "case": "files",
+      "variant": 0,
+      "missing_source": true,
+      "goal": "Investigate the current worker duplicate-submission failure. Find source evidence for the cause and a recorded reproduction; save both under cause and proof.",
+      "actor_inputs": {
+        "kind": "files",
+        "queries": [
+          "submit",
+          "retry",
+          "duplicate"
+        ],
+        "requirements": {
+          "cause": "Cause:",
+          "proof": "Recorded reproduction:"
+        }
+      },
+      "independent_expected_sources": {
+        "cause": "src/spruce_worker.py",
+        "proof": "tests/test_spruce_worker.txt"
+      },
+      "independent_expected_values": {
+        "cause": "retry dispatch precedes duplicate reservation",
+        "proof": "the same job is dispatched twice after retry"
+      },
+      "files": {
+        "README.md": {
+          "text": "Worker service. Inspect submit and retry paths and existing tests.",
+          "sha256": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2"
+        },
+        "docs/legacy.txt": {
+          "text": "Old release: retries were disabled. Not the current worker behavior.",
+          "sha256": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160"
+        },
+        "src/spruce_worker.py": {
+          "text": "def submit(job):\n    # Cause: retry dispatch precedes duplicate reservation.\n    dispatch(job)\n    reserve(job.id)\n",
+          "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c"
+        }
+      }
+    },
+    {
+      "case": "files",
+      "variant": 1,
+      "missing_source": false,
+      "goal": "Investigate the current worker duplicate-submission failure. Find source evidence for the cause and a recorded reproduction; save both under cause and proof.",
+      "actor_inputs": {
+        "kind": "files",
+        "queries": [
+          "submit",
+          "retry",
+          "duplicate"
+        ],
+        "requirements": {
+          "cause": "Cause:",
+          "proof": "Recorded reproduction:"
+        }
+      },
+      "independent_expected_sources": {
+        "cause": "src/maple_worker.py",
+        "proof": "tests/test_maple_worker.txt"
+      },
+      "independent_expected_values": {
+        "cause": "retry dispatch precedes duplicate reservation",
+        "proof": "the same job is dispatched twice after retry"
+      },
+      "files": {
+        "README.md": {
+          "text": "Worker service. Inspect submit and retry paths and existing tests.",
+          "sha256": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2"
+        },
+        "tests/test_maple_worker.txt": {
+          "text": "Recorded reproduction: the same job is dispatched twice after retry.",
+          "sha256": "927f5a079aad2325b09f3f7324b5806dccdabf0751d5300f12bec45d78d6d328"
+        },
+        "docs/legacy.txt": {
+          "text": "Old release: retries were disabled. Not the current worker behavior.",
+          "sha256": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160"
+        },
+        "src/maple_worker.py": {
+          "text": "def submit(job):\n    # Cause: retry dispatch precedes duplicate reservation.\n    dispatch(job)\n    reserve(job.id)\n",
+          "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c"
+        }
+      }
+    },
+    {
+      "case": "files",
+      "variant": 1,
+      "missing_source": true,
+      "goal": "Investigate the current worker duplicate-submission failure. Find source evidence for the cause and a recorded reproduction; save both under cause and proof.",
+      "actor_inputs": {
+        "kind": "files",
+        "queries": [
+          "submit",
+          "retry",
+          "duplicate"
+        ],
+        "requirements": {
+          "cause": "Cause:",
+          "proof": "Recorded reproduction:"
+        }
+      },
+      "independent_expected_sources": {
+        "cause": "src/maple_worker.py",
+        "proof": "tests/test_maple_worker.txt"
+      },
+      "independent_expected_values": {
+        "cause": "retry dispatch precedes duplicate reservation",
+        "proof": "the same job is dispatched twice after retry"
+      },
+      "files": {
+        "README.md": {
+          "text": "Worker service. Inspect submit and retry paths and existing tests.",
+          "sha256": "2e47542e9f5fe6dd8eb9f1fcca2f9fd66edccb7a849abd24bc4b9b92350dabe2"
+        },
+        "docs/legacy.txt": {
+          "text": "Old release: retries were disabled. Not the current worker behavior.",
+          "sha256": "2236fb5e25668f49cbdf0c3008ed5819adeb9df16cca51b3625fe68e26219160"
+        },
+        "src/maple_worker.py": {
+          "text": "def submit(job):\n    # Cause: retry dispatch precedes duplicate reservation.\n    dispatch(job)\n    reserve(job.id)\n",
+          "sha256": "ba6fd076c53763a50152413c3bd20acb61ee62ba36f3d79539e93d1ad455c18c"
+        }
+      }
+    },
+    {
+      "case": "browser",
+      "variant": 0,
+      "missing_source": false,
+      "goal": "Diagnose why synthetic job-741 is incomplete. Find its pending dependency and matching current event; save evidence under dependency and event.",
+      "actor_inputs": {
+        "kind": "browser",
+        "requirements": {
+          "dependency": "Pending dependency:",
+          "event": "Current event:"
+        }
+      },
+      "independent_expected_sources": {
+        "dependency": "spruce-dependency.html",
+        "event": "spruce-event.html"
+      },
+      "independent_expected_values": {
+        "dependency": "Pending dependency: identity-check.",
+        "event": "Current event: job-741 blocked by identity-check."
+      },
+      "files": {
+        "index.html": {
+          "text": "<h1>Service information</h1><p>Follow current resources and their references.</p>\n<a href=\"legacy.html\">Details</a>\n<a href=\"spruce-index.html\">Details</a>",
+          "sha256": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6"
+        },
+        "spruce-event.html": {
+          "text": "<h1>Event reference</h1><p>Current event: job-741 blocked by identity-check.</p><a href=\"spruce-index.html\">Other current resources</a>",
+          "sha256": "1df29953b7a47d4aaa0be34c73af6933635d775dc86fc76f44d5c4860bb77e56"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "spruce-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"spruce-dependency.html\">Dependency resource</a><a href=\"spruce-event.html\">Event resource</a>",
+          "sha256": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+        },
+        "spruce-dependency.html": {
+          "text": "<h1>Dependency reference</h1><p>Pending dependency: identity-check.</p><a href=\"spruce-index.html\">Other current resources</a>",
+          "sha256": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b"
+        }
+      }
+    },
+    {
+      "case": "browser",
+      "variant": 0,
+      "missing_source": true,
+      "goal": "Diagnose why synthetic job-741 is incomplete. Find its pending dependency and matching current event; save evidence under dependency and event.",
+      "actor_inputs": {
+        "kind": "browser",
+        "requirements": {
+          "dependency": "Pending dependency:",
+          "event": "Current event:"
+        }
+      },
+      "independent_expected_sources": {
+        "dependency": "spruce-dependency.html",
+        "event": "spruce-event.html"
+      },
+      "independent_expected_values": {
+        "dependency": "Pending dependency: identity-check.",
+        "event": "Current event: job-741 blocked by identity-check."
+      },
+      "files": {
+        "index.html": {
+          "text": "<h1>Service information</h1><p>Follow current resources and their references.</p>\n<a href=\"legacy.html\">Details</a>\n<a href=\"spruce-index.html\">Details</a>",
+          "sha256": "3d8808cbaf5ed29dd7ec86a22a0efa3f340da50571e9fa2cc260a88f9e5df1e6"
+        },
+        "spruce-event.html": {
+          "text": "<h1>Resource unavailable</h1><p>The required current source is unavailable.</p>",
+          "sha256": "612d680eb862b0ca85edabdd6a2ccfd50c9e151ff76dbd77869f213d3fdcb6d7"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "spruce-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"spruce-dependency.html\">Dependency resource</a><a href=\"spruce-event.html\">Event resource</a>",
+          "sha256": "b5b9cc78017fbe4046e90c6f5178062d14687673013e94f9571322d60ff13659"
+        },
+        "spruce-dependency.html": {
+          "text": "<h1>Dependency reference</h1><p>Pending dependency: identity-check.</p><a href=\"spruce-index.html\">Other current resources</a>",
+          "sha256": "a6987c5eca59291f0f08e9d72891615ab1b881c248e0bb87e32d4fa7a7b59f2b"
+        }
+      }
+    },
+    {
+      "case": "browser",
+      "variant": 1,
+      "missing_source": false,
+      "goal": "Diagnose why synthetic job-741 is incomplete. Find its pending dependency and matching current event; save evidence under dependency and event.",
+      "actor_inputs": {
+        "kind": "browser",
+        "requirements": {
+          "dependency": "Pending dependency:",
+          "event": "Current event:"
+        }
+      },
+      "independent_expected_sources": {
+        "dependency": "maple-dependency.html",
+        "event": "maple-event.html"
+      },
+      "independent_expected_values": {
+        "dependency": "Pending dependency: identity-check.",
+        "event": "Current event: job-741 blocked by identity-check."
+      },
+      "files": {
+        "maple-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"maple-dependency.html\">Dependency resource</a><a href=\"maple-event.html\">Event resource</a>",
+          "sha256": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+        },
+        "index.html": {
+          "text": "<a href=\"maple-index.html\">Details</a>\n<a href=\"legacy.html\">Details</a>\n<h1>Service information</h1><p>Follow current resources and their references.</p>",
+          "sha256": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "maple-event.html": {
+          "text": "<h1>Event reference</h1><p>Current event: job-741 blocked by identity-check.</p><a href=\"maple-index.html\">Other current resources</a>",
+          "sha256": "6a320fb653e6a23f75056ef3f187bc40c56cbf18767f24a9d5a67000566a8d8c"
+        },
+        "maple-dependency.html": {
+          "text": "<h1>Dependency reference</h1><p>Pending dependency: identity-check.</p><a href=\"maple-index.html\">Other current resources</a>",
+          "sha256": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76"
+        }
+      }
+    },
+    {
+      "case": "browser",
+      "variant": 1,
+      "missing_source": true,
+      "goal": "Diagnose why synthetic job-741 is incomplete. Find its pending dependency and matching current event; save evidence under dependency and event.",
+      "actor_inputs": {
+        "kind": "browser",
+        "requirements": {
+          "dependency": "Pending dependency:",
+          "event": "Current event:"
+        }
+      },
+      "independent_expected_sources": {
+        "dependency": "maple-dependency.html",
+        "event": "maple-event.html"
+      },
+      "independent_expected_values": {
+        "dependency": "Pending dependency: identity-check.",
+        "event": "Current event: job-741 blocked by identity-check."
+      },
+      "files": {
+        "maple-index.html": {
+          "text": "<h1>Current resources</h1><a href=\"maple-dependency.html\">Dependency resource</a><a href=\"maple-event.html\">Event resource</a>",
+          "sha256": "e13e91a9823af42559e9e7fb6d0a41ea07f45988d00798c3795a4bf7a38a0627"
+        },
+        "index.html": {
+          "text": "<a href=\"maple-index.html\">Details</a>\n<a href=\"legacy.html\">Details</a>\n<h1>Service information</h1><p>Follow current resources and their references.</p>",
+          "sha256": "843db35d73d64f67f288a1d89a16b66da422d6aa0b1384febad71bfc7a37b015"
+        },
+        "legacy.html": {
+          "text": "<h1>Historical archive</h1><p>Old release; historical data is not the current service.</p><a href=\"index.html\">Current entry</a>",
+          "sha256": "44bb0131c010a6cc8dcc11f284f50b3cc0846db9eec6458d2f1d3bdbb815e424"
+        },
+        "maple-event.html": {
+          "text": "<h1>Resource unavailable</h1><p>The required current source is unavailable.</p>",
+          "sha256": "612d680eb862b0ca85edabdd6a2ccfd50c9e151ff76dbd77869f213d3fdcb6d7"
+        },
+        "maple-dependency.html": {
+          "text": "<h1>Dependency reference</h1><p>Pending dependency: identity-check.</p><a href=\"maple-index.html\">Other current resources</a>",
+          "sha256": "d19516992639ba9d0c9cffc3b71f485b4d7aa95d3d374726eaf4263df7f99b76"
+        }
+      }
+    }
+  ]
+}

@@ -362,7 +362,20 @@ class Engine:
                         analysis_spec={
                             "mode": "choose",
                             "selection_policy": "any",
-                            "uncertainty": HOSTED_DEFAULT,
+                            "uncertainty": (
+                                getattr(workflow, "tool_selection_policy", HOSTED_DEFAULT)
+                                if stage["stage"] == "tool_selection"
+                                else (
+                                    {
+                                        **HOSTED_DEFAULT,
+                                        "min_top_probability": 0.30,
+                                        "min_margin": 0.0,
+                                    }
+                                    if (extra_context or {}).get("parameter_selection_kind")
+                                    == "explore"
+                                    else HOSTED_DEFAULT
+                                )
+                            ),
                         },
                     )
                 except Exception as error:

@@ -2,6 +2,106 @@
 
 [简体中文](README.zh-CN.md)
 
+## Open-task toolkits and live acceptance (0.2.0, 2026-10-11)
+
+The shared foundation now combines `TaskScript`, `EvidenceTask`, `EvidenceStore`,
+workspace discovery and HTTP/Camofox discovery. A thin caller-trusted script defines
+source scope, tools, schema-field markers and independent completion checks. Both a
+primary AI operating MCP references and a Jev-native loop use those registered tools;
+links, files and passages are discovered from feedback rather than a fixed route.
+
+[Live ledger](toolkit-live-2026-10-11.json) retains 15 groups and 53 rows, including
+36 development rows. [Synthetic fixtures](toolkit-fixtures.json) publish three task
+families, two variants and missing-source variants. Bounded acceptance actor inputs contain schema prefixes,
+not the evaluator's expected answer values or source-route oracle.
+
+The nine-row `toolkit-acceptance-frozen-20261011` group uses variant 1. All saved
+artifacts pass independent checks. Each cell below is one trial, not a distribution:
+
+| Synthetic task | Jev whole operation | Primary direct | Unforced choice | Jev tool steps / requests |
+| --- | ---: | ---: | ---: | ---: |
+| HTTP source research | 5.6267 s | 54.9784 s | 53.4884 s, direct | 10 / 15 |
+| Repository evidence | 4.3970 s | 36.7928 s | 57.3461 s, direct | 7 / 11 |
+| Headless Camofox dependency diagnosis | 8.8917 s | 55.6485 s | 56.7695 s, direct | 9 / 15 |
+
+These measurements show shorter Jev execution in these small synthetic tasks. Timing
+includes task creation/capture, model/tool decisions, artifact checking and journals;
+primary timing also includes one continuous CLI process startup and final answer.
+Fixture/server preparation and script authoring are excluded. This does not measure
+how quickly an AI writes a new script or establish general latency or cost advantages.
+
+Returned Jev model identity is `jev-1.13.0`. The primary request is `gpt-6.1-sol/high`;
+its resolved model identity is unknown. Measured variant-1 direct-arm tokens are:
+
+| Task | Jev input / output | Primary input (cached subset) / output |
+| --- | ---: | ---: |
+| HTTP | 62,715 / 1,143 | 370,649 (330,752 cached) / 618 |
+| Repository | 42,377 / 999 | 194,406 (174,208 cached) / 536 |
+| Camofox | 59,632 / 1,127 | 364,930 (326,144 cached) / 612 |
+
+The ledger retains choice-arm tokens, reasoning tokens, known failed-attempt usage and
+unknown usage separately. Cached input is part of primary input, not extra tokens.
+Jev shared-context bytes and returned MCP-result bytes measure different surfaces.
+There is no token-savings conversion, current-tariff assumption or invoice-cost claim.
+
+The first nine-row group predates MCP `state_ref` enforcement and JSON preflight
+hardening. It has no before-trial runtime provenance snapshot, so it is not an
+exact-release benchmark. Later groups record runtime, runner and fixture source hashes;
+these are before-trial source snapshots, not attestations of imported bytecode.
+With the state-reference protocol, variant-0 repository trials pass at Jev 4.4084 s, direct 64.0395 s
+and unforced choice 65.4748 s. Variant-0 HTTP and Camofox Jev runs also pass at
+6.4555 s and 10.0094 s. The ledger keeps each version/stage separate.
+
+Five bounded unforced trials selected direct operation: **0/5 delegated to Jev**.
+The earlier four asked the actor to inspect state and argument references, which may
+bias it toward direct operation. A separate repository pair removes that instruction:
+only the goal, available tools and saved-artifact output requirement remain. Direct
+passes in 56.0326 s and choice passes in 61.4696 s, again selecting direct (**0/1** in
+this stricter neutral group). Both routes are available before the first effect and
+product skills are disabled; no rule mandates a route. This is an adoption negative,
+not evidence of automatic delegation. Development attempts are excluded from the count.
+
+Missing-source repository acceptance returns `needs_review` after 5.7759 s, with
+independent completion false and no false `done`. Early review/no-match, CLI wiring,
+unexpected activity and missing-artifact results remain in the development groups;
+some early actors received development answer phrases and are not blind-task evidence.
+The inputs are bounded local synthetic data, with no desktop/customer/production scope.
+
+Browser checks combine normalized static-fixture source text with full captured DOM-text
+spans, source references and SHA-256 checks. The first successful variant-1 Jev browser
+row uses a supplemental direct-arm DOM capture of the same static fixture. Later browser
+rows retain their own captures. This establishes static-fixture evidence, not a fresh
+independent DOM guarantee for arbitrary dynamic websites.
+
+Reproduce from a full checkout with `.[dev]` and explicitly supplied local test credentials;
+this command is opt-in and billable. Use a new output directory:
+
+```sh
+python benchmarks/toolkit_acceptance.py --live --output local-results/toolkit-reproduction \
+  --credential-file /absolute/path/to/your-test-key --primary-model gpt-6.1-sol \
+  --variant 1 --families http files browser --arms jev direct choice
+```
+
+Add `--variant 0` for the other fixture ordering, or `--missing --families files --arms jev`
+for the absence case; select a fresh output directory per run. Offline protocol A/B checks
+are a separate lane with scripted choices and zero paid model usage, not this live ledger.
+
+## Offline toolkit protocol control
+
+The [offline policy/projection control](toolkit-protocol-ab.json) runs 15 fixed synthetic
+fixtures, three paired repeats per arm (90 rows). Both arms meet all 45 specified outcomes;
+these include deliberate REVIEW, invalid-reference and route-transfer rejection. The control
+injects legacy strict match policy/full-record projection on the same runtime, rather than
+executing a v0.1.17 source snapshot. Real inference usage is zero. Exploratory continuation
+increases simulated effects from 21 to 39, mock SDK attempts from 66 to 78, selection input
+bytes from 185,507 to 276,065 and shared-context bytes from 47,189 to 87,722. The 12-record
+fixture reduces the observed state from 21,838 to 6,493 characters while the verifier still
+receives all 12 records. Unknown scripted usage remains unknown in three rows per arm;
+this is protocol evidence, not semantic accuracy, savings or unlimited-history proof.
+Reproduce with `python benchmarks/toolkit_protocol.py --output local-results/toolkit-protocol-ab.json`.
+
+## Historical evidence
+
 The runtime is the product; these cases test reusable seams rather than special-case
 features. All inputs are local synthetic data. No bookings or messages were sent.
 
@@ -18,6 +118,7 @@ window. Offline surface tests pass; native macOS/Windows completion remains unve
 elapsed time, known usage and uncertainty. Actual provider usage is grouped by returned
 model where available; missing model identity remains unknown. Monetary estimates are
 not invoices and no current tariff is assumed.
+
 
 ## AI onboarding and parameter semantics
 

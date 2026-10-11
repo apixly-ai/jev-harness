@@ -1,0 +1,5660 @@
+{
+  "mode": "offline-policy-projection-control",
+  "semantic_accuracy_measured": false,
+  "baseline_scope": "Documented match-policy and legacy-projection injection on the same candidate runtime, not a published v0.1.17 source comparison. Control uses HOSTED_DEFAULT for tools and Parameter.selection=match. Only tail/12-record cases remove last_read, restore full records/sources and shorten admitted historical text to 240 characters.",
+  "candidate_scope": "Explicit EvidenceTask tool policy and Parameter.selection=explore, with current reference projection. Tail visibility is measured on the first decision after reading, before recording that passage. Ordinary match parameters and explicit model REVIEW stay unchanged. Route/ref guards are compatibility controls on both arms.",
+  "baseline_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+    "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+    "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+    "src/apixly_jev_harness/mcp.py": "533f61ac087e2002e9e8b045931bdd46f87e585a20173fd85adbb8c018189f96",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+    "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+    "src/apixly_jev_harness/toolkit.py": "b5ed293945977dc83eaf0b97c42f024ecf71311bb86dbb6cb32da3ed05655cf8",
+    "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+    "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+    "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+  },
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+    "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+    "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+    "src/apixly_jev_harness/mcp.py": "533f61ac087e2002e9e8b045931bdd46f87e585a20173fd85adbb8c018189f96",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+    "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+    "src/apixly_jev_harness/toolkit.py": "b5ed293945977dc83eaf0b97c42f024ecf71311bb86dbb6cb32da3ed05655cf8",
+    "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+    "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+    "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+  },
+  "runner_sha256": "df2406b7822e274bdee95c88ba5e33eb2347c31df64964b57abb8347697dd45e",
+  "fixed_responses": {
+    "ambiguous_legal_tool": [
+      [
+        "c0",
+        0.39
+      ],
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c1",
+        0.99
+      ],
+      [
+        "c2",
+        0.99
+      ]
+    ],
+    "exploratory_target": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c0",
+        0.39
+      ]
+    ],
+    "matched_target_low": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c0",
+        0.39
+      ]
+    ],
+    "matched_target_high": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c0",
+        0.6
+      ]
+    ],
+    "explicit_review_tool": [
+      [
+        "REVIEW",
+        0.99
+      ]
+    ],
+    "explicit_review_parameter": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "REVIEW",
+        0.99
+      ]
+    ],
+    "child_match_low": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c1",
+        0.99
+      ],
+      [
+        "c0",
+        0.39
+      ]
+    ],
+    "child_after_label": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c1",
+        0.99
+      ],
+      [
+        "c0",
+        0.6
+      ]
+    ],
+    "unknown_reference": [],
+    "foreign_link": [],
+    "tail_read": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c1",
+        0.99
+      ],
+      [
+        "c2",
+        0.99
+      ]
+    ],
+    "twelve_records": [
+      [
+        "c1",
+        0.99
+      ]
+    ],
+    "unknown_http_usage": [
+      null
+    ],
+    "direct_then_delegate": [],
+    "delegate_then_direct": [
+      [
+        "c0",
+        0.99
+      ],
+      [
+        "c0",
+        0.99
+      ]
+    ]
+  },
+  "repeats": 3,
+  "scope": "Fixed synthetic resources and literal choice/probability sequences. The real pinned SDK runs through HTTPMock; fixtures execute registered Python/file/evidence operations. Provider/executor do not inspect expected outcomes or hidden answers. Captured protocol/size scalars are not semantic quality or browser/primary-agent acceptance.",
+  "negative_results": "Additional admitted exploratory steps increase mock decisions, input/context and local work; expected outcomes include REVIEW/rejection. Unknown mock HTTP usage stays unknown. Context projection improves only these fixtures, not unlimited history. No semantic accuracy, invoice, speed or savings claim; source-reference storage is not result caching.",
+  "timing_scope": "Real perf_counter includes per-trial fixture/task creation, SDK mock decisions, registered effects, artifact checks and private journal fsync; excludes module imports, source hashing and report serialization.",
+  "reproduction": "Use the report source hashes with a full checkout and .[dev]; python benchmarks/toolkit_protocol.py --output local-results/toolkit-protocol-ab.json",
+  "summary": {
+    "baseline": {
+      "runs": 45,
+      "expected_outcomes_met": 45,
+      "statuses": {
+        "done": 9,
+        "needs_review": 24,
+        "rejected": 12
+      },
+      "effects": 21,
+      "mock_sdk_attempts": 66,
+      "unknown_scripted_usage_rows": 3,
+      "request_bytes": 185507,
+      "context_bytes": 47189,
+      "returned_context_bytes": 75441,
+      "median_whole_operation_seconds": 0.0016440410108771175,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    "candidate": {
+      "runs": 45,
+      "expected_outcomes_met": 45,
+      "statuses": {
+        "done": 18,
+        "needs_review": 15,
+        "rejected": 12
+      },
+      "effects": 39,
+      "mock_sdk_attempts": 78,
+      "unknown_scripted_usage_rows": 3,
+      "request_bytes": 276065,
+      "context_bytes": 87722,
+      "returned_context_bytes": 83395,
+      "median_whole_operation_seconds": 0.0018306660058442503,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "ambiguous_legal_tool",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 198,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 3060,
+      "context_bytes": 481,
+      "returned_context_bytes": 1731,
+      "whole_operation_seconds": 0.0029986660229042172,
+      "repeat": 1
+    },
+    {
+      "case": "ambiguous_legal_tool",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 4,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 4,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 4,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 28,
+        "output_tokens": 4
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 198,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 17909,
+      "context_bytes": 5757,
+      "returned_context_bytes": 4054,
+      "whole_operation_seconds": 0.007487540977308527,
+      "repeat": 1
+    },
+    {
+      "case": "ambiguous_legal_tool",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 4,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 4,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 4,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 28,
+        "output_tokens": 4
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 198,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 17908,
+      "context_bytes": 5756,
+      "returned_context_bytes": 4052,
+      "whole_operation_seconds": 0.006933374999789521,
+      "repeat": 2
+    },
+    {
+      "case": "ambiguous_legal_tool",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 198,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 3060,
+      "context_bytes": 481,
+      "returned_context_bytes": 1731,
+      "whole_operation_seconds": 0.002395749994320795,
+      "repeat": 2
+    },
+    {
+      "case": "ambiguous_legal_tool",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 198,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 3060,
+      "context_bytes": 481,
+      "returned_context_bytes": 1731,
+      "whole_operation_seconds": 0.0029792079876642674,
+      "repeat": 3
+    },
+    {
+      "case": "ambiguous_legal_tool",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 4,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 4,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 4,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 28,
+        "output_tokens": 4
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 198,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 17907,
+      "context_bytes": 5755,
+      "returned_context_bytes": 4055,
+      "whole_operation_seconds": 0.00596966699231416,
+      "repeat": 3
+    },
+    {
+      "case": "exploratory_target",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4879,
+      "context_bytes": 1020,
+      "returned_context_bytes": 2237,
+      "whole_operation_seconds": 0.0018277499766554683,
+      "repeat": 1
+    },
+    {
+      "case": "exploratory_target",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.0015702079981565475,
+      "repeat": 1
+    },
+    {
+      "case": "exploratory_target",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4749,
+      "context_bytes": 979,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.0018456669931765646,
+      "repeat": 2
+    },
+    {
+      "case": "exploratory_target",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4879,
+      "context_bytes": 1020,
+      "returned_context_bytes": 2236,
+      "whole_operation_seconds": 0.0021758750081062317,
+      "repeat": 2
+    },
+    {
+      "case": "exploratory_target",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4879,
+      "context_bytes": 1020,
+      "returned_context_bytes": 2236,
+      "whole_operation_seconds": 0.0019573750032577664,
+      "repeat": 3
+    },
+    {
+      "case": "exploratory_target",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4749,
+      "context_bytes": 979,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.0015330419992096722,
+      "repeat": 3
+    },
+    {
+      "case": "matched_target_low",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2629,
+      "whole_operation_seconds": 0.0016121249936986715,
+      "repeat": 1
+    },
+    {
+      "case": "matched_target_low",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.0017670410161372274,
+      "repeat": 1
+    },
+    {
+      "case": "matched_target_low",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.0015645840030629188,
+      "repeat": 2
+    },
+    {
+      "case": "matched_target_low",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4749,
+      "context_bytes": 979,
+      "returned_context_bytes": 2627,
+      "whole_operation_seconds": 0.001351166982203722,
+      "repeat": 2
+    },
+    {
+      "case": "matched_target_low",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.0016637920052744448,
+      "repeat": 3
+    },
+    {
+      "case": "matched_target_low",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2628,
+      "whole_operation_seconds": 0.001506125001469627,
+      "repeat": 3
+    },
+    {
+      "case": "matched_target_high",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2230,
+      "whole_operation_seconds": 0.0017700839962344617,
+      "repeat": 1
+    },
+    {
+      "case": "matched_target_high",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2230,
+      "whole_operation_seconds": 0.0017993329965975136,
+      "repeat": 1
+    },
+    {
+      "case": "matched_target_high",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2229,
+      "whole_operation_seconds": 0.0018945000192616135,
+      "repeat": 2
+    },
+    {
+      "case": "matched_target_high",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2230,
+      "whole_operation_seconds": 0.0020124579896219075,
+      "repeat": 2
+    },
+    {
+      "case": "matched_target_high",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2232,
+      "whole_operation_seconds": 0.001913667016196996,
+      "repeat": 3
+    },
+    {
+      "case": "matched_target_high",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2232,
+      "whole_operation_seconds": 0.0016969580028671771,
+      "repeat": 3
+    },
+    {
+      "case": "explicit_review_tool",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1536,
+      "whole_operation_seconds": 0.0011188749922439456,
+      "repeat": 1
+    },
+    {
+      "case": "explicit_review_tool",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1536,
+      "whole_operation_seconds": 0.0011773330043070018,
+      "repeat": 1
+    },
+    {
+      "case": "explicit_review_tool",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1536,
+      "whole_operation_seconds": 0.0014416670019272715,
+      "repeat": 2
+    },
+    {
+      "case": "explicit_review_tool",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1536,
+      "whole_operation_seconds": 0.001196958008222282,
+      "repeat": 2
+    },
+    {
+      "case": "explicit_review_tool",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1535,
+      "whole_operation_seconds": 0.001060082984622568,
+      "repeat": 3
+    },
+    {
+      "case": "explicit_review_tool",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1536,
+      "whole_operation_seconds": 0.0010007090168073773,
+      "repeat": 3
+    },
+    {
+      "case": "explicit_review_parameter",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4879,
+      "context_bytes": 1020,
+      "returned_context_bytes": 2482,
+      "whole_operation_seconds": 0.0014032080071046948,
+      "repeat": 1
+    },
+    {
+      "case": "explicit_review_parameter",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2483,
+      "whole_operation_seconds": 0.001500708982348442,
+      "repeat": 1
+    },
+    {
+      "case": "explicit_review_parameter",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2483,
+      "whole_operation_seconds": 0.0016440410108771175,
+      "repeat": 2
+    },
+    {
+      "case": "explicit_review_parameter",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4879,
+      "context_bytes": 1020,
+      "returned_context_bytes": 2484,
+      "whole_operation_seconds": 0.0016167080029845238,
+      "repeat": 2
+    },
+    {
+      "case": "explicit_review_parameter",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4879,
+      "context_bytes": 1020,
+      "returned_context_bytes": 2483,
+      "whole_operation_seconds": 0.0014004580152686685,
+      "repeat": 3
+    },
+    {
+      "case": "explicit_review_parameter",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:target",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4751,
+      "context_bytes": 981,
+      "returned_context_bytes": 2483,
+      "whole_operation_seconds": 0.001409167016390711,
+      "repeat": 3
+    },
+    {
+      "case": "child_match_low",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:passage",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6625,
+      "context_bytes": 1877,
+      "returned_context_bytes": 3554,
+      "whole_operation_seconds": 0.002114667004207149,
+      "repeat": 1
+    },
+    {
+      "case": "child_match_low",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:passage",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6781,
+      "context_bytes": 1919,
+      "returned_context_bytes": 3554,
+      "whole_operation_seconds": 0.0025405000196769834,
+      "repeat": 1
+    },
+    {
+      "case": "child_match_low",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:passage",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6781,
+      "context_bytes": 1919,
+      "returned_context_bytes": 3555,
+      "whole_operation_seconds": 0.0019625420100055635,
+      "repeat": 2
+    },
+    {
+      "case": "child_match_low",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:passage",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6628,
+      "context_bytes": 1880,
+      "returned_context_bytes": 3554,
+      "whole_operation_seconds": 0.001980375003768131,
+      "repeat": 2
+    },
+    {
+      "case": "child_match_low",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:passage",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6628,
+      "context_bytes": 1880,
+      "returned_context_bytes": 3554,
+      "whole_operation_seconds": 0.0021307080169208348,
+      "repeat": 3
+    },
+    {
+      "case": "child_match_low",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "unresolved_parameter:passage",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6781,
+      "context_bytes": 1919,
+      "returned_context_bytes": 3555,
+      "whole_operation_seconds": 0.0020113339996896684,
+      "repeat": 3
+    },
+    {
+      "case": "child_after_label",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6781,
+      "context_bytes": 1919,
+      "returned_context_bytes": 3156,
+      "whole_operation_seconds": 0.0026852080191019922,
+      "repeat": 1
+    },
+    {
+      "case": "child_after_label",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6628,
+      "context_bytes": 1880,
+      "returned_context_bytes": 3153,
+      "whole_operation_seconds": 0.003152082994347438,
+      "repeat": 1
+    },
+    {
+      "case": "child_after_label",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6628,
+      "context_bytes": 1880,
+      "returned_context_bytes": 3155,
+      "whole_operation_seconds": 0.0024187919916585088,
+      "repeat": 2
+    },
+    {
+      "case": "child_after_label",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6778,
+      "context_bytes": 1916,
+      "returned_context_bytes": 3154,
+      "whole_operation_seconds": 0.0023703339975327253,
+      "repeat": 2
+    },
+    {
+      "case": "child_after_label",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": true,
+          "whole_goal_removed_from_parameter_task": true
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6781,
+      "context_bytes": 1919,
+      "returned_context_bytes": 3155,
+      "whole_operation_seconds": 0.0027017079992219806,
+      "repeat": 3
+    },
+    {
+      "case": "child_after_label",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "label",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "passage",
+          "bound_reference_ids": {
+            "label": "proof"
+          },
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [
+        "proof"
+      ],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 6628,
+      "context_bytes": 1880,
+      "returned_context_bytes": 3155,
+      "whole_operation_seconds": 0.002289459021994844,
+      "repeat": 3
+    },
+    {
+      "case": "unknown_reference",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0003230829897802323,
+      "repeat": 1
+    },
+    {
+      "case": "unknown_reference",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.00026395899476483464,
+      "repeat": 1
+    },
+    {
+      "case": "unknown_reference",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.00024695799220353365,
+      "repeat": 2
+    },
+    {
+      "case": "unknown_reference",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0005924589931964874,
+      "repeat": 2
+    },
+    {
+      "case": "unknown_reference",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.00045754099846817553,
+      "repeat": 3
+    },
+    {
+      "case": "unknown_reference",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0006898340070620179,
+      "repeat": 3
+    },
+    {
+      "case": "foreign_link",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 818,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0010441670019645244,
+      "repeat": 1
+    },
+    {
+      "case": "foreign_link",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 818,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0008275420113932341,
+      "repeat": 1
+    },
+    {
+      "case": "foreign_link",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 818,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0012322500115260482,
+      "repeat": 2
+    },
+    {
+      "case": "foreign_link",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 818,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0009062919998541474,
+      "repeat": 2
+    },
+    {
+      "case": "foreign_link",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 818,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0018306660058442503,
+      "repeat": 3
+    },
+    {
+      "case": "foreign_link",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": 0,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 818,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0014546660240739584,
+      "repeat": 3
+    },
+    {
+      "case": "tail_read",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 3,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 3,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 560,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 16129,
+      "context_bytes": 6060,
+      "returned_context_bytes": 3144,
+      "whole_operation_seconds": 0.004883582994807512,
+      "repeat": 1
+    },
+    {
+      "case": "tail_read",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 3,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 3,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": true,
+      "observation_characters": 579,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 17400,
+      "context_bytes": 7363,
+      "returned_context_bytes": 3143,
+      "whole_operation_seconds": 0.005254583986243233,
+      "repeat": 1
+    },
+    {
+      "case": "tail_read",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 3,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 3,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": true,
+      "observation_characters": 579,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 17399,
+      "context_bytes": 7362,
+      "returned_context_bytes": 3144,
+      "whole_operation_seconds": 0.004744832986034453,
+      "repeat": 2
+    },
+    {
+      "case": "tail_read",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 3,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 3,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 560,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 16131,
+      "context_bytes": 6062,
+      "returned_context_bytes": 3144,
+      "whole_operation_seconds": 0.004693916998803616,
+      "repeat": 2
+    },
+    {
+      "case": "tail_read",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 3,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 3,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 560,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 16131,
+      "context_bytes": 6062,
+      "returned_context_bytes": 3146,
+      "whole_operation_seconds": 0.004243249975843355,
+      "repeat": 3
+    },
+    {
+      "case": "tail_read",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 3,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 3,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 3,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 21,
+        "output_tokens": 3
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": true,
+      "observation_characters": 579,
+      "verifier_record_counts": [
+        1
+      ],
+      "artifact_record_count": 1,
+      "request_bytes": 17400,
+      "context_bytes": 7363,
+      "returned_context_bytes": 3147,
+      "whole_operation_seconds": 0.004412165988469496,
+      "repeat": 3
+    },
+    {
+      "case": "twelve_records",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 6493,
+      "verifier_record_counts": [
+        12
+      ],
+      "artifact_record_count": 12,
+      "request_bytes": 13504,
+      "context_bytes": 6776,
+      "returned_context_bytes": 1323,
+      "whole_operation_seconds": 0.003419958025915548,
+      "repeat": 1
+    },
+    {
+      "case": "twelve_records",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "context_budget_exceeded",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 21838,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 603,
+      "whole_operation_seconds": 0.0017479170055594295,
+      "repeat": 1
+    },
+    {
+      "case": "twelve_records",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "context_budget_exceeded",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 21838,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 604,
+      "whole_operation_seconds": 0.0015296670026145875,
+      "repeat": 2
+    },
+    {
+      "case": "twelve_records",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 6493,
+      "verifier_record_counts": [
+        12
+      ],
+      "artifact_record_count": 12,
+      "request_bytes": 13504,
+      "context_bytes": 6776,
+      "returned_context_bytes": 1321,
+      "whole_operation_seconds": 0.003470208990620449,
+      "repeat": 2
+    },
+    {
+      "case": "twelve_records",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "done",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "done",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 7,
+        "output_tokens": 1
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.3,
+          "min_margin": 0.0
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 6493,
+      "verifier_record_counts": [
+        12
+      ],
+      "artifact_record_count": 12,
+      "request_bytes": 13504,
+      "context_bytes": 6776,
+      "returned_context_bytes": 1322,
+      "whole_operation_seconds": 0.003381332993740216,
+      "repeat": 3
+    },
+    {
+      "case": "twelve_records",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": "context_budget_exceeded",
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": 21838,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 604,
+      "whole_operation_seconds": 0.0016832499823067337,
+      "repeat": 3
+    },
+    {
+      "case": "unknown_http_usage",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": false,
+      "scripted_usage": null,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1290,
+      "whole_operation_seconds": 0.0010846249933820218,
+      "repeat": 1
+    },
+    {
+      "case": "unknown_http_usage",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": false,
+      "scripted_usage": null,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1290,
+      "whole_operation_seconds": 0.00112674999400042,
+      "repeat": 1
+    },
+    {
+      "case": "unknown_http_usage",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": false,
+      "scripted_usage": null,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1291,
+      "whole_operation_seconds": 0.0010279999987687916,
+      "repeat": 2
+    },
+    {
+      "case": "unknown_http_usage",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": false,
+      "scripted_usage": null,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1291,
+      "whole_operation_seconds": 0.0009748339944053441,
+      "repeat": 2
+    },
+    {
+      "case": "unknown_http_usage",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": false,
+      "scripted_usage": null,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1290,
+      "whole_operation_seconds": 0.0016318330017384142,
+      "repeat": 3
+    },
+    {
+      "case": "unknown_http_usage",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "needs_review",
+      "expected_effects": 0,
+      "expected_outcome_met": true,
+      "status": "needs_review",
+      "reason": null,
+      "effects": 0,
+      "effects_before_rejected_switch": null,
+      "effects_after_rejected_switch": null,
+      "mock_sdk_attempts": 1,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": false,
+      "scripted_usage": null,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 2890,
+      "context_bytes": 298,
+      "returned_context_bytes": 1290,
+      "whole_operation_seconds": 0.0012315000058151782,
+      "repeat": 3
+    },
+    {
+      "case": "direct_then_delegate",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0004372919793240726,
+      "repeat": 1
+    },
+    {
+      "case": "direct_then_delegate",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0003873750101774931,
+      "repeat": 1
+    },
+    {
+      "case": "direct_then_delegate",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0005055420042481273,
+      "repeat": 2
+    },
+    {
+      "case": "direct_then_delegate",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.00042216700967401266,
+      "repeat": 2
+    },
+    {
+      "case": "direct_then_delegate",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.00036525001632981,
+      "repeat": 3
+    },
+    {
+      "case": "direct_then_delegate",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 0,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 0,
+        "output_tokens": 0
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [],
+      "request_protocol": [],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 0,
+      "context_bytes": 0,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0004310829972382635,
+      "repeat": 3
+    },
+    {
+      "case": "delegate_then_direct",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4609,
+      "context_bytes": 911,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0021112080139573663,
+      "repeat": 1
+    },
+    {
+      "case": "delegate_then_direct",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4609,
+      "context_bytes": 911,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.00215612500323914,
+      "repeat": 1
+    },
+    {
+      "case": "delegate_then_direct",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4609,
+      "context_bytes": 911,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0018461669969838113,
+      "repeat": 2
+    },
+    {
+      "case": "delegate_then_direct",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4607,
+      "context_bytes": 909,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0018805419967975467,
+      "repeat": 2
+    },
+    {
+      "case": "delegate_then_direct",
+      "arm": "baseline",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4609,
+      "context_bytes": 911,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.0017647909990046173,
+      "repeat": 3
+    },
+    {
+      "case": "delegate_then_direct",
+      "arm": "candidate",
+      "runtime_version": "0.2.0",
+      "expected_status": "rejected",
+      "expected_effects": 1,
+      "expected_outcome_met": true,
+      "status": "rejected",
+      "reason": null,
+      "effects": 1,
+      "effects_before_rejected_switch": 1,
+      "effects_after_rejected_switch": 1,
+      "mock_sdk_attempts": 2,
+      "real_network_attempts": 0,
+      "scripted_usage_complete": true,
+      "scripted_usage": {
+        "input_tokens": 14,
+        "output_tokens": 2
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "selection_policies": [
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        },
+        {
+          "min_confidence": 0.0,
+          "min_top_probability": 0.55,
+          "min_margin": 0.1
+        }
+      ],
+      "request_protocol": [
+        {
+          "stage": "tool_selection",
+          "parameter": null,
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        },
+        {
+          "stage": "parameter_selection",
+          "parameter": "target",
+          "bound_reference_ids": {},
+          "exploration_criterion": false,
+          "whole_goal_removed_from_parameter_task": false
+        }
+      ],
+      "provider_bound_labels": [],
+      "tail_visible_after_read": false,
+      "observation_characters": null,
+      "verifier_record_counts": [],
+      "artifact_record_count": null,
+      "request_bytes": 4609,
+      "context_bytes": 911,
+      "returned_context_bytes": 41,
+      "whole_operation_seconds": 0.002136875002179295,
+      "repeat": 3
+    }
+  ]
+}
