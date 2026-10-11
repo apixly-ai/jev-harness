@@ -314,3 +314,52 @@ python benchmarks/task_output.py --output local-results/task-output-ab.json
 Use a full Git checkout with `.[dev]` and a new output path. CI runs only offline fixtures
 under Python 3.10, 3.12 and 3.14. No earlier live matrix, UI operation, locked desktop or
 URL submission was repeated. Native desktop and search indexing remain unverified.
+
+
+## CLI argument failures (0.1.8)
+
+When argparse reports an error in any command parser, the CLI now returns one fixed
+JSON packet with `failed`, phase `arguments`, code `invalid_command_arguments`,
+`script_loaded: false` and `model_calls: 0`, then exits 2. Direct `main` returns 2.
+It exports no raw error text, argv values or usage. Parsing precedes command dispatch,
+task source access and trusted module loading. Successful parsing still uses the
+separate `configuration` phase for malformed JSON or invalid run configuration.
+
+The [offline argument A/B](cli-arguments-ab.json) compares exact published 0.1.7 source
+(`609d76822dc721a1f19bb7c3b2837f553507d24f`) with the candidate on 25 fixed synthetic
+argv fixtures, three paired repeats with alternating arm order. Conformance to the new
+interface policy changes from 27/75 to 75/75. Each arm has 48 parser-failure probes,
+nine human help probes and 18 other offline/valid/configuration probes. Exact JSON
+packets change from 18 to 66; the nine help results remain text and exit 0. Fixed
+synthetic stderr markers change from 24 occurrences to zero. Both arms restore streams
+in 75/75 probes and make zero actual model/UI/network calls.
+
+For all 48 parser failures in both arms, measured task source reads, module-spec/exec
+attempts and new files remain zero. This is a preserved property, not an execution-safety
+gain attributed to the change. Positive fixtures verify spec, static checks, exclusive
+initialization, already-complete runs, legal long-option abbreviations and malformed
+JSON configuration. Valid runs deliberately import a local synthetic marker, and require
+no tool or model decisions. Real CLI subprocess regressions additionally verify exact
+JSON, exit code 2 and absence of raw stderr for an invalid integer value.
+
+Negative results: specific argparse repair details are discarded. Total returned bytes
+change from 39,492 to 34,578, while the non-parser fixtures grow from 26,319 to 27,810
+because the machine spec now explains this boundary. Mixed small timings and individual
+slower fixtures remain in the report; no speed, semantic-quality or model-fee benefit
+is claimed. Normal string argv is supported, not arbitrary Python objects. Argparse can
+temporarily construct raw diagnostic strings, so output suppression is not memory
+zeroization or a sandbox.
+
+Help preserves its original precedence and displays `prog`. It can exit before checking
+a later unknown token; not every command containing a bad token produces JSON. Quiet
+runtime interruptions still have no terminal packet and require effect/usage
+reconciliation. Failed output streams and arbitrary process failures remain outside
+this parser boundary. The SDK and Jev's tool/parameter decisions are unchanged.
+
+```sh
+python benchmarks/cli_arguments.py --output local-results/cli-arguments-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI runs the offline fixtures
+under Python 3.10, 3.12 and 3.14. No earlier live matrix, UI operation, locked desktop or
+URL submission was repeated. Native desktop and search indexing remain unverified.

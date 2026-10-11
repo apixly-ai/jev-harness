@@ -53,8 +53,18 @@ def increment(amount):
 '''
 
 
+class _CLIArgumentError(ValueError):
+    pass
+
+
+class _ArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        # argparse's message may contain raw argv. Do not copy it to payload/output.
+        raise _CLIArgumentError("invalid_command_arguments") from None
+
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = _ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("skill", help="Print bundled AI task instructions; offline")
     commands.add_parser("spec", help="Machine-readable interface and adoption contract; offline")
@@ -76,7 +86,22 @@ def main(argv=None):
     run.add_argument("--max-steps", type=int, default=20)
     run.add_argument("--timeout", type=float, default=120)
     run.add_argument("--archive", help="New private journal path; never overwritten")
-    args = parser.parse_args(argv)
+    try:
+        args = parser.parse_args(argv)
+    except _CLIArgumentError:
+        print(
+            json.dumps(
+                {
+                    "status": "failed",
+                    "complete": False,
+                    "phase": "arguments",
+                    "code": "invalid_command_arguments",
+                    "script_loaded": False,
+                    "model_calls": 0,
+                }
+            )
+        )
+        return 2
     if args.command == "skill":
         bundled = files("apixly_jev_harness").joinpath("skill/SKILL.md")
         body = (
@@ -223,8 +248,22 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "parameter_binding": "staged_candidate_choice",
+    "argument_parsing": {
+        "scope": "all command parsers when argparse reports an error",
+        "failure_phase": "arguments",
+        "failure_code": "invalid_command_arguments",
+        "failure_exit_code": 2,
+        "script_loaded_on_failure": False,
+        "model_calls_on_failure": 0,
+        "raw_argument_values": False,
+        "raw_error_message": False,
+        "help": "text and SystemExit(0); original precedence",
+        "long_option_abbreviation": "unchanged",
+        "configuration_validation": "separate after parsing",
+        "arbitrary_argv_types_supported": False,
+    },
     "tool_selection": {
         "scope": "next_step",
         "decision_stage_field": "decision_stage",

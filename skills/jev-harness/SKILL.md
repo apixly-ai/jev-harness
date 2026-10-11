@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.7. Install the repository at `@v0.1.7` for a reproducible release;
+Contract version: 0.1.8. Install the repository at `@v0.1.8` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -22,6 +22,17 @@ are semantic and the available action domain and success condition can be bounde
 6. Tell the user what goal, observation and tool/parameter candidates Jev will receive.
 7. Submit one `jev-harness run ...` call. Inference is billable; use caller-approved credentials.
 8. Parse terminal JSON even on exit 2. Only independently verified done means completion.
+
+When any command parser reports an error, expect only the fixed failed/phase arguments/
+code invalid_command_arguments packet, script_loaded=false and model_calls=0, exit 2.
+Direct CLI main prints that packet and returns 2. Detailed diagnostics, argv values,
+usage and error_type are omitted; use spec/help to repair the command before a new run,
+not as a tool failure. Suppression is not process-memory zeroization: argparse may create
+raw messages temporarily. Normal string argv is supported, arbitrary Python objects are not.
+Valid help keeps human text/SystemExit(0), displays prog and can precede unknown-argument
+checks; valid long-option abbreviation is unchanged. After parsing, JSON/semantic errors
+remain configuration failures. See the contract and reports/cli-arguments-ab.json for
+offline parser checks with no real model/network/UI calls or task-success claim.
 
 `check-task` reads UTF-8, parses and compiles without executing the checked script, loading
 its module, importing its dependencies or invoking callbacks. Declare an explicit top-level
@@ -56,14 +67,14 @@ creation/import and loop execution, without retaining content. Read spec for opt
 task_output metadata: policy=discard, scope=python_streams, stdout/stderr characters
 (Unicode code points, no encoding) and binary_bytes (.buffer bytes). Counts cannot recover
 discarded debug text or prove success. Return tool results; do not use print as evidence.
-SDK Engine.run and other commands are unchanged. Redirects are process-global: do not
+SDK Engine.run is unchanged; this output policy applies only to run. Redirects are process-global: do not
 overlap CLI tasks in one process; old stream-bound logging handlers, OS descriptors and
 subprocesses can bypass them, and concurrent thread output is not isolated. There is no
 sandbox, all-output privacy or unconditional terminal-JSON guarantee. Task-path interrupts
 restore streams and become quiet nonzero CLI exits without a packet or output counts:
 KeyboardInterrupt uses 130; SystemExit preserves exact int 1..255, otherwise uses 1.
 Direct CLI main calls raise the normalized SystemExit with original context suppressed;
-parser/help exits and SDK/Engine interrupts are unchanged. Reconcile effects/usage if no
+valid help exits and SDK/Engine interrupts are unchanged. Reconcile effects/usage if no
 packet is returned. Ordinary errors retain typed status, and execution_uncertain is not retried.
 See the contract's CLI task output section and reports/task-output-ab.json for offline
 synthetic output/parsing checks with no real model/network/UI calls.

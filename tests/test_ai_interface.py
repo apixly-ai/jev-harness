@@ -94,6 +94,19 @@ def test_machine_spec_exposes_cli_task_output_scope(capsys):
     assert output["base_exception_terminal_guarantee"] is False
 
 
+def test_machine_spec_exposes_argument_error_boundary(capsys):
+    assert main(["spec"]) == 0
+    parsing = json.loads(capsys.readouterr().out)["argument_parsing"]
+    assert parsing["failure_phase"] == "arguments"
+    assert parsing["failure_code"] == "invalid_command_arguments"
+    assert parsing["failure_exit_code"] == 2
+    assert parsing["scope"] == "all command parsers when argparse reports an error"
+    assert parsing["raw_argument_values"] is False
+    assert parsing["script_loaded_on_failure"] is False
+    assert parsing["model_calls_on_failure"] == 0
+    assert parsing["help"] == "text and SystemExit(0); original precedence"
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

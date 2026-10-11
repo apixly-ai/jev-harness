@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.7 for a reproducible release;
+package downloads still require network access. Pin v0.1.8 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.7'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -45,6 +45,41 @@ first task. Inspect status/complete/archive/telemetry in the returned JSON. Use 
 Use the loop for bounded tasks requiring semantic branches. Exact calculations and fixed
 sequences stay in code; open-ended writing belongs to the primary agent or an explicit
 trusted generation tool. A tool-selection decision is not execution proof or authorization.
+
+## CLI argument parsing
+
+When argparse reports an error in any command parser, the CLI prints only this fixed
+packet and exits 2; a direct `main` call prints it and returns 2:
+
+```json
+{
+  "status": "failed",
+  "complete": false,
+  "phase": "arguments",
+  "code": "invalid_command_arguments",
+  "script_loaded": false,
+  "model_calls": 0
+}
+```
+
+This happens before command dispatch or task-module loading, and exports no raw error
+message, argument values, usage or `error_type`. Detailed parser diagnostics are lost.
+Argparse may temporarily construct a message containing argv values; suppressing its
+output does not zeroize argv or transient strings in process memory. This contract supports
+normal CLI string arguments, not arbitrary Python objects passed as argv.
+
+Valid `--help` retains human text, `SystemExit(0)` and original parser precedence. Help
+may exit before a later unknown-argument check, so not every invocation containing an
+unknown token produces an error packet. Help displays the program name (`prog`); it is
+not covered by raw-message suppression. Valid long-option abbreviation remains unchanged.
+
+Inspect `spec`/help and repair the command for an `arguments` failure; it is not a tool
+execution failure. Once parsing succeeds, malformed JSON or invalid `run` configuration
+still uses phase `configuration` and code `invalid_run_configuration`. Runtime task
+statuses follow after trusted loading; quiet task interruptions still have no packet and
+require effect/usage reconciliation. The SDK/`Engine.run` is unchanged. The
+[cli-arguments A/B](../reports/cli-arguments-ab.json) is offline synthetic parser checking,
+with no real model, network or UI calls; it does not establish task success.
 
 ## Static task checking
 
@@ -118,8 +153,9 @@ After configuration admission, CLI `run` replaces Python stdout/stderr during tr
 module creation, registration, import and loop execution. Writes to these redirected
 streams are counted and discarded without retaining or storing their content. The final
 terminal JSON is printed after the original streams are restored. The Python SDK's
-`Engine.run` is unchanged, as are configuration preflight, argument parsing, help, `spec`,
-`skill`, `check-task` and `init-task`.
+`Engine.run` is unchanged. This output policy applies only to `run`; argument-error
+packets apply to all command parsers. Configuration preflight, valid help and successful
+`spec`, `skill`, `check-task` and `init-task` keep their existing contracts.
 
 If any nonzero output was discarded, the returned packet has optional `task_output`:
 
@@ -162,8 +198,8 @@ suppressing original interrupt arguments and tracebacks:
 This also applies when calling CLI `main` directly: it raises `SystemExit(code)` with
 the original exception context suppressed, rather than returning a packet. There is no
 terminal JSON or output-count metadata on these exits. They prove neither complete usage
-nor absence of effects; reconcile before a new run. Argument-parser/help exits remain
-unchanged, and the SDK/`Engine.run` retains its original interrupt behavior. The
+nor absence of effects; reconcile before a new run. Valid help exits remain unchanged,
+and the SDK/`Engine.run` retains its original interrupt behavior. The
 [task-output A/B](../reports/task-output-ab.json) checks offline synthetic stream writes
 and terminal parsing with no real model, network or UI calls; it does not establish task
 success or complete process-output isolation.

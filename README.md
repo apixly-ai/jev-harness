@@ -8,7 +8,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.7**; no promise of general task success or universal savings.
+AI product. Early **0.1.8**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,7 +22,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.7'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -30,7 +30,16 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.7` only for active development.
+Use `@main` instead of `@v0.1.8` only for active development.
+
+When any command's argument parser reports an error, the CLI returns a fixed
+`failed/arguments/invalid_command_arguments` packet and exits 2, with
+`script_loaded: false` and `model_calls: 0`. Raw argument values, detailed error text and
+usage are omitted, so use `spec`/help to correct the command rather than treating this
+as tool failure. Valid help remains human text with exit 0 and its original precedence;
+it may precede a later unknown-argument check. Valid long-option abbreviations are
+unchanged. See the [argument contract](docs/agent-contract.md#cli-argument-parsing) and
+[offline A/B](reports/cli-arguments-ab.json).
 
 `check-task` reads UTF-8, parses and compiles Python, and requires an explicit top-level
 assignment to `workflow`; `workflow: object` alone does not bind it. It never executes the
@@ -56,13 +65,13 @@ Uncertain effects are never auto-retried.
 During trusted module creation/import and the loop, CLI `run` discards writes to its
 redirected Python stdout/stderr without retaining content. Optional `task_output` reports
 only Unicode-character and binary-buffer byte counts; it cannot recover discarded debug
-text. Return tool results rather than printing them. `Engine.run` and other CLI commands
-are unchanged. Redirection is process-global: old stream-bound logging handlers, file
+text. Return tool results rather than printing them. This output policy applies only to
+`run`; `Engine.run` is unchanged. Redirection is process-global: old stream-bound logging handlers, file
 descriptors and subprocess output can bypass it, and concurrent thread output is not
 isolated. This is neither a sandbox nor a guarantee that all output is private or valid
 JSON. Task-path `SystemExit`/`KeyboardInterrupt` restore streams and become quiet nonzero
 CLI exits, with no terminal packet or output counts; reconcile effects and usage.
-Parser/help behavior and SDK interrupts are unchanged. See the
+Help behavior and SDK interrupts are unchanged. See the
 [output contract](docs/agent-contract.md#cli-task-output) and
 [offline A/B](reports/task-output-ab.json).
 
