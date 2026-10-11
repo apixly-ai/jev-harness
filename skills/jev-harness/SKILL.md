@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.6. Install the repository at `@v0.1.6` for a reproducible release;
+Contract version: 0.1.7. Install the repository at `@v0.1.7` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -50,6 +50,23 @@ still imports trusted Python and can have top-level effects. Preflight is not a 
 or a workflow/dependency/archive/credential/business check, and cannot guarantee no later
 effects or success. See the contract and reports/run-preflight-ab.json; its synthetic
 offline import-marker checks use model-free workflows and no actual API or UI.
+
+CLI run discards writes to redirected Python stdout/stderr during trusted module
+creation/import and loop execution, without retaining content. Read spec for optional
+task_output metadata: policy=discard, scope=python_streams, stdout/stderr characters
+(Unicode code points, no encoding) and binary_bytes (.buffer bytes). Counts cannot recover
+discarded debug text or prove success. Return tool results; do not use print as evidence.
+SDK Engine.run and other commands are unchanged. Redirects are process-global: do not
+overlap CLI tasks in one process; old stream-bound logging handlers, OS descriptors and
+subprocesses can bypass them, and concurrent thread output is not isolated. There is no
+sandbox, all-output privacy or unconditional terminal-JSON guarantee. Task-path interrupts
+restore streams and become quiet nonzero CLI exits without a packet or output counts:
+KeyboardInterrupt uses 130; SystemExit preserves exact int 1..255, otherwise uses 1.
+Direct CLI main calls raise the normalized SystemExit with original context suppressed;
+parser/help exits and SDK/Engine interrupts are unchanged. Reconcile effects/usage if no
+packet is returned. Ordinary errors retain typed status, and execution_uncertain is not retried.
+See the contract's CLI task output section and reports/task-output-ab.json for offline
+synthetic output/parsing checks with no real model/network/UI calls.
 
 Register synchronous callbacks. Known coroutine/async-generator/generator declarations,
 including partials and callable objects, are rejected without invoking bodies; synchronous

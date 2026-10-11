@@ -18,6 +18,7 @@ from .callbacks import (
 )
 from .diagnostics import HTTP_CODE_PATTERN, PROVIDER_CODES, SELECTION_CODES
 from .engine import AgentLoop, Workflow, validate_run_options
+from .output import TaskOutput
 
 TEMPLATE = '''"""Synthetic counter task. Replace callbacks with your business operations.
 
@@ -129,6 +130,7 @@ def main(argv=None):
         print(json.dumps(packet))
         return 0 if packet["ok"] else 2
     phase = "configuration" if args.command == "run" else None
+    task_output = None
     try:
         if args.command == "run":
             inputs, context, messages = (
@@ -157,34 +159,48 @@ def main(argv=None):
             packet = {"status": "created", "script": str(path), "model_calls": 0}
             exit_code = 0
         else:
-            spec = importlib.util.spec_from_file_location("_jev_task", path)
-            if spec is None or spec.loader is None:
-                raise ValueError("python_script_required")
-            module = importlib.util.module_from_spec(spec)
-            previous = sys.modules.get("_jev_task")
-            sys.modules["_jev_task"] = module
-            try:
-                spec.loader.exec_module(module)
-                workflow = getattr(module, "workflow", None)
-                if not isinstance(workflow, Workflow):
-                    raise ValueError("script_must_export_workflow")
-                packet = AgentLoop().run(
-                    workflow,
-                    goal=args.goal,
-                    inputs=admitted.inputs,
-                    context=admitted.facts,
-                    messages=admitted.messages,
-                    required_context=run_spec.get("required_context", []),
-                    max_steps=args.max_steps,
-                    timeout_seconds=args.timeout,
-                    archive=args.archive,
-                )
-            finally:
-                if previous is None:
-                    sys.modules.pop("_jev_task", None)
-                else:
-                    sys.modules["_jev_task"] = previous
+            task_output = TaskOutput()
+            with task_output.discard():
+                spec = importlib.util.spec_from_file_location("_jev_task", path)
+                if spec is None or spec.loader is None:
+                    raise ValueError("python_script_required")
+                module = importlib.util.module_from_spec(spec)
+                previous = sys.modules.get("_jev_task")
+                sys.modules["_jev_task"] = module
+                try:
+                    spec.loader.exec_module(module)
+                    workflow = getattr(module, "workflow", None)
+                    if not isinstance(workflow, Workflow):
+                        raise ValueError("script_must_export_workflow")
+                    packet = AgentLoop().run(
+                        workflow,
+                        goal=args.goal,
+                        inputs=admitted.inputs,
+                        context=admitted.facts,
+                        messages=admitted.messages,
+                        required_context=run_spec.get("required_context", []),
+                        max_steps=args.max_steps,
+                        timeout_seconds=args.timeout,
+                        archive=args.archive,
+                    )
+                finally:
+                    if previous is None:
+                        sys.modules.pop("_jev_task", None)
+                    else:
+                        sys.modules["_jev_task"] = previous
             exit_code = 0 if packet["complete"] else 2
+    except SystemExit as error:
+        if task_output is None:
+            raise
+        # No verified terminal exists. Non-integer codes would expose raw task text;
+        # zero/out-of-range codes can look successful after OS exit-code truncation.
+        code = error.code if type(error.code) is int and 1 <= error.code <= 255 else 1
+        raise SystemExit(code) from None
+    except KeyboardInterrupt:
+        if task_output is None:
+            raise
+        # Preserve interruption, without an interpreter traceback of trusted source.
+        raise SystemExit(130) from None
     except Exception as error:
         packet = {"status": "failed", "complete": False, "error_type": type(error).__name__}
         if isinstance(error, CallbackContractError):
@@ -197,6 +213,8 @@ def main(argv=None):
                 model_calls=0,
             )
         exit_code = 2
+    if task_output is not None and (summary := task_output.summary()) is not None:
+        packet["task_output"] = summary
     print(json.dumps(packet, ensure_ascii=False, allow_nan=False))
     return exit_code
 
@@ -205,7 +223,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "parameter_binding": "staged_candidate_choice",
     "tool_selection": {
         "scope": "next_step",
@@ -231,6 +249,27 @@ SPEC = {
         "run": {
             "required": ["script", "goal"],
             "billable": True,
+            "task_output": {
+                "policy": "discard",
+                "scope": "python_streams",
+                "channels": ["stdout", "stderr"],
+                "counters": ["characters", "binary_bytes"],
+                "characters_unit": "Unicode code points, not encoded bytes",
+                "metadata_field": "task_output",
+                "metadata_when": "nonzero intercepted output",
+                "retains_content": False,
+                "sdk_behavior": "unchanged",
+                "fd_isolation": False,
+                "overlapping_cli_runs": "unsupported process-global redirection",
+                "base_exception_terminal_guarantee": False,
+                "interrupt_exit": {
+                    "KeyboardInterrupt": 130,
+                    "SystemExit": "exact integer 1..255 preserved; otherwise 1",
+                    "terminal_packet": False,
+                    "raw_exception_text": False,
+                    "effects_and_usage_proven": False,
+                },
+            },
             "configuration_preflight": {
                 "before_task_module_loading": True,
                 "shared_with_engine": True,

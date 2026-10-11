@@ -26,6 +26,7 @@ jobs:
       - run: python benchmarks/static_check.py --output local-results/static-check-ab.json
       - run: python benchmarks/run_preflight.py --output local-results/run-preflight-ab.json
       - run: python benchmarks/callback_contract.py --output local-results/callback-contract-ab.json
+      - run: python benchmarks/task_output.py --output local-results/task-output-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

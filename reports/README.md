@@ -260,3 +260,57 @@ python benchmarks/callback_contract.py --output local-results/callback-contract-
 Use a full Git checkout with `.[dev]` and a new output path. CI runs the offline fixtures
 under Python 3.10, 3.12 and 3.14. No earlier live matrix, UI operation, locked desktop or
 URL submission was repeated. Native desktop and search indexing remain unverified.
+
+## CLI task output (0.1.7)
+
+CLI `run` now discards writes to its redirected Python stdout/stderr during trusted
+module creation/import and the loop. It retains only character and binary-byte counters,
+not content or a console log. The final packet has optional `task_output` when writes
+were nonempty. Other CLI commands, configuration admission and the SDK's `Engine.run`
+retain their behavior. Tool returns and the engine's private observation/result journal
+remain separate from console output.
+
+The [offline output A/B](task-output-ab.json) compares exact published 0.1.6 source
+(`32867087bf173515806958b61acffdd08c743659`) with the candidate on 19 fixed synthetic
+fixtures, three paired repetitions with alternating arm order. Conformance to the new
+console/exit policy changes from 6/57 to 57/57. Of each arm's 42 ordinary terminals,
+exact JSON parsing changes from 12/42 to 42/42; the other 15 probes exit without a
+terminal packet by design. Fixed synthetic stdout/stderr markers change from 51/30
+occurrences to zero/zero. Streams restore in 57/57 probes in both arms. Native inference
+attempts and actual model/UI/network calls are zero; each arm makes six scripted choices.
+Raw captured output stays inside each trial; the report stores only digests and counts.
+
+Fixtures cover import, observation, verification, successful/uncertain effects, import
+errors, Unicode, invalid-UTF-8 binary writes, empty and large writes, warnings, return
+counts and task interruptions. Diagnostic recovery of a trailing baseline packet is not
+counted as directly parseable output. The benchmark catches interruptions before the
+interpreter prints them; its exception-marker counts alone do not prove interpreter
+privacy. Separate real CLI subprocess regressions reproduce exception/source-text
+exposure and false successful exit codes, then verify quiet nonzero exits. Effect
+interruption regressions independently confirm one effect, retained intent, no terminal
+or fabricated safe failure, and no automatic retry.
+
+CLI task `KeyboardInterrupt` now raises quiet `SystemExit(130)`. Task `SystemExit` keeps
+exact integer codes 1..255; text, zero, None or other codes become 1. There is no verified
+terminal packet or returned counters on these exits; possible runtime effects and usage
+still require reconciliation. The SDK and parser/help exits are unchanged.
+
+Negative results: console debug text is discarded and cannot be recovered. Total returned
+bytes change from 3,016,230 to 19,906, dominated by the deliberately large synthetic
+output. Excluding that fixture, bytes increase from 15,212 to 18,454 because of metadata.
+The mixed-fixture median time increases slightly; no speed, semantic-quality or model-fee
+benefit is claimed. Counters count Unicode code points and buffer bytes separately,
+without text encoding. This is a count-only sink, not a complete BufferedIO emulator.
+
+The redirect is process-global and cannot isolate overlapping tasks or threads. Saved
+streams/logging handlers, OS descriptors, subprocesses and explicit file logs can bypass
+it; redirected streams do not support `fileno()`. There is no sandbox, all-output privacy
+or unconditional terminal-JSON guarantee for arbitrary trusted Python.
+
+```sh
+python benchmarks/task_output.py --output local-results/task-output-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI runs only offline fixtures
+under Python 3.10, 3.12 and 3.14. No earlier live matrix, UI operation, locked desktop or
+URL submission was repeated. Native desktop and search indexing remain unverified.

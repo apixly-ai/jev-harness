@@ -6,7 +6,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.6，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.7，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -18,7 +18,7 @@
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.6'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.7'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -26,7 +26,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.6` 换成 `@main`。
+仅在开发时将 `@v0.1.7` 换成 `@main`。
 
 check-task 以 UTF-8 读取、解析并编译 Python，要求顶层显式向 workflow 赋值；
 单独的 workflow: object 注解不绑定它。不执行待检脚本、不加载其模块、不导入其依赖，
@@ -44,8 +44,18 @@ JSON list，显式 null 被拒绝；只有 Python API 省略或 None 的 inputs/
 顶层效果；预检不是沙箱，也不验证运行时有效性。见
 [预检契约](docs/agent-contract.md#run-configuration-preflight) 与
 [离线 A/B](reports/run-preflight-ab.json)，使用合成导入标记与无需模型的工作流，无真实 API 或
-UI 调用。只有 done 退出码 0，退出码 2 仍返回终态 JSON，
-不确定效果不自动重试。
+UI 调用。正常返回的运行结果中，只有 done 退出码 0，其余为 2。不确定效果不自动重试。
+
+CLI run 在创建/导入可信模块及 loop 期间，丢弃写入其重定向 Python stdout/stderr 的
+内容，不保留原文。可选 task_output 只记录 Unicode 字符及二进制 buffer 字节计数，
+无法恢复被丢弃的调试原文；工具应返回结果，不通过 print 传递。Engine.run 和其他
+CLI 命令不变。重定向作用于整个进程：保存旧 stream 的日志 handler、文件描述符和
+子进程输出可绕过它，并发线程的输出也不隔离。这不是沙箱，不保证所有输出私密或
+可解析为 JSON。任务路径内的 SystemExit/KeyboardInterrupt 恢复 stream 后转换为安静的
+非零 CLI 退出，不返回终态 packet 或输出计数；效果与用量仍须核对。
+Parser/help 行为及 SDK 中断不变。
+见[输出契约](docs/agent-contract.md#cli-task-output) 与
+[离线 A/B](reports/task-output-ab.json)。
 
 ## 工具和参数语义
 

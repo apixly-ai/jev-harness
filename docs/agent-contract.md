@@ -10,13 +10,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.6 for a reproducible release;
+package downloads still require network access. Pin v0.1.7 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.6'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.7'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -111,6 +111,62 @@ does not promise no subsequent effects or task success. It is not a sandbox; the
 The [run-preflight A/B](../reports/run-preflight-ab.json) uses offline synthetic import
 markers and model-free workflows with no actual API or UI calls. It tests configuration admission
 before loading, not real model or task performance.
+
+## CLI task output
+
+After configuration admission, CLI `run` replaces Python stdout/stderr during trusted
+module creation, registration, import and loop execution. Writes to these redirected
+streams are counted and discarded without retaining or storing their content. The final
+terminal JSON is printed after the original streams are restored. The Python SDK's
+`Engine.run` is unchanged, as are configuration preflight, argument parsing, help, `spec`,
+`skill`, `check-task` and `init-task`.
+
+If any nonzero output was discarded, the returned packet has optional `task_output`:
+
+```json
+{
+  "task_output": {
+    "policy": "discard",
+    "scope": "python_streams",
+    "stdout": {"characters": 1, "binary_bytes": 0},
+    "stderr": {"characters": 0, "binary_bytes": 0}
+  }
+}
+```
+
+Counts above illustrate the shape, not acceptance measurements. `characters` counts
+Unicode code points passed to text writes, without encoding; `binary_bytes` counts
+`memoryview.nbytes` written to `.buffer`. They are separate units, not a combined UTF-8
+byte total. The streams report `encoding='utf-8'` but perform no text encoding. They are
+non-TTY streams with no-op flush while open and unsupported `fileno()`. Empty writes alone
+do not add this metadata. Counts say nothing about tool success and cannot reconstruct
+discarded print, warning or debug text; use structured tool returns and admitted
+`result_context` for evidence.
+
+Redirection is process-global, not task/thread isolation; do not run overlapping CLI
+tasks in one Python process. Counters may include other threads' writes while active,
+and later output may escape. Logging handlers holding an old stream, direct original-stream
+or OS file-descriptor writes, subprocesses and explicit file logging are outside this
+scope. This is not a sandbox or a guarantee that every output channel is private or that
+arbitrary trusted scripts always emit a parseable terminal packet.
+
+Normal exception statuses remain typed; errors during an entered tool execution retain
+`execution_uncertain` and no automatic retry. In the guarded CLI task path,
+`SystemExit`/`KeyboardInterrupt` restore streams and become quiet nonzero exits,
+suppressing original interrupt arguments and tracebacks:
+
+- `KeyboardInterrupt` becomes exit code 130.
+- `SystemExit` preserves an exact integer code from 1 through 255. Zero, `None`, strings,
+  out-of-range integers and other values become code 1.
+
+This also applies when calling CLI `main` directly: it raises `SystemExit(code)` with
+the original exception context suppressed, rather than returning a packet. There is no
+terminal JSON or output-count metadata on these exits. They prove neither complete usage
+nor absence of effects; reconcile before a new run. Argument-parser/help exits remain
+unchanged, and the SDK/`Engine.run` retains its original interrupt behavior. The
+[task-output A/B](../reports/task-output-ab.json) checks offline synthetic stream writes
+and terminal parsing with no real model, network or UI calls; it does not establish task
+success or complete process-output isolation.
 
 ## Next-step tool selection
 
@@ -239,7 +295,8 @@ verifier, even when admitted results allowed further tool decisions.
 `done` requires independent verification. Jev also has typed complete/blocked/missing-context
 controls; a model-only completion is `needs_review`. Other statuses are `needs_context`,
 `needs_review`, `needs_confirmation`, `blocked`, `stale`, `max_steps`, `budget_exceeded`,
-`execution_uncertain`, `failed`. Only done exits 0; all other runtime results exit 2.
+`execution_uncertain`, `failed`. Returned runtime packets exit 0 only for done; other
+returned runtime results exit 2. Interrupted CLI tasks exit nonzero without a packet.
 
 Intent is durably recorded before effects. No automatic retry of uncertain execution.
 No cross-run resume/exactly-once promise. Business tools own identity, idempotency,

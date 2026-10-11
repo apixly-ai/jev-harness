@@ -152,6 +152,8 @@ def rewrite_links(content):
         "../reports/run-preflight-ab.json": "run-preflight-ab.json",
         "callback-contract-ab.json": "callback-contract-ab.json",
         "../reports/callback-contract-ab.json": "callback-contract-ab.json",
+        "task-output-ab.json": "task-output-ab.json",
+        "../reports/task-output-ab.json": "task-output-ab.json",
     }
 
     def replace(match):
@@ -201,6 +203,7 @@ def main():
         "static-check-ab.json",
         "run-preflight-ab.json",
         "callback-contract-ab.json",
+        "task-output-ab.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)
     (OUT / "social.svg").write_text(

@@ -83,6 +83,17 @@ def test_machine_spec_exposes_synchronous_callback_contract(capsys):
     assert callbacks["fallback_error_code"] == "callback_contract_error"
 
 
+def test_machine_spec_exposes_cli_task_output_scope(capsys):
+    assert main(["spec"]) == 0
+    output = json.loads(capsys.readouterr().out)["commands"]["run"]["task_output"]
+    assert output["policy"] == "discard"
+    assert output["scope"] == "python_streams"
+    assert output["retains_content"] is False
+    assert output["sdk_behavior"] == "unchanged"
+    assert output["fd_isolation"] is False
+    assert output["base_exception_terminal_guarantee"] is False
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')
