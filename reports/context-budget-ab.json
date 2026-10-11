@@ -1,0 +1,6394 @@
+{
+  "mode": "offline-synthetic-context-budget-diagnostics",
+  "baseline_commit": "c757179c22e6104df06a44e8ce66e5217f1d96c7",
+  "candidate": "working tree at invocation; published with its source commit",
+  "baseline_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "d3701078fca6c5e7ae6c2fffeb1f00a327dae07265b73c94aa99e0a3e16fd4d4",
+    "src/apixly_jev_harness/backend.py": "e4b4c80d88c63648c1392f41eb8796430fcbce6f81d1061c71519d0759432eda",
+    "src/apixly_jev_harness/callbacks.py": "2d27ad4540d910354c54de7566546b4c9d99b5a5fa87705a1905885349078497",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "e0deafa0addd0f96b422a497dae8176d059dd36635954d6770c0cf61ba8c3593",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "cdedf1ef3a769cc1557dfa63cf6b6e6c4b48a14eb7b0fc12d3d9a957a53b3be2",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "0f5801e9fdb5626e1db65d269c715e8bcf692ebaa3a91f46b9945158b4bbb6db",
+    "src/apixly_jev_harness/task_cli.py": "e7ae2e5c9d6c4179997568774769fbcab292c246f8ee3bf8031c61e4f6a03f37",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "10df257ec1770fce69e97a0b5199d9b034092f5557f6a6a1fb2aa61b42e7efe2",
+    "src/apixly_jev_harness/backend.py": "e4b4c80d88c63648c1392f41eb8796430fcbce6f81d1061c71519d0759432eda",
+    "src/apixly_jev_harness/callbacks.py": "2d27ad4540d910354c54de7566546b4c9d99b5a5fa87705a1905885349078497",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "24950b4d834d9e6c902996c7bcddfa208944e42300ae062e9ebc2a44f75a091f",
+    "src/apixly_jev_harness/engine.py": "19d809ee7af67586b03a472af49908f6ec278231285d16db161a540b3f0247a6",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "0f5801e9fdb5626e1db65d269c715e8bcf692ebaa3a91f46b9945158b4bbb6db",
+    "src/apixly_jev_harness/task_cli.py": "bc2aeea2af51fe26efc4528efc9f7849078030a1cea1de2420ff1e98dcabf951",
+    "src/apixly_jev_harness/verify.py": "97d2a178902291094f4e16db08732748d234b8c5ad8dd49a55607c8d195f1ed2"
+  },
+  "runner_sha256": "ab40d8bf91dcbb06d1ae97744d2ea12cf5d935cdf7db6553e835531e7b52d6f2",
+  "python_version": "3.14.2",
+  "cases": {
+    "ascii_projection_over": {
+      "character": "A",
+      "target": "context_projection",
+      "characters": 15001
+    },
+    "ascii_projection_exact": {
+      "character": "A",
+      "target": "context_projection",
+      "characters": 15000
+    },
+    "ascii_tool_over": {
+      "character": "A",
+      "target": "tool_selection",
+      "characters": 15001
+    },
+    "ascii_tool_exact": {
+      "character": "A",
+      "target": "tool_selection",
+      "characters": 15000
+    },
+    "ascii_tool_under": {
+      "character": "A",
+      "target": "tool_selection",
+      "characters": 14999
+    },
+    "chinese_tool_exact": {
+      "character": "\u4e2d",
+      "target": "tool_selection",
+      "characters": 15000
+    },
+    "emoji_tool_exact": {
+      "character": "\ud83d\ude42",
+      "target": "tool_selection",
+      "characters": 15000
+    },
+    "chinese_tool_over": {
+      "character": "\u4e2d",
+      "target": "tool_selection",
+      "characters": 15001
+    },
+    "emoji_projection_over": {
+      "character": "\ud83d\ude42",
+      "target": "context_projection",
+      "characters": 15001
+    },
+    "ascii_parameter_exact": {
+      "character": "A",
+      "target": "parameter_selection",
+      "characters": 15000
+    },
+    "ascii_parameter_over": {
+      "character": "A",
+      "target": "parameter_selection",
+      "characters": 15001
+    },
+    "chinese_parameter_exact": {
+      "character": "\u4e2d",
+      "target": "parameter_selection",
+      "characters": 15000
+    },
+    "direct_ascii_over": {
+      "character": "A",
+      "target": "direct_decide",
+      "characters": 15001
+    },
+    "direct_chinese_over": {
+      "character": "\u4e2d",
+      "target": "direct_decide",
+      "characters": 15001
+    }
+  },
+  "behavior_parity": true,
+  "reproduction": "python benchmarks/context_budget.py --output local-results/context-budget-ab.json",
+  "scope": "Fourteen fixed ASCII/Chinese/emoji shared-context fixtures, three paired repeats with alternating arm order. Custom policy, exact scalar payload sizes and a loop-only frozen clock make projection/tool/parameter thresholds deterministic. The 15,000 limit remains JSON characters from json.dumps(ensure_ascii=False) with default separators and rejects only greater values. Unicode contexts whose UTF-8 size exceeds 15,000 still admit when character count fits. Parameter excess occurs after a scripted tool choice but before intent/effect. Direct Engine.decide remains outside this loop limit. All decisions are scripted; native inference entrypoints are forbidden, actual model/UI/network calls zero unless the guard is hit.",
+  "negative_results": "Fixed failure diagnostics and successful call counters add returned context and local measurement work. This is not a UTF-8 byte, token, candidate text, question, full provider prompt or direct Engine.decide budget. Direct decide still has upstream analysis-spec validation: the first synthetic smoke with 16,000 shared characters failed its 16,000-character full-spec cap after default questions were added; direct fixtures therefore use 15,001 shared characters to isolate the loop boundary. A custom policy omits ordinary production history and the frozen clock excludes wall-budget races. No truncation, context-quality improvement, model accuracy, speed or fee benefit is claimed. Static scalar context measurements are diagnostic evidence and do not authorize execution.",
+  "cost_conversion": "Zero actual model usage only with no native guard attempts; a guard hit records unknown usage and fails the fixture. No tariff or savings assumed. Real whole-operation timing uses perf_counter and includes synthetic registration, payload/projection setup, loop admission, scripted decisions, tool effects and private journal serialization; excludes process/import setup and terminal-analysis/source-hashing. Frozen monotonic values stabilize only the synthetic remaining-time context and do not stand in for end-to-end timing. Returned context bytes exclude the local archive path and never include raw payloads; request metrics are shared-context scalar sizes, not provider prompt/token counts.",
+  "summary": {
+    "baseline": {
+      "runs": 42,
+      "correct": 6,
+      "behavior_correct": 42,
+      "failure_metadata_correct": 24,
+      "success_metadata_correct": 21,
+      "statuses": {
+        "admitted": 6,
+        "done": 18,
+        "needs_review": 18
+      },
+      "scripted_decisions": 33,
+      "effects": 18,
+      "intent_events": 18,
+      "native_inference_attempts": 0,
+      "terminal_marker_exposures": 0,
+      "median_whole_operation_seconds": 0.001507729000877589,
+      "returned_context_bytes": 15414,
+      "request_context_characters": 492081,
+      "request_context_utf8_bytes": 979227,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    "candidate": {
+      "runs": 42,
+      "correct": 42,
+      "behavior_correct": 42,
+      "failure_metadata_correct": 42,
+      "success_metadata_correct": 42,
+      "statuses": {
+        "admitted": 6,
+        "done": 18,
+        "needs_review": 18
+      },
+      "scripted_decisions": 33,
+      "effects": 18,
+      "intent_events": 18,
+      "native_inference_attempts": 0,
+      "terminal_marker_exposures": 0,
+      "median_whole_operation_seconds": 0.0015135209978325292,
+      "returned_context_bytes": 19692,
+      "request_context_characters": 492081,
+      "request_context_utf8_bytes": 979227,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "ascii_projection_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 15037
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0010069160052808002,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_projection_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 15037
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001057458997820504,
+      "returned_context_bytes": 404,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_projection_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 15037
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010738330020103604,
+      "returned_context_bytes": 404,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_projection_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 15037
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0012641250068554655,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_projection_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 15037
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001280625001527369,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_projection_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 15037
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001098791995900683,
+      "returned_context_bytes": 404,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_projection_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14898,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        },
+        "tool_selection": {
+          "characters": 15036,
+          "utf8_bytes": 15036
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0010841670009540394,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_projection_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14898,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        },
+        "tool_selection": {
+          "characters": 15036,
+          "utf8_bytes": 15036
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011110420018667355,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_projection_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14898,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        },
+        "tool_selection": {
+          "characters": 15036,
+          "utf8_bytes": 15036
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010995410120813176,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_projection_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14898,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        },
+        "tool_selection": {
+          "characters": 15036,
+          "utf8_bytes": 15036
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001435666999896057,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_projection_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14898,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        },
+        "tool_selection": {
+          "characters": 15036,
+          "utf8_bytes": 15036
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0015645419916836545,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_projection_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "context_projection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14898,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        },
+        "tool_selection": {
+          "characters": 15036,
+          "utf8_bytes": 15036
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15036
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013225829898146912,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_tool_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 14965
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0012527080107247457,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_tool_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 14965
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012291669991100207,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_tool_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 14965
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012999580067116767,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_tool_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 14965
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0012080000014975667,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_tool_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 14965
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0013115829933667555,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_tool_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 14965
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013736669934587553,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 14964
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0017804160015657544,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 14964
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0018522080063121393,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 14964
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001707834002445452,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 14964
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0019281249988125637,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 14964
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00189124999451451,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 14964
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016662080015521497,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_tool_under",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 14999,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14861,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14963,
+          "utf8_bytes": 14963
+        },
+        "tool_selection": {
+          "characters": 14999,
+          "utf8_bytes": 14999
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14999,
+            "utf8_bytes": 14999
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14999
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0017345840024063364,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_tool_under",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 14999,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14861,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14963,
+          "utf8_bytes": 14963
+        },
+        "tool_selection": {
+          "characters": 14999,
+          "utf8_bytes": 14999
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14999,
+            "utf8_bytes": 14999
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14999,
+            "context_character_limit": 15000,
+            "context_bytes": 14999
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0022309589985525236,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_tool_under",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 14999,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14861,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14963,
+          "utf8_bytes": 14963
+        },
+        "tool_selection": {
+          "characters": 14999,
+          "utf8_bytes": 14999
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14999,
+            "utf8_bytes": 14999
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14999,
+            "context_character_limit": 15000,
+            "context_bytes": 14999
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017284580098930746,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_tool_under",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 14999,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14861,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14963,
+          "utf8_bytes": 14963
+        },
+        "tool_selection": {
+          "characters": 14999,
+          "utf8_bytes": 14999
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14999,
+            "utf8_bytes": 14999
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14999
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0017714999994495884,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_tool_under",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 14999,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14861,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14963,
+          "utf8_bytes": 14963
+        },
+        "tool_selection": {
+          "characters": 14999,
+          "utf8_bytes": 14999
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14999,
+            "utf8_bytes": 14999
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14999
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0016563340032007545,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_tool_under",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "tool_selection",
+        "characters": 14999,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14861,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14963,
+          "utf8_bytes": 14963
+        },
+        "tool_selection": {
+          "characters": 14999,
+          "utf8_bytes": 14999
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14999,
+            "utf8_bytes": 14999
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14999,
+            "context_character_limit": 15000,
+            "context_bytes": 14999
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0018994590063812211,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "chinese_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 44688
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44724
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 44724
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 44724
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0019604590052040294,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "chinese_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 44688
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44724
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 44724
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 44724
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017920000100275502,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "chinese_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 44688
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44724
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 44724
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 44724
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0018523750040913,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "chinese_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 44688
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44724
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 44724
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 44724
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0017651660018600523,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "chinese_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 44688
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44724
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 44724
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 44724
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0017382079968228936,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "chinese_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 44688
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44724
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 44724
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 44724
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0019926670065615326,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "emoji_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 59550
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 59586
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 59586
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 59586
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002033541997661814,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "emoji_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 59550
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 59586
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 59586
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 59586
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0022809580113971606,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "emoji_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 59550
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 59586
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 59586
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 59586
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0019386659987503663,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "emoji_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 59550
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 59586
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 59586
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 59586
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0018332920008106157,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "emoji_tool_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 59550
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 59586
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 59586
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 59586
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0020690419914899394,
+      "returned_context_bytes": 403,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "emoji_tool_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "tool_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14862,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14964,
+          "utf8_bytes": 59550
+        },
+        "tool_selection": {
+          "characters": 15000,
+          "utf8_bytes": 59586
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 15000,
+            "utf8_bytes": 59586
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 59586
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0019848340016324073,
+      "returned_context_bytes": 466,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "chinese_tool_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 44691
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 44727
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0015405409940285608,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "chinese_tool_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 44691
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 44727
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001431666998541914,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "chinese_tool_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 44691
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 44727
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0015132920088944957,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "chinese_tool_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 44691
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 44727
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0014635420084232464,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "chinese_tool_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 44691
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 44727
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0013531250006053597,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "chinese_tool_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "tool_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14863,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14965,
+          "utf8_bytes": 44691
+        },
+        "tool_selection": {
+          "characters": 15001,
+          "utf8_bytes": 44727
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "tool_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011881250102305785,
+      "returned_context_bytes": 400,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "emoji_projection_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 59698
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 59734
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001269207990844734,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "emoji_projection_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 59698
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 59734
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012994579883525148,
+      "returned_context_bytes": 404,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "emoji_projection_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 59698
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 59734
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012457499979063869,
+      "returned_context_bytes": 404,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "emoji_projection_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 59698
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 59734
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001229041998158209,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "emoji_projection_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 59698
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 59734
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0012246670085005462,
+      "returned_context_bytes": 259,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "emoji_projection_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\ud83d\ude42",
+        "target": "context_projection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14899,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 15001,
+          "utf8_bytes": 59698
+        },
+        "tool_selection": {
+          "characters": 15037,
+          "utf8_bytes": 59734
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "context_projection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 0,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011468750017229468,
+      "returned_context_bytes": 404,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_parameter_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 14639
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 14675
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002291915996465832,
+      "returned_context_bytes": 645,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_parameter_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 14639
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 14675
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14675,
+            "context_character_limit": 15000,
+            "context_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0020206250046612695,
+      "returned_context_bytes": 771,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_parameter_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 14639
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 14675
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14675,
+            "context_character_limit": 15000,
+            "context_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.002188917002058588,
+      "returned_context_bytes": 771,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_parameter_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 14639
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 14675
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002442208002321422,
+      "returned_context_bytes": 645,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_parameter_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 14639
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 14675
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002171375002944842,
+      "returned_context_bytes": 645,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_parameter_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 14639
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 14675
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 15000
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 15000
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14675,
+            "context_character_limit": 15000,
+            "context_bytes": 14675
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 15000
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.002236749991425313,
+      "returned_context_bytes": 771,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_parameter_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14538,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14640,
+          "utf8_bytes": 14640
+        },
+        "tool_selection": {
+          "characters": 14676,
+          "utf8_bytes": 14676
+        },
+        "parameter_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14676,
+            "utf8_bytes": 14676
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14676
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001727958006085828,
+      "returned_context_bytes": 449,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_parameter_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14538,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14640,
+          "utf8_bytes": 14640
+        },
+        "tool_selection": {
+          "characters": 14676,
+          "utf8_bytes": 14676
+        },
+        "parameter_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14676,
+            "utf8_bytes": 14676
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14676,
+            "context_character_limit": 15000,
+            "context_bytes": 14676
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.002262000009068288,
+      "returned_context_bytes": 658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "ascii_parameter_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14538,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14640,
+          "utf8_bytes": 14640
+        },
+        "tool_selection": {
+          "characters": 14676,
+          "utf8_bytes": 14676
+        },
+        "parameter_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14676,
+            "utf8_bytes": 14676
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14676,
+            "context_character_limit": 15000,
+            "context_bytes": 14676
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016826250066515058,
+      "returned_context_bytes": 658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_parameter_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14538,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14640,
+          "utf8_bytes": 14640
+        },
+        "tool_selection": {
+          "characters": 14676,
+          "utf8_bytes": 14676
+        },
+        "parameter_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14676,
+            "utf8_bytes": 14676
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14676
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0014749170077266172,
+      "returned_context_bytes": 449,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "ascii_parameter_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14538,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14640,
+          "utf8_bytes": 14640
+        },
+        "tool_selection": {
+          "characters": 14676,
+          "utf8_bytes": 14676
+        },
+        "parameter_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": null,
+        "failure_metadata_correct": false,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14676,
+            "utf8_bytes": 14676
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 14676
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001348834004602395,
+      "returned_context_bytes": 449,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "ascii_parameter_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "parameter_selection",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14538,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14640,
+          "utf8_bytes": 14640
+        },
+        "tool_selection": {
+          "characters": 14676,
+          "utf8_bytes": 14676
+        },
+        "parameter_selection": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "needs_review",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        }
+      },
+      "result": {
+        "status": "needs_review",
+        "reason": "context_budget_exceeded",
+        "context_budget": {
+          "scope": "loop_shared_context",
+          "stage": "parameter_selection",
+          "unit": "json_characters",
+          "limit": 15000,
+          "observed": 15001
+        },
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14676,
+            "utf8_bytes": 14676
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14676,
+            "context_character_limit": 15000,
+            "context_bytes": 14676
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0015137499867705628,
+      "returned_context_bytes": 658,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "chinese_parameter_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 43713
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 43749
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44074
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 44074
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 44074
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002477084010024555,
+      "returned_context_bytes": 645,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "chinese_parameter_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 43713
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 43749
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44074
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 44074
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14675,
+            "context_character_limit": 15000,
+            "context_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 44074
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0020680839952547103,
+      "returned_context_bytes": 771,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "chinese_parameter_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 43713
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 43749
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44074
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 44074
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14675,
+            "context_character_limit": 15000,
+            "context_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 44074
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0022466670052381232,
+      "returned_context_bytes": 771,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "chinese_parameter_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 43713
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 43749
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44074
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 44074
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 44074
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0022346659970935434,
+      "returned_context_bytes": 645,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "chinese_parameter_exact",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 43713
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 43749
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44074
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": false,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 44074
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": null,
+            "context_character_limit": null,
+            "context_bytes": 44074
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0022021249897079542,
+      "returned_context_bytes": 645,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "chinese_parameter_exact",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "parameter_selection",
+        "characters": 15000,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14537,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "context_projection": {
+          "characters": 14639,
+          "utf8_bytes": 43713
+        },
+        "tool_selection": {
+          "characters": 14675,
+          "utf8_bytes": 43749
+        },
+        "parameter_selection": {
+          "characters": 15000,
+          "utf8_bytes": 44074
+        }
+      },
+      "expected": {
+        "status": "done",
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "done",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 2,
+        "effects": 1,
+        "intent_events": 1,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "tool_selection",
+            "characters": 14675,
+            "utf8_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "characters": 15000,
+            "utf8_bytes": 44074
+          }
+        ],
+        "returned_call_telemetry": [
+          {
+            "stage": "tool_selection",
+            "context_characters": 14675,
+            "context_character_limit": 15000,
+            "context_bytes": 43749
+          },
+          {
+            "stage": "parameter_selection",
+            "context_characters": 15000,
+            "context_character_limit": 15000,
+            "context_bytes": 44074
+          }
+        ],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.002064875006908551,
+      "returned_context_bytes": 771,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "direct_ascii_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 15001
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000888833004864864,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "direct_ascii_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 15001
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010096250043716282,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "direct_ascii_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 15001
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0008822920062812045,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "direct_ascii_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 15001
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0007155409984989092,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "direct_ascii_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 15001
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009514170087641105,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "direct_ascii_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "A",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 15001
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 15001
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009281250095227733,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "direct_chinese_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 44925
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 44925
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009609580010874197,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "direct_chinese_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 44925
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 44925
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011525419977260754,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "direct_chinese_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 44925
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 44925
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009513339900877327,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "direct_chinese_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 44925
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 44925
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009500419982941821,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "direct_chinese_over",
+      "runtime_version": "0.1.8",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 44925
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 44925
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009688749996712431,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "direct_chinese_over",
+      "runtime_version": "0.1.9",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "character": "\u4e2d",
+        "target": "direct_decide",
+        "characters": 15001,
+        "marker_prefix_characters": 24,
+        "payload_character_repetitions": 14962,
+        "frozen_monotonic": 100.0,
+        "max_steps": 2,
+        "timeout_seconds": 120
+      },
+      "projected_context_sizes": {
+        "direct_decide": {
+          "characters": 15001,
+          "utf8_bytes": 44925
+        }
+      },
+      "expected": {
+        "status": "admitted",
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "reason": null,
+        "context_budget": null
+      },
+      "result": {
+        "status": "admitted",
+        "reason": null,
+        "context_budget": null,
+        "failure_metadata_correct": true,
+        "success_metadata_correct": true,
+        "behavior_correct": true,
+        "scripted_decisions": 1,
+        "effects": 0,
+        "intent_events": 0,
+        "native_inference_attempts": 0,
+        "request_context_sizes": [
+          {
+            "stage": "direct_decide",
+            "characters": 15001,
+            "utf8_bytes": 44925
+          }
+        ],
+        "returned_call_telemetry": [],
+        "terminal_marker_exposures": 0,
+        "reported_scripted_usage_complete": true
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009766660077730194,
+      "returned_context_bytes": 246,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

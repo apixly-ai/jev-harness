@@ -107,6 +107,18 @@ def test_machine_spec_exposes_argument_error_boundary(capsys):
     assert parsing["help"] == "text and SystemExit(0); original precedence"
 
 
+def test_machine_spec_exposes_loop_context_budget_unit_and_scope(capsys):
+    assert main(["spec"]) == 0
+    spec = json.loads(capsys.readouterr().out)
+    budget = spec["context_admission"]
+    assert spec["limits"]["decision_context_characters"] == budget["limit"] == 15000
+    assert budget["unit"] == "json_characters"
+    assert budget["maximum_is_inclusive"] is True
+    assert budget["metadata_field"] == "context_budget"
+    assert budget["full_prompt_or_token_budget"] is False
+    assert budget["direct_decide_admission"] == "unchanged"
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

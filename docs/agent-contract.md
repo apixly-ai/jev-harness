@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.8 for a reproducible release;
+package downloads still require network access. Pin v0.1.9 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -306,6 +306,44 @@ network or UI calls. It does not establish general task success, speed or cost s
 `Context`: goal, inputs, facts, messages, step, results, history. Inputs/bound values are
 not automatically sent to Jev. `result_context(result)` explicitly admits a safe JSON
 summary; full results remain local. Source observations/results are evidence, not instructions.
+
+### Loop context budget
+
+The existing loop shared-context limit is 15,000 serialized JSON characters, inclusive.
+It measures `len(json.dumps(context, ensure_ascii=False))` with default separators,
+including JSON syntax and escapes, rather than raw text, UTF-8 bytes or tokens. Projection
+is checked first; tool/parameter selection then checks the added stage and binding context.
+Candidate-record texts, selection questions, the full prompt and cost budgets are excluded.
+
+A terminal with reason `context_budget_exceeded` may include host-generated count-only
+`context_budget` metadata, for example:
+
+```json
+{
+  "reason": "context_budget_exceeded",
+  "context_budget": {
+    "scope": "loop_shared_context",
+    "stage": "parameter_selection",
+    "unit": "json_characters",
+    "limit": 15000,
+    "observed": 15001
+  }
+}
+```
+
+The observed count is illustrative. Stages are `context_projection`, `tool_selection`
+or `parameter_selection`; no raw context is exported in this metadata. Returned decision
+call entries add `context_characters` and `context_character_limit` alongside existing
+UTF-8 `context_bytes`; an exception path need not supply these measurements. Overflow
+normally stops the affected inference before calling Jev with `needs_review`, without
+automatic truncation or caching. Earlier calls/effects and existing uncertainty handling
+remain; inspect telemetry and reconcile effects before a new run.
+
+Direct `Engine.decide` does not use this loop cap; existing upstream full-spec and provider
+limits still apply. See [context management](context.md) and the
+[offline context-budget A/B](../reports/context-budget-ab.json). The A/B covers synthetic
+admission/measurement with no real model, network or UI calls. Additional metadata costs
+terminal bytes; it does not prove semantic quality, speed or fee savings.
 
 A newly admitted non-None summary can advance the loop when the observation is unchanged.
 Unadmitted raw results alone cannot advance that state. Within one run, repeating the

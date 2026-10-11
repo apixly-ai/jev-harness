@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.8**; no promise of general task success or universal savings.
+AI product. Early **0.1.9**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.8` only for active development.
+Use `@main` instead of `@v0.1.9` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -160,7 +160,15 @@ parameter binding, authorization, independent verification and exit checks are u
 
 [Context management](docs/context.md) keeps goals/facts/messages, an action ledger,
 recent admitted tool results and references to older evidence. Raw evidence stays in
-private journals. Budget overflow returns review instead of silently losing constraints.
+private journals. Loop shared context retains its inclusive 15,000 JSON-character limit,
+measured with `json.dumps(..., ensure_ascii=False)` and default separators. Overflow
+normally returns `needs_review/context_budget_exceeded` with count-only `context_budget`
+stage/limit/observed metadata, without truncation. Returned decision-call telemetry adds
+`context_characters` and `context_character_limit` alongside UTF-8 `context_bytes`.
+These units differ; candidate texts, selection questions, full prompts and token/cost
+budgets are outside this cap. Direct `Engine.decide` keeps its existing upstream limits.
+Prior calls or effects may already exist. See the [budget contract](docs/agent-contract.md#loop-context-budget)
+and [offline A/B](reports/context-budget-ab.json) for scope and negative results.
 
 An admitted tool-result summary can advance the next decision even when the observation
 is unchanged. Raw results without `result_context` admission cannot advance that state.

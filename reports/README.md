@@ -374,3 +374,53 @@ evidence and a frozen brand/nonbrand query set. The sampled baseline did not ret
 official Harness URL; this is not proof of index absence. HTTP delivery, crawl, indexing,
 query discovery, AI citation and adoption are separate stages. No exposure or ranking
 improvement is established by a successful build or IndexNow receipt.
+
+## Observable loop context budget (0.1.9)
+
+The loop still admits shared context by the existing 15,000 serialized JSON-character
+limit. Exactly 15,000 is included; only a larger `len(json.dumps(context,
+ensure_ascii=False))` is rejected, with the original default separators. This unit is
+Unicode code points of the serialized JSON, including escaping and punctuation; it is
+not UTF-8 bytes, raw string length or model tokens. The spec now exposes this threshold
+and scope. A rejection adds count-only `context_budget` metadata with fixed scope,
+stage, unit, limit and observed length. Returned loop calls add `context_characters`
+and `context_character_limit` beside the existing UTF-8 `context_bytes` measurement.
+
+The [offline budget A/B](context-budget-ab.json) compares exact published 0.1.8 source
+(`c757179c22e6104df06a44e8ce66e5217f1d96c7`) with the candidate on 14 fixed synthetic
+fixtures, three paired repeats with alternating arm order. Both arms preserve all 42/42
+expected behaviors and exact pairwise status/decision/effect parity. Each arm has 18
+scripted completed loops, 18 expected reviews and six admitted direct-decision probes,
+with 33 scripted choices, 18 effects and 18 intents. New measurement/diagnostic
+expectations change from 6/42 to 42/42; these are host protocol checks, not semantic
+accuracy improvements. All requested shared-context character/UTF-8 byte counts stay
+identical between arms. Native attempts and actual model/UI/network calls are zero.
+
+Fixtures cover ASCII, Chinese and emoji, exact/over-limit projection and selection,
+the extra stage marker, parameter additions, and direct `Engine.decide` compatibility.
+A 15,000-character projection can exceed the limit after the tool-stage marker is added;
+parameter context can exceed it after an earlier selection. Unicode probes show only
+that the loop's character admission remains intact with larger UTF-8 measurements;
+scripted completion does not prove that real provider payload limits admit those inputs.
+Separate regressions preserve unknown prior usage, completed steps/spent calls, trusted
+binding recovery and execution uncertainty after an effect. A refused decision does not
+imply zero calls or effects for the entire run.
+
+Negative results: terminal/context output grows from 15,414 to 19,692 bytes. Mixed
+median time increases slightly; no speed, model-quality or fee benefit is claimed.
+The budget covers admitted shared context: policy output plus remaining budgets before
+selection, then host stage and parameter-context additions. Candidate record text,
+selection question and full prompt are outside this measurement. Direct decisions retain
+their separate upstream spec/provider limits. Existing provider question/state/body
+limits remain in force; this is not a total payload, token, cost or memory budget.
+No context is silently truncated or cached. Only scalar measurements become diagnostics;
+raw context stays out of the terminal. Exceptional inference paths may lack returned-call
+measurements and continue to preserve unknown usage.
+
+```sh
+python benchmarks/context_budget.py --output local-results/context-budget-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI runs offline fixtures on
+Python 3.10, 3.12 and 3.14. No earlier live matrix, locked desktop or URL submission was
+repeated. Native desktop completion and search indexing remain unverified.

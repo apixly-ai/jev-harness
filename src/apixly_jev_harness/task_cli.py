@@ -16,6 +16,7 @@ from .callbacks import (
     CallbackContractError,
     project_contract_error,
 )
+from .context import CONTEXT_CHARACTER_LIMIT
 from .diagnostics import HTTP_CODE_PATTERN, PROVIDER_CODES, SELECTION_CODES
 from .engine import AgentLoop, Workflow, validate_run_options
 from .output import TaskOutput
@@ -248,7 +249,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.8",
+    "version": "0.1.9",
     "parameter_binding": "staged_candidate_choice",
     "argument_parsing": {
         "scope": "all command parsers when argparse reports an error",
@@ -371,6 +372,25 @@ SPEC = {
         "budgets",
         "decision_stage",
     ],
+    "context_admission": {
+        "scope": "loop_shared_context",
+        "unit": "json_characters",
+        "limit": CONTEXT_CHARACTER_LIMIT,
+        "serialization": "json.dumps(context, ensure_ascii=False) with default separators",
+        "maximum_is_inclusive": True,
+        "stages": ["context_projection", "tool_selection", "parameter_selection"],
+        "metadata_field": "context_budget",
+        "metadata_fields": ["scope", "stage", "unit", "limit", "observed"],
+        "failure_reason": "context_budget_exceeded",
+        "automatic_truncation": False,
+        "raw_context_in_failure": False,
+        "candidate_record_text_in_budget": False,
+        "selection_question_in_budget": False,
+        "full_prompt_or_token_budget": False,
+        "direct_decide_admission": "unchanged",
+        "call_telemetry_fields": ["context_characters", "context_character_limit", "context_bytes"],
+        "prior_calls_and_effects_possible": True,
+    },
     "progress": {
         "unchanged_observation_requires": "non_none_admitted_result",
         "duplicate_invocation": {
@@ -423,5 +443,6 @@ SPEC = {
         "max_steps_default": 20,
         "timeout_seconds_default": 120,
         "result_cache": False,
+        "decision_context_characters": CONTEXT_CHARACTER_LIMIT,
     },
 }

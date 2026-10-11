@@ -15,7 +15,7 @@ from jev_filter import analysis as core_analysis
 
 from . import backend
 from .callbacks import CallbackContractError, project_contract_error, require_synchronous
-from .context import ContextPolicy
+from .context import ContextPolicy, measure_context_budget
 from .diagnostics import provider_failure_code, selection_diagnostic, stage_context
 
 analysis = SimpleNamespace(
@@ -290,6 +290,7 @@ class Engine:
         executed = False
         executed_bindings = set()
         diagnostic = None
+        context_budget = None
         with os.fdopen(fd, "w", encoding="utf-8") as journal:
 
             def log(event, **data):
@@ -307,6 +308,12 @@ class Engine:
                     "elapsed_seconds": time.monotonic() - started,
                     "cache_enabled": False,
                     **({"diagnostic": diagnostic} if diagnostic is not None else {}),
+                    **(
+                        {"context_budget": context_budget}
+                        if context_budget is not None
+                        and extra.get("reason") == "context_budget_exceeded"
+                        else {}
+                    ),
                     **extra,
                 }
                 log("terminal", result=result)
@@ -328,8 +335,9 @@ class Engine:
                 return finish("needs_context", missing_context=missing)
 
             def choose(records, selection_goal, extra_context=None):
-                nonlocal diagnostic
+                nonlocal diagnostic, context_budget
                 diagnostic = None
+                context_budget = None
                 stage = stage_context(extra_context)
                 if expired():
                     raise DecisionStop("budget_exceeded", "wall_budget")
@@ -338,7 +346,9 @@ class Engine:
                     **(extra_context or {}),
                     "decision_stage": stage["stage"],
                 }
-                if len(json.dumps(shared, ensure_ascii=False)) > 15000:
+                measured = measure_context_budget(shared, stage["stage"])
+                if measured["observed"] > measured["limit"]:
+                    context_budget = measured
                     raise DecisionStop("needs_review", "context_budget_exceeded")
                 call_started = time.monotonic()
                 try:
@@ -375,6 +385,8 @@ class Engine:
                 meta.update(stage)
                 meta["elapsed_seconds"] = time.monotonic() - call_started
                 meta["context_bytes"] = len(_json(shared).encode())
+                meta["context_characters"] = measured["observed"]
+                meta["context_character_limit"] = measured["limit"]
                 telemetry["calls"].append(meta)
                 telemetry["requests"] += meta.get("requests", 0)
                 usage = meta.get("usage")
@@ -442,7 +454,9 @@ class Engine:
                         },
                     }
                     # Retain the full admitted history; stop instead of silently truncating.
-                    if len(json.dumps(decision_context, ensure_ascii=False)) > 15000:
+                    measured = measure_context_budget(decision_context, "context_projection")
+                    if measured["observed"] > measured["limit"]:
+                        context_budget = measured
                         return finish("needs_review", reason="context_budget_exceeded")
                     packet = choose(
                         [{"id": a.id, "text": a.description} for a in actions]
@@ -473,6 +487,7 @@ class Engine:
                     # A trusted binding may resolve an optional choice itself. Its returned
                     # action completes binding; an old choice failure must not label execution.
                     diagnostic = None
+                    context_budget = None
                     pending = action.id
                     if (
                         action.irreversible

@@ -38,9 +38,29 @@
 共享事实或观察中，也可以在已注册的工具内从 `ctx.results` 提取所需的旧证据。
 运行时不会自动判断哪些业务事实可以安全丢弃。
 
-如果纳入的上下文仍过大（决策上下文采用保守的 15,000 字符预算），则返回 review，
-不会静默截断约束。现有提供方的问题和状态大小限制仍然有效。消息必须是显式纳入的
-user/assistant 对象，并带有文本内容；系统策略应写入明确的目标和可信程序。
+循环共享上下文保留原有的 15,000 JSON 字符预算，恰好达到上限仍准入：只有
+`len(json.dumps(context, ensure_ascii=False)) > 15000` 才拒绝，使用默认分隔符。
+计数包含序列化 JSON 的语法、空格和转义，统计该序列化文本中的 Unicode 码点，
+不是原始字段长度、UTF-8 字节或 token。
+
+`context_projection` 检查上下文策略的投影加剩余步数/时间预算；`tool_selection`
+和 `parameter_selection` 再计量加入 host 阶段标记及选择/绑定增量后的共享上下文。
+投影本身可准入，加入这些字段后仍可能超限。候选记录文本、选择问题、完整 prompt
+及 token/费用预算不在这项计量内。
+
+reason 为 `context_budget_exceeded` 的终态可能包含仅含计量信息的 `context_budget`：
+scope `loop_shared_context`、失败阶段、unit `json_characters`、limit 及 observed 长度。
+这项元数据没有原始上下文。返回的决策调用遥测记录 `context_characters` 和
+`context_character_limit`，保留 `context_bytes` 作为独立的 UTF-8 大小；异常路径
+可能缺少这些计量。受影响的超大决策通常在推理前停止并返回复核，不静默截断约束。
+此前可能已有调用/效果；用量不确定性、效果不确定性、调用方回退及无结果缓存策略均不变。
+
+直接 `Engine.decide` 不受这项循环上限控制。固定版本上游对完整 analysis spec 的
+独立 16,000 字符验证，以及提供方的问题/状态限制仍有效；共享上下文符合预算，
+不证明完整请求也符合限制。消息必须是显式纳入的 user/assistant 对象，并带有文本内容；
+系统策略应写入明确的目标和可信程序。[离线 A/B](../reports/context-budget-ab.json)
+检查合成准入/计量，真实模型、网络或 UI 调用为零。新增元数据增加终态字节，
+不能证明语义质量、提速或费用收益。
 
 私有日志使用独占创建、POSIX 模式 0600、JSONL 追加，以及 flush/fsync；绝不会覆盖
 已有路径。日志包含原始观察、实际参数和结果，未经审阅不要公开。CLI 终态输出不含

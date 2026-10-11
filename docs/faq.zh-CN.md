@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.8，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.9，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.8 版本？
+## 如何安装准确的 v0.1.9 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py

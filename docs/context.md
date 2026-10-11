@@ -47,10 +47,33 @@ shared facts or observation and can derive older needed evidence from ctx.result
 registered tools. The runtime does not automatically decide which business facts are safe
 to drop.
 
-If admitted context remains too large (conservative 15,000-character decision-context
-budget), return review rather than silently truncating constraints. Existing provider
-question/state size limits also remain in force. Messages must be admitted user/assistant
-objects with text content; system policy belongs in the explicit goal and trusted program.
+The existing loop shared-context budget is 15,000 JSON characters, inclusive: reject
+only when `len(json.dumps(context, ensure_ascii=False)) > 15000`, using default
+separators. The count includes serialized JSON syntax, spaces and escapes. It counts
+Unicode code points in that serialization, not raw field length, UTF-8 bytes or tokens.
+
+The `context_projection` check covers the policy projection plus remaining step/time
+budgets. `tool_selection` and `parameter_selection` then measure the shared context with
+the host stage marker and selection/binding additions. A projection that fits can still
+exceed the limit after these additions. Candidate-record texts, selection questions,
+the complete prompt and token/cost budgets are outside this measurement.
+
+Terminals with reason `context_budget_exceeded` can include count-only `context_budget`:
+scope `loop_shared_context`, the failing stage, unit `json_characters`, limit and observed
+length. This metadata contains no raw context. Returned decision-call telemetry records
+`context_characters` and `context_character_limit`, retaining `context_bytes` as the
+separate UTF-8 size; exception paths may lack these measurements. The affected oversized
+decision normally stops before inference and returns review, rather than silently
+truncating constraints. Earlier calls/effects may already exist; usage uncertainty,
+effect uncertainty, caller fallbacks and the no-result-cache policy are unchanged.
+
+Direct `Engine.decide` does not receive this loop cap. The pinned upstream's separate
+16,000-character full-analysis-spec validation and provider question/state limits remain
+in force; fitting this shared-context budget does not prove the complete request fits.
+Messages must be admitted user/assistant objects with text content; system policy belongs
+in the explicit goal and trusted program. The [offline A/B](../reports/context-budget-ab.json)
+checks synthetic admission/measurement with zero real model, network or UI calls. Extra
+metadata increases terminal bytes, without establishing semantic quality, speed or savings.
 
 Private journals use exclusive creation, POSIX mode 0600, JSONL append, flush/fsync, and
 never overwrite an existing path. They include raw observations, actual arguments and

@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.8，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.9，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.8` 换成 `@main`。
+仅在开发时将 `@v0.1.9` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -137,7 +137,14 @@ decision_stage=tool_selection 或 parameter_selection 区分 loop 判断。
   [agent skill](skills/jev-harness/SKILL.md)，不偷偷安装 hook 或拦截全部工具调用。
 
 [上下文管理](docs/context.md) 保留目标、事实、对话、动作账本、近期准入结果与较早
-证据引用。原文留在私有日志，预算溢出返回复核，不静默丢失约束。
+证据引用。原文留在私有日志。Loop 共享上下文保留含上限的 15,000 JSON 字符限制，
+按 json.dumps(..., ensure_ascii=False) 和默认分隔符计量。溢出通常返回
+needs_review/context_budget_exceeded，附仅含计量信息的 context_budget 阶段/上限/观测值，
+不自动截断。返回的决策调用遥测新增 context_characters、context_character_limit，
+保留 UTF-8 context_bytes。单位不同；候选文本、选择问题、完整 prompt 及 token/费用
+预算不在此上限内。直接 Engine.decide 保留已有上游限制；此前可能已有调用或效果。
+见[预算契约](docs/agent-contract.md#loop-context-budget) 与
+[离线 A/B](reports/context-budget-ab.json) 的范围与负面结果。
 
 准入的工具结果摘要可以在观察不变时推进下一轮判断。未经 result_context 准入的
 原始结果不能推进这种状态。同一次运行中，相同观察、动作 ID 和实际绑定参数最多

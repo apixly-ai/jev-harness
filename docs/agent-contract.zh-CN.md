@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.8 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.9 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.8'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -291,6 +291,43 @@ Workflow 的 `observe`、`candidates`、`execute`、`verify`、`authorize`、`bi
 `Context`：goal、inputs、facts、messages、step、results、history。Inputs/绑定值
 不会自动发送给 Jev。`result_context(result)` 显式纳入安全的 JSON 摘要；完整结果
 仍保留在本地。来源观察/结果是证据，不是指令。
+
+<a id="loop-context-budget"></a>
+### 循环上下文预算
+
+循环共享上下文保留原有的 15,000 个序列化 JSON 字符上限，恰好达到上限仍准入。
+按 `len(json.dumps(context, ensure_ascii=False))` 和默认分隔符计量，包含 JSON
+语法与转义，不是原始文本、UTF-8 字节或 token。先检查上下文投影，再检查工具/参数
+选择阶段增加的阶段标记及绑定上下文。候选记录文本、选择问题、完整 prompt 和费用
+预算不在这项计量内。
+
+reason 为 `context_budget_exceeded` 的终态可能包含 host 生成、仅含计量信息的
+`context_budget`，例如：
+
+```json
+{
+  "reason": "context_budget_exceeded",
+  "context_budget": {
+    "scope": "loop_shared_context",
+    "stage": "parameter_selection",
+    "unit": "json_characters",
+    "limit": 15000,
+    "observed": 15001
+  }
+}
+```
+
+观测长度仅演示结构。阶段为 `context_projection`、`tool_selection` 或
+`parameter_selection`；这项元数据不输出原始上下文。返回的决策调用记录新增
+`context_characters` 和 `context_character_limit`，保留已有的 UTF-8
+`context_bytes`；异常路径不一定提供这些计量。溢出通常会在调用 Jev 之前停止该次
+推理并返回 `needs_review`，不自动截断或缓存。此前的调用/效果和原有不确定性处理
+保留；新一轮运行前应检查遥测并核对效果。
+
+直接 `Engine.decide` 不使用这一循环上限，已有的上游完整 spec 及提供方限制仍然
+有效。见[上下文管理](context.zh-CN.md)与
+[离线上下文预算 A/B](../reports/context-budget-ab.json)。A/B 覆盖合成准入/计量，
+没有真实模型、网络或 UI 调用。新增元数据增加终态字节，不能证明语义质量、提速或降费。
 
 当观察没有变化时，新纳入的非 None 摘要可以推动循环。仅有未纳入的原始结果不能
 推动该状态。在一次运行内，重复相同观察、动作 ID 和实际绑定参数时，会在执行前

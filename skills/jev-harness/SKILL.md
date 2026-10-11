@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.8. Install the repository at `@v0.1.8` for a reproducible release;
+Contract version: 0.1.9. Install the repository at `@v0.1.9` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -116,6 +116,19 @@ a trusted tool with bounded attempts/time, or expose meaningful observed progres
 When using `verify_state`, supply nonempty text or at least one control condition.
 Each expected control field must be observed; a missing field is not observed `null`.
 Admitted results and model exit choices never replace independent completion verification.
+
+Read spec.context_admission: the loop's existing inclusive limit is 15000 serialized
+JSON characters, from json.dumps(..., ensure_ascii=False) with default separators, not
+UTF-8 bytes or tokens. A context_budget_exceeded terminal may include count-only
+context_budget (scope, stage, unit, limit, observed); inspect context_projection,
+tool_selection or parameter_selection before revising the caller's admitted projection.
+Returned call telemetry adds context_characters/context_character_limit alongside
+context_bytes; exception paths can lack these measurements. Candidate texts, selection
+questions/full prompts and token/cost budgets are excluded. Direct Engine.decide retains
+separate upstream limits. No automatic truncation or caching is added; prior calls/effects,
+unknown usage and uncertain execution still require reconciliation. See the contract,
+context page and reports/context-budget-ab.json for offline synthetic measurement with
+zero real model/network/UI calls, added terminal bytes and no quality/speed/fee claim.
 
 Do not retry ambiguous external execution. Caller tools own identity, authorization,
 idempotency, business transactions and reconciliation. Scripts are trusted Python, not a
