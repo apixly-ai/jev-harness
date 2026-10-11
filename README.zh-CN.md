@@ -1,6 +1,8 @@
+<p><img src="web/brand/hero.zh-CN.svg" width="1200" alt="Jev Harness：工具你来定义，下一步交给 Jev。观察、选择、执行、验证。"></p>
+
 # Jev Harness
 
-[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/) · [AI 接口](docs/agent-contract.md) · [验收证据](reports/README.md)
+[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [AI 接口](docs/agent-contract.md) · [验收证据](reports/README.md)
 
 **编写任务，注册工具，让 Jev 选择下一次调用和参数。**
 
@@ -10,6 +12,27 @@
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
+
+## 看看执行过程
+
+[查看交互主页与视频](https://apixly-ai.github.io/jev-harness/zh/#showcase) · [下载 MP4 回放](web/media/browser-demo.zh-CN.mp4)
+
+[![从空白旅行表单，到独立验证的草稿：Mira、London、灵活日期](web/media/browser-demo.zh-CN.gif)](https://apixly-ai.github.io/jev-harness/zh/#showcase)
+
+这是无头 Camofox 对原始本地夹具的**截图回放**，没有新增模型调用；历史 v0.1.0
+Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注，不将回放当作新的推理录屏。
+合成数据，不创建真实预订或发送消息。[验收记录](reports/README.md) · [素材说明](web/media/README.md)
+
+| 使用场景 | 输入与候选 | 独立验证 |
+| --- | --- | --- |
+| 浏览器旅行草稿 | Mira、London、灵活日期；观察到的控件和程序提供的值 | 回读字段，并核对最终草稿文本 |
+| Python 工具与参数 | 目标值 3；从当前状态生成递增候选 1 或 2 | 观察值达到目标；历史真实生成任务验收见账本 |
+| 结果进展与执行边界 | 观察、准入工具结果与动作账本 | 离线契约验证继续执行、复核与重复动作阻断 |
+
+<p><img src="web/brand/workflow.zh-CN.svg" width="1200" alt="程序提供目标、现场和候选，Jev 选择引用，程序执行，独立验证器核对结果。"></p>
+
+浏览器和桌面适配器可以承载自己的任务工具；**原生桌面完成仍未验证**。
+具体输入、参数候选和完成条件由任务脚本负责。主页的代码与边界图标注为示意或离线案例。
 
 ## AI 从接口开始
 

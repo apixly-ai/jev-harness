@@ -1,3 +1,5 @@
+<p><img src="web/brand/hero.svg" width="1200" alt="Jev Harness: your tools, Jev’s next move. Observe, choose, execute and verify."></p>
+
 # Jev Harness
 
 [简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
@@ -13,6 +15,31 @@ AI product. Early **0.1.8**; no promise of general task success or universal sav
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
 installation URL; the PyPI name jev-harness belongs to an unrelated project.
+
+## See the loop in action
+
+[Interactive homepage & video](https://apixly-ai.github.io/jev-harness/#showcase) · [Download MP4 replay](web/media/browser-demo.mp4)
+
+[![A blank travel form becomes an independently checked draft: Mira, London, flexible dates](web/media/browser-demo.gif)](https://apixly-ai.github.io/jev-harness/#showcase)
+
+This is a **screenshot replay** captured by headless Camofox from the original local
+fixture, with no new model calls. Historical v0.1.0 live Jev acceptance reached the final
+state in four tool executions; the replay is labeled separately and is not a newly
+recorded inference run. Synthetic data; no real bookings or messages.
+[Acceptance ledger](reports/README.md) · [Media scope](web/media/README.md)
+
+| Use case | Inputs and choices | Independent check |
+| --- | --- | --- |
+| Browser travel draft | Mira, London, flexible dates; observed controls and supplied values | Read field values and final draft text |
+| Python tools and parameters | Target 3; increment choices 1 or 2 from current state | Observed value reaches target; historical live scaffold acceptance is in the ledger |
+| Evidence progress and execution bounds | Observation, admitted results and action ledger | Offline contracts check continuation, review and repeated-action blocking |
+
+<p><img src="web/brand/workflow.svg" width="1200" alt="The program supplies goals, observations and candidates; Jev selects references; code executes; an independent verifier checks the outcome."></p>
+
+Browser and desktop adapters can host your own task tools. **Native desktop completion
+remains unverified.** Each task script supplies its inputs, argument candidates and
+completion checks. Code and guard visuals on the homepage are labeled as illustrations
+or offline cases.
 
 ## Start with the agent interface
 

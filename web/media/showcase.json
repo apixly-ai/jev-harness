@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-10-11T02:18:56.521303+00:00",
+  "kind": "illustrative_screenshot_replay",
+  "capture": "headless Camofox, current unchanged local synthetic form fixture",
+  "inference_calls": 0,
+  "historical_evidence": "reports/acceptance.json; live browser evidence belongs to v0.1.0",
+  "fixture_sha256": "4cd1e25bae103fb7b354394cd75cf4da350d995eea8bd577d6f950545bcc7eb8",
+  "duration_seconds": 12.0,
+  "video_pixels": [
+    1280,
+    720
+  ],
+  "real_bookings_or_messages": 0,
+  "verification": {
+    "en": {
+      "name": "Mira",
+      "destination": "London",
+      "flexible": true,
+      "result": "Draft ready: Mira | London | flexible=true"
+    },
+    "zh-CN": {
+      "name": "Mira",
+      "destination": "London",
+      "flexible": true,
+      "result": "Draft ready: Mira | London | flexible=true"
+    }
+  },
+  "files": {
+    "browser-demo.gif": {
+      "bytes": 165104,
+      "sha256": "8aa3add2e242e1c8cdbd164f6c0beb3f50cc347b5c65b550aae2bdfa55ad8a91"
+    },
+    "browser-demo.mp4": {
+      "bytes": 150684,
+      "sha256": "fdcbc7b695c8307cc593eff3b658d5ee152f5413988efd52a654df3170a8f8df"
+    },
+    "browser-demo.zh-CN.gif": {
+      "bytes": 161055,
+      "sha256": "ef8ef25323b914d6274ae7494f3d8e9b79535aaea317ffb9b63e7aa8ebc71680"
+    },
+    "browser-demo.zh-CN.mp4": {
+      "bytes": 138845,
+      "sha256": "c95f0b3f8cb12d857dc6158339af9a0aec579bfac2bd3b8e8da1bbd94ffeab8d"
+    },
+    "browser-poster.webp": {
+      "bytes": 43254,
+      "sha256": "8f50f0c3a0584d7ef0635290facf32dfd12b0706d24bdcf287d76abbb13c6f09"
+    },
+    "browser-poster.zh-CN.webp": {
+      "bytes": 40016,
+      "sha256": "fe1788148dbcf6e32ea71cd78ac7ecb2b1d449e77c3b7fe6c7e9ed17c1ed603f"
+    }
+  }
+}

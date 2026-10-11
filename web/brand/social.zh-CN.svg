@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+    <title id="title">Jev Harness · 工具你来定义。下一步交给 Jev。</title><desc id="desc">Jev Harness · 工具你来定义。下一步交给 Jev。</desc>
+    <defs>
+      <radialGradient id="glow"><stop stop-color="#c6f67a" stop-opacity=".075"/><stop offset="1" stop-color="#080b0f" stop-opacity="0"/></radialGradient>
+      <linearGradient id="edge"><stop stop-color="#c6f67a"/><stop offset="1" stop-color="#7de3e5"/></linearGradient>
+      <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="m1 1 5 3-5 3" fill="none" stroke="#64715f" stroke-width="1.6"/></marker>
+    </defs>
+    <style>text{font-family:Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Arial, PingFang SC, sans-serif}.mono{font-family:SFMono-Regular, Consolas, Liberation Mono, monospace}</style>
+    <rect width="1200" height="630" rx="0" fill="#080b0f"/>
+    <ellipse cx="936.0" cy="157.5" rx="420.0" ry="441.0" fill="url(#glow)"/>
+    <path d="M32 .5H1168" stroke="#2b3426"/>
+    <g transform="translate(66 57) scale(0.66)" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 29V10h28" stroke="#c6f67a"/><path d="m31 3 8 7-8 7" stroke="#c6f67a"/>
+      <path d="M53 10h19v28" stroke="#7de3e5"/><path d="m79 31-7 8-7-8" stroke="#7de3e5"/>
+      <path d="M72 53v19H44" stroke="#c6f67a"/><path d="m51 79-8-7 8-7" stroke="#c6f67a"/>
+      <path d="M29 72H10V44" stroke="#7de3e5"/><path d="m3 51 7-8 7 8" stroke="#7de3e5"/>
+      <circle cx="41" cy="41" r="3" fill="#eef0eb" stroke="none"/>
+    </g><text x="141" y="99" font-size="34" font-weight="650" fill="#eef0eb" class="" >jev-harness</text><text x="62" y="234" font-size="79" font-weight="750" fill="#eef0eb" class="" letter-spacing="-3">工具你来定义。</text><text x="62" y="345" font-size="79" font-weight="750" fill="#c6f67a" class="" letter-spacing="-3">下一步交给 Jev。</text><text x="65" y="415" font-size="25" font-weight="400" fill="#a3aaa5" class="" >Python 原生循环 · 类型化候选 · 独立验证</text><path d="M65 478H1135" stroke="#2a3429"/><text x="65" y="539" font-size="18" font-weight="600" fill="#7de3e5" class="mono" >01</text><text x="105" y="539" font-size="23" font-weight="550" fill="#eef0eb" class="" >观察</text><path d="M267 531h30" stroke="#65745b" stroke-width="2" marker-end="url(#arrow)"/><text x="342" y="539" font-size="18" font-weight="600" fill="#c6f67a" class="mono" >02</text><text x="382" y="539" font-size="23" font-weight="550" fill="#eef0eb" class="" >选择</text><path d="M544 531h30" stroke="#65745b" stroke-width="2" marker-end="url(#arrow)"/><text x="619" y="539" font-size="18" font-weight="600" fill="#7de3e5" class="mono" >03</text><text x="659" y="539" font-size="23" font-weight="550" fill="#eef0eb" class="" >执行</text><path d="M821 531h30" stroke="#65745b" stroke-width="2" marker-end="url(#arrow)"/><text x="896" y="539" font-size="18" font-weight="600" fill="#c6f67a" class="mono" >04</text><text x="936" y="539" font-size="23" font-weight="550" fill="#eef0eb" class="" >验证</text></svg>
