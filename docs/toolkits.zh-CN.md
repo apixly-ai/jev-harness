@@ -115,6 +115,10 @@ observe.state_ref 中的指纹。操作后刷新观察，一个 session 内顺�
 Python 调用方使用 session.delegate()；旧 MCP delegate 名称作为不广告的兼容别名
 保留，对应 run_task。
 
+从 v0.2.1 起，run_task 可以是 TaskScript 的首次 session 调用。Loop 构建注册任务后，
+若该任务提供 artifact_receipt()，会将回执转发到终态 artifact 字段；调用方无需为了
+获得回执而先调用 observe。这证明委托功能可用，不证明 AI 会自然选择委托路线。
+
 在 session 开始时选择直接操作或 Jev 委托，可以先查看接口，但执行后不能切换路线或
 合并两种历史。--direct-only 隐藏委托。这是进程内 session，不提供跨进程 resume；
 直接模式的调用方模型费用不在 Jev 遥测内。应查看终态证据并核对不确定执行，不盲目重试。

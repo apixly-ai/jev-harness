@@ -1,0 +1,96 @@
+{
+  "schema": 1,
+  "release": "0.2.1",
+  "scope": "functional first-call lazy-script MCP run_task; not autonomous adoption or a primary-direct timing comparison",
+  "data": "local synthetic repository fixtures, schema markers only; no desktop/customer/production scope",
+  "primary_model_calls": 0,
+  "runtime_source_sha256": {
+    "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+    "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+    "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+    "src/apixly_jev_harness/toolkit.py": "1870a049eca7309b5fc54fa002078e67e460d11aa36b688bb9d6e3fff96f3d0e",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+    "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+    "src/apixly_jev_harness/mcp.py": "533f61ac087e2002e9e8b045931bdd46f87e585a20173fd85adbb8c018189f96",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+    "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f",
+    "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+    "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+  },
+  "snapshot_scope": "after successful call; runtime was unchanged during that call. Documentation may have changed separately.",
+  "negative_before_explicit_completion_contract": {
+    "status": "needs_review",
+    "reason": "model_completion_requires_verification",
+    "steps": 3,
+    "whole_operation_seconds": null,
+    "engine_elapsed_seconds": 2.885697290999815,
+    "independently_complete": false,
+    "artifact_exists": false,
+    "artifact_receipt_returned": true,
+    "usage": {
+      "input_tokens": 17140,
+      "output_tokens": 527
+    },
+    "usage_complete": true,
+    "requests": 7,
+    "models": [
+      "jev-1.13.0"
+    ],
+    "impact": "model suggested done after reading source summaries; independent verifier refused without recorded/saved evidence, with no automatic retry"
+  },
+  "after_completion_contract": {
+    "protocol_version": "0.2.1",
+    "stage": "functional first-call lazy-script delegation, not autonomous adoption",
+    "calls": {
+      "initialize": 1,
+      "run_task": 1,
+      "observe": 0
+    },
+    "whole_operation_seconds": 4.4302704589790665,
+    "terminal_status": "done",
+    "steps": 7,
+    "independent_verification": {
+      "passed": true,
+      "labels": {
+        "cause": true,
+        "proof": true
+      },
+      "records": 2
+    },
+    "artifact": {
+      "exists": true,
+      "matches_records": true,
+      "record_count": 2,
+      "sha256": "77fc7a124158bdb635a07008f1e663e7c77f23567519c8e2b56c369625a3d2a0",
+      "sources": [
+        "workspace:src/spruce_worker.py",
+        "workspace:tests/test_spruce_worker.txt"
+      ]
+    },
+    "usage": {
+      "input_tokens": 43082,
+      "output_tokens": 999
+    },
+    "usage_complete": true,
+    "requests": 11,
+    "models": [
+      "jev-1.13.0"
+    ],
+    "scope": "local synthetic repository evidence; no source-answer or route oracle admitted to actor; no primary AI model call; no desktop/customer/production data"
+  },
+  "separate_regression_attempt": {
+    "classification": "the initial lazy-joint regression did not yet intercept selection; corrected to forbid inference before CI",
+    "actual_model_dispatch": null,
+    "actual_model_identity": null,
+    "actual_usage": null,
+    "whole_operation_seconds": null,
+    "scope": "one local synthetic empty Task attempt; no customer or production inputs; no receipt retained so its possible usage is unknown"
+  },
+  "interpretation": "Explicit required/missing labels and saved-report status describe the caller completion contract, not a next-step router or an expected answer. One success does not establish broad quality or natural adoption. Thresholds, NONE/REVIEW, authorization and independent verification remain."
+}

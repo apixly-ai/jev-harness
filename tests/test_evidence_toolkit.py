@@ -296,3 +296,20 @@ def test_schema_checks_offer_only_categories_with_read_support(tmp_path):
         {"label": "storage"},
     )
     assert resolved == []
+
+
+def test_observation_exposes_required_labels_and_saved_artifact_contract(tmp_path):
+    from apixly_jev_harness import Context, EvidenceStore, EvidenceTask
+
+    task = EvidenceTask(
+        [],
+        store=EvidenceStore(),
+        labels=["cause", "proof"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: False,
+    )
+    state = task.observe(Context(goal="Investigate", inputs={}, facts={}, messages=[]))
+    assert state["completion"]["required_labels"] == ["cause", "proof"]
+    assert state["completion"]["missing_labels"] == ["cause", "proof"]
+    assert state["completion"]["report_matches_records"] is False
+    assert state["completion"]["independent_check_required"] is True

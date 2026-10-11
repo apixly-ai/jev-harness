@@ -16,12 +16,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.2.0 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.2.1 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.1'
 jev-harness spec
 jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py

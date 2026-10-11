@@ -290,3 +290,105 @@ def test_uncertain_effect_never_advertises_ready_delegation_or_direct_tools():
     assert state["delegation_available"] is False
     assert state["delegation"]["ready"] is False
     assert state["tools"] == []
+
+
+def test_first_call_delegation_for_lazy_script_returns_real_artifact_receipt(tmp_path, monkeypatch):
+    from apixly_jev_harness import AgentLoop, EvidenceStore, EvidenceTask, TaskScript
+
+    def build(inputs):
+        return EvidenceTask(
+            [],
+            store=EvidenceStore(),
+            labels=["fact"],
+            output=inputs["output"],
+            verify=lambda c, s: False,
+        )
+
+    workflow = TaskScript(build)
+    client = ToolkitSession(workflow, goal="Inspect", inputs={"output": str(tmp_path / "out.json")})
+
+    def run(loop, task, **kwargs):
+        # Same materialization timing as the real engine; there was no prior observe.
+        task.observe(client.ctx)
+        workflow._task.save_report()
+        return {"status": "needs_review", "complete": False, "steps": 1}
+
+    monkeypatch.setattr(AgentLoop, "run", run)
+    result = client.delegate()
+    assert result["artifact"]["path"] == str(tmp_path / "out.json")
+    assert result["artifact"]["exists"] is True
+    assert result["artifact"]["matches_records"] is True
+    assert result["artifact"]["record_count"] == 0
+
+
+def test_delegate_preserves_engine_context_for_followup_observation(monkeypatch):
+    from apixly_jev_harness import AgentLoop, Context, TaskScript
+
+    workflow = TaskScript(
+        lambda inputs: Task(
+            observe=lambda c: {"count": len(c.results)}, verify=lambda c, s: s["count"] == 1
+        )
+    )
+    client = ToolkitSession(workflow, goal="Inspect")
+    actual = Context(goal="Inspect", inputs={}, facts={}, messages=[])
+
+    def run(loop, task, **kwargs):
+        task.observe(actual)
+        actual.results.append({"action_id": "read", "result": {"found": True}})
+        actual.step = 1
+        return {"status": "done", "complete": True, "steps": 1}
+
+    monkeypatch.setattr(AgentLoop, "run", run)
+    client.delegate()
+    observed = client.observe()
+    assert observed["observation"]["count"] == 1
+    assert observed["complete"] is True
+    assert client.ctx is actual
+
+
+def test_first_delegate_rejects_lazy_joint_task_before_model_or_effect(monkeypatch):
+    from apixly_jev_harness import Engine, TaskScript
+
+    model_calls = []
+
+    def forbidden(*a, **k):
+        model_calls.append(1)
+        raise AssertionError("No inference is permitted in this regression")
+
+    monkeypatch.setattr(Engine, "decide", forbidden)
+    effects = []
+    task = Task(observe=lambda c: {}, verify=lambda c, s: False, strategy="joint")
+
+    @task.tool("Read")
+    def read():
+        effects.append(1)
+
+    client = ToolkitSession(TaskScript(lambda inputs: task), goal="Inspect")
+    result = client.delegate()
+    assert result["status"] == "failed"
+    assert result["telemetry"]["requests"] == 0
+    assert effects == []
+    assert model_calls == []
+
+
+def test_delegation_proxy_does_not_hide_asynchronous_callback_kind(monkeypatch):
+    from apixly_jev_harness import Engine, TaskScript
+
+    bodies = []
+
+    class AsyncTask(Task):
+        async def observe(self, ctx):
+            bodies.append(1)
+            return {}
+
+    def forbidden(*a, **k):
+        raise AssertionError("No inference allowed")
+
+    monkeypatch.setattr(Engine, "decide", forbidden)
+    task = AsyncTask(observe=lambda c: {}, verify=lambda c, s: False)
+    client = ToolkitSession(TaskScript(lambda inputs: task), goal="Inspect")
+    result = client.delegate()
+    assert result["status"] == "failed"
+    assert result["contract_error"]["callback"] == "observe"
+    assert result["telemetry"]["requests"] == 0
+    assert bodies == []

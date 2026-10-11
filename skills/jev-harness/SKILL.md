@@ -5,7 +5,7 @@ description: Optional guide for handing an open goal to a Jev-native loop with r
 
 # Jev Harness
 
-Contract version: 0.2.0. Pin `@v0.2.0` for this release.
+Contract version: 0.2.1. Pin `@v0.2.1` for this release.
 
 Use for open routes with bounded capabilities and observable completion: source research,
 read-only repository investigation, or browser evidence collection. The primary AI writes

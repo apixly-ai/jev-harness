@@ -2,6 +2,30 @@
 
 [简体中文](README.zh-CN.md)
 
+## First-call delegation receipts (0.2.1)
+
+[Functional MCP acceptance](lazy-delegation-live.json) exercises a lazy task script with
+one `run_task` call and no prior `observe`. It completes in 4.4303 s with seven registered
+tool steps, 11 Jev 1.13.0 requests, 43,082 input and 999 output tokens. The returned report
+receipt and both source quotes pass independent checksum/span/answer checks. This directly
+invokes the route for functionality, and does not enter the **0/5** autonomous-choice count.
+
+The patch forwards the materialized task's artifact receipt, keeps the actual Engine context
+for post-run observation, and rejects lazy joint tasks before inference or registered effects.
+Observations expose required/missing labels and saved-report status as the completion contract.
+An earlier real first-call attempt stopped at `needs_review` after the model suggested done
+without recording/saving. That negative, its known usage, and an unmeasured initial regression
+attempt remain explicit. Unknown usage is not zero. No confidence/permission gate was lowered.
+
+[Exact-source lifecycle A/B](delegation-lifecycle-ab.json) compares commit
+`79d383dcf9ffedc535dc5182bfe5a17147f7e950` (0.2.0) with the patch: six fixtures,
+three paired repeats, real registered effects and journal/artifact writes, scripted
+choices with network forbidden. Specified protocol outcomes change from 6/18 to 18/18;
+six compatibility pairs retain behavior. Actual model usage is zero; three unknown
+scripted-usage rows per arm remain unknown. Returned context increases and the mixed
+local median is slower. This is lifecycle coverage, not semantic accuracy or savings.
+Reproduce with `python benchmarks/delegation_lifecycle.py --output local-results/lifecycle.json`.
+
 ## Open-task toolkits and live acceptance (0.2.0, 2026-10-11)
 
 The shared foundation now combines `TaskScript`, `EvidenceTask`, `EvidenceStore`,

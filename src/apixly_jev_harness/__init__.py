@@ -1,6 +1,6 @@
 """Jev-native task runtime for AI-authored workflows."""
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 from .context import ContextPolicy
 from .engine import Action, AgentLoop, Context, Engine, Workflow

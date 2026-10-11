@@ -128,6 +128,12 @@ the same tools/verifier are used, and the artifact receipt. Python callers use
 `session.delegate()`; the old MCP `delegate` name remains an unadvertised compatibility
 alias for `run_task`.
 
+From v0.2.1, `run_task` may be the first session call for a `TaskScript`. Once the loop
+materializes the registered task, its `artifact_receipt()` is forwarded in the terminal
+`artifact` field when available; callers need not call `observe` first merely to obtain
+that receipt. This is delegated functionality, not evidence that an AI naturally chooses
+delegation.
+
 Choose direct operation or Jev delegation at the start of the session. Inspection may
 precede that choice, but the session cannot switch routes after execution or merge the
 two histories. `--direct-only` omits delegation. This is an in-process session, not

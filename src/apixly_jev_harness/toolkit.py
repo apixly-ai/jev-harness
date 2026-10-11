@@ -154,6 +154,14 @@ class EvidenceTask(Task):
     def _state(self, ctx):
         return {
             "toolkits": {pack.name: pack.observe() for pack in self.toolkits},
+            "completion": {
+                "required_labels": list(self.labels),
+                "missing_labels": [
+                    x for x in self.labels if not any(r["label"] == x for r in self.records)
+                ],
+                "report_matches_records": self._artifact_matches(),
+                "independent_check_required": True,
+            },
             "evidence": {
                 "sources": self.store.references()[-8:],
                 "source_count": len(self.store.references()),
@@ -305,6 +313,61 @@ class EvidenceTask(Task):
                 compact["text"] = compact["text"][:240]
             return compact
         return None
+
+
+class _DelegatedWorkflow(Workflow):
+    """Preserve the actual run context without allowing a direct-route transfer."""
+
+    def __init__(self, owner):
+        self.owner, self.context, self.checked = owner, None, False
+
+    @property
+    def tool_selection_policy(self):
+        from .engine import HOSTED_DEFAULT
+
+        return getattr(self.owner.task, "tool_selection_policy", HOSTED_DEFAULT)
+
+    def observe(self, ctx):
+        from .callbacks import require_synchronous
+
+        self.context = ctx
+        if isinstance(self.owner.task, TaskScript):
+            self.owner.task = self.owner.task.materialize(ctx)
+        if self.owner.task.strategy != "staged":
+            raise ValueError("toolkit_session_requires_staged_task")
+        if not self.checked:
+            for role in (
+                "observe",
+                "candidates",
+                "execute",
+                "verify",
+                "authorize",
+                "bind",
+                "result_context",
+            ):
+                require_synchronous(
+                    getattr(self.owner.task, role), role, allow_generator=role == "candidates"
+                )
+            self.checked = True
+        return self.owner.task.observe(ctx)
+
+    def candidates(self, ctx, state):
+        return self.owner.task.candidates(ctx, state)
+
+    def verify(self, ctx, state):
+        return self.owner.task.verify(ctx, state)
+
+    def execute(self, ctx, action):
+        return self.owner.task.execute(ctx, action)
+
+    def bind(self, ctx, state, action, choose):
+        return self.owner.task.bind(ctx, state, action, choose)
+
+    def authorize(self, ctx, action):
+        return self.owner.task.authorize(ctx, action)
+
+    def result_context(self, ctx, action, result):
+        return self.owner.task.result_context(ctx, action, result)
 
 
 class ToolkitSession:
@@ -531,8 +594,9 @@ class ToolkitSession:
             raise ValueError("session_budget_exceeded")
         self._delegated = True
         self.events.append({"route": "jev"})
+        delegated = _DelegatedWorkflow(self)
         result = AgentLoop().run(
-            self.task,
+            delegated,
             goal=self.ctx.goal,
             inputs=self.ctx.inputs,
             context=self.ctx.facts,
@@ -541,10 +605,13 @@ class ToolkitSession:
             timeout_seconds=remaining,
             archive=self.archive,
         )
+        if delegated.context is not None:
+            self.ctx = delegated.context
         self.steps += result["steps"]
         self._uncertain = result["status"] == "execution_uncertain"
-        if hasattr(self.task, "artifact_receipt"):
-            result["artifact"] = self.task.artifact_receipt()
+        materialized = self.task._task if isinstance(self.task, TaskScript) else self.task
+        if hasattr(materialized, "artifact_receipt"):
+            result["artifact"] = materialized.artifact_receipt()
         return result
 
 

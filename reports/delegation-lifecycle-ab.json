@@ -1,0 +1,3131 @@
+{
+  "mode": "offline-scripted-delegation-lifecycle",
+  "baseline_commit": "79d383dcf9ffedc535dc5182bfe5a17147f7e950",
+  "candidate": "working-tree source snapshot at invocation",
+  "baseline_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "d4c9bc9d06cc7efa90b0ca107982f5948ac9edf0f2fd09414960cd49bb5a25c5",
+    "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+    "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+    "src/apixly_jev_harness/mcp.py": "533f61ac087e2002e9e8b045931bdd46f87e585a20173fd85adbb8c018189f96",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+    "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+    "src/apixly_jev_harness/toolkit.py": "b5ed293945977dc83eaf0b97c42f024ecf71311bb86dbb6cb32da3ed05655cf8",
+    "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+    "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+    "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+  },
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+    "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+    "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+    "src/apixly_jev_harness/mcp.py": "533f61ac087e2002e9e8b045931bdd46f87e585a20173fd85adbb8c018189f96",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+    "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+    "src/apixly_jev_harness/toolkit.py": "1870a049eca7309b5fc54fa002078e67e460d11aa36b688bb9d6e3fff96f3d0e",
+    "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+    "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+    "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f"
+  },
+  "runner_sha256": "d80b01cb66d2d0e1b38a76e0b42a3a992b4faf3e82487fe2b5ac72242f15e846",
+  "python_version": "3.14.2",
+  "cases": {
+    "lazy_artifact_receipt": {
+      "group": "handoff_fix"
+    },
+    "contextual_observation": {
+      "group": "context_fix"
+    },
+    "lazy_joint_admission": {
+      "group": "admission_fix"
+    },
+    "completion_contract": {
+      "group": "completion_metadata"
+    },
+    "plain_staged_compatibility": {
+      "group": "compatibility"
+    },
+    "review_unknown_usage": {
+      "group": "compatibility",
+      "unknown_scripted_usage": true
+    }
+  },
+  "compatibility_parity": true,
+  "compatibility_parity_fields": [
+    "status",
+    "complete",
+    "effects",
+    "artifact_writes",
+    "artifact_returned",
+    "artifact_independently_verified",
+    "forwarded_context_correct",
+    "scripted_decisions",
+    "scripted_requests",
+    "scripted_usage_complete",
+    "reported_scripted_usage",
+    "known_scripted_usage",
+    "unknown_scripted_usage_calls"
+  ],
+  "scope": "Six fixed lifecycle fixtures, three paired repeats with alternating arm order. Real Engine/Task/ToolkitSession callbacks, registered operations, independent artifact byte/source checks and journal flush/fsync are exercised. Engine.decide returns scripted IDs, not semantic inference. Baseline whole package is materialized with git show; both packages run in isolated processes. Source hashes are not imported-bytecode attestations. No browser/desktop/model operations occur; real network and native/provider inference guards are installed.",
+  "timing": "Real perf_counter covers task/factory/session construction, callback dispatch, scripted decisions, registered local operations, artifact fd writes/fsync, journal flush/fsync, verification and followup observation. It excludes subprocess/interpreter imports, source snapshot setup, patch installation and terminal metric/source-hash analysis.",
+  "context_metrics": "Shared context and selection-input bytes are sums over scripted decision callbacks. Returned bytes cover canonicalized terminal plus followup packets, with local paths replaced and timing fields omitted. Byte counts are not tokens or billable cost.",
+  "negative_results": "New completion metadata and artifact forwarding add returned/context bytes and local checks; those costs are reported rather than claimed as a speed or quality benefit. Earlier lazy-joint rejection changes status and skips one deliberately scripted effect/decision. A baseline missing receipt is a handoff failure, not failed artifact creation. Context transfer improves lifecycle observation, not a direct/Jev route switch or durable resume. Timings are local small synthetic samples; no semantic correctness, model speed, autonomous adoption, token savings, tariff conversion or invoice advantage is established. Unknown scripted usage remains null and distinct from actual zero model calls.",
+  "reproduction": "python benchmarks/delegation_lifecycle.py --output local-results/delegation-lifecycle-ab.json",
+  "cost_conversion": "Actual model usage is zero only when forbidden native/network guards remain zero. Scripted known and unknown usage is retained separately; no current tariff or financial conversion is assumed.",
+  "summary": {
+    "baseline": {
+      "runs": 18,
+      "correct": 6,
+      "groups": {
+        "admission_fix": {
+          "runs": 3,
+          "correct": 0
+        },
+        "compatibility": {
+          "runs": 6,
+          "correct": 6
+        },
+        "completion_metadata": {
+          "runs": 3,
+          "correct": 0
+        },
+        "context_fix": {
+          "runs": 3,
+          "correct": 0
+        },
+        "handoff_fix": {
+          "runs": 3,
+          "correct": 0
+        }
+      },
+      "effects": 30,
+      "artifact_writes": 12,
+      "scripted_decisions": 24,
+      "unknown_scripted_usage_rows": 3,
+      "observe_callbacks": 111,
+      "verify_callbacks": 69,
+      "returned_context_bytes": 31143,
+      "shared_context_bytes": 22135,
+      "selection_input_bytes": 47374,
+      "median_whole_operation_seconds": 0.001958729510079138,
+      "native_inference_attempts": 0,
+      "real_network_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    "candidate": {
+      "runs": 18,
+      "correct": 18,
+      "groups": {
+        "admission_fix": {
+          "runs": 3,
+          "correct": 3
+        },
+        "compatibility": {
+          "runs": 6,
+          "correct": 6
+        },
+        "completion_metadata": {
+          "runs": 3,
+          "correct": 3
+        },
+        "context_fix": {
+          "runs": 3,
+          "correct": 3
+        },
+        "handoff_fix": {
+          "runs": 3,
+          "correct": 3
+        }
+      },
+      "effects": 27,
+      "artifact_writes": 9,
+      "scripted_decisions": 21,
+      "unknown_scripted_usage_rows": 3,
+      "observe_callbacks": 102,
+      "verify_callbacks": 63,
+      "returned_context_bytes": 31851,
+      "shared_context_bytes": 22174,
+      "selection_input_bytes": 45031,
+      "median_whole_operation_seconds": 0.0016700419946573675,
+      "native_inference_attempts": 0,
+      "real_network_attempts": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "lazy_artifact_receipt",
+      "fixture": {
+        "group": "handoff_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "factory_calls": 1,
+        "artifact_writes": 1,
+        "effects": 3
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 3,
+        "artifact_returned": false,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "1beeba33671d3d5d3f95a69c78a4b30de5e790f3fc9d9d80912f9b1571e8102e",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 3,
+        "scripted_requests": 3,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "known_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 808,
+            "selection_input_bytes": 1901
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 1675,
+            "selection_input_bytes": 3276
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 2656,
+            "selection_input_bytes": 4424
+          }
+        ],
+        "journal_intents": 3,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 8,
+        "verify_callbacks": 5,
+        "candidate_callbacks": 3,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.004229166981531307,
+      "returned_context_bytes": 2884,
+      "shared_context_bytes": 5139,
+      "selection_input_bytes": 9601,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "lazy_artifact_receipt",
+      "fixture": {
+        "group": "handoff_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "factory_calls": 1,
+        "artifact_writes": 1,
+        "effects": 3
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "1beeba33671d3d5d3f95a69c78a4b30de5e790f3fc9d9d80912f9b1571e8102e",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 3,
+        "scripted_requests": 3,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "known_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 952,
+            "selection_input_bytes": 2045
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 1818,
+            "selection_input_bytes": 3419
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 2792,
+            "selection_input_bytes": 4560
+          }
+        ],
+        "journal_intents": 3,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 8,
+        "verify_callbacks": 5,
+        "candidate_callbacks": 3,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.005943166004726663,
+      "returned_context_bytes": 3230,
+      "shared_context_bytes": 5562,
+      "selection_input_bytes": 10024,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "lazy_artifact_receipt",
+      "fixture": {
+        "group": "handoff_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "factory_calls": 1,
+        "artifact_writes": 1,
+        "effects": 3
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "1beeba33671d3d5d3f95a69c78a4b30de5e790f3fc9d9d80912f9b1571e8102e",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 3,
+        "scripted_requests": 3,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "known_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 953,
+            "selection_input_bytes": 2046
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 1820,
+            "selection_input_bytes": 3421
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 2793,
+            "selection_input_bytes": 4561
+          }
+        ],
+        "journal_intents": 3,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 8,
+        "verify_callbacks": 5,
+        "candidate_callbacks": 3,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.005234874988673255,
+      "returned_context_bytes": 3230,
+      "shared_context_bytes": 5566,
+      "selection_input_bytes": 10028,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "lazy_artifact_receipt",
+      "fixture": {
+        "group": "handoff_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "factory_calls": 1,
+        "artifact_writes": 1,
+        "effects": 3
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 3,
+        "artifact_returned": false,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "1beeba33671d3d5d3f95a69c78a4b30de5e790f3fc9d9d80912f9b1571e8102e",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 3,
+        "scripted_requests": 3,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "known_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 809,
+            "selection_input_bytes": 1902
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 1676,
+            "selection_input_bytes": 3277
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 2655,
+            "selection_input_bytes": 4423
+          }
+        ],
+        "journal_intents": 3,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 8,
+        "verify_callbacks": 5,
+        "candidate_callbacks": 3,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.00488495800527744,
+      "returned_context_bytes": 2884,
+      "shared_context_bytes": 5140,
+      "selection_input_bytes": 9602,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "lazy_artifact_receipt",
+      "fixture": {
+        "group": "handoff_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "factory_calls": 1,
+        "artifact_writes": 1,
+        "effects": 3
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 3,
+        "artifact_returned": false,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "1beeba33671d3d5d3f95a69c78a4b30de5e790f3fc9d9d80912f9b1571e8102e",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 3,
+        "scripted_requests": 3,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "known_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 807,
+            "selection_input_bytes": 1900
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 1677,
+            "selection_input_bytes": 3278
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 2656,
+            "selection_input_bytes": 4424
+          }
+        ],
+        "journal_intents": 3,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 8,
+        "verify_callbacks": 5,
+        "candidate_callbacks": 3,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0035661669971887022,
+      "returned_context_bytes": 2884,
+      "shared_context_bytes": 5140,
+      "selection_input_bytes": 9602,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "lazy_artifact_receipt",
+      "fixture": {
+        "group": "handoff_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "factory_calls": 1,
+        "artifact_writes": 1,
+        "effects": 3
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "1beeba33671d3d5d3f95a69c78a4b30de5e790f3fc9d9d80912f9b1571e8102e",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 3,
+        "scripted_requests": 3,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "known_scripted_usage": {
+          "input_tokens": 21,
+          "output_tokens": 6
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 953,
+            "selection_input_bytes": 2046
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 1820,
+            "selection_input_bytes": 3421
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 2793,
+            "selection_input_bytes": 4561
+          }
+        ],
+        "journal_intents": 3,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 8,
+        "verify_callbacks": 5,
+        "candidate_callbacks": 3,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.005746834009187296,
+      "returned_context_bytes": 3230,
+      "shared_context_bytes": 5566,
+      "selection_input_bytes": 10028,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "contextual_observation",
+      "fixture": {
+        "group": "context_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_step": 1,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": 0,
+        "followup_complete": false,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 408,
+            "selection_input_bytes": 1200
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001388792006764561,
+      "returned_context_bytes": 1173,
+      "shared_context_bytes": 408,
+      "selection_input_bytes": 1200,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "contextual_observation",
+      "fixture": {
+        "group": "context_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_step": 1,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 408,
+            "selection_input_bytes": 1200
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001457917009247467,
+      "returned_context_bytes": 1172,
+      "shared_context_bytes": 408,
+      "selection_input_bytes": 1200,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "contextual_observation",
+      "fixture": {
+        "group": "context_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_step": 1,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 408,
+            "selection_input_bytes": 1200
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012913749960716814,
+      "returned_context_bytes": 1172,
+      "shared_context_bytes": 408,
+      "selection_input_bytes": 1200,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "contextual_observation",
+      "fixture": {
+        "group": "context_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_step": 1,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": 0,
+        "followup_complete": false,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 408,
+            "selection_input_bytes": 1200
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0010172500042244792,
+      "returned_context_bytes": 1173,
+      "shared_context_bytes": 408,
+      "selection_input_bytes": 1200,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "contextual_observation",
+      "fixture": {
+        "group": "context_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_step": 1,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": 0,
+        "followup_complete": false,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 408,
+            "selection_input_bytes": 1200
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0012144999927841127,
+      "returned_context_bytes": 1173,
+      "shared_context_bytes": 408,
+      "selection_input_bytes": 1200,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "contextual_observation",
+      "fixture": {
+        "group": "context_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_step": 1,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": 1,
+        "followup_complete": true,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 408,
+            "selection_input_bytes": 1200
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001484790991526097,
+      "returned_context_bytes": 1172,
+      "shared_context_bytes": 408,
+      "selection_input_bytes": 1200,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "lazy_joint_admission",
+      "fixture": {
+        "group": "admission_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "failed",
+        "effects": 0,
+        "scripted_decisions": 0,
+        "factory_calls": 1,
+        "artifact_writes": 0
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "03ee1462eb57a1d3e504eca56624c2348d2ffea2b6859364e71619806ac6795a",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": null,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 412,
+            "selection_input_bytes": 1206
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 3,
+        "verify_callbacks": 2,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0031093340076040477,
+      "returned_context_bytes": 727,
+      "shared_context_bytes": 412,
+      "selection_input_bytes": 1206,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "lazy_joint_admission",
+      "fixture": {
+        "group": "admission_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "failed",
+        "effects": 0,
+        "scripted_decisions": 0,
+        "factory_calls": 1,
+        "artifact_writes": 0
+      },
+      "result": {
+        "status": "failed",
+        "complete": false,
+        "steps": 0,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": null,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 0,
+        "verify_callbacks": 0,
+        "candidate_callbacks": 0,
+        "execute_callbacks": 0,
+        "effects": 0,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0005980829882901162,
+      "returned_context_bytes": 466,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "lazy_joint_admission",
+      "fixture": {
+        "group": "admission_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "failed",
+        "effects": 0,
+        "scripted_decisions": 0,
+        "factory_calls": 1,
+        "artifact_writes": 0
+      },
+      "result": {
+        "status": "failed",
+        "complete": false,
+        "steps": 0,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": null,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 0,
+        "verify_callbacks": 0,
+        "candidate_callbacks": 0,
+        "execute_callbacks": 0,
+        "effects": 0,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010162079997826368,
+      "returned_context_bytes": 466,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "lazy_joint_admission",
+      "fixture": {
+        "group": "admission_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "failed",
+        "effects": 0,
+        "scripted_decisions": 0,
+        "factory_calls": 1,
+        "artifact_writes": 0
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "03ee1462eb57a1d3e504eca56624c2348d2ffea2b6859364e71619806ac6795a",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": null,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 412,
+            "selection_input_bytes": 1206
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 3,
+        "verify_callbacks": 2,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0013864590146113187,
+      "returned_context_bytes": 727,
+      "shared_context_bytes": 412,
+      "selection_input_bytes": 1206,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "lazy_joint_admission",
+      "fixture": {
+        "group": "admission_fix"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "failed",
+        "effects": 0,
+        "scripted_decisions": 0,
+        "factory_calls": 1,
+        "artifact_writes": 0
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "03ee1462eb57a1d3e504eca56624c2348d2ffea2b6859364e71619806ac6795a",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": null,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1205
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 3,
+        "verify_callbacks": 2,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0018860420095734298,
+      "returned_context_bytes": 727,
+      "shared_context_bytes": 411,
+      "selection_input_bytes": 1205,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "lazy_joint_admission",
+      "fixture": {
+        "group": "admission_fix"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "failed",
+        "effects": 0,
+        "scripted_decisions": 0,
+        "factory_calls": 1,
+        "artifact_writes": 0
+      },
+      "result": {
+        "status": "failed",
+        "complete": false,
+        "steps": 0,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": null,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 0,
+        "verify_callbacks": 0,
+        "candidate_callbacks": 0,
+        "execute_callbacks": 0,
+        "effects": 0,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010614159982651472,
+      "returned_context_bytes": 466,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "completion_contract",
+      "fixture": {
+        "group": "completion_metadata"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "partial_saved_report",
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "followup_complete": false,
+        "artifact_independently_verified": true
+      },
+      "result": {
+        "status": "partial_saved_report",
+        "complete": false,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "b83d8dcd8f6eab3c7163d1721db68f1164230adfe1c4c19637eebb50dae4d2fe",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 14,
+        "verify_callbacks": 7,
+        "candidate_callbacks": 7,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002962541999295354,
+      "returned_context_bytes": 2623,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "completion_contract",
+      "fixture": {
+        "group": "completion_metadata"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "partial_saved_report",
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "followup_complete": false,
+        "artifact_independently_verified": true
+      },
+      "result": {
+        "status": "partial_saved_report",
+        "complete": false,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "b83d8dcd8f6eab3c7163d1721db68f1164230adfe1c4c19637eebb50dae4d2fe",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 14,
+        "verify_callbacks": 7,
+        "candidate_callbacks": 7,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.003419082990149036,
+      "returned_context_bytes": 2775,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "completion_contract",
+      "fixture": {
+        "group": "completion_metadata"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "partial_saved_report",
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "followup_complete": false,
+        "artifact_independently_verified": true
+      },
+      "result": {
+        "status": "partial_saved_report",
+        "complete": false,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "b83d8dcd8f6eab3c7163d1721db68f1164230adfe1c4c19637eebb50dae4d2fe",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 14,
+        "verify_callbacks": 7,
+        "candidate_callbacks": 7,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0031077080057002604,
+      "returned_context_bytes": 2775,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "completion_contract",
+      "fixture": {
+        "group": "completion_metadata"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "partial_saved_report",
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "followup_complete": false,
+        "artifact_independently_verified": true
+      },
+      "result": {
+        "status": "partial_saved_report",
+        "complete": false,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "b83d8dcd8f6eab3c7163d1721db68f1164230adfe1c4c19637eebb50dae4d2fe",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 14,
+        "verify_callbacks": 7,
+        "candidate_callbacks": 7,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0027525000041350722,
+      "returned_context_bytes": 2623,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "completion_contract",
+      "fixture": {
+        "group": "completion_metadata"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "partial_saved_report",
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "followup_complete": false,
+        "artifact_independently_verified": true
+      },
+      "result": {
+        "status": "partial_saved_report",
+        "complete": false,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "b83d8dcd8f6eab3c7163d1721db68f1164230adfe1c4c19637eebb50dae4d2fe",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 14,
+        "verify_callbacks": 7,
+        "candidate_callbacks": 7,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.003016417002072558,
+      "returned_context_bytes": 2623,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "completion_contract",
+      "fixture": {
+        "group": "completion_metadata"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "partial_saved_report",
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "followup_complete": false,
+        "artifact_independently_verified": true
+      },
+      "result": {
+        "status": "partial_saved_report",
+        "complete": false,
+        "steps": 3,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "b83d8dcd8f6eab3c7163d1721db68f1164230adfe1c4c19637eebb50dae4d2fe",
+        "artifact_matches_records": true,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 3,
+        "followup_context_step": 3,
+        "forwarded_context_correct": false,
+        "completion_before": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "cause",
+            "proof"
+          ],
+          "report_matches_records": false,
+          "independent_check_required": true
+        },
+        "completion_after": {
+          "required_labels": [
+            "cause",
+            "proof"
+          ],
+          "missing_labels": [
+            "proof"
+          ],
+          "report_matches_records": true,
+          "independent_check_required": true
+        },
+        "scripted_decisions": 0,
+        "scripted_requests": 0,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "known_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [],
+        "journal_intents": 0,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 14,
+        "verify_callbacks": 7,
+        "candidate_callbacks": 7,
+        "execute_callbacks": 3,
+        "effects": 3,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0032817090104799718,
+      "returned_context_bytes": 2775,
+      "shared_context_bytes": 0,
+      "selection_input_bytes": 0,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "plain_staged_compatibility",
+      "fixture": {
+        "group": "compatibility"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "forwarded_context_correct": true,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "a1aa91756f9fece0a18da83a504ef851728d87ae4027cc2a7ff6402b4e8432ab",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": true,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1192
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 0,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013189590245019644,
+      "returned_context_bytes": 1426,
+      "shared_context_bytes": 411,
+      "selection_input_bytes": 1192,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "plain_staged_compatibility",
+      "fixture": {
+        "group": "compatibility"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "forwarded_context_correct": true,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "a1aa91756f9fece0a18da83a504ef851728d87ae4027cc2a7ff6402b4e8432ab",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": true,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 412,
+            "selection_input_bytes": 1193
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 0,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016714170051272959,
+      "returned_context_bytes": 1426,
+      "shared_context_bytes": 412,
+      "selection_input_bytes": 1193,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "plain_staged_compatibility",
+      "fixture": {
+        "group": "compatibility"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "forwarded_context_correct": true,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "a1aa91756f9fece0a18da83a504ef851728d87ae4027cc2a7ff6402b4e8432ab",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": true,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1192
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 0,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00141050000092946,
+      "returned_context_bytes": 1426,
+      "shared_context_bytes": 411,
+      "selection_input_bytes": 1192,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "plain_staged_compatibility",
+      "fixture": {
+        "group": "compatibility"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "forwarded_context_correct": true,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "a1aa91756f9fece0a18da83a504ef851728d87ae4027cc2a7ff6402b4e8432ab",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": true,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 412,
+            "selection_input_bytes": 1193
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 0,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0020736249862238765,
+      "returned_context_bytes": 1426,
+      "shared_context_bytes": 412,
+      "selection_input_bytes": 1193,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "plain_staged_compatibility",
+      "fixture": {
+        "group": "compatibility"
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "forwarded_context_correct": true,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "a1aa91756f9fece0a18da83a504ef851728d87ae4027cc2a7ff6402b4e8432ab",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": true,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1192
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 0,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016434169956482947,
+      "returned_context_bytes": 1426,
+      "shared_context_bytes": 411,
+      "selection_input_bytes": 1192,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "plain_staged_compatibility",
+      "fixture": {
+        "group": "compatibility"
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "done",
+        "forwarded_context_correct": true,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "effects": 1
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "steps": 1,
+        "artifact_returned": true,
+        "artifact_independently_verified": true,
+        "artifact_sha256": "a1aa91756f9fece0a18da83a504ef851728d87ae4027cc2a7ff6402b4e8432ab",
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": true,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": true,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 1,
+        "scripted_requests": 1,
+        "scripted_usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 0,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 410,
+            "selection_input_bytes": 1191
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 0,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 1,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00154658398241736,
+      "returned_context_bytes": 1426,
+      "shared_context_bytes": 410,
+      "selection_input_bytes": 1191,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "review_unknown_usage",
+      "fixture": {
+        "group": "compatibility",
+        "unknown_scripted_usage": true
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "needs_review",
+        "effects": 1,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1
+      },
+      "result": {
+        "status": "needs_review",
+        "complete": false,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 2,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1203
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 596,
+            "selection_input_bytes": 1388
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 2,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.002031417010584846,
+      "returned_context_bytes": 1548,
+      "shared_context_bytes": 1007,
+      "selection_input_bytes": 2591,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "review_unknown_usage",
+      "fixture": {
+        "group": "compatibility",
+        "unknown_scripted_usage": true
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "needs_review",
+        "effects": 1,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1
+      },
+      "result": {
+        "status": "needs_review",
+        "complete": false,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 2,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1203
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 597,
+            "selection_input_bytes": 1389
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 2,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016904999793041497,
+      "returned_context_bytes": 1548,
+      "shared_context_bytes": 1008,
+      "selection_input_bytes": 2592,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "review_unknown_usage",
+      "fixture": {
+        "group": "compatibility",
+        "unknown_scripted_usage": true
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "needs_review",
+        "effects": 1,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1
+      },
+      "result": {
+        "status": "needs_review",
+        "complete": false,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 2,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 412,
+            "selection_input_bytes": 1204
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 596,
+            "selection_input_bytes": 1388
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 2,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001668666984187439,
+      "returned_context_bytes": 1548,
+      "shared_context_bytes": 1008,
+      "selection_input_bytes": 2592,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "review_unknown_usage",
+      "fixture": {
+        "group": "compatibility",
+        "unknown_scripted_usage": true
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "needs_review",
+        "effects": 1,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1
+      },
+      "result": {
+        "status": "needs_review",
+        "complete": false,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 2,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1203
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 596,
+            "selection_input_bytes": 1388
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 2,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013767920027021319,
+      "returned_context_bytes": 1548,
+      "shared_context_bytes": 1007,
+      "selection_input_bytes": 2591,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "review_unknown_usage",
+      "fixture": {
+        "group": "compatibility",
+        "unknown_scripted_usage": true
+      },
+      "runtime_version": "0.2.0",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "needs_review",
+        "effects": 1,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1
+      },
+      "result": {
+        "status": "needs_review",
+        "complete": false,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 0,
+        "followup_context_step": 0,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 2,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 412,
+            "selection_input_bytes": 1204
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 597,
+            "selection_input_bytes": 1389
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 2,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016828750085551292,
+      "returned_context_bytes": 1548,
+      "shared_context_bytes": 1009,
+      "selection_input_bytes": 2593,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "review_unknown_usage",
+      "fixture": {
+        "group": "compatibility",
+        "unknown_scripted_usage": true
+      },
+      "runtime_version": "0.2.1",
+      "runtime_loaded_from_requested_source": true,
+      "expected": {
+        "status": "needs_review",
+        "effects": 1,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1
+      },
+      "result": {
+        "status": "needs_review",
+        "complete": false,
+        "steps": 1,
+        "artifact_returned": false,
+        "artifact_independently_verified": null,
+        "artifact_sha256": null,
+        "artifact_matches_records": null,
+        "followup_results": null,
+        "followup_complete": false,
+        "followup_context_results": 1,
+        "followup_context_step": 1,
+        "forwarded_context_correct": false,
+        "completion_before": null,
+        "completion_after": null,
+        "scripted_decisions": 2,
+        "scripted_requests": 2,
+        "scripted_usage_complete": false,
+        "reported_scripted_usage": null,
+        "known_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "unknown_scripted_usage_calls": 1,
+        "request_sizes": [
+          {
+            "stage": "tool_selection",
+            "context_bytes": 411,
+            "selection_input_bytes": 1203
+          },
+          {
+            "stage": "tool_selection",
+            "context_bytes": 596,
+            "selection_input_bytes": 1388
+          }
+        ],
+        "journal_intents": 1,
+        "factory_calls": 1,
+        "task_constructs": 1,
+        "observe_callbacks": 4,
+        "verify_callbacks": 3,
+        "candidate_callbacks": 2,
+        "execute_callbacks": 1,
+        "effects": 1,
+        "artifact_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.002132416993845254,
+      "returned_context_bytes": 1548,
+      "shared_context_bytes": 1007,
+      "selection_input_bytes": 2591,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

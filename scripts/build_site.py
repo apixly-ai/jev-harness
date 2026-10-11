@@ -589,6 +589,8 @@ def main():
         "toolkit-live-2026-10-11.json",
         "toolkit-fixtures.json",
         "toolkit-protocol-ab.json",
+        "lazy-delegation-live.json",
+        "delegation-lifecycle-ab.json",
         "geo-bilingual-2026-10-11.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)

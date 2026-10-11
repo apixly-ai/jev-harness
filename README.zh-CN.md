@@ -10,7 +10,7 @@
 主 AI 定义工具能力、动态参数提供器、观测与完成检查；Jev 根据目标、准入对话、
 新现场和历史选择下一项工具与参数。程序执行、刷新现场并独立验证结果。
 工具权限和资源预算由程序控制，探索路径由 Jev 根据新观察选择。
-这是 Apixly 独立社区项目，当前运行时版本为 0.2.0。
+这是 Apixly 独立社区项目，当前运行时版本为 0.2.1。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -66,7 +66,7 @@ verifier 核验的已保存报告。[调研](examples/research_task.py)和
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.1'
 jev-harness spec
 jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
@@ -74,7 +74,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Investigate source evidence and save categorized quotes' --inputs '{"root":"permitted-corpus","queries":["relevant_identifier"],"markers":{"implementation":"<source marker>"},"output":"local-results/report.json"}'
 ```
 
-仅在开发时将 @v0.2.0 换成 @main。把示意输入替换成允许的来源与引用判定条件。
+仅在开发时将 @v0.2.1 换成 @main。把示意输入替换成允许的来源与引用判定条件。
 Marker 检查演示接入点，业务正确性由调用方 verifier 负责。
 
 主 AI 需要接入时，可用 python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...

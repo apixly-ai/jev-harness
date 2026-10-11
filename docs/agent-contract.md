@@ -15,13 +15,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.2.0 for a reproducible release;
+package downloads still require network access. Pin v0.2.1 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.0'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.1'
 jev-harness spec
 jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
