@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.14 for a reproducible release;
+package downloads still require network access. Pin v0.1.15 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -262,6 +262,26 @@ See the [provider-signature A/B](../reports/provider-signature-ab.json) for the 
 Task registration preserves a dynamic provider callable's identity, including its bound
 client, lock and state, while deep-copying static choices. Whenever a step needs the
 provider's domain, it invokes the provider afresh; no provider result is cached.
+
+For each domain acquisition, `_domain` checks duplicate IDs and its existing size limit,
+then deep-copies the complete option list before handing it to selection. This isolates
+ordinary `Option` values and raw dictionary/list values from later mutations to the
+provider's shared source while the choice waits. The actual bound value comes from this
+domain snapshot rather than a source reference changed during selection. Both default
+staged binding and joint catalogs retain their interfaces; the snapshot is per acquired
+domain, not a promise to reuse one menu across every later binding step.
+
+Providers retain identity and are called again whenever a domain is needed. No result
+cache, atomic provider acquisition, global freshness guard or sandbox is added. Deepcopy
+adds time and memory overhead based on the object structure of all candidate values,
+including unselected ones. Immutable strings may be retained; serialized JSON bytes
+do not measure new heap allocation. A custom deepcopy can fail or execute trusted
+Python behavior; its behavior is not proven. An unselected failure can therefore move
+an earlier-successful flow to an earlier failed
+or blocked result. Existing failure/unknown-usage handling and execution permissions
+remain. Caller tools still own business freshness and identity. See the
+[parameter-snapshot A/B](../reports/parameter-snapshots-ab.json); no speed or fee guarantee
+follows from copying.
 
 `depends_on=('customer',)` constructs the job domain only after customer is selected.
 The graph must be acyclic and name existing parameters. Describe a parameter for the

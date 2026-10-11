@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.14，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.15，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.14 版本？
+## 如何安装准确的 v0.1.15 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -72,6 +72,13 @@ Provider 参数数量判断以 follow_wrapped=False 获取入口签名，尊重�
 签名，也不证明所有 decorator 的元数据/函数体行为。模糊包装器应使用明确的两/三参数
 入口或准确 Signature。见[provider 证据](../reports/provider-signature-ab.json)，
 不声称异步支持、提速或降费。
+
+完整参数候选域在重复 ID/数量检查后、选择之前深拷贝，避免该次等待中共享来源修改
+替换普通 Option/dict/list 实际值。Provider 保留身份并继续每次新调用，不缓存结果；
+采集并未原子化，也不证明全局/业务 freshness。自定义 deepcopy 即使来自未选值也
+可能失败，完整域复制按全部候选值的对象结构增加时间/内存开销，失败和未知用量
+保留。见
+[快照证据](../reports/parameter-snapshots-ab.json)，不承诺提速或省费。
 
 <a id="suitable-tasks"></a>
 

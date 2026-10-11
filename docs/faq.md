@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.14. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.15. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.14 release?
+## How do I install the exact v0.1.15 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -82,6 +82,15 @@ This preserves transparent two-argument forwarding while supporting explicit bri
 it does not change Task.tool signatures or prove every decorator's metadata/body behavior.
 For ambiguous wrappers use a clear two/three-argument entry or accurate Signature. See the
 [provider evidence](../reports/provider-signature-ab.json); no async, speed or savings claim.
+
+Each complete parameter domain is deep-copied after duplicate-ID/size checks and before
+selection, so shared source mutation does not replace an ordinary Option/dict/list value
+while that choice waits. Providers remain fresh calls with their original identity, not
+a cache. It does not make acquisition atomic or prove global/business freshness, and
+custom deepcopy may fail even on an unselected value. Complete-domain copying costs
+additional time/memory based on all candidate values' object structure; failures and
+unknown usage remain. See the
+[snapshot evidence](../reports/parameter-snapshots-ab.json), without a speed or fee promise.
 
 <a id="suitable-tasks"></a>
 

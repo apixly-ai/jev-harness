@@ -154,7 +154,9 @@ class Task(Workflow):
             raise ValueError("duplicate_option_ids")
         if len(options) > 253:
             raise DecisionStop("needs_review", "parameter_domain_too_large")
-        return options
+        # Keep the values offered for this selection stable while inference waits.
+        # Providers still run afresh; copying is neither caching nor atomic acquisition.
+        return copy.deepcopy(options)
 
     def describe(self):
         return {

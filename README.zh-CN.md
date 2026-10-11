@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.14，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.15，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.14` 换成 `@main`。
+仅在开发时将 `@v0.1.15` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -113,6 +113,13 @@ Option(id, description, value) 分离模型可见语义与实际值。只有一�
 其余由 Jev 选择，不凭空生成参数。
 Task 注册保留动态 provider 身份及绑定的 client/lock/state，静态候选仍深拷贝。
 每步需要其候选域时重新调用 provider，不缓存结果。
+
+重复 ID/数量检查后，每次完整参数候选域在交给选择前深拷贝。普通 Option 值及
+原始 dict/list 值与该次选择期间的后续来源修改隔离，避免实际绑定值被改成另一份。
+Provider 仍重新调用并保留身份，默认 staged 与 joint 接口仍支持。这不是原子采集、
+全局 freshness 或沙箱。复制按全部候选值的对象结构增加时间/内存开销，未选候选的
+自定义 deepcopy 失败也可能更早停止任务。失败和未知用量保留，不承诺提速或省费。见
+[参数快照 A/B](reports/parameter-snapshots-ab.json)。
 
 回调必须声明为同步；已知 coroutine、async-generator 和 generator 回调会在不调用
 函数体的情况下被拒绝。Workflow.candidates 的同步 generator 和显式阻塞包装仍支持。

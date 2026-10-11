@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.14. Install the repository at `@v0.1.14` for a reproducible release;
+Contract version: 0.1.15. Install the repository at `@v0.1.15` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -86,6 +86,15 @@ chains, without inspect.unwrap/__wrapped__, preserving explicit synchronous bloc
 wrappers; ordinary wrapper return types cannot be statically proved. Task registration
 preserves dynamic provider identity and bound client/lock/state, deep-copies static
 choices, and calls the provider afresh when a step needs its domain, without result caching.
+Each acquired parameter domain is deep-copied in full after duplicate-ID/size checks and
+before selection. Ordinary Option and raw dict/list values are isolated from later source
+mutation during that choice; bind from the snapshot. Staged/joint interfaces remain.
+Providers retain identity and still run afresh; this is not caching, atomic acquisition,
+global freshness or a sandbox. Copy time/memory overhead depends on all candidate
+values' object structure, including unselected ones; custom deepcopy can execute
+trusted behavior or fail earlier, even before selection; its behavior is not proven.
+Preserve those failures and unknown prior usage; caller tools own
+business freshness/identity. See reports/parameter-snapshots-ab.json; no speed/fee guarantee.
 Choice providers must bind (ctx, observation) or (ctx, observation, bound_arguments);
 optional keyword-only arguments are allowed. Inspect the entry signature with
 follow_wrapped=False, respecting explicit __signature__. No *args, or at least three

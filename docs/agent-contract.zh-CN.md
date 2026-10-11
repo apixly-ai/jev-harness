@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.14 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.15 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -246,6 +246,21 @@ provider_signature_unsupported、callback 为 choices。Partial 和可调用对�
 任务注册会保留动态提供函数的 callable 身份，包括其绑定的 client、锁和状态，
 同时对静态候选进行深拷贝。每当一个步骤需要提供函数的候选域时，都重新调用该函数；
 提供函数的结果没有缓存。
+
+每次采集候选域时，_domain 先检查重复 ID 及原有数量上限，再把完整 option 列表
+深拷贝后交给选择。普通 Option 和原始 dict/list 值与 provider 共享来源在等待
+选择期间的后续修改隔离，实际绑定值来自这次候选域快照，而不是选择中被修改的来源
+引用。默认 staged 与 joint 调用目录保留接口；这是逐次候选域快照，不保证所有后续
+绑定步骤复用同一个菜单。
+
+Provider 身份保留，需要候选域时仍重新调用。不增加结果缓存、provider 原子采集、
+全局 freshness 或沙箱。Deepcopy 按全部候选值的对象结构增加时间/内存开销，包括
+未选值；
+不可变字符串可能沿用，序列化 JSON 字节数不表示新增堆内存。
+自定义 deepcopy 可失败或执行可信 Python，其行为未获证明。因此未选值的复制失败也可能让先前成功
+流程更早 failed/阻塞。既有失败/未知用量处理及执行权限保留，业务 freshness 与身份
+仍由调用方工具负责。见[参数快照 A/B](../reports/parameter-snapshots-ab.json)，复制不
+带来提速或降费保证。
 
 `depends_on=('customer',)` 仅在选定 customer 之后构造 job 候选域。依赖图必须无环，
 并引用已存在的参数。描述参数时，应面向已选工具的下一次调用；不要要求一个值完成

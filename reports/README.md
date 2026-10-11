@@ -698,3 +698,69 @@ python benchmarks/verification_types.py --output local-results/verification-type
 Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
 operation, locked-desktop retry or URL submission was repeated. Historical signature,
 transport and GEO claims retain their scope; native desktop acceptance remains unverified.
+
+## Parameter candidate snapshots (0.1.15)
+
+After duplicate-ID/size checks, `_domain` deep-copies the complete candidate list before
+selection. Ordinary existing `Option` and raw dict/list values no longer share mutable
+source references that can change the bound value while the choice waits. Each provider
+still runs afresh with identity intact; staged and joint interfaces remain. This is per
+domain acquisition, not caching, atomic acquisition, global freshness or a sandbox.
+
+The [snapshot A/B](parameter-snapshots-ab.json) compares baseline commit
+`ad86eb02098b0a1ed0f1dc114e55ea735d97e068` with the candidate on 20 fixed synthetic
+fixtures, three paired repeats with alternating arm order: 120 rows, 60 per arm. In the
+seven mutation fixtures, scripted selection pauses while a materialized domain's source
+changes. Independent observed target and full argument digest must match the described
+synthetic value. Baseline executions use the changed value, produce one wrong simulated
+effect and reach `max_steps`; candidate executions bind the offered snapshot and finish.
+This tests candidate/value consistency, not AI semantic quality or real UI acceptance.
+
+| Measurement | Baseline | Candidate |
+|---|---:|---:|
+| Mutation-fixture target matches description | 0/21 | 21/21 |
+| Compatibility, limits and copy-cost expected outcomes | 36/36 | 36/36 |
+| Each arm's own expected outcomes across the full matrix | 39/60 | 60/60 |
+| Simulated effects / scripted decisions | 54 / 111 | 51 / 108 |
+| Rows with unknown scripted usage | 9 | 9 |
+| Serialized source-record bytes | 2,825,790 | 2,825,790 |
+| Record-description / selection-input / shared-context bytes | 37,764 / 233,010 / 54,921 | 37,605 / 228,075 / 52,410 |
+| Returned context bytes | 53,829 | 52,980 |
+| Mixed-fixture median whole-operation time | 1.802 ms | 1.800 ms |
+| 16-option, 5,000-integer-per-option median whole-operation time | 6.329 ms | 13.480 ms |
+
+Paired behavior parity holds for the 36 compatibility/limits/copy-cost rows, not the
+whole matrix. Three unselected-copy-hook rows deliberately narrow compatibility:
+baseline selects the good value and finishes with one effect/two scripted decisions;
+candidate calls the failing hook once and stops `failed` before execution with one
+scripted decision. Both conform to their distinct expected outcomes and keep prior
+usage `None`. Thus 39/60 → 60/60 is per-arm conformance, including this earlier failure,
+not a general success rate. The three fewer effects/decisions come from that failure;
+they do not demonstrate fee savings. Provider counts remain parent 6, first 6 and target
+99 per arm, including fresh domains after tool/earlier-parameter waits.
+
+Copy time/memory overhead depends on all candidate values' object structure, including
+unselected ones. The large-domain median adds about 7.151 ms; the mixed median does not
+establish a speed benefit. Returned bytes fall 849 because terminal/phase outcomes
+change, not because copying saves context. Immutable strings may be retained; source
+JSON bytes are serialized representations, not new heap bytes. Trusted deepcopy hooks
+can run or fail; there is no aliased-domain fallback. Mutation during concurrent copying
+was not tested. Snapshots do not make acquisition atomic, freeze staged previews, cache
+later domains, prove target freshness or replace authorization/independent verification.
+
+Native inference, real HTTP/model/UI calls and the fixed private-value exposure check
+are zero. Known/unknown scripted usage is separate from actual model usage; unknown
+rows remain unknown. No tariff, quality, speed or fee benefit is assumed. Real
+`perf_counter` timing includes registration/admission, fresh provider calls, scalar
+source-size collection, copying, scripted selection, binding/effects, verification and
+private journal flush/fsync. It excludes process/import/fixture construction and
+post-call analysis/source hashing; only the loop budget clock is frozen. Reproduce from
+a full Git checkout with `.[dev]` and a new output path:
+
+```sh
+python benchmarks/parameter_snapshots.py --output local-results/parameter-snapshots-ab.json
+```
+
+No paid model matrix, browser operation, locked-desktop retry or URL submission was
+repeated. Historical verification, signature, transport and GEO evidence retain their
+existing scope; native desktop acceptance remains unverified.

@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.14**; no promise of general task success or universal savings.
+AI product. Early **0.1.15**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.14` only for active development.
+Use `@main` instead of `@v0.1.15` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -129,6 +129,17 @@ without inference. Parameters are selected from supplied candidates, never inven
 Task registration preserves dynamic provider identity and its bound client/lock/state,
 while deep-copying static choices. Providers are called afresh when a step needs their
 domain; results are not cached.
+
+After duplicate-ID/size checks, each complete parameter domain is deep-copied before
+selection. Ordinary `Option` values and raw dictionary/list values are isolated from
+later source mutation during that selection, preventing a changed value from replacing
+the offered one. Providers still run afresh and retain their identity; staged and joint
+interfaces remain supported. This is not atomic acquisition, global freshness or a
+sandbox. Copying adds time/memory overhead based on all candidate values' object
+structure, and an unselected custom deepcopy failure can now stop the task earlier.
+Failures and unknown usage are
+retained; no speed or fee benefit is promised. See the
+[parameter-snapshot A/B](reports/parameter-snapshots-ab.json).
 
 Callbacks must declare synchronous behavior; known coroutine, async-generator and
 generator callbacks are rejected without invoking their bodies. Synchronous generator
