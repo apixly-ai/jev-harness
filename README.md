@@ -4,23 +4,42 @@
 
 [简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [FAQ](docs/faq.md) · [Use cases](docs/use-cases.md) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
 
-**Write a task. Register tools. Let Jev choose the next call and its parameters.**
+**Give an open goal. Let AI define the tools. Let Jev explore the next step.**
 
-Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives Jev the
-explicit goal, admitted conversation, current observation, execution history and tool
-contracts. Jev chooses a tool and parameter candidates; code executes and independently
-verifies completion. Independent community project by Apixly, not an official TypeSafe
+Jev Harness runs AI-authored task scripts for goals whose route may be unknown. The
+primary AI defines tool capabilities, fresh parameter providers, observation and completion
+checks. Jev uses the goal, admitted conversation, new state and history to choose the next
+tool and arguments. Code executes, refreshes the state and checks completion. Bounds
+concern permissions and resources, not a predefined route. Independent community project by Apixly, not an official TypeSafe
 AI product. Early **0.1.17**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
 installation URL; the PyPI name jev-harness belongs to an unrelated project.
 
-## See the loop in action
+## Open goals are the main use case
 
-[Interactive homepage & video](https://apixly-ai.github.io/jev-harness/#showcase) · [Download MP4 replay](web/media/browser-demo.mp4)
+The script defines capabilities and checks; Jev decides the exploration path. Pages,
+files, resources and dependent arguments can be discovered while the loop runs.
 
-[![A blank travel form becomes an independently checked draft: Mira, London, flexible dates](web/media/browser-demo.gif)](https://apixly-ai.github.io/jev-harness/#showcase)
+| Goal | AI supplies | Jev decides | Evidence status |
+| --- | --- | --- | --- |
+| Find three applicable self-hosted tools through an unfamiliar catalog | Open/read/filter/collect/save tools and source checks | Which branch to inspect, which filters to bind, when evidence is sufficient | Designed flagship; live acceptance pending |
+| Diagnose a repository issue from source and recorded failure evidence | Allowed file/symbol/artifact tools and source checks | Which relationships and evidence to inspect | Designed extension; live acceptance pending |
+| Diagnose a task through a controlled API | Status/log/dependency/paging tools and independent readback | Which resource or dependency to inspect next | Designed extension; live acceptance pending |
+
+[Open-goal design and priorities](docs/open-goals.md) · [Case contracts](docs/use-cases.md)
+
+Dynamic providers already support unknown routes. General evidence-reference reads,
+recoverable missing-parameter exploration and broader browser discovery remain priorities.
+New text requires an explicit trusted generator or the primary AI. These designed cases
+are not new completion or cost/speed claims.
+
+## Historical integration evidence
+
+[Interactive homepage & video](https://apixly-ai.github.io/jev-harness/#browser-evidence) · [Download MP4 replay](web/media/browser-demo.mp4)
+
+[![A blank travel form becomes an independently checked draft: Mira, London, flexible dates](web/media/browser-demo.gif)](https://apixly-ai.github.io/jev-harness/#browser-evidence)
 
 This is a **screenshot replay** captured by headless Camofox from the original local
 fixture, with no new model calls. Historical v0.1.0 live Jev acceptance reached the final
@@ -102,7 +121,7 @@ Help behavior and SDK interrupts are unchanged. See the
 [output contract](docs/agent-contract.md#cli-task-output) and
 [offline A/B](reports/task-output-ab.json).
 
-## Define tools and parameter meaning
+## Minimal tool registration example
 
 ```python
 from apixly_jev_harness import Parameter, Task

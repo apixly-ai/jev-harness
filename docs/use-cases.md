@@ -1,14 +1,107 @@
 # Jev Harness use cases
 
-Jev Harness is Apixly’s independent Python runtime for bounded agent tasks. Your program
-supplies registered tools, parameter candidates and a completion check; Jev chooses the
-next tool and candidate references. The program executes and independently verifies the
-result. The examples below show three different seams of that contract.
+Jev Harness lets an AI define reusable tools and a goal, then delegate exploration to Jev.
+The route, relevant sources and later parameters can be unknown when the task starts.
+The AI writes tool, observation, completion and resource contracts; Jev decides which
+tool and parameters to use next, whether to continue, and when to stop. Code collects,
+executes and independently verifies the result.
 
-[Watch the interactive demos](https://apixly-ai.github.io/jev-harness/#showcase) ·
+[Historical demos](https://apixly-ai.github.io/jev-harness/#browser-evidence) ·
 [中文](use-cases.zh-CN.md) · [Task protocol](agent-contract.md)
 
-## Browser: prepare and verify a local travel draft
+The three cases below are **designs with acceptance pending**, not completed runs or
+bundled commands. Tool names illustrate interfaces the task author registers. Candidate
+lists are refreshed from observations and admitted results at each step; they do not
+require a complete route or a next-step router written by the AI.
+
+## Browser: research through an unknown multi-page route
+
+**Design; acceptance pending.** Give the task an entry URL and a goal such as: “Find three
+self-hosted tools that meet the supplied requirements and save a comparison with
+checkable sources.” The task discovers links, sections,
+filters and dependencies as it browses. Jev chooses whether to explore another source,
+read a detail, compare evidence or save the dossier.
+
+| Contract | Task definition |
+| --- | --- |
+| Input | Entry URL, goal, tool requirements, allowed sources and time/step budget |
+| Reusable tools | `discover`, `open`, `read`, `compare`, `collect_evidence`, `save_dossier` |
+| Dynamic parameters | Newly observed links, sections, source pairs and evidence references; child choices depend on the selected source/control |
+| Observation | Current page, discovered frontier, admitted evidence and unresolved prerequisites |
+| Completion | Three distinct tools, every supplied requirement supported by captured sources, and a saved comparison whose citations match those sources; missing support remains unresolved |
+
+For example, reading a source can reveal a prerequisite that was absent at startup;
+opening its reference exposes another parameter domain. Tool providers supply the
+currently usable candidates and preconditions. They do not choose the next branch.
+The same tools should work across different layouts and source paths.
+
+The acceptance design uses the **same script** against three blind portal variants:
+
+1. A successful route that discovers applicable tools through one set of sources.
+2. Another successful route with changed links and a prerequisite discovered only after
+   reading a page, requiring a different exploration trace.
+3. A missing-source variant that cannot establish the required evidence and must retain
+   gathered evidence and an unresolved terminal result.
+
+The task and its providers must not read the fixture answer or hidden route. An independent
+acceptance verifier checks sources and the saved artifact separately. Future real Jev and
+headless Camofox acceptance should retain newly discovered candidate sets, selected tool
+parameters, different route lengths, failed branches and actual model/usage evidence.
+Empty-domain or evidence-limit stops remain visible; this design does not assume automatic
+recovery. No real exploration result has been recorded for this case yet.
+
+## Repository: investigate a failure through read-only tools
+
+**Design; acceptance pending.** Given a repository entry and a test or CI failure, locate
+the relevant execution path and save an explanation with inspectable source evidence.
+The relevant files, symbols and hypotheses are discovered during the run.
+
+| Contract | Task definition |
+| --- | --- |
+| Input | Repository scope, recorded failure, investigation goal and resource budget |
+| Reusable tools | Search code, read files/symbols, inspect existing test/log artifacts, compare evidence and save a diagnosis |
+| Dynamic parameters | Paths, symbols, line windows and evidence references found by earlier reads |
+| Completion | Independently checked source revisions/citations and a saved diagnosis supported by the failure evidence; unresolved claims remain for review |
+
+The tools read code and existing artifacts without modifying the repository or executing
+its programs; the diagnosis is saved to a caller-owned output location outside the source
+tree. Jev chooses what to inspect next; the task author supplies no file-by-file route.
+Exact path filtering and extraction stay in code.
+
+## Controlled API: diagnose an incomplete task
+
+**Design; acceptance pending.** Starting from an authorized test-service entry, determine
+which prerequisite or state transition prevents a task from completing and save an
+evidence-backed diagnosis. Resource links, schemas, event pages and dependencies become
+known through responses.
+
+| Contract | Task definition |
+| --- | --- |
+| Input | Authorized service entry, task goal, read-only scope and resource budget |
+| Reusable tools | Discover resources, read status/schema/events, compare observations and save a diagnosis |
+| Dynamic parameters | Response-discovered resource IDs, schema references and pagination cursors; dependent choices follow the selected resource |
+| Completion | Independent service-state/event checks and a saved diagnosis linked to those observations |
+
+Jev selects which evidence to request and when enough is available. The program validates
+read operations and binds only supplied resources. Missing evidence remains unresolved;
+this case does not repair or mutate the service.
+
+## Candidate generation and exploration
+
+The current native loop selects candidate references; it has no builtin free-text
+generator. Queries, prose or new candidate structures can come from a registered trusted
+generator or the primary AI. Validate its output before admitting it to a candidate pool;
+Jev then chooses the tool and candidate to use. Generated text must not directly become
+executable code, commands or selectors. The primary AI authors or extends the contracts;
+it does not route every next step on Jev's behalf.
+
+## Historical connection evidence
+
+The earlier form and Counter show that tool selection, binding and execution were
+connected. They remain reproducible evidence with their original scope; they do not
+establish the three open-route designs above.
+
+### Browser: prepare and verify a local travel draft
 
 **Goal:** prepare a draft for Mira, traveling to London with flexible dates. The program
 owns the page, allowed origin, supplied values and authorization policy. The browser
@@ -44,7 +137,10 @@ it makes no model calls. Its [provenance manifest](../web/media/showcase.json) r
 fixture digest, media digests and verified fields. See [browser adapters](adapters.md)
 for the real task interface and caller authorization requirements.
 
-## Python: select a tool and bind an amount
+### Python: select a tool and bind an amount
+
+This Counter is a historical connection example. Exact arithmetic normally belongs in
+code; the small task illustrates the parameter interface rather than open-route research.
 
 **Goal:** advance an observed counter from zero to the supplied target three without
 overshooting. The task describes the increment tool and provides valid amounts from the
@@ -75,7 +171,7 @@ recorded in the [evidence ledger](../reports/README.md). The homepage’s counte
 an illustration, not an inference recording. Passing a syntax check does not prove
 runtime validity, and trusted Python imports can have effects.
 
-## Runtime: continue from evidence and stop repeated effects
+### Runtime: continue from evidence and stop repeated effects
 
 **Goal:** continue when an admitted tool result provides new useful evidence, and block
 an identical action against the same decision state before executing it again.
@@ -105,15 +201,17 @@ business effects. Read [context management](context.md) and the
 
 ## Choosing a suitable task
 
-Choose Harness when a useful next step can be expressed as registered tools and supplied
-candidates, observations can be refreshed, and an independent success check exists.
-Keep exact deterministic work in code. Keep open-ended planning and writing in the
-primary AI. Jev Filter handles repeated semantic screening over many records; Harness
-reuses it as the inference/platform dependency for bounded execution loops.
+Choose Harness when reusable tools can expose useful next steps, observations and
+candidate domains can evolve, and completion can be checked independently. Bound the
+resources and executable interfaces while allowing the exploration route to remain
+unknown. Keep exact deterministic work in code; the primary AI owns tool/task authoring
+and free-form generation, while Jev owns repeated tool/parameter decisions. Jev Filter
+provides the inference/platform dependency.
 
-Browser and desktop are generic adapters. Native desktop completion remains unverified,
-and the desktop must be unlocked with the required permissions. No universal success,
-model-fee savings, sandbox isolation or cross-run idempotency is claimed.
+The new designs have not established task success, speed or fee advantages. Historical
+browser evidence retains its local-fixture scope; native desktop completion remains
+unverified. Read the task and context contracts when defining your own completion and
+handoff conditions.
 
 [Frequently asked questions](faq.md) · [Architecture](architecture.md) ·
 [Acceptance evidence](../reports/README.md)

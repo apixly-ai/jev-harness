@@ -1,6 +1,6 @@
 ---
 name: jev-harness
-description: Use a Jev-native agent loop for bounded multi-step tasks when an AI can define trusted tools, meaningful parameter candidates and independent success checks. Generate a task script, run it once and handle terminal evidence; keep exact/fixed work in code and open reasoning in the primary model.
+description: Delegate open goals to a Jev-native agent loop when the primary AI can write trusted tools, fresh parameter providers and independent checks. Routes may be unknown; bound tool permissions and resources. Generate one task script and let Jev choose next steps from feedback; keep exact work in code and use an explicit trusted generator for new text.
 ---
 
 # Jev Harness
@@ -10,7 +10,12 @@ use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
 or a replacement for the primary AI. Prefer it when repeated next-tool/parameter decisions
-are semantic and the available action domain and success condition can be bounded.
+are semantic. Goals and routes may be open: bound permissions and resources, not the
+complete route. Define capabilities and fresh providers rather than every next step or
+all future options. Facts to be discovered are not startup required_context. Existing
+dynamic providers support exploration; general evidence reads and recoverable empty
+binding remain gaps. See the repository open-goals/case designs for the planned flagship
+and current acceptance scope.
 
 1. Define the goal, scope, observable success, admitted facts and conversation.
 2. `jev-harness init-task task.py` creates a runnable offline scaffold.

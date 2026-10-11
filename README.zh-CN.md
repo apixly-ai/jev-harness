@@ -4,20 +4,39 @@
 
 [English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [常见问题](docs/faq.zh-CN.md) · [使用案例](docs/use-cases.zh-CN.md) · [AI 接口](docs/agent-contract.zh-CN.md) · [验收证据](reports/README.zh-CN.md)
 
-**编写任务，注册工具，让 Jev 选择下一次调用和参数。**
+**给开放目标，AI 定义工具，Jev 自主选择下一步。**
 
-这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
-历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
+这是运行 AI 编写的开放目标任务脚本的 Python 运行时，任务路线可以在启动时未知。
+主 AI 定义工具能力、动态参数提供器、观测与完成检查；Jev 根据目标、准入对话、
+新现场和历史选择下一项工具与参数。程序执行、刷新现场并独立验证结果。
+受控的是工具权限和资源预算，不要求预写探索路线。Apixly 独立社区
 项目，非 TypeSafe AI 官方产品。早期 0.1.17，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
 
-## 看看执行过程
+## 主线是开放目标的探索与交付
 
-[查看交互主页与视频](https://apixly-ai.github.io/jev-harness/zh/#showcase) · [下载 MP4 回放](web/media/browser-demo.zh-CN.mp4)
+脚本定义能力和检查，探索路径由 Jev 决定。页面、文件、资源和依赖参数可以在 loop
+运行后才发现，每次调用的参数来自新现场。
 
-[![从空白旅行表单，到独立验证的草稿：Mira、London、灵活日期](web/media/browser-demo.zh-CN.gif)](https://apixly-ai.github.io/jev-harness/zh/#showcase)
+| 目标 | AI 提供 | Jev 决定 | 证据状态 |
+| --- | --- | --- | --- |
+| 从陌生目录找出三个符合要求的自托管工具 | 打开、读取、筛选、取证、保存工具与来源检查 | 先走哪个分支、筛选什么、何时证据足够 | 旗舰设计，真实验收待完成 |
+| 根据源码与已有失败记录定位仓库问题 | 受控文件、符号、产物工具与来源核验 | 阅读哪些调用关系与证据 | 扩展设计，真实验收待完成 |
+| 通过受控 API 诊断任务 | 状态、日志、依赖、分页工具与独立回读 | 下一步检查哪个资源或依赖 | 扩展设计，真实验收待完成 |
+
+[开放目标设计与优先级](docs/open-goals.zh-CN.md) · [案例契约](docs/use-cases.zh-CN.md)
+
+现有动态 provider 支持路线未知的任务。通用证据引用读取、缺失参数后的探索恢复、
+更完整的浏览发现仍是开发优先项。新文本需要显式可信生成工具或主 AI。
+这些设计不是新增完成证据，也不代表整任务降费或提速。
+
+## 历史接通与验收证据
+
+[查看交互主页与视频](https://apixly-ai.github.io/jev-harness/zh/#browser-evidence) · [下载 MP4 回放](web/media/browser-demo.zh-CN.mp4)
+
+[![从空白旅行表单，到独立验证的草稿：Mira、London、灵活日期](web/media/browser-demo.zh-CN.gif)](https://apixly-ai.github.io/jev-harness/zh/#browser-evidence)
 
 这是无头 Camofox 对原始本地夹具的**截图回放**，没有新增模型调用；历史 v0.1.0
 Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注，不将回放当作新的推理录屏。
@@ -88,7 +107,7 @@ Help 行为及 SDK 中断不变。
 见[输出契约](docs/agent-contract.md#cli-task-output) 与
 [离线 A/B](reports/task-output-ab.json)。
 
-## 工具和参数语义
+## 最小工具注册示例
 
 ```python
 from apixly_jev_harness import Parameter, Task

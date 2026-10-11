@@ -92,13 +92,25 @@ PAGES = {
     "use-cases": {
         "en": (
             "docs/use-cases.md",
-            "Jev Harness use cases: browser drafts and typed tasks",
-            "Three inspectable Jev Harness cases with goals, supplied inputs and choices, completion checks, reproducible commands and exact evidence scope.",
+            "Jev Harness use cases: open research and investigation",
+            "Design open research, repository diagnosis and controlled API investigation with AI-authored tools, dynamic Jev choices and independently checked artifacts. Acceptance status stays explicit.",
         ),
         "zh-CN": (
             "docs/use-cases.zh-CN.md",
-            "Jev Harness 使用案例：浏览器草稿与类型化任务",
-            "查看三类 Jev Harness 案例的目标、程序提供的输入与候选、完成验证、复现命令和明确证据范围。",
+            "Jev Harness 使用案例：开放调研与探索式诊断",
+            "设计开放调研、仓库诊断与受控 API 排障，让 AI 编写工具、Jev 动态选择并独立核对产物，明确保留验收状态。",
+        ),
+    },
+    "open-goals": {
+        "en": (
+            "docs/open-goals.md",
+            "Open goals, dynamic tools and Jev delegation",
+            "Give an AI an open goal, let it write task tools, and let Jev discover the route through dynamic tool and parameter choices. Inspect independent evidence and pending acceptance plans.",
+        ),
+        "zh-CN": (
+            "docs/open-goals.zh-CN.md",
+            "开放目标、动态工具与 Jev 托管",
+            "给 AI 一个开放目标，让它编写任务工具，再由 Jev 通过动态工具与参数选择探索未知路径。复查独立证据与待完成的验收计划。",
         ),
     },
 }
@@ -134,7 +146,7 @@ def shell(title, description, body, path="", lang="en"):
             "name": "Jev Harness",
             "identifier": "apixly-jev-harness",
             "alternateName": "Apixly Jev Harness",
-            "description": "Apixly’s independent Python runtime for bounded Jev agent loops with typed tool and parameter choices and independently verified outcomes.",
+            "description": "Apixly’s Python runtime for open-goal tasks: an AI writes trusted tools and completion checks; Jev selects tools and dynamic parameter candidates from fresh observations in a bounded loop.",
             "codeRepository": REPO,
             "url": BASE,
             "programmingLanguage": "Python",
@@ -157,6 +169,7 @@ def shell(title, description, body, path="", lang="en"):
     data = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
     labels = {
         "showcase": "演示案例" if zh else "Showcase",
+        "open-goals": "开放目标" if zh else "Open goals",
         "contract": "任务协议" if zh else "Task contract",
         "faq": "常见问题" if zh else "FAQ",
         "evidence": "验收证据" if zh else "Evidence",
@@ -165,6 +178,7 @@ def shell(title, description, body, path="", lang="en"):
         f'<a href="{target}">{label}</a>'
         for target, label in (
             ("index.html#showcase", labels["showcase"]),
+            ("open-goals.html", labels["open-goals"]),
             ("agent-contract.html", labels["contract"]),
             ("faq.html", labels["faq"]),
             ("evidence.html", labels["evidence"]),
@@ -192,67 +206,155 @@ def home(zh=False):
     def t(en, cn):
         return cn if zh else en
 
+    def trace_row(number, label, detail, call=None):
+        action = f"<code>{call}</code>" if call else ""
+        return f'<div class="trace-row"><span class="trace-number">{number}</span><div><span class="room-label">{label}</span><p>{detail}</p>{action}</div></div>'
+
     icon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4M9 9h6v6H9z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = t(
-        "Jev Harness is Apixly’s Python runtime for bounded agent tasks. You define tools and parameter candidates. Jev chooses the next step; your code executes and verifies it.",
-        "Jev Harness 是 Apixly 的 Python 智能体任务运行时。你定义工具与参数候选，Jev 选择下一步，程序执行并独立验证结果。",
+        "Give your AI an open goal. It writes a task script with tools, observations and a completion check. Jev runs the loop, choosing the next tool and parameters as new evidence arrives.",
+        "给 AI 一个开放目标。AI 编写任务脚本，定义工具、观察方式与完成检查。Jev 托管循环，根据新证据选择下一步工具和参数。",
     )
     install = f"pip install 'git+https://github.com/apixly-ai/jev-harness.git@v{VERSION}'"
     language = ".zh-CN" if zh else ""
+    research_trace = "".join(
+        (
+            trace_row(
+                "01",
+                t("START WITH WHAT IS KNOWN", "从已知入口开始"),
+                t(
+                    "The script exposes starting pages and requirements. The useful sources are still unknown.",
+                    "脚本提供起始页面与要求，此时还不知道哪些资料有用。",
+                ),
+                'inspect_page(page="starting-docs")',
+            ),
+            trace_row(
+                "02",
+                t("LET THE OBSERVATION OPEN THE ROUTE", "观察结果打开新路径"),
+                t(
+                    "A page reveals documentation and release links. Jev selects a newly observed link, then a relevant section.",
+                    "页面返回文档与版本链接。Jev 选择刚发现的链接，再选择相关章节。",
+                ),
+                'follow_link(link_ref="observed-link-7")',
+            ),
+            trace_row(
+                "03",
+                t("FOLLOW THE EVIDENCE", "沿证据继续探索"),
+                t(
+                    "One claim is outdated. Jev can inspect a release, collect a second source, or record an unresolved constraint.",
+                    "一条说明已经过时。Jev 可查看新版本、收集另一来源，或记录尚未确认的条件。",
+                ),
+                'record_evidence(source_ref="release-section", field="offline_support")',
+            ),
+        )
+    )
+    repository_trace = "".join(
+        (
+            trace_row(
+                "01",
+                t("OBSERVE THE FAILURE", "观察失败现场"),
+                t(
+                    "The script supplies a repository snapshot and an installed-package failure. No culprit file is preselected.",
+                    "脚本提供仓库快照和安装包失败现象，尚未选定可疑文件。",
+                ),
+                'read_artifact(artifact_ref="wheel-failure")',
+            ),
+            trace_row(
+                "02",
+                t("CHOOSE WHAT TO INSPECT", "选择下一份线索"),
+                t(
+                    "Jev chooses among newly observed source files, package contents and existing check records.",
+                    "Jev 从刚观察到的源文件、包内容和已有检查记录中选择。",
+                ),
+                'inspect_package(entry_ref="observed-module")',
+            ),
+            trace_row(
+                "03",
+                t("TEST THE EXPLANATION", "验证解释"),
+                t(
+                    "A recorded check contradicts the hypothesis. Jev can inspect another artifact or source relationship.",
+                    "已有检查记录与假设不符。Jev 可以继续查看另一份产物或源码关系。",
+                ),
+                'read_artifact(artifact_ref="installed-import-result")',
+            ),
+        )
+    )
+    api_trace = "".join(
+        (
+            trace_row(
+                "01",
+                t("INSPECT A SYNTHETIC FAILURE", "检查合成故障"),
+                t(
+                    "The script supplies a synthetic task entry and read-only status, schema and event tools.",
+                    "脚本提供合成任务入口，以及只读状态、schema 和事件工具。",
+                ),
+                'read_status(task_ref="synthetic-17")',
+            ),
+            trace_row(
+                "02",
+                t("FOLLOW A NEW DEPENDENCY", "跟随新发现的依赖"),
+                t(
+                    "The response reveals a dependency. Jev chooses which observed resource and event page to read next.",
+                    "响应揭示一个依赖。Jev 选择接下来读取哪个已观察资源和事件页。",
+                ),
+                'read_events(resource_ref="observed-dependency-2", page="observed-1")',
+            ),
+            trace_row(
+                "03",
+                t("KEEP UNCERTAINTY VISIBLE", "保留未知结果"),
+                t(
+                    "Jev can inspect another result or stop for review. Missing evidence stays unresolved.",
+                    "Jev 可以继续检查另一结果，也可以停止并交由复核。缺少的证据保留为未解决。",
+                ),
+                'read_schema(schema_ref="observed-state-contract")',
+            ),
+        )
+    )
     body = f'''
 <main class="wrap home">
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <div class="eyebrow"><span class="status-dot"></span> {t("A SMALL RUNTIME. A COMPLETE LOOP.", "轻量运行时，完整执行循环。")}</div>
-      <h1 id="hero-title">{t("Your tools.<br><em>Jev’s next move.</em>", "工具你来定义。<br><em>下一步交给 Jev。</em>")}</h1>
+      <div class="eyebrow"><span class="status-dot"></span> {t("OPEN GOALS. AI-AUTHORED TOOLS. A JEV LOOP.", "开放目标 · AI 编写工具 · JEV 托管循环")}</div>
+      <h1 id="hero-title">{t("Give AI a goal.<br><em>Let Jev find<br>the next step.</em>", "把目标交给 AI，<br><em>把探索过程<br>交给 Jev。</em>")}</h1>
       <p class="hero-lead">{lead}</p>
-      <div class="actions"><a class="button" href="#showcase">{t("Watch it work", "看看它怎么做")} <span aria-hidden="true">↗</span></a><a class="button secondary" href="#start">{t("Build your first task", "开始编写任务")} <span aria-hidden="true">→</span></a></div>
+      <div class="actions"><a class="button" href="#showcase">{t("Explore the task designs", "看开放任务设计")} <span aria-hidden="true">↗</span></a><a class="button secondary" href="#start">{t("Give your AI the contract", "把协议交给 AI")} <span aria-hidden="true">→</span></a></div>
       <div class="hero-meta"><span>Python 3.10+</span><span>MIT</span><span>v{VERSION}</span></div>
-      <p class="entity-note">{t("Install <code>apixly-jev-harness</code> from this repository’s pinned Git URL. Independent community project; not official TypeSafe AI software.", "使用本仓库固定版本的 Git URL 安装 <code>apixly-jev-harness</code>。独立社区项目，非 TypeSafe AI 官方产品。")}</p>
+      <p class="entity-note">{t("Apixly’s independent Python runtime. Trusted task scripts, bounded effects and checked outcomes. Not official TypeSafe AI software.", "Apixly 的独立 Python 运行时。执行可信任务脚本，限制操作范围，并核对结果。非 TypeSafe AI 官方产品。")}</p>
     </div>
-    <div class="control-room" role="img" aria-label="{t("Loop illustration: observe a travel form, choose from registered tools, bind a supplied candidate and independently verify the draft.", "执行循环示意：观察旅行表单，选择注册工具，绑定已提供候选，独立验证草稿。")} ">
-      <div class="room-head"><span>{icon} TASK CONTROL ROOM</span><span class="mini-badge">{t("LOOP ILLUSTRATION", "循环示意")}</span></div>
-      <div class="goal-line"><span class="room-label">{t("GOAL", "目标")}</span><strong>{t("Prepare Mira’s London travel draft", "为 Mira 准备伦敦旅行草稿")}</strong></div>
+    <div class="control-room" role="img" aria-label="{t("Illustrative open research loop: an AI defines tools; Jev chooses a newly observed link and section; code checks a source-linked output. This is a task design, not a recorded run.", "开放调研循环示意：AI 定义工具，Jev 选择刚发现的链接和章节，程序核对带来源的输出。这是任务设计，不是运行记录。")}">
+      <div class="room-head"><span>{icon} TASK CONTROL ROOM</span><span class="mini-badge">{t("DESIGNED SCENE / NOT LIVE", "设计场景 / 非真实运行")}</span></div>
+      <div class="goal-line"><span class="room-label">{t("OPEN GOAL", "开放目标")}</span><strong>{t("Find suitable tools. Save a sourced comparison.", "找到符合要求的工具，保存带来源的比较。")}</strong></div>
       <div class="room-workspace">
-        <div class="context-stack"><div class="room-label">{t("OBSERVED STATE", "当前观察")}</div><div class="context-line"><span>traveler</span><b class="empty">—</b></div><div class="context-line"><span>destination</span><b>London</b></div><div class="context-line"><span>flexible</span><b class="cyan">true</b></div><div class="room-label context-note">{t("PROGRAM-SUPPLIED TOOLS", "程序注册工具")}</div><div class="tool-option">inspect</div><div class="tool-option chosen">type <span>← Jev</span></div><div class="tool-option">select</div><div class="tool-option">click</div></div>
-        <div class="decision-column"><div class="decision-core">{icon}<strong>Jev</strong><small>{t("chooses the next call", "选择下一次调用")}</small></div><div class="bound-call"><span class="room-label">{t("BOUND CALL", "绑定后的调用")}</span><code>type(target=<b>name</b>,<br> value=<b>"Mira"</b>)</code></div></div>
+        <div class="context-stack"><div class="room-label">{t("FRESH OBSERVATION", "最新观察")}</div><div class="context-line"><span>{t("new links", "新链接")}</span><b>7</b></div><div class="context-line"><span>{t("evidence", "证据")}</span><b class="cyan">partial</b></div><div class="context-line"><span>{t("next route", "下一条路径")}</span><b class="empty">?</b></div><div class="room-label context-note">{t("TOOLS DEFINED BY AI", "AI 定义的工具")}</div><div class="tool-option">inspect_page</div><div class="tool-option chosen">follow_link <span>← Jev</span></div><div class="tool-option">read_evidence</div><div class="tool-option">record_evidence</div></div>
+        <div class="decision-column"><div class="decision-core">{icon}<strong>Jev</strong><small>{t("chooses from current evidence", "依据当前证据选择")}</small></div><div class="bound-call"><span class="room-label">{t("DYNAMIC PARAMETER CHOICE", "动态参数选择")}</span><code>follow_link(<br> link_ref=<b>"observed-7"</b>)</code></div></div>
       </div>
-      <div class="verify-line"><span class="check-mark">✓</span><div><strong>{t("Completion needs evidence.", "完成，需要结果证据。")}</strong><small>{t("Read the fields. Check the final DOM.", "回读字段，核对最终 DOM。")}</small></div><span class="verify-pulse"></span></div>
-      <div class="loop-rail" aria-hidden="true"><span>01 {t("Observe", "观察")}</span><span>02 {t("Choose", "选择")}</span><span>03 {t("Execute", "执行")}</span><span>04 {t("Verify", "验证")}</span></div>
+      <div class="verify-line"><span class="check-mark">↻</span><div><strong>{t("New evidence. A new decision.", "新证据，带来下一次判断。")}</strong><small>{t("Stop when the output passes its independent check.", "输出通过独立检查，才确认完成。")}</small></div><span class="verify-pulse"></span></div>
+      <div class="loop-rail" aria-hidden="true"><span>{t("Observe", "观察")}</span><span>{t("Choose", "选择")}</span><span>{t("Execute", "执行")}</span><span>{t("Check / repeat", "检查 / 继续")}</span></div>
     </div>
   </section>
-  <div class="principle-strip"><span>{t("THE CONTRACT IS YOURS", "契约由你定义")}</span><p>{t("Registered tools", "注册工具")}<i> / </i>{t("Supplied candidates", "提供候选")}<i> / </i>{t("Verified outcomes", "验证结果")}</p><button class="motion-control" type="button" aria-pressed="false" data-pause="{t("Pause motion", "暂停动画")}" data-resume="{t("Resume motion", "播放动画")}" hidden>{t("Pause motion", "暂停动画")} <span aria-hidden="true">Ⅱ</span></button></div>
+  <div class="principle-strip"><span>{t("BOUND THE EFFECTS. DISCOVER THE ROUTE.", "限定操作范围，探索执行路径。")}</span><p>{t("Fresh observations", "最新观察")}<i> / </i>{t("Dynamic candidates", "动态候选")}<i> / </i>{t("Checkable artifacts", "可核对产物")}</p><button class="motion-control" type="button" aria-pressed="false" data-pause="{t("Pause motion", "暂停动画")}" data-resume="{t("Resume motion", "播放动画")}" hidden>{t("Pause motion", "暂停动画")}</button></div>
+  <div class="ownership-grid" aria-label="{t("Who owns each responsibility", "职责分工")}"><div><span class="room-label">PRIMARY AI</span><strong>{t("Defines the task script", "定义任务脚本")}</strong><p>{t("Goal, tools, candidate providers and independent completion checks.", "目标、工具、候选提供器与独立完成检查。")}</p></div><div><span class="room-label">JEV</span><strong>{t("Chooses the next move", "选择下一步行动")}</strong><p>{t("Uses current context to select tools and meaningful parameter candidates.", "依据当前上下文选择工具和有意义的参数候选。")}</p></div><div><span class="room-label">TRUSTED CODE</span><strong>{t("Executes and checks", "执行并核对结果")}</strong><p>{t("Collects observations, binds real values, applies limits and verifies artifacts.", "采集观察、绑定实际值、落实边界并验证产物。")}</p></div></div>
   <section class="section showcase" id="showcase" aria-labelledby="showcase-title">
-    <div class="section-heading"><div><div class="eyebrow">01 / {t("SEE THE LOOP", "看执行过程")}</div><h2 id="showcase-title">{t("Less explaining.<br>More showing.", "让案例，<br>把过程讲清楚。")}</h2></div><p>{t("A browser draft, a typed Python task, and the guards that keep a loop honest. Pick a case and look inside.", "浏览器草稿、类型化 Python 任务，以及执行边界。选一个场景，看清输入、选择和结果。")}</p></div>
-    <div class="case-tabs" role="tablist" aria-label="{t("Use cases", "使用场景")}" hidden><button type="button" role="tab" id="tab-browser" aria-controls="case-browser" aria-selected="true" tabindex="0"><span>01</span>{t("Browser workflow", "浏览器任务")}</button><button type="button" role="tab" id="tab-python" aria-controls="case-python" aria-selected="false" tabindex="-1"><span>02</span>{t("Typed tool choices", "工具与参数选择")}</button><button type="button" role="tab" id="tab-guards" aria-controls="case-guards" aria-selected="false" tabindex="-1"><span>03</span>{t("Completion guards", "完成与执行边界")}</button></div>
+    <div class="section-heading"><div><div class="eyebrow">01 / {t("DESIGN FOR OPEN TASKS", "围绕开放任务设计")}</div><h2 id="showcase-title">{t("Write the tools.<br>Discover the path.", "先定义能力，<br>再探索路径。")}</h2></div><p>{t("These three task designs show the intended use: the route emerges from observations. Their traces are illustrative; open-task acceptance is pending.", "这三类任务展示核心用途：路径随着观察展开。下方轨迹为设计示意，开放任务验收尚待完成。")}</p></div>
+    <div class="case-tabs" role="tablist" aria-label="{t("Open task designs", "开放任务设计")}" hidden><button type="button" role="tab" id="tab-browser" aria-controls="case-browser" aria-selected="true" tabindex="0"><span>01</span>{t("Open research", "开放调研")}</button><button type="button" role="tab" id="tab-python" aria-controls="case-python" aria-selected="false" tabindex="-1"><span>02</span>{t("Repository diagnosis", "仓库诊断")}</button><button type="button" role="tab" id="tab-guards" aria-controls="case-guards" aria-selected="false" tabindex="-1"><span>03</span>{t("API investigation", "API 排障")}</button></div>
     <article class="case-panel" id="case-browser" role="tabpanel" aria-labelledby="tab-browser">
-      <div class="demo-frame"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>travel-request / local fixture</span><span class="frame-badge">{t("SCREENSHOT REPLAY", "截图回放")}</span></div><video id="browser-video" controls loop muted playsinline preload="none" poster="{p}media/browser-poster{language}.webp" aria-label="{t("Screenshot replay of the synthetic browser travel-draft fixture", "合成浏览器旅行草稿夹具的截图回放")}"><source src="{p}media/browser-demo{language}.mp4" type="video/mp4"><a href="{p}media/browser-demo{language}.mp4">{t("Download the replay", "下载回放")}</a></video><div class="media-caption">{t("New screenshot replay of the local fixture. Historical Jev acceptance is linked separately; this replay makes no model calls.", "本地夹具的截图回放，不调用模型；历史 Jev 真实验收见旁边证据链接。")}</div></div>
-      <div class="case-copy"><div class="case-kicker"><span class="status-dot"></span>{t("BROWSER / SYNTHETIC FIXTURE", "浏览器 / 合成夹具")}</div><h3>{t("From an empty form<br>to a checked draft.", "从空白表单，<br>到核对完成的草稿。")}</h3><p>{t("Fill the traveler, choose the destination, set flexible dates, and prepare the draft. Completion requires both field values and final result text.", "填写旅客、选择目的地、勾选灵活日期，再生成草稿。只有字段值和最终结果文字都符合要求，才算完成。")}</p><dl class="case-details"><div><dt>{t("INPUT", "输入")}</dt><dd>Mira · London · flexible=true</dd></div><div><dt>{t("CHOICES", "候选")}</dt><dd>{t("Observed controls + supplied values", "观察到的控件 + 程序提供的值")}</dd></div><div><dt>{t("CHECK", "验证")}</dt><dd>Draft ready: Mira | London | flexible=true</dd></div></dl><a class="text-link" href="{p}evidence.html">{t("Inspect historical live acceptance", "查看历史真实验收")} <span aria-hidden="true">↗</span></a><p class="case-footnote">{t("v0.1.0 · real Jev + headless Camofox · 4 tool executions · local synthetic data; no booking sent.", "v0.1.0 · 真实 Jev + 无头 Camofox · 4 次工具执行 · 本地合成数据，未发送真实预订。")}</p></div>
+      <div class="trace-demo"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>research_task.py / {t("illustrative trace", "示意轨迹")}</span><span class="frame-badge">{t("ACCEPTANCE PENDING", "待验收")}</span></div><div class="trace-steps">{research_trace}</div><div class="artifact-preview"><span class="room-label">{t("DESIGNED OUTPUT", "预期产物")}</span><strong>comparison.json + source references</strong><p>{t("Reopen the comparison; check three distinct tools and source support for every requirement. Missing support stays unresolved.", "重新打开比较，核对三个不同工具及每项约束的来源支持，缺少依据时保留未解决状态。")}</p></div></div>
+      <div class="case-copy"><div class="case-kicker">{t("OPEN RESEARCH / TASK DESIGN", "开放调研 / 任务设计")}</div><h3>{t("Start with a question.<br>Find the useful sources.", "从问题出发，<br>找到有用的来源。")}</h3><p>{t("Find three self-hosted tools that meet given constraints and save a sourced comparison. Which pages, sections and versions matter is discovered during the run.", "找到三款符合指定条件的自托管工具，保存带来源的比较。相关页面、章节和版本在执行中发现。")}</p><dl class="case-details"><div><dt>{t("AI WRITES", "AI 编写")}</dt><dd>{t("Browser tools, dynamic link/section candidates, evidence recorder, artifact check.", "浏览工具、动态链接与章节候选、证据记录器、产物检查。")}</dd></div><div><dt>{t("JEV CHOOSES", "JEV 选择")}</dt><dd>{t("Next page → section → evidence field → whether more evidence is needed.", "下一页 → 章节 → 证据字段 → 是否继续收集。")}</dd></div><div><dt>{t("BOUND / CHECK", "边界 / 检查")}</dt><dd>{t("Allowed origins and steps; independently verify three tools, all requirements and cited sources.", "允许来源与步数；独立核对三个工具、全部约束与引用来源。")}</dd></div></dl><a class="text-link" href="{p}use-cases.html">{t("Read the open-task design", "查看开放任务设计")} ↗</a><p class="case-footnote">{t("Designed use case, not a live success claim. Free-text queries or prose need a separately registered trusted generation tool; they are not built-in Jev output.", "设计案例，不代表真实跑通。自由搜索词或文稿需要另行注册可信生成工具，并非内置 Jev 输出。")}</p></div>
     </article>
     <article class="case-panel" id="case-python" role="tabpanel" aria-labelledby="tab-python" hidden>
-      <div class="code-demo"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>task.py / typed parameters</span><span class="frame-badge">{t("ILLUSTRATION", "机制示意")}</span></div><pre><span class="code-muted"># {t("Only supplied values can be selected", "只从程序提供的候选中选择")}</span>
-workflow = <b>Task</b>(observe=observe, verify=verify)
-
-@workflow.<b>tool</b>("Advance without overshooting",
-    parameters={{"amount": <b>Parameter</b>(
-        "Amount needed for the next increment",
-        <i>lambda</i> ctx, seen: [n <i>for</i> n <i>in</i> (1, 2)
-            <i>if</i> seen["value"] + n &lt;= seen["target"]]
-    )}})
-<i>def</i> increment(amount):
-    state["value"] += amount
-    <i>return</i> {{"value": state["value"]}}</pre><div class="counter-path"><span>0</span><i>+1</i><span>1</span><i>+2</i><span class="counter-done">3 ✓</span></div><p class="media-caption">{t("Illustrated candidate path; an example sequence, not a recorded inference run.", "候选路径示意；这是示例序列，不是推理录屏。")}</p></div>
-      <div class="case-copy"><div class="case-kicker">PYTHON / TYPED CHOICES</div><h3>{t("The model chooses.<br>Your program binds.", "模型选择引用，<br>程序绑定实际值。")}</h3><p>{t("A small counter makes parameter meaning visible. Candidate domains come from current state; the final verifier checks the target instead of trusting a model claim.", "用小型计数器看清参数含义：从当前状态生成候选，最后由验证器检查是否达到目标。")}</p><dl class="case-details"><div><dt>{t("INPUT", "输入")}</dt><dd>value=0 · target=3</dd></div><div><dt>{t("CHOICES", "候选")}</dt><dd>amount ∈ {{1, 2}} · {t("no overshooting", "不超过目标")}</dd></div><div><dt>{t("CHECK", "验证")}</dt><dd>observed value == target</dd></div></dl><a class="text-link" href="{p}agent-contract.html">{t("Read the task contract", "查看任务契约")} ↗</a><p class="case-footnote">{t("Historical generated-task acceptance and early review outcomes are retained in the evidence ledger.", "验收账本保留生成任务的历史真实结果与早期复核结果。")}</p></div>
+      <div class="trace-demo"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>diagnose_repo.py / {t("illustrative trace", "示意轨迹")}</span><span class="frame-badge">{t("ACCEPTANCE PENDING", "待验收")}</span></div><div class="trace-steps">{repository_trace}</div><div class="artifact-preview"><span class="room-label">{t("DESIGNED OUTPUT", "预期产物")}</span><strong>diagnosis.json + source checks</strong><p>{t("Check that the saved diagnosis links the recorded failure to captured source revisions and artifacts.", "核对已保存诊断是否把已有失败记录关联到采集的代码版本与产物。")}</p></div></div>
+      <div class="case-copy"><div class="case-kicker">{t("REPOSITORY / TASK DESIGN", "仓库 / 任务设计")}</div><h3>{t("A failure is known.<br>The cause is not.", "失败已经发生，<br>原因尚未找到。")}</h3><p>{t("Investigate why recorded repository tests passed while an installed package failed. Read files and existing artifacts, then save a diagnosis supported by those sources.", "调查已有记录中为什么仓库测试通过，安装包却失败。读取文件与已有产物，保存有来源依据的诊断。")}</p><dl class="case-details"><div><dt>{t("AI WRITES", "AI 编写")}</dt><dd>{t("Read-only repository tools, existing failure artifacts and source checks.", "仓库只读工具、已有失败产物与来源核验。")}</dd></div><div><dt>{t("JEV CHOOSES", "JEV 选择")}</dt><dd>{t("Which file, artifact or source relationship to inspect after each result.", "根据每次结果，选择下一份文件、产物或源码关系。")}</dd></div><div><dt>{t("BOUND / CHECK", "边界 / 检查")}</dt><dd>{t("Permitted snapshot and artifacts; verify saved references and evidence.", "获准的快照与产物；核对保存的引用和依据。")}</dd></div></dl><a class="text-link" href="{p}use-cases.html">{t("Read the diagnosis design", "查看诊断任务设计")} ↗</a><p class="case-footnote">{t("Designed read-only investigation; no repository program is executed. The diagnosis is saved outside the source tree.", "只读调查设计，不执行仓库程序；诊断保存在源码树之外。")}</p></div>
     </article>
     <article class="case-panel" id="case-guards" role="tabpanel" aria-labelledby="tab-guards" hidden>
-      <div class="guard-demo"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>runtime / terminal outcomes</span><span class="frame-badge">{t("OFFLINE CASES", "离线案例")}</span></div><div class="guard-states"><div class="guard-row"><span class="guard-icon lime">✓</span><div><strong>done</strong><p>{t("The independent verifier passes.", "独立验证器确认完成。")}</p></div><code>verified state</code></div><div class="guard-row"><span class="guard-icon amber">!</span><div><strong>blocked</strong><p>{t("The same action and state repeat.", "相同状态与动作重复出现。")}</p></div><code>repeated_action_state</code></div><div class="guard-row"><span class="guard-icon cyan">?</span><div><strong>needs_review</strong><p>{t("A decision cannot be resolved.", "无法确定工具或参数选择。")}</p></div><code>automatic_retry: false</code></div></div><p class="media-caption">{t("Examples from synthetic offline contracts. Unknown effects and usage remain explicit.", "合成离线契约示例；不确定效果与未知用量保留为不确定。")}</p></div>
-      <div class="case-copy"><div class="case-kicker">EVIDENCE / EXECUTION BOUNDS</div><h3>{t("A useful loop also<br>knows when to stop.", "能推进任务，<br>也知道何时停下。")}</h3><p>{t("Admitted tool results can advance the next decision. A repeated call against the same state stops before execution. Unresolved choices return a review outcome.", "准入的工具结果可以推进下一轮判断；相同状态下重复调用会在执行前阻断，无法确定的选择则返回复核。")}</p><dl class="case-details"><div><dt>{t("INPUT", "输入")}</dt><dd>{t("Observation + admitted results + ledger", "观察 + 准入结果 + 动作账本")}</dd></div><div><dt>{t("BOUND", "边界")}</dt><dd>{t("Registered tools and supplied arguments", "注册工具与已提供参数")}</dd></div><div><dt>{t("CHECK", "验证")}</dt><dd>{t("Continue, finish, block or review", "继续、完成、阻断或复核")}</dd></div></dl><a class="text-link" href="{p}evidence-progress-ab.json">{t("Open the offline A/B report", "打开离线 A/B 报告")} ↗</a><p class="case-footnote">{t("Offline scripted decisions establish guard behavior; they do not prove live semantic performance.", "离线脚本决策验证边界行为，不证明真实语义表现。")}</p></div>
+      <div class="trace-demo"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>investigate_api.py / {t("illustrative trace", "示意轨迹")}</span><span class="frame-badge">{t("ACCEPTANCE PENDING", "待验收")}</span></div><div class="trace-steps">{api_trace}</div><div class="artifact-preview"><span class="room-label">{t("DESIGNED OUTPUT", "预期产物")}</span><strong>incident-evidence.json + source state checks</strong><p>{t("Preserve source state, diagnostic evidence and unresolved claims; independently check the saved diagnosis.", "保留来源状态、诊断依据与未确认结论，独立核对已保存诊断。")}</p></div></div>
+      <div class="case-copy"><div class="case-kicker">{t("CONTROLLED API / TASK DESIGN", "受控 API / 任务设计")}</div><h3>{t("Follow the response.<br>Discover the dependency.", "跟随响应线索，<br>发现未满足的依赖。")}</h3><p>{t("Diagnose an incomplete synthetic task through a read-only API. Status, event pages and newly discovered dependencies guide the next choice.", "通过只读 API 诊断合成环境中未完成的任务。状态、事件页与新发现的依赖引导下一步选择。")}</p><dl class="case-details"><div><dt>{t("AI WRITES", "AI 编写")}</dt><dd>{t("Allowed API scope, resource readers, recorded events and independent source checks.", "允许的 API 范围、资源读取器、已有事件与独立来源核验。")}</dd></div><div><dt>{t("JEV CHOOSES", "JEV 选择")}</dt><dd>{t("Which observed resource, dependency or event page to inspect next.", "下一步查看哪个已观察资源、依赖或事件页。")}</dd></div><div><dt>{t("BOUND / CHECK", "边界 / 检查")}</dt><dd>{t("Read-only and request limits; recheck source state and retain unsupported claims for review.", "只读范围与请求限制；回查来源状态，无依据结论保留待复核。")}</dd></div></dl><a class="text-link" href="{p}use-cases.html">{t("Read the API investigation design", "查看 API 排障设计")} ↗</a><p class="case-footnote">{t("Designed read-only synthetic acceptance. The example diagnoses the service; it does not repair or mutate it.", "仅面向只读合成验收的设计。示例诊断服务，不修复或修改服务。")}</p></div>
     </article>
   </section>
-  <section class="section how" id="how" aria-labelledby="how-title"><div class="section-heading"><div><div class="eyebrow">02 / {t("UNDER THE HOOD", "运行机制")}</div><h2 id="how-title">{t("Four steps.<br>One clear responsibility each.", "四个环节，<br>各司其职。")}</h2></div><a class="text-link" href="{p}architecture.html">{t("Explore the architecture", "查看架构")} ↗</a></div><div class="loop"><div><small>01 / OBSERVE</small><strong>{t("Bring the context", "提供上下文")}</strong><p>{t("Goal, current state, admitted dialogue and action history.", "目标、当前状态、准入对话与执行历史。")}</p></div><div><small>02 / CHOOSE</small><strong>{t("Choose the next step", "选择下一步")}</strong><p>{t("Jev selects registered tools and meaningful parameter candidates.", "Jev 选择注册工具与有语义的参数候选。")}</p></div><div><small>03 / EXECUTE</small><strong>{t("Bind and execute", "绑定并执行")}</strong><p>{t("Your code binds real values and applies freshness and policy checks.", "程序绑定实际值，检查新鲜度与执行策略。")}</p></div><div><small>04 / VERIFY</small><strong>{t("Check the outcome", "核对结果")}</strong><p>{t("An independent verifier decides whether the task is complete.", "独立验证器判断任务是否真正完成。")}</p></div></div></section>
-  <section class="section capabilities"><div class="capability-intro"><div class="eyebrow">03 / {t("BUILT TO FIT YOUR CODE", "融入你的程序")}</div><h2>{t("Small surface.<br>Useful building blocks.", "接口轻巧，<br>能力可组合。")}</h2><p>{t("Keep your business logic in your tools. Reuse the runtime around them.", "业务逻辑留在工具里，外围循环交给可复用运行时。")}</p><a class="text-link" href="{p}adapters.html">{t("Browser & desktop adapters", "浏览器与桌面适配器")} ↗</a></div><div class="capability-grid"><article class="card"><div class="feature-icon">{{ }}</div><h3>{t("Meaning before values", "先描述语义，再绑定值")}</h3><p>{t("Typed options, dynamic domains and ordered parameter dependencies.", "类型化选项、动态候选域与顺序解析的参数依赖。")}</p></article><article class="card"><div class="feature-icon">↳</div><h3>{t("Context that stays useful", "保留有用的工作状态")}</h3><p>{t("Constraints, recent admitted results and references to older evidence.", "保留约束、近期准入结果及较早证据引用。")}</p></article><article class="card"><div class="feature-icon">&gt;_</div><h3>{t("An agent-ready interface", "AI 可直接使用的接口")}</h3><p>{t("Machine-readable spec, task scaffold, static checks and a bundled skill.", "机器可读 spec、任务模板、静态检查与随包提供的 skill。")}</p></article><article class="card"><div class="feature-icon">◎</div><h3>{t("Evidence you can inspect", "可以复查的证据")}</h3><p>{t("Intent, actual outcomes and unknown usage remain in the ledger.", "执行意图、实际结果与未知用量保留在账本中。")}</p></article></div></section>
-  <section class="evidence-band"><div class="evidence-icon">↗</div><div><div class="eyebrow">{t("OPEN EVIDENCE", "公开证据")}</div><h3>{t("Show the result. Keep the limits.", "结果可查，边界说清。")}</h3><p>{t("Historical live browser fixture verified. Desktop adapters have offline tests; native desktop completion remains unverified. No universal success or savings claim.", "历史真实浏览器夹具已验证；桌面适配器已有离线测试，原生桌面完成仍未验证。不承诺普遍成功或节省费用。")}</p></div><a class="button secondary" href="{p}evidence.html">{t("Read the evidence", "查看验收记录")} ↗</a></section>
-  <section class="section start" id="start" aria-labelledby="start-title"><div class="start-copy"><div class="eyebrow">04 / {t("MAKE IT YOURS", "开始使用")}</div><h2 id="start-title">{t("Your first loop<br>starts with a contract.", "第一个循环，<br>从一份契约开始。")}</h2><p>{t("Install in a virtual environment. Inspect the spec, create a task, check it offline, then run with your own goal.", "在虚拟环境中安装，查看规范、生成任务、离线检查，再按自己的目标运行。")}</p><div class="actions"><a class="text-link" href="{p}agent-contract.html">{t("Installation & task protocol", "安装与任务协议")} ↗</a><a class="text-link" href="{p}spec.json">spec.json ↗</a></div><p class="small">{t("Inference is billable. Trusted Python scripts; the runtime is not a sandbox.", "推理付费。执行可信 Python 脚本；运行时不是沙箱。")}</p></div><div class="editor"><div class="editor-head"><span>terminal</span><button class="copy-button" type="button" data-copy="{html.escape(install, quote=True)}" data-copied="{t("Copied", "已复制")}" hidden>{t("Copy install", "复制安装命令")}</button></div><pre><span class="code-muted"># {t("Create a virtual environment", "创建虚拟环境")}</span>
+  <section class="section how" id="how" aria-labelledby="how-title"><div class="section-heading"><div><div class="eyebrow">02 / {t("FROM INTENT TO EXECUTION", "从目标到执行")}</div><h2 id="how-title">{t("One task contract.<br>Many possible routes.", "一份任务契约，<br>多条可能路径。")}</h2></div><a class="text-link" href="{p}architecture.html">{t("Explore the architecture", "查看架构")} ↗</a></div><div class="loop"><div><small>01 / AUTHOR</small><strong>{t("AI writes the capability", "AI 编写任务能力")}</strong><p>{t("Tools, candidate providers, observations and an independent check.", "定义工具、候选提供器、观察与独立检查。")}</p></div><div><small>02 / OBSERVE</small><strong>{t("Bring fresh context", "取得最新上下文")}</strong><p>{t("Goal, state, admitted evidence and action history guide the next decision.", "目标、状态、准入证据与执行历史引导下一轮判断。")}</p></div><div><small>03 / CHOOSE + ACT</small><strong>{t("Jev chooses; code acts", "Jev 选择，程序执行")}</strong><p>{t("Select registered tools and current candidates. Bind, check and execute real values.", "选择注册工具和当前候选，程序绑定、检查并执行实际值。")}</p></div><div><small>04 / CHECK + LOOP</small><strong>{t("Continue or return evidence", "继续探索或返回证据")}</strong><p>{t("Verify the outcome. Repeat with new observations, or finish, block or request review.", "验证结果，带着新观察继续，或完成、阻塞、请求复核。")}</p></div></div></section>
+  <section class="section capabilities"><div class="capability-intro"><div class="eyebrow">03 / {t("A REUSABLE TOOL FOUNDATION", "可复用的工具底座")}</div><h2>{t("New task.<br>Same loop.", "任务可以变，<br>循环可复用。")}</h2><p>{t("Your AI adds capabilities in a task script. Business-specific rules stay in those tools; the runtime manages the loop.", "AI 在任务脚本中增加能力。业务规则保留在工具里，循环由通用运行时管理。")}</p><a class="text-link" href="{p}agent-contract.html">{t("Read the tool contract", "查看工具契约")} ↗</a></div><div class="capability-grid"><article class="card"><div class="feature-icon">{{ }}</div><h3>{t("Candidates can appear later", "候选可以运行后才出现")}</h3><p>{t("Dynamic domains come from new observations. Dependent parameters resolve in order.", "从新观察生成动态候选，依赖参数按顺序解析。")}</p></article><article class="card"><div class="feature-icon">↳</div><h3>{t("Each result informs the next step", "每次结果推动下一步")}</h3><p>{t("Admit result summaries and action history; task tools can read retained evidence.", "准入结果摘要与操作历史，由任务工具读取保留的证据。")}</p></article><article class="card"><div class="feature-icon">&gt;_</div><h3>{t("An interface your AI can use", "AI 可以直接使用的接口")}</h3><p>{t("Machine-readable spec, script scaffold, static checks and a bundled skill.", "机器可读 spec、脚本模板、静态检查与随包提供的 skill。")}</p></article><article class="card"><div class="feature-icon">◎</div><h3>{t("Completion comes with evidence", "完成需要附带证据")}</h3><p>{t("Independent checks, action history, bounds and explicit unknown usage.", "独立检查、操作历史、执行边界和明确保留的未知用量。")}</p></article></div></section>
+  <section class="section historical-evidence" id="browser-evidence" aria-labelledby="evidence-title"><div class="section-heading"><div><div class="eyebrow">04 / {t("WHAT HAS ACTUALLY RUN", "已经真实验证的部分")}</div><h2 id="evidence-title">{t("Keep design<br>and evidence separate.", "设计方向与验收证据，<br>分别说明。")}</h2></div><p>{t("The new open-task designs above await acceptance. This historical browser fixture verifies the execution loop, not open research quality.", "上方开放任务设计尚待验收。下面的历史浏览器夹具验证执行循环，不证明开放调研质量。")}</p></div><div class="case-panel"><div class="demo-frame"><div class="frame-top"><span class="window-dots"><i></i><i></i><i></i></span><span>travel-request / local fixture</span><span class="frame-badge">{t("SCREENSHOT REPLAY", "截图回放")}</span></div><video id="browser-video" controls loop muted playsinline preload="none" poster="{p}media/browser-poster{language}.webp" aria-label="{t("Screenshot replay of the historical synthetic browser travel-draft fixture", "历史合成浏览器旅行草稿夹具的截图回放")}"><source src="{p}media/browser-demo{language}.mp4" type="video/mp4"><a href="{p}media/browser-demo{language}.mp4">{t("Download the replay", "下载回放")}</a></video><div class="media-caption">{t("Local fixture screenshot replay; zero new model calls. Historical live acceptance is recorded separately.", "本地夹具截图回放，没有新增模型调用。历史真实验收另有记录。")}</div></div><div class="case-copy"><div class="case-kicker">{t("v0.1.0 / HISTORICAL LIVE ACCEPTANCE", "v0.1.0 / 历史真实验收")}</div><h3>{t("A four-step browser task.<br>Independently checked.", "四步浏览器任务，<br>结果独立核对。")}</h3><p>{t("Real Jev + headless Camofox filled traveler and destination, set flexible dates and prepared a draft. The verifier checked field values and final DOM text.", "真实 Jev + 无头 Camofox 填写旅客和目的地、设置灵活日期并生成草稿。验证器回读字段值与最终 DOM 文字。")}</p><dl class="case-details"><div><dt>{t("OBSERVED RESULT", "已验证结果")}</dt><dd>Draft ready: Mira | London | flexible=true</dd></div><div><dt>{t("SCOPE", "范围")}</dt><dd>{t("4 tool executions; local synthetic fixture; no booking sent.", "4 次工具执行，本地合成夹具，未发送真实预订。")}</dd></div></dl><a class="text-link" href="{p}evidence.html">{t("Inspect the historical evidence", "复查历史验收证据")} ↗</a></div></div></section>
+  <section class="evidence-band"><div class="evidence-icon">↗</div><div><div class="eyebrow">{t("CURRENT LIMITS", "当前边界")}</div><h3>{t("A usable core. Open-task proof still to build.", "核心已经可用，开放任务证明仍待补齐。")}</h3><p>{t("Dynamic selection and loop guards are implemented. Large-evidence reading and missing-context exploration need more work; native desktop completion is unverified. No universal success, speed or savings claim.", "动态选择与循环边界已经实现。大证据读取和缺上下文后的探索仍需补齐；原生桌面完成尚未验证。不承诺普遍成功、提速或省钱。")}</p></div><a class="button secondary" href="{p}evidence.html">{t("Read the evidence", "查看验收记录")} ↗</a></section>
+  <section class="section start" id="start" aria-labelledby="start-title"><div class="start-copy"><div class="eyebrow">05 / {t("GIVE YOUR AI THE CONTRACT", "把协议交给 AI")}</div><h2 id="start-title">{t("Define the goal.<br>Let AI build the script.", "定义目标，<br>让 AI 编写脚本。")}</h2><p>{t("Use the bundled skill and task protocol. Ask your AI to define trusted tools, fresh candidate providers and an independent artifact check, then hand the task to the loop.", "使用随包提供的 skill 与任务协议，让 AI 定义可信工具、最新候选提供器和独立产物检查，再把任务交给循环。")}</p><div class="actions"><a class="text-link" href="{p}agent-contract.html">{t("Installation & task protocol", "安装与任务协议")} ↗</a><a class="text-link" href="{p}spec.json">spec.json ↗</a></div><p class="small">{t("The CLI below creates a runnable counter smoke scaffold. Open tasks need your own tools and checks. Inference is billable; trusted Python execution is not a sandbox.", "右侧 CLI 生成可运行的计数器冒烟模板。开放任务需要自定义工具和检查。推理付费；可信 Python 执行不是沙箱。")}</p></div><div class="editor"><div class="editor-head"><span>{t("terminal / smoke scaffold", "terminal / 冒烟模板")}</span><button class="copy-button" type="button" data-copy="{html.escape(install, quote=True)}" data-copied="{t("Copied", "已复制")}" hidden>{t("Copy install", "复制安装命令")}</button></div><pre><span class="code-muted"># {t("Create a virtual environment", "创建虚拟环境")}</span>
 python -m venv .venv
 . .venv/bin/activate
 
@@ -265,15 +367,15 @@ jev-harness <b>check-task</b> task.py
 <span class="code-muted"># {t("Configure TYPESAFE_API_KEY in your environment", "在环境中配置 TYPESAFE_API_KEY")}</span>
 jev-harness <b>run</b> task.py \\
   --goal "Reach target" --inputs '{{"target":3}}'</pre></div></section>
-  <section class="section questions" aria-labelledby="questions-title"><div class="section-heading"><div><div class="eyebrow">05 / {t("FIND YOUR ANSWER", "找到需要的答案")}</div><h2 id="questions-title">{t("Clear answers.<br>Evidence within reach.", "问题有答案，<br>证据可复查。")}</h2></div></div><div class="question-links"><a href="{p}faq.html"><strong>{t("What is Jev Harness?", "Jev Harness 是什么？")} ↗</strong><small>{t("Project identity, Jev Filter integration, installation, billing and execution limits.", "项目身份、Jev Filter 集成、安装、计费和执行边界。")}</small></a><a href="{p}use-cases.html"><strong>{t("Which tasks fit the loop?", "哪些任务适合这个循环？")} ↗</strong><small>{t("Read each case’s inputs, supplied choices, verifier and reproduction path.", "查看每个案例的输入、程序提供候选、验证器与复现路径。")}</small></a></div></section>
+  <section class="section questions" aria-labelledby="questions-title"><div class="section-heading"><div><div class="eyebrow">06 / {t("FIND YOUR ANSWER", "找到需要的答案")}</div><h2 id="questions-title">{t("Understand the contract.<br>Inspect the evidence.", "读懂任务契约，<br>复查验收证据。")}</h2></div></div><div class="question-links"><a href="{p}faq.html"><strong>{t("How does AI hand off an open task?", "AI 如何托管开放任务？")} ↗</strong><small>{t("Script ownership, dynamic candidates, generated content and current boundaries.", "脚本职责、动态候选、生成内容与当前边界。")}</small></a><a href="{p}use-cases.html"><strong>{t("Which cases show the core idea?", "哪些案例突出核心思路？")} ↗</strong><small>{t("Open research, repository diagnosis and controlled API investigation: designs, outputs and acceptance plans.", "开放调研、仓库诊断与受控 API 排障：任务设计、产物和验收计划。")}</small></a></div></section>
   <section class="related"><span>{t("PART OF YOUR TOOLKIT", "工具箱里的其他项目")}</span><a href="https://apixly-ai.github.io/jev-filter/"><b>Jev Filter</b><small>{t("Find the signal in many records", "从多条记录中筛选信号")}</small>↗</a><a href="https://github.com/JIA-ss/ai-remote"><b>ai-remote</b><small>{t("MCP access to your computers", "通过 MCP 访问你的电脑")}</small>↗</a></section>
 </main><script src="{p}home.js" defer></script>'''
     for slug in PAGES:
         body = body.replace(f'href="{p}{slug}.html"', f'href="{slug}.html"')
     return shell(
         t(
-            "Jev Harness: Python agent loops with typed tool choices",
-            "Jev Harness：类型化工具选择与结果验证的 Python 智能体循环",
+            "Jev Harness: AI-authored tools for open-goal agent loops",
+            "Jev Harness：AI 编写工具，Jev 托管开放目标的智能体循环",
         ),
         lead,
         body,

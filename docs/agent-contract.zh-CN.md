@@ -5,6 +5,8 @@
 
 本产品是可复用的任务运行时，不是应用专用案例库。代理只需学习一个接口，
 并用一个简短脚本提供自己的业务工具。
+目标可以开放，路线可以未知；脚本提供能力、新现场候选域和独立检查，不预写完整
+下一步序列。边界针对允许的效果、作用范围和资源。见[开放目标](open-goals.zh-CN.md)。
 
 发行包：**apixly-jev-harness**。Python 包：`apixly_jev_harness`。CLI 别名：
 `apixly-jev-harness` 和 `jev-harness`。请从下方准确的仓库 URL 安装；

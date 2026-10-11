@@ -4,6 +4,9 @@
 
 The product is a reusable task runtime, not a library of application-specific cases.
 An agent should learn one interface and supply its business tools as a short script.
+Goals may be open and routes unknown: the script supplies capabilities, fresh candidate
+domains and independent checks, rather than a complete sequence of next-step decisions.
+Bounds concern permitted effects, scope and resources. See [open goals](open-goals.md).
 
 Distribution: **apixly-jev-harness**. Python: `apixly_jev_harness`. CLI aliases:
 `apixly-jev-harness` and `jev-harness`. Install from the exact repository URL below;

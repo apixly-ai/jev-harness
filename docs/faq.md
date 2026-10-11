@@ -9,11 +9,24 @@ contracts, historical live evidence and illustrative media so readers can check 
 
 ## What is Jev Harness?
 
-Jev Harness is a Python runtime for AI-authored, bounded task scripts. The primary AI
+Jev Harness is a Python runtime for AI-authored task scripts with controlled tools and
+budgets. Goals may be open and routes unknown; new state supplies current candidates.
+The primary AI
 defines the task and registers tools; Jev chooses the next registered tool and its
 program-supplied parameter candidates. The program executes that bound action and
 independently checks whether the goal is complete. It supports semantic branching within
 explicit limits. See the [project overview](../README.md) and [architecture](architecture.md).
+
+<a id="open-goals"></a>
+
+## Does an open goal require a predefined route?
+
+No. Availability and parameter providers can change after each observation; child choices
+can depend on selected parents. Bounds do not require knowing all future pages or
+arguments. The script defines capabilities rather than a task-specific next-step router.
+General evidence-reference reads and missing-argument exploration recovery remain
+priorities. New text needs an explicit trusted generator. See [open goals](open-goals.md)
+and [designed cases](use-cases.md); their complete live acceptance is pending.
 
 <a id="project-identity"></a>
 
