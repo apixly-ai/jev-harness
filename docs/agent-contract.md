@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.10 for a reproducible release;
+package downloads still require network access. Pin v0.1.11 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -378,6 +378,17 @@ Intent is durably recorded before effects. No automatic retry of uncertain execu
 No cross-run resume/exactly-once promise. Business tools own identity, idempotency,
 transactions and external reconciliation. Wall budgets are checked between callbacks;
 each callback must enforce its I/O timeout. Inference has no result cache.
+
+If `DecisionStop` occurs in the current execution window, `execution_uncertain` includes
+the current pending bound `action_id` when present. This window covers execute, result
+admission, immediate observation and unchanged-state verification. The ID is not inferred
+from history; stops before execution or after clearing pending do not acquire an old ID.
+Ordinary exceptions already carry the available pending ID. Use it to locate private
+journal evidence and reconcile the target. It proves neither effect success nor execution
+count, is not an idempotency key and does not authorize rerunning. No bound arguments are
+added to this terminal field. Exit behavior, authorization, retry policy and usage handling
+are unchanged; unknown usage remains unknown. See the
+[execution-identity A/B](../reports/execution-identity-ab.json) for this interface boundary.
 
 ## Decision diagnostics
 

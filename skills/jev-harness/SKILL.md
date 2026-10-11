@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.10. Install the repository at `@v0.1.10` for a reproducible release;
+Contract version: 0.1.11. Install the repository at `@v0.1.11` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -133,6 +133,14 @@ zero real model/network/UI calls, added terminal bytes and no quality/speed/fee 
 Do not retry ambiguous external execution. Caller tools own identity, authorization,
 idempotency, business transactions and reconciliation. Scripts are trusted Python, not a
 sandbox. Protect private journals; recover only necessary evidence for unresolved items.
+
+For execution_uncertain when DecisionStop occurs in the current execution window,
+use the available current bound action_id for private journal lookup and target
+reconciliation. It is not guessed from history, success/count proof, an idempotency key
+or permission to rerun. Stops before execution or after clearing pending do not inherit
+an old ID. The window covers execute, result admission, immediate observe and unchanged-state
+verify. No bound arguments are added to the terminal; unknown usage stays unknown,
+with no authorization or retry change. See reports/execution-identity-ab.json.
 
 An unresolved selection may include a host-generated diagnostic with stage
 tool_selection or parameter_selection, registered tool_id/parameter for the latter,

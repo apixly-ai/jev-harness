@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.10，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.11，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.10 版本？
+## 如何安装准确的 v0.1.11 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -129,6 +129,10 @@ DOM 文本与字段。早期需复核及因授权门槛停止的结果也保留�
 调用方业务工具负责身份、授权、幂等、事务及外部状态核对。不确定的动作不会自动重试。
 详见[静态检查](agent-contract.zh-CN.md#static-task-checking)、
 [执行上下文](context.zh-CN.md)与[终态](agent-contract.zh-CN.md#terminals)。
+
+当前执行窗口内，不确定的 DecisionStop 结果会携带可用的当前已绑定 action_id，
+供定位私有日志并核对目标状态。它不证明成功或执行次数，不是幂等 key 或重跑许可；
+终态不新增绑定参数，未知用量仍为未知。见[标识证据](../reports/execution-identity-ab.json)。
 
 <a id="execution-limits"></a>
 

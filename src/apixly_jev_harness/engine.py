@@ -536,7 +536,9 @@ class Engine:
                     pending = None
             except DecisionStop as error:
                 return finish(
-                    "execution_uncertain" if executed else error.status, reason=error.reason
+                    "execution_uncertain" if executed else error.status,
+                    reason=error.reason,
+                    **({"action_id": pending} if executed and pending else {}),
                 )
             except CallbackContractError as error:
                 return finish(

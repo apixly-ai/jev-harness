@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.10，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.11，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.10` 换成 `@main`。
+仅在开发时将 `@v0.1.11` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -193,6 +193,11 @@ verify_state 辅助函数必须有非空文本或至少一个控制条件。每�
 
 无结果缓存，独立推理并发最多 30。同步预算在回调之间检查，工具需自限 I/O。
 执行前写 intent，未知用量不计零，不提供跨运行恢复或 exactly-once 保证。
+
+当前执行窗口中由 DecisionStop 产生的 execution_uncertain，在当前已绑定 action_id
+存在时会携带它，供定位私有日志并核对目标状态。它不证明效果成功或执行次数，也不是
+幂等 key 或重跑许可。终态不新增绑定参数，未知用量仍为未知。见
+[动作标识 A/B](reports/execution-identity-ab.json)。
 
 ## 开发
 

@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.10. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.11. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.10 release?
+## How do I install the exact v0.1.11 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -148,6 +148,12 @@ tools own identity, authorization, idempotency, transactions and external reconc
 Uncertain effects are not automatically retried. See
 [static checking](agent-contract.md#static-task-checking),
 [execution context](context.md) and [terminals](agent-contract.md#terminals).
+
+An uncertain `DecisionStop` result within the current execution window carries the
+available current bound `action_id` for private journal lookup and target reconciliation.
+It is not success/count proof, an idempotency key or permission to rerun. Bound arguments
+are not added to the terminal, and unknown usage remains unknown. See the
+[identity evidence](../reports/execution-identity-ab.json).
 
 <a id="execution-limits"></a>
 

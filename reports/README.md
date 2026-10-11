@@ -477,3 +477,47 @@ Use a full Git checkout with `.[dev]` and a new output path. CI runs only offlin
 under Python 3.10, 3.12 and 3.14. No paid model matrix, locked-desktop retry or URL submission
 was repeated. Native desktop completion, crawler visits, indexing and AI citations remain
 separate unverified evidence layers.
+
+## Current action identity on uncertain stops (0.1.11)
+
+An execution-window `DecisionStop` now returns `execution_uncertain` with the current
+pending bound `action_id` when available. This window covers execute, result admission,
+immediate observation and unchanged-state verification. The runtime does not infer an ID
+from history or attach a cleared ID to a later-cycle stop. Ordinary exceptions already
+carried pending IDs. The identifier helps locate private journal evidence and reconcile
+the target; it proves neither effect success nor execution count, is not an idempotency
+key and does not permit rerunning. No bound arguments are added to this terminal field.
+
+The [offline identity A/B](execution-identity-ab.json) compares exact published 0.1.10
+source (`c4486ed8cc3c82a00f421f3bac32653b814f2d40`) with the candidate on 16 fixed
+synthetic fixtures, three paired repeats with alternating arm order: 48 rows per arm.
+New identity conformance changes from 21/48 to 48/48. Both arms retain 48/48 expected
+status/reason/step/effect/intent/dispatch/usage behaviors with exact pairwise parity;
+this is an interface repair, not semantic-quality improvement. Each arm has 30 uncertain
+exits; the candidate adds the current ID to 27 `DecisionStop` rows, while three
+ordinary-exception rows already had it. Both arms have 51 scripted choices, 42 effects/intents and 21 rows with
+unknown scripted usage. Native inference attempts and real model/network/UI calls are zero.
+
+Fixtures cover the four execution-window stages with known/unknown prior scripted usage,
+pre-execution stops, existing ordinary-exception identity, verified completion, a
+later-cycle stop after pending was cleared, and a second action whose ID must not be
+replaced by its predecessor's. Independent synthetic effect counters and durable intent
+identify the current action. Separate CLI regressions check exit 2, a single local effect
+marker, preserved identity/unknown usage and discarded print output. These do not establish
+real-world target reconciliation or external exactly-once behavior.
+
+Negative results: returned context grows from 24,069 to 24,897 bytes (+828); the mixed
+whole-operation median rises from about 1.371 to 1.463 ms. Individual slower fixtures
+remain in the report. Timings include synthetic registration, loop admission, scripted
+selection, callbacks, effects and journal serialization, excluding process/import setup
+and terminal/source-hash analysis. Scripted usage is separate from real model usage;
+unknown scripted usage is not cleared by identifying the action. Authorization and retry
+policy are unchanged; no speed, model-quality or fee benefit is claimed.
+
+```sh
+python benchmarks/execution_identity.py --output local-results/execution-identity-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
+operation, locked-desktop retry or URL submission was repeated. Native desktop completion,
+crawler visits, indexing and AI citations retain their separate evidence limits.

@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.10 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.11 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -360,6 +360,14 @@ Python 脚本是可信代码，不在沙箱中运行。
 执行意图在产生副作用之前持久记录。执行结果不确定时不自动重试。不保证跨运行恢复
 或恰好执行一次。业务工具负责身份、幂等性、事务和外部结果核对。运行时间预算在
 回调之间检查；每个回调必须自行限制 I/O 超时。推理没有结果缓存。
+
+当前执行窗口发生 DecisionStop 时，execution_uncertain 在当前 pending 的已绑定
+action_id 存在时携带它。这个窗口覆盖 execute、结果准入、即时 observe 及观察未变时
+的 verify。不从历史推断 ID；执行前停止或 pending 已清零后的停止，不会借用旧 ID。
+普通异常已携带可用的 pending ID。这个标识用于定位私有日志证据并核对目标状态，
+不证明效果成功或执行次数，不是幂等 key，也不授权重跑。这个终态字段不新增绑定参数。
+退出行为、授权、重试策略和用量处理均不变，未知用量仍为未知。
+见[执行标识 A/B](../reports/execution-identity-ab.json)的接口边界。
 
 <a id="decision-diagnostics"></a>
 ## 决策诊断

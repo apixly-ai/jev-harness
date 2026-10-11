@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.10**; no promise of general task success or universal savings.
+AI product. Early **0.1.11**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.11'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.10` only for active development.
+Use `@main` instead of `@v0.1.11` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -232,6 +232,12 @@ No result cache. Independent inference concurrency is capped at 30. Synchronous 
 budgets are checked between callbacks; tools must bound their own I/O. The runtime
 records intent before execution, preserves unknown usage, and does not implement
 cross-run resume or exactly-once effects.
+
+An `execution_uncertain` result from `DecisionStop` in the current execution window now
+includes the current bound `action_id` when available. Use it to locate private journal
+evidence and reconcile the target; it proves no success or execution count and is neither
+an idempotency key nor permission to rerun. No bound arguments are added to the terminal;
+unknown usage remains unknown. See the [identity A/B](reports/execution-identity-ab.json).
 
 ## Development
 
