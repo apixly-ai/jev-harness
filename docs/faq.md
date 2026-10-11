@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.12. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.13. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.12 release?
+## How do I install the exact v0.1.13 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -74,6 +74,14 @@ are chosen. Singleton domains bind without inference. Model output does not beco
 executable code, arbitrary text arguments, commands, paths, selectors or coordinates.
 Business tools still validate their own conditions. See the
 [parameter protocol](agent-contract.md#parameter-protocol).
+
+Provider arity uses the entry signature with follow_wrapped=False while respecting
+explicit __signature__. Generic *args forwarders with fewer than three explicit slots
+retain the advertised delegate contract, and selected two/three arguments must bind both.
+This preserves transparent two-argument forwarding while supporting explicit bridges;
+it does not change Task.tool signatures or prove every decorator's metadata/body behavior.
+For ambiguous wrappers use a clear two/three-argument entry or accurate Signature. See the
+[provider evidence](../reports/provider-signature-ab.json); no async, speed or savings claim.
 
 <a id="suitable-tasks"></a>
 

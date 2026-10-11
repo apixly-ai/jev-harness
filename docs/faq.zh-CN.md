@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.12，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.13，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.12 版本？
+## 如何安装准确的 v0.1.13 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -65,6 +65,13 @@ jev-harness check-task task.py
 与实际绑定值分开；`depends_on` 在父参数选定后构建子候选域。只有一个候选的域无需
 推理即可绑定。模型输出不会成为可执行代码、任意文本参数、命令、路径、选择器或坐标。
 业务工具仍须自行验证业务条件。详见[参数协议](agent-contract.zh-CN.md#parameter-protocol)。
+
+Provider 参数数量判断以 follow_wrapped=False 获取入口签名，尊重显式 __signature__。
+少于三个显式槽位的通用 *args 转发器保留 advertised 委托契约，所选两/三参数须同时
+可绑定两个签名。这保留透明两参数转发器，同时支持显式 bridge；不改变 Task.tool
+签名，也不证明所有 decorator 的元数据/函数体行为。模糊包装器应使用明确的两/三参数
+入口或准确 Signature。见[provider 证据](../reports/provider-signature-ab.json)，
+不声称异步支持、提速或降费。
 
 <a id="suitable-tasks"></a>
 

@@ -72,13 +72,22 @@ def require_synchronous(callback, role, *, allow_generator=False):
 def provider_arity(callback):
     require_synchronous(callback, "choices")
     try:
-        signature = inspect.signature(callback)
+        actual = inspect.signature(callback, follow_wrapped=False)
+        positional = sum(
+            p.kind in (p.POSITIONAL_ONLY, p.POSITIONAL_OR_KEYWORD)
+            for p in actual.parameters.values()
+        )
+        generic = any(p.kind == p.VAR_POSITIONAL for p in actual.parameters.values())
+        # Explicit bridges own their call shape. Generic forwarding wrappers retain
+        # their advertised delegate contract, checked against the actual entry point.
+        signature = inspect.signature(callback) if generic and positional < 3 else actual
     except (TypeError, ValueError):
         raise CallbackContractError("provider_signature_unsupported", "choices") from None
     # Three arguments expose bound parents. Optional keyword-only parameters are fine.
     for count in (3, 2):
         try:
             signature.bind(*([None] * count))
+            actual.bind(*([None] * count))
             return count
         except TypeError:
             continue

@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.12，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.13，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.12` 换成 `@main`。
+仅在开发时将 `@v0.1.13` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -122,6 +122,14 @@ Task 注册保留动态 provider 身份及绑定的 client/lock/state，静态�
 [离线 A/B](reports/callback-contract-ab.json)。这些检查不能证明普通 wrapper 返回类型、
 阻止可信导入的效果，也不把运行时变成异步引擎或沙箱。A/B 使用 scripted decisions，
 真实模型、网络和 UI 调用为零；未证明普遍成功、提速或降费收益。
+
+候选 provider 的绑定现在以 follow_wrapped=False 检查入口签名，尊重显式
+__signature__。没有 *args，或至少有三个显式位置槽位时，由入口签名决定；少于三槽
+的通用转发入口保留 advertised 委托契约，所选两/三参数须同时可绑定两个签名，三优先。
+只改变 provider，不改变 Task.tool 签名或回调类型检测，不证明元数据/函数体行为，
+也不保证修好每个 decorator。模糊包装器应采用明确接口。见
+[参数契约](docs/agent-contract.zh-CN.md#parameter-protocol) 与
+[provider 签名 A/B](reports/provider-signature-ab.json)。
 
 工具选择针对**下一步**。取证或满足前置条件可以推进任务，不要求一次调用完成总目标。
 由调用方在目标和契约中描述每个工具的前置条件、预期效果，以及适用的退出或优先级规则。

@@ -574,3 +574,61 @@ python benchmarks/owned_transport.py --output local-results/transport-counters-a
 Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
 operation, locked-desktop retry or URL submission was repeated. Historical acceptance
 and GEO claims retain their existing scope.
+
+## Choice-provider entry signatures (0.1.13)
+
+Provider arity now starts with `inspect.signature(..., follow_wrapped=False)`, still
+respecting explicit `__signature__`. Without `*args`, or with at least three explicit
+positional slots, the entry governs; generic forwarding entries with fewer than three
+slots retain the advertised delegate contract. In that generic branch, selected arguments
+must bind both signatures; otherwise the entry governs, with three preferred before two.
+This is provider-only: `Task.tool`
+signature handling and callback-kind detection are unchanged, and admission invokes
+no provider body. Explicit signature metadata may still be wrong; this does not prove
+body behavior or support every decorator.
+
+The [offline signature A/B](provider-signature-ab.json) compares exact published 0.1.12
+source (`851a865345230a0d151de60679cd776fcac16070`) with the candidate on 18 fixed
+synthetic fixtures, three paired repeats with alternating arm order: 54 rows per arm.
+Fixture-expectation conformance changes from 27/54 to 54/54. Binding-fix expectations
+change from 0/24 to 24/24, early-admission expectations from 0/3 to 3/3, and all 27/27
+compatibility rows retain pairwise behavior parity. The whole matrix is intentionally
+not behavior-identical: provider body calls and synthetic effects change from 27 to 45.
+Candidate expectation success includes deliberately rejected providers, not 54 executions
+or semantic-quality improvement.
+
+Fixtures cover decorated explicit two/three-slot entries, a prefix-bound partial,
+methods/callable objects, optional parents and a named three-slot variadic bridge.
+Controls preserve plain/optional signatures, explicit `__signature__`, transparent
+generic two/three/partial forwarding and existing invalid/coroutine rejection. An actual
+required-four wrapper is now rejected at admission with `provider_signature_unsupported`
+before a body or inference call. Six baseline optional-parent rows execute a supplied
+wrong candidate once; independent digest verification remains incomplete, and max_steps=1
+bounds that negative case. Separate CLI regression exercises a synchronous three-slot
+bridge advertising an async two-argument delegate, without exposing private arguments.
+
+Both arms have zero admission body calls, forbidden native inference/real HTTP attempts
+and private-value exposures. They retain 45 scripted decisions, three rows with unknown
+scripted usage, 107,415 selection-input bytes and 12,105 shared-context bytes. Native
+model/network/UI calls are zero; scripted choice and token usage are separate from real
+usage. Supported transparent forwarding is preserved by the advertised-contract check;
+blindly using entry-only `*args` capacity would not establish delegate compatibility.
+
+Negative results: returned context changes from 30,249 to 29,673 bytes (-576), reflecting
+different terminal/status phases, not reduced input context or fee savings. The mixed
+whole-operation median increases from about 1.471 to 1.621 ms; slower local records,
+including a prefix-partial case, remain in the report. Timing includes admission,
+synthetic registration, scripted selection, binding/effects, verification and journal
+flush/fsync, excluding process/import/provider-factory setup and terminal/source-hash
+analysis. Complex one/two-named-slot `*args` wrappers with misleading metadata can remain
+unsupported; use a clear two/three-argument entry or accurate Signature. Unknown usage,
+authorization, execution guards and candidate refresh/no caching retain their existing
+rules. No async-engine, model-quality, speed or fee benefit is claimed.
+
+```sh
+python benchmarks/provider_signature.py --output local-results/provider-signature-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
+operation, locked-desktop retry or URL submission was repeated. Historical acceptance,
+transport counters and GEO claims retain their existing scope.

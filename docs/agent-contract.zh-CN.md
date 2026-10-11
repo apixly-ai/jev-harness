@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.12 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.13 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -225,10 +225,23 @@ SDK/`Engine.run` 也保留原有中断行为。[task-output A/B](../reports/task
 或 `Option(id, description, value)`。字面值会转为描述；Options 将模型可见的安全
 标签与实际值分开。不要把凭据放进模型可见的标签或观察中。
 
-提供函数的签名必须能绑定两个或三个位置参数，而不是必须具有某个固定的总参数数量。
-允许可选的仅关键字参数。如果两种形式都能绑定，优先使用三个参数：带默认值的第三
-参数或可变参数签名会收到 bound-arguments 对象。如果必需的仅关键字参数导致两种
-形式都无法绑定，则不支持该函数。这一绑定检查不能证明提供函数的行为。
+候选 provider 必须能绑定两个或三个位置参数，不按参数总数判断。允许可选的仅关键字
+参数。先取 inspect.signature(provider, follow_wrapped=False)，仍尊重显式 __signature__：
+
+- 入口没有 *args，或至少有三个显式位置槽位时，使用入口签名。同步 bridge 即使其
+  __wrapped__ 委托只声明两个参数，也可接收已绑定父参数；反向的两槽入口仍接收两个。
+- 含 *args 且显式位置槽位少于三个时，为兼容性保留默认 advertised 委托签名。
+  所选参数数量须同时可绑定 advertised 契约与入口签名。
+
+先尝试三个参数，再尝试两个。入口要求四个参数，或必需仅关键字参数导致两种形式都
+无法绑定时，在调用 provider 函数体之前报告 CallbackContractError，code 为
+provider_signature_unsupported、callback 为 choices。Partial 和可调用对象的 provider
+遵循相同规则。只改变 provider 的参数数量判断，Task.tool 签名检查和回调类型检测不变；
+类型检测不新增 __wrapped__ 展开，准入不调用 provider 函数体，仍是同步引擎。
+显式签名元数据仍可能有误，带一/
+两个命名槽位的复杂 *args 包装器若委托元数据不实，仍可能不支持。应使用明确的两/
+三参数入口或准确 __signature__；内省和准入都不证明函数体行为。见
+[provider 签名 A/B](../reports/provider-signature-ab.json)的测试范围。
 
 任务注册会保留动态提供函数的 callable 身份，包括其绑定的 client、锁和状态，
 同时对静态候选进行深拷贝。每当一个步骤需要提供函数的候选域时，都重新调用该函数；

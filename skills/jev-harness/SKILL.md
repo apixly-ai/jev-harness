@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.12. Install the repository at `@v0.1.12` for a reproducible release;
+Contract version: 0.1.13. Install the repository at `@v0.1.13` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -87,9 +87,16 @@ wrappers; ordinary wrapper return types cannot be statically proved. Task regist
 preserves dynamic provider identity and bound client/lock/state, deep-copies static
 choices, and calls the provider afresh when a step needs its domain, without result caching.
 Choice providers must bind (ctx, observation) or (ctx, observation, bound_arguments);
-optional keyword-only
-arguments are allowed. Three arguments win if both forms bind, including variadic/default
-signatures. Inspect fixed contract_error codes/roles/kinds rather than callable names or
+optional keyword-only arguments are allowed. Inspect the entry signature with
+follow_wrapped=False, respecting explicit __signature__. No *args, or at least three
+explicit positional slots, uses that entry. Generic *args entries with fewer than three
+slots retain the advertised delegate contract; selected arity must bind both signatures,
+three first then two. This is provider-only, not Task.tool signature or callback-kind
+unwrapping. It invokes no provider body and does not prove metadata/body behavior; complex
+one/two-slot *args wrappers with bad metadata may remain unsupported. Prefer an explicit
+two/three-argument entry or accurate Signature. Actual required-four or other unbindable
+entries report provider_signature_unsupported/choices. See reports/provider-signature-ab.json.
+Inspect fixed contract_error codes/roles/kinds rather than callable names or
 raw errors. Errors inside executing tools remain execution_uncertain; do not retry them.
 This is not an async engine or sandbox, and registration during trusted import does not
 prevent earlier top-level effects. check-task stays static; authorization/verification

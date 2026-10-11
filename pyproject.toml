@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "apixly-jev-harness"
-version = "0.1.12"
+version = "0.1.13"
 description = "Jev-native agent loops with typed tools, parameter choices and verified outcomes"
 requires-python = ">=3.10"
 license = "MIT"

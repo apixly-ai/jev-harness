@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.12 for a reproducible release;
+package downloads still require network access. Pin v0.1.13 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -235,11 +235,29 @@ values or `Option(id, description, value)`. Literal values become descriptions; 
 separate a safe model-visible label from the actual value. Do not put credentials in
 model-visible labels or observations.
 
-Provider signatures must bind two or three positional arguments, rather than have a
-particular total parameter count. Optional keyword-only arguments are allowed. If both
-forms bind, three is preferred: a defaulted third argument or variadic signature receives
-the bound-arguments object. A required keyword-only argument that prevents either form
-from binding is unsupported. This binding check does not prove the provider's behavior.
+Choice providers must bind two or three positional arguments, rather than have a
+particular total parameter count. Optional keyword-only arguments are allowed. Binding
+starts with `inspect.signature(provider, follow_wrapped=False)`, which still respects
+an explicit `__signature__`:
+
+- An entry without `*args`, or with at least three explicit positional slots, uses that
+  entry signature. A synchronous bridge can receive bound parents even when its
+  `__wrapped__` delegate advertises only two arguments; the reverse two-slot entry stays two.
+- A `*args` entry with fewer than three explicit positional slots retains the default
+  advertised delegate signature for compatibility. The selected arity must bind both
+  the advertised contract and entry signature.
+
+Try three arguments first, then two. An entry requiring four arguments, or required
+keyword-only arguments that prevent either form from binding, reports
+`CallbackContractError` with code `provider_signature_unsupported` and callback `choices`
+before invoking the provider body. Partial and callable-object providers follow these rules.
+This changes provider arity only; `Task.tool` signature checks and callback-kind detection
+are unchanged. No `__wrapped__` unwrapping is added to kind detection, no provider body is
+invoked during admission, and this remains a synchronous engine.
+Explicit signature metadata can still be wrong, and complex one/two-slot `*args` wrappers
+with misleading delegate metadata can remain unsupported. Use an explicit two/three-argument
+entry or accurate `__signature__`; neither introspection nor admission proves body behavior.
+See the [provider-signature A/B](../reports/provider-signature-ab.json) for the test scope.
 
 Task registration preserves a dynamic provider callable's identity, including its bound
 client, lock and state, while deep-copying static choices. Whenever a step needs the

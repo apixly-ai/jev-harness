@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.12**; no promise of general task success or universal savings.
+AI product. Early **0.1.13**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.12'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.12` only for active development.
+Use `@main` instead of `@v0.1.13` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -140,6 +140,16 @@ and [offline A/B](reports/callback-contract-ab.json). These checks cannot prove 
 wrapper return types, prevent trusted import effects or turn the runtime into an async
 engine or sandbox. The A/B uses scripted decisions with zero real model, network or UI
 calls; it establishes no general success, speed or cost benefit.
+
+Choice-provider binding now checks the entry signature with `follow_wrapped=False`,
+respecting explicit `__signature__`. Without `*args`, or with at least three explicit
+positional slots, that entry governs. Generic forwarding entries with fewer than three
+slots retain the advertised delegate contract; the chosen two/three arguments must bind
+both signatures, with three preferred. This changes providers only, not `Task.tool`
+signatures or callback-kind detection. It does not prove metadata/body behavior or fix
+every decorator; use an explicit interface for ambiguous wrappers. See the
+[parameter contract](docs/agent-contract.md#parameter-protocol) and
+[provider-signature A/B](reports/provider-signature-ab.json).
 
 Tool selection asks for the **next step**. Gathering evidence or satisfying a prerequisite
 can advance the task without completing the entire goal in one call. Describe each tool's
