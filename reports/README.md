@@ -632,3 +632,69 @@ python benchmarks/provider_signature.py --output local-results/provider-signatur
 Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
 operation, locked-desktop retry or URL submission was repeated. Historical acceptance,
 transport counters and GEO claims retain their existing scope.
+
+## Independent verification value types (0.1.14)
+
+`verify_state` now distinguishes booleans from numbers recursively, preserving finite
+numeric 1/1.0 equivalence, including numeric keys. Lists/tuples match only their own kind,
+and dictionary keys preserve boolean/number distinctions. Unsupported values/subclasses
+do not match; comparison does not delegate to custom equality. Observed roots and control
+records use builtin dictionaries/string fields before lookup, and observed control
+collections use builtin list/tuple. Malformed records fail instead of being filtered into
+a unique match. Expected text accepts None/builtin str before strip; invalid types/subclasses
+raise the existing configuration error, while unsupported comparison values return false.
+Observed text must be builtin str rather than list/dictionary membership.
+
+The [offline verification A/B](verification-types-ab.json) compares exact published 0.1.13
+source (`8e25a38293284265edb4d3b512234f42bfa53d2c`) with the candidate on 35 fixed
+synthetic fixtures, three paired repeats with alternating arm order: 105 rows per arm.
+Fixture-expectation conformance changes from 36/105 to 105/105. All 36 compatibility
+rows retain pairwise behavior parity; the whole matrix intentionally does not. Eighteen
+helper-mismatch cases (54 rows) change from false initial completion to blocked with zero
+effects/inference. Three invalid-construction cases (nine rows) change from false completion
+to constructor rejection, without an Engine run or terminal packet. Two continuation
+cases (six rows) now collect a builtin true value and independently verify after one
+synthetic effect. Under this fixed builtin-type oracle, mechanical false initial matches
+change from 69 to zero; no-tool false completion rows change from 63 to zero. The oracle
+includes deliberate unsupported/subclass compatibility narrowing, not a measured business
+failure rate or false-completion rate across Jev applications. These are helper correctness checks, not AI
+semantic accuracy or real browser/desktop acceptance.
+
+Fixtures cover boolean/numeric and nested/container/key distinctions, text types,
+unsupported equality/metaclass values, string-subclass alias keys on records/roots,
+expected-text construction and retained numeric/container/null/missing/duplicate/substring
+behavior. Caller-owned custom verification remains unchanged. Within helper comparison,
+custom equality calls change from 90 to zero; metaclass/float/strip calls are zero in both
+arms. Across the full preparation/helper/loop sequence, custom equality changes from 96
+to six and metaclass equality remains three in both arms; custom strip changes from three
+to zero. An initial smoke assertion incorrectly required all hooks to vanish. Its corrected
+comparison-scoped assertion retains all accumulated counts: deepcopy/JSON/other trusted
+loop work still invokes hooks. This helper is not a sandbox, and journals neither recover
+tuple/list type identity nor dictionary keys already collapsed during Python construction.
+
+Native inference/real HTTP attempts, actual model/network/UI calls and raw private-marker
+exposures are zero. Scripted decisions/effects increase from three to nine. Unknown
+scripted-usage rows increase from three to six because the new continuation adds an unknown
+call; earlier unknown usage is preserved rather than lost or cleared. Selection input
+grows from 5,661 to 16,959 bytes and shared context from 930 to 2,766 bytes. Rejecting a
+false `done` can require later tools, extra decisions and journal work; execution gates
+and caller authorization are unchanged.
+
+Negative results: returned bytes change from 42,297 to 42,138 (-159) due to terminal/phase
+composition, not context or fee savings. Constructor-only rows count a fixed exception-type
+projection, not fabricated Engine terminals. The mixed median changes from about 1.089 to
+1.078 ms, without establishing speed gains; known/unknown continuation cases are slower
+by about 0.463/0.426 ms. Timing includes helper construction/checking, registration, loop
+admission, optional scripted selection/effect, verification and journal flush/fsync,
+excluding process/import/input setup and post-call analysis. Implicit custom-matcher/subclass
+support is narrowed; deliberately complex semantics belong in custom `verify`. Global
+admission, models, execution permissions and candidate refresh/no caching are unchanged.
+No model-quality, real UI acceptance, speed or fee benefit is claimed.
+
+```sh
+python benchmarks/verification_types.py --output local-results/verification-types-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. No paid model matrix, browser
+operation, locked-desktop retry or URL submission was repeated. Historical signature,
+transport and GEO claims retain their scope; native desktop acceptance remains unverified.

@@ -33,6 +33,7 @@ jobs:
       - run: python benchmarks/execution_identity.py --output local-results/execution-identity-ab.json
       - run: python benchmarks/owned_transport.py --output local-results/transport-counters-ab.json
       - run: python benchmarks/provider_signature.py --output local-results/provider-signature-ab.json
+      - run: python benchmarks/verification_types.py --output local-results/verification-types-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.13**; no promise of general task success or universal savings.
+AI product. Early **0.1.14**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.13` only for active development.
+Use `@main` instead of `@v0.1.14` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -218,6 +218,16 @@ exact click actions; scripts must own business identity and idempotency.
 
 The `verify_state` helper requires nonempty text or at least one control condition.
 Every expected control field must be observed; a missing field does not establish `null`.
+Control values now use recursive builtin-type matching: booleans differ from numbers,
+while finite `1`/`1.0` numeric equivalence remains. Lists/tuples match only their own kind,
+and dictionary keys retain boolean/number distinctions. Unsupported types/subclasses
+do not match; complex comparisons belong in caller-owned `verify`. Text checks require
+observed builtin strings, without list/dictionary membership. Expected text accepts only
+`None`/builtin `str`; invalid types/subclasses raise the existing configuration error.
+Rejecting an old false
+`done` can allow later tools and additional decisions; it is not a speed or fee benefit.
+See the [typed-verification A/B](reports/verification-types-ab.json). Custom verification,
+global input admission, execution permissions and candidate refresh/no caching are unchanged.
 The [evidence-progress A/B](reports/evidence-progress-ab.json) uses synthetic offline
 decisions to check result-driven continuation and repeated-call blocking. It is not live
 model acceptance or evidence of general performance gains.

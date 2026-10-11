@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.13 for a reproducible release;
+package downloads still require network access. Pin v0.1.14 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -383,6 +383,40 @@ keyword-callable signatures; no variadic arguments. Python scripts are trusted, 
 condition. Every expected control field must be present in the observed control; a missing
 field does not establish an observed `null`. Completion still requires the independent
 verifier, even when admitted results allowed further tool decisions.
+
+The helper matches control values recursively using exact builtin `None`, `bool`, `int`,
+finite `float`, `str`, `list`, `tuple` and `dict` types. `True`/`1` and `False`/`0` differ,
+including nested values and dictionary keys; numeric `1`/`1.0` equivalence remains,
+including numeric keys. Lists/tuples compare elements recursively within the same kind,
+without list/tuple coercion. Dictionary keys are matched by typed null/boolean/number/string
+categories. Unsupported values, keys and subclasses do not match. Value comparison does
+not delegate completion to a custom object's `__eq__`.
+
+The helper's observed root must be an exact builtin dictionary with builtin-string field
+keys before looking up text/controls; unsupported roots do not match. For control checks,
+expected records must be exact builtin dictionaries with builtin-string field
+keys and a builtin-string label; invalid records retain the existing
+`control_check_requires_label_and_expected_fields` configuration error. For control checks,
+observed controls must be builtin list/tuple with exact dict records and builtin-string
+field keys. A malformed record makes the helper return false rather than being filtered
+out to manufacture a unique match. This outer-field rule does not prohibit supported
+numeric keys inside nested values. Comparison avoids custom equality; helper construction
+and the surrounding trusted loop can still invoke Python hooks through deepcopy or JSON
+sorting, so it is not a sandbox or a claim of no arbitrary Python execution.
+
+Expected text accepts only `None` or builtin `str`; other types/subclasses raise the
+existing `verification_text_required` configuration error before any text `strip` call.
+This construction rejection differs from unsupported comparison values returning false.
+When checking text, the observed value must be builtin `str`; a list/dictionary containing
+the expected text does not satisfy the condition. Earlier implicit custom-matcher/subclass
+support is narrowed: use caller-owned `verify` for deliberately different semantics or
+complex objects. This changes `verify_state` only, not global input admission, custom
+verifiers, model choice, authorization or candidate refresh/no caching. A failed initial
+check can now permit subsequent tool execution and more selection calls instead of a
+false `done`; normal execution gates still apply. The
+[verification-types A/B](../reports/verification-types-ab.json) concerns independent typed
+verification, not AI semantic accuracy or real browser/desktop acceptance. No whole-matrix
+behavior parity, speed or fee benefit is implied.
 
 ## Terminals
 

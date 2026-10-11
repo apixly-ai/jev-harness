@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.13. Install the repository at `@v0.1.13` for a reproducible release;
+Contract version: 0.1.14. Install the repository at `@v0.1.14` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -123,6 +123,26 @@ a trusted tool with bounded attempts/time, or expose meaningful observed progres
 When using `verify_state`, supply nonempty text or at least one control condition.
 Each expected control field must be observed; a missing field is not observed `null`.
 Admitted results and model exit choices never replace independent completion verification.
+
+verify_state matches exact builtin None/bool/int/finite-float/str/list/tuple/dict values
+recursively. Bool differs from numbers, including nested values and dictionary keys;
+numeric 1/1.0 remains equivalent. Lists/tuples stay same-kind; dictionary keys use typed
+null/bool/number/str matching. Unsupported types/subclasses do not match or delegate
+completion to arbitrary __eq__. Expected text accepts None/builtin str only; other
+types/subclasses raise verification_text_required before strip during construction,
+distinct from unsupported comparison values returning false. Text checks need observed
+builtin str, not list/dict membership. Implicit custom matchers/subclasses are a compatibility narrowing; use a
+caller-owned verify for deliberate complex semantics. This helper-only change does not
+alter global admission, custom verify, model choice, execution permissions or fresh
+candidates/no caching. Rejecting false initial done can cause subsequent tools/extra
+decisions, not speed/fee savings or AI accuracy. See reports/verification-types-ab.json;
+offline typed checks do not establish real UI acceptance or whole-matrix behavior parity.
+Observed helper roots use exact dict/builtin-string fields before text/controls lookup;
+unsupported roots do not match. For control checks, expected records use exact dict with
+builtin-string fields/labels; observed
+controls use builtin list/tuple and exact dict/string-field records. Malformed records
+return false, not filtered uniqueness. This does not ban nested numeric keys. No custom
+equality in comparison is not a no-magic guarantee for deepcopy/JSON or trusted loop execution.
 
 Read spec.context_admission: the loop's existing inclusive limit is 15000 serialized
 JSON characters, from json.dumps(..., ensure_ascii=False) with default separators, not

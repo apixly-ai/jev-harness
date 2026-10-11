@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.13 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.14 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -359,6 +359,31 @@ Python 脚本是可信代码，不在沙箱中运行。
 `verify_state(text=..., controls=...)` 要求非空文本或至少一个控件条件。每个预期
 控件字段都必须出现在观察到的控件中；字段缺失不能证明观察到的值是 `null`。
 即使纳入的结果允许继续选择工具，完成任务仍需要独立验证器通过。
+
+Helper 对控件值递归匹配，支持精确的 builtin None、bool、int、有限 float、str、
+list、tuple、dict。True/1 与 False/0 不同，包括嵌套值和字典 key；数字 1/1.0 仍
+等价，包括数字 key。List/tuple 仅在同类内递归比较，不互相转换；字典 key 按
+null/boolean/number/string 类型分类匹配。不支持的值、key 和子类不匹配，值比较
+不将完成判断委托给自定义对象的 __eq__。
+
+Helper 的观察根须为精确 builtin dict、所有字段 key 为 builtin str，之后才查找
+text/controls；不支持的 root 不匹配。检查控件时，预期记录必须是精确 builtin dict，
+字段 key 与 label 都为 builtin str；不合法
+记录保留原有 control_check_requires_label_and_expected_fields 配置错误。检查控件时，
+观察集合须为 builtin list/tuple，记录为精确 dict 且字段 key 为 builtin str。
+格式异常的记录会让 helper 返回 false，不过滤后伪造唯一匹配。这项外层字段规则
+不禁止嵌套值中受支持的数字 key。比较避免自定义相等调用，但 helper 构造及周围可信
+loop 的 deepcopy/JSON 排序仍可能调用 Python hook，不是沙箱，也不声明不会执行
+任意 Python。
+
+预期文本只接受 None/builtin str；其他类型/子类在任何 strip 调用之前，以原有
+verification_text_required 配置错误拒绝。这是构造阶段拒绝，不同于不支持的比较值
+返回 false。检查文本时，观察值必须是 builtin str；list/dict 包含预期文本并不满足条件。先前
+隐式的自定义 matcher/子类支持收窄；需要其他语义或复杂对象时，使用调用方的 verify。
+只改变 verify_state，不改变全局输入准入、自定义验证器、模型选择、授权或候选刷新/
+无缓存。初始检查不通过后，可能继续执行工具并增加选择调用，替代错误 done；已有
+执行门槛仍有效。[类型验证 A/B](../reports/verification-types-ab.json)针对独立的类型
+验证，不代表 AI 语义准确率或真实浏览器/桌面验收，不暗示全矩阵行为一致、提速或降费。
 
 <a id="terminals"></a>
 ## 终态

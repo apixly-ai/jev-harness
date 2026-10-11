@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.13，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.14，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.13` 换成 `@main`。
+仅在开发时将 `@v0.1.14` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -184,6 +184,13 @@ Camofox 限定来源并使用新鲜观察目标，桌面依赖 macOS Accessibili
 
 verify_state 辅助函数必须有非空文本或至少一个控制条件。每个预期控制字段都必须
 被观察到，字段缺失不等于观察到了 null。
+控件值改用递归的 builtin 类型匹配：布尔与数字不同，有限数字 1/1.0 仍相等；list/
+tuple 只匹配同类，字典 key 也区分布尔/数字。不支持的类型/子类不匹配，复杂比较应由
+调用方 verify 实现。检查文本时，观察必须是 builtin str，不用 list/dict 成员关系。
+预期文本只接受 None/builtin str，其他类型/子类会产生原有配置错误。
+拒绝旧的错误 done 可能继续调用工具和决策，不代表提速或降费。见
+[类型验证 A/B](reports/verification-types-ab.json)。自定义验证、全局输入准入、执行权限
+及候选刷新/无缓存不变。
 [证据进展 A/B](reports/evidence-progress-ab.json) 使用合成离线判断，验证结果驱动的
 继续执行和重复调用阻断；不代表真实模型验收或普遍性能收益。
 

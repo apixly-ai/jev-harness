@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.13. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.14. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.13 release?
+## How do I install the exact v0.1.14 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -107,6 +107,17 @@ through `result_context` can advance the next decision without replacing verific
 The terminal packet preserves blocked, missing-context, review and uncertain-execution
 outcomes. See [context and results](agent-contract.md#context-and-results) and
 [terminal states](agent-contract.md#terminals).
+
+`verify_state` uses recursive builtin matching: booleans differ from numbers, numeric
+1/1.0 equivalence remains, nested list/tuple kinds stay distinct, and typed dictionary
+keys preserve the boolean/number distinction. Unsupported types/subclasses do not match;
+text checks require observed builtin strings. Expected text accepts None/builtin str;
+other types/subclasses fail construction, while unsupported comparison values do not match.
+This narrows implicit custom equality;
+use a custom `verify` for other deliberate semantics. Rejecting false completion can
+cause later tools and extra decisions, without changing authorization or proving speed,
+savings, AI accuracy or real UI acceptance. See the
+[typed-verification evidence](../reports/verification-types-ab.json).
 
 <a id="browser-evidence"></a>
 

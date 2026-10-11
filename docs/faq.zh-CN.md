@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.13，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.14，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.13 版本？
+## 如何安装准确的 v0.1.14 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.13'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.14'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -94,6 +94,13 @@ Provider 参数数量判断以 follow_wrapped=False 获取入口签名，尊重�
 终态包会保留阻塞、缺少上下文、需复核及执行不确定等结果。
 详见[上下文与结果](agent-contract.zh-CN.md#context-and-results)及
 [终态](agent-contract.zh-CN.md#terminals)。
+
+verify_state 使用递归的 builtin 匹配：布尔与数字不同，数字 1/1.0 仍等价，嵌套
+list/tuple 类型不互换，字典 key 保留布尔/数字区别。不支持的类型/子类不匹配；
+文本检查要求观察为 builtin str；预期文本仅接受 None/builtin str，其他类型/子类
+在构造时拒绝，而不支持的比较值是不匹配。这收窄隐式自定义相等语义，其他有意的语义应使用
+自定义 verify。拒绝错误完成可能带来后续工具和额外决策，不改变授权，也不证明提速、
+省费、AI 准确率或真实 UI 验收。见[类型验证证据](../reports/verification-types-ab.json)。
 
 <a id="browser-evidence"></a>
 
