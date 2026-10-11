@@ -35,6 +35,7 @@ jobs:
       - run: python benchmarks/provider_signature.py --output local-results/provider-signature-ab.json
       - run: python benchmarks/verification_types.py --output local-results/verification-types-ab.json
       - run: python benchmarks/parameter_snapshots.py --output local-results/parameter-snapshots-ab.json
+      - run: python benchmarks/candidate_budget.py --output local-results/candidate-budget-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

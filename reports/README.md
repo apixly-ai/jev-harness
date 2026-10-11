@@ -764,3 +764,62 @@ python benchmarks/parameter_snapshots.py --output local-results/parameter-snapsh
 No paid model matrix, browser operation, locked-desktop retry or URL submission was
 repeated. Historical verification, signature, transport and GEO evidence retain their
 existing scope; native desktop acceptance remains unverified.
+
+## Wall budget before candidate acquisition (0.1.16)
+
+At the top-of-cycle false-verification checkpoint, the existing `max_steps` check stays
+first, then the loop checks elapsed budget before starting `workflow.candidates`. If this
+check sees an expired budget it stops `budget_exceeded`; a late true result still finishes `done`.
+After false verification, `max_steps` takes precedence over this timeout check.
+Existing calls/effects and unknown usage remain. This is one
+cooperative checkpoint, not callback interruption or a complete hard deadline, and it
+adds no context, model, authorization, selector or parameter rule.
+
+The [candidate-budget A/B](candidate-budget-ab.json) compares baseline commit
+`30524752a83438decb431b36267ac81378f0bcb8` with the candidate on 10 fixed synthetic
+Task/Workflow/Engine fixtures, three paired repeats with alternating arm order: 60 rows,
+30 per arm. A callback-controlled monotonic clock reaches/passes the ten-second budget
+without sleeping; this virtual elapsed time is separate from measured operation latency.
+Six fixtures (18 rows per arm) check that false verification after known exhaustion does
+not start another candidate collection. Four control fixtures retain initial expiry,
+fast progression, late verified completion and step-limit precedence. The inclusive
+`elapsed >= timeout` boundary is unchanged.
+
+| Measurement | Baseline | Candidate |
+|---|---:|---:|
+| Exhausted false-verification checkpoint conforms | 0/18 | 18/18 |
+| Compatibility expected outcomes | 12/12 | 12/12 |
+| Candidate collection entries across the full matrix | 27 | 9 |
+| Task provider calls / Workflow generator yields | 3 / 3 | 0 / 0 |
+| Simulated effects / scripted decisions | 9 / 9 | 9 / 9 |
+| Rows with unknown scripted usage | 3 | 3 |
+| Selection-input / shared-context bytes | 15,156 / 2,448 | 15,156 / 2,448 |
+| Returned context bytes | 14,361 | 14,184 |
+| Mixed-fixture median whole-operation time | 1.131 ms | 1.124 ms |
+
+Paired behavior parity applies to the 12 control rows, not the whole matrix. Six prior
+`blocked` and three `failed` outcomes become `budget_exceeded` because their empty or
+raising collector never runs; those downstream diagnostics are unavailable and cannot
+be guessed. The other nine fix rows already ended `budget_exceeded` but started needless
+collection. Prior valid collections/effects, unknown scripted usage and row-level
+callback/journal event sequences are retained. Reduced synthetic collection entries
+are not evidence of fewer actual API requests or fee savings.
+
+Returned bytes fall 177 because terminal/phase outcomes change, not because context is
+saved. The mixed median does not establish a speed benefit; the dynamic Task fixture's
+median increases by about 0.721 ms. Native inference and real HTTP/model/UI calls are
+zero, with actual usage separate from scripted known/unknown usage. No tariff, AI quality,
+general speed or fee benefit is assumed. Real `perf_counter` timing includes run
+admission, trusted callbacks, optional scripted decisions/effects and private
+journal flush/fsync; it excludes imports, synthetic clock/workflow setup and post-call
+analysis/source hashing. This tests neither real I/O deadlines nor callback cancellation,
+rollback or safe retry. Other verification paths and execution rules retain their scope.
+Reproduce with a full Git checkout, `.[dev]` and a new output path:
+
+```sh
+python benchmarks/candidate_budget.py --output local-results/candidate-budget-ab.json
+```
+
+No paid model matrix, browser operation, locked-desktop retry or URL submission was
+repeated. Historical verification, snapshot, transport and GEO evidence retain their
+scope; native desktop acceptance remains unverified.

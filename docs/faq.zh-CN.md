@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.15，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.16，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.15 版本？
+## 如何安装准确的 v0.1.16 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -167,8 +167,14 @@ owned_transport 在终态 finish 时记录本次拥有的 SDK client 尝试与 H
 
 ## 任务编写者需要落实哪些执行与上下文边界？
 
-推理不缓存结果，独立推理并发最多 30。同步运行时在回调之间检查墙钟时间预算；每项
-工具须自行限制 I/O 与轮询。固定观测下不支持重复调用同一个动作。默认上下文策略
+推理不缓存结果，独立推理并发最多 30。同步运行时使用协作式墙钟预算检查点，每项
+工具须自行限制 I/O 与轮询。在每轮顶部，验证返回 false 后先检查原有步骤上限，再在候选采集前
+因该检查发现超时而停止；晚到的 true 仍完成 done，验证为 false 时 max_steps 仍优先于
+此超时检查。不会中断回调，也
+不是每个边界都检查，因此不是硬截止。此前效果/未知用量保留；跳过的空候选/抛错
+候选回调不再提供原来的 blocked/failed 诊断。见
+[候选预算证据](../reports/candidate-budget-ab.json)，不承诺普遍提速或省费。
+固定观测下不支持重复调用同一个动作。默认上下文策略
 保留最近八次已准入的动作结果及较早动作的记录；如果准入上下文仍超过保守的
 15,000 字符预算，会返回复核，而不会悄悄丢弃约束。原始证据留在私有日志中，仅准入
 安全摘要。详见[上下文管理](context.zh-CN.md)与

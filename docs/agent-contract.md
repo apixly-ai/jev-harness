@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.15 for a reproducible release;
+package downloads still require network access. Pin v0.1.16 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -448,8 +448,27 @@ returned runtime results exit 2. Interrupted CLI tasks exit nonzero without a pa
 
 Intent is durably recorded before effects. No automatic retry of uncertain execution.
 No cross-run resume/exactly-once promise. Business tools own identity, idempotency,
-transactions and external reconciliation. Wall budgets are checked between callbacks;
+transactions and external reconciliation. Wall budgets use cooperative checkpoints;
 each callback must enforce its I/O timeout. Inference has no result cache.
+
+At the top-of-cycle false-verification checkpoint, the loop retains the existing
+`max_steps` check, then checks elapsed time before invoking `workflow.candidates`
+(including Task's candidate providers). If this check sees elapsed time at or past the timeout, it returns
+`budget_exceeded` without starting that candidate acquisition. A true result from this
+verifier still returns `done` if it finishes late. After false verification, a reached
+step limit still returns `max_steps` before this timeout check.
+The new checkpoint neither interrupts callbacks already running nor checks every
+callback boundary, and is not a complete hard deadline. Prior effects and unknown usage
+are preserved; context, model selection, authorization, selectors and binding rules are
+unchanged. Other verification paths, including post-execution unchanged-state handling,
+retain their behavior. No automatic retry is added.
+
+This changes expired empty-candidate `blocked` and raising-candidate `failed` outcomes to
+`budget_exceeded` at that position. Skipped reads cannot supply their downstream empty
+or exception diagnostics. Inspect the terminal and prior evidence rather than treating
+it as a tool failure or assuming zero earlier activity. The
+[candidate-budget A/B](../reports/candidate-budget-ab.json) records this tradeoff without
+a general speed or fee claim.
 
 If `DecisionStop` occurs in the current execution window, `execution_uncertain` includes
 the current pending bound `action_id` when present. This window covers execute, result

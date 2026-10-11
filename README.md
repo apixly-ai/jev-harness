@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.15**; no promise of general task success or universal savings.
+AI product. Early **0.1.16**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.15` only for active development.
+Use `@main` instead of `@v0.1.16` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -259,8 +259,18 @@ four tool executions. Early attempts requiring review are retained. Desktop live
 acceptance is **not yet proven**: this host is locked; offline adapter tests do not
 replace native acceptance. [Exact evidence and limits](reports/README.md).
 
-No result cache. Independent inference concurrency is capped at 30. Synchronous time
-budgets are checked between callbacks; tools must bound their own I/O. The runtime
+No result cache. Independent inference concurrency is capped at 30. Synchronous wall
+budgets use cooperative checkpoints; tools must bound their own I/O. At the top of a loop
+cycle, after verification returns false, the loop checks `max_steps` first, then checks
+elapsed time before starting `workflow.candidates`. If that check sees an expired budget,
+it stops with
+`budget_exceeded`. A true result from that verifier still finishes `done` even if it
+arrives late; after false verification, `max_steps` retains priority over this timeout
+check. Running callbacks are not interrupted, and this is not a complete
+hard deadline. Earlier effects and unknown usage remain. Skipped candidate reads no
+longer provide their empty/error diagnostics. See the
+[candidate-budget A/B](reports/candidate-budget-ab.json); no general speed or fee benefit
+is promised. The runtime
 records intent before execution, preserves unknown usage, and does not implement
 cross-run resume or exactly-once effects.
 

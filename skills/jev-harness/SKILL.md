@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.15. Install the repository at `@v0.1.15` for a reproducible release;
+Contract version: 0.1.16. Install the repository at `@v0.1.16` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -165,6 +165,19 @@ separate upstream limits. No automatic truncation or caching is added; prior cal
 unknown usage and uncertain execution still require reconciliation. See the contract,
 context page and reports/context-budget-ab.json for offline synthetic measurement with
 zero real model/network/UI calls, added terminal bytes and no quality/speed/fee claim.
+
+Wall budgets are cooperative checkpoints, not a complete hard deadline or callback
+interruption. At the top of a loop cycle, after verified(state) returns false, the existing
+max_steps check remains first; elapsed budget is then rechecked before workflow.candidates
+(including Task providers). If that check sees elapsed time at or past timeout, expect budget_exceeded
+without that new acquisition. A late true verifier result still finishes done; after
+false verification, max_steps takes precedence over this timeout check.
+Bound each callback's own I/O/polling. Prior effects and unknown usage remain; skipped
+empty/raising candidate callbacks no longer produce their former blocked/failed
+diagnostics. Inspect earlier evidence before deciding on a new run; this is not a tool
+failure or automatic retry permission. Context/model/authorization/selector/binding
+rules and other verification paths are unchanged. See reports/candidate-budget-ab.json;
+no general speed or fee claim.
 
 Do not retry ambiguous external execution. Caller tools own identity, authorization,
 idempotency, business transactions and reconciliation. Scripts are trusted Python, not a

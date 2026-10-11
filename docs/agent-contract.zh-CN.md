@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.15 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.16 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -411,8 +411,22 @@ verification_text_required 配置错误拒绝。这是构造阶段拒绝，不�
 退出，不返回数据包。
 
 执行意图在产生副作用之前持久记录。执行结果不确定时不自动重试。不保证跨运行恢复
-或恰好执行一次。业务工具负责身份、幂等性、事务和外部结果核对。运行时间预算在
-回调之间检查；每个回调必须自行限制 I/O 超时。推理没有结果缓存。
+或恰好执行一次。业务工具负责身份、幂等性、事务和外部结果核对。运行时间预算使用
+协作式检查点；每个回调必须自行限制 I/O 超时。推理没有结果缓存。
+
+在每轮顶部，verified(state) 返回 false 后保留现有 max_steps 检查，再在调用
+workflow.candidates（包括 Task 候选 provider）之前重查耗时。该检查发现已达到或超过
+超时预算时返回 budget_exceeded，不启动这次候选采集。该验证晚到的 true 仍返回 done；
+验证为 false 且已达到步骤上限时，仍在这个超时检查前返回 max_steps。新检查点不会
+中断正在运行的回调，也不是每个
+回调边界都检查，不构成完整硬截止。此前效果和未知用量保留；上下文、模型选择、
+授权、selector 与绑定规则不变。其他验证路径（包括执行后观察不变的处理）保留原有
+行为，不新增自动重试。
+
+这会把此位置过预算后的空候选 blocked 或候选抛错 failed 改为 budget_exceeded。
+跳过读取后不能再获得那些下游空列表或异常诊断。应检查终态及此前证据，不把它当成
+工具失败，也不假定此前没有活动。见
+[候选预算 A/B](../reports/candidate-budget-ab.json)，保留这一取舍，不声称普遍提速或省费。
 
 当前执行窗口发生 DecisionStop 时，execution_uncertain 在当前 pending 的已绑定
 action_id 存在时携带它。这个窗口覆盖 execute、结果准入、即时 observe 及观察未变时

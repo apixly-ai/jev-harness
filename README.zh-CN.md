@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.15，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.16，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.15` 换成 `@main`。
+仅在开发时将 `@v0.1.16` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -213,7 +213,14 @@ tuple 只匹配同类，字典 key 也区分布尔/数字。不支持的类型/�
 真实 Jev/Camofox 合成表单以四次工具执行达到独立校验终态，早期复核失败保留。
 桌面真实验收尚未证明：本机锁屏阻止了访问，离线测试不能替代。见[完整证据](reports/README.md)。
 
-无结果缓存，独立推理并发最多 30。同步预算在回调之间检查，工具需自限 I/O。
+无结果缓存，独立推理并发最多 30。同步墙钟预算使用协作式检查点，工具需自限 I/O。
+在每轮顶部，验证返回 false 后先检查 max_steps，再在启动
+workflow.candidates 前重查耗时；
+该检查发现已到预算时返回 budget_exceeded。该验证晚到的 true 仍返回 done；验证为
+false 时，max_steps 在此位置仍优先于超时检查。不会中断运行中的回调，这不是完整的
+硬截止。此前效果和未知用量保留；跳过
+候选读取后不再得到其空列表/错误诊断。见
+[候选预算 A/B](reports/candidate-budget-ab.json)，不承诺普遍提速或省费。
 执行前写 intent，未知用量不计零，不提供跨运行恢复或 exactly-once 保证。
 
 当前执行窗口中由 DecisionStop 产生的 execution_uncertain，在当前已绑定 action_id

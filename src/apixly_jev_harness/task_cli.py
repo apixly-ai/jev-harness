@@ -249,7 +249,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.15",
+    "version": "0.1.16",
     "parameter_binding": "staged_candidate_choice",
     "argument_parsing": {
         "scope": "all command parsers when argparse reports an error",
@@ -342,6 +342,17 @@ SPEC = {
             "Parameter": ["description", "choices", "depends_on"],
             "Option": ["id", "description", "value"],
         },
+    },
+    "wall_budget": {
+        "policy": "cooperative_checks; callbacks_bound_their_own_io",
+        "before_candidate_collection": "rechecked_after_false_verification",
+        "late_verified_success": "done",
+        "post_verification_step_limit_precedence": True,
+        "callbacks_forcibly_interrupted": False,
+        "strict_whole_operation_deadline": False,
+        "prior_usage_and_effects": "preserved",
+        "candidate_timeout_terminal": "budget_exceeded",
+        "skipped_candidate_diagnostics": "unavailable; not guessed",
     },
     "parameter_snapshots": {
         "scope": "each_valid_parameter_domain",

@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.15. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.16. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.15 release?
+## How do I install the exact v0.1.16 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.15'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -198,8 +198,16 @@ are not added to the terminal, and unknown usage remains unknown. See the
 ## What execution and context limits should task authors enforce?
 
 Inference has no result cache, and independent inference concurrency is capped at 30.
-The synchronous runtime checks wall-clock budgets between callbacks; each tool must bound
-its own I/O and polling. Repeating an identical call against a fixed observation is
+The synchronous runtime uses cooperative wall-budget checkpoints; each tool must bound
+its own I/O and polling. At the top-of-cycle false-verification checkpoint, the existing
+step-limit check comes first, then an expired budget detected by this check stops before
+candidate acquisition. A late true verifier result still finishes done; after false verification,
+`max_steps` retains priority over this timeout check.
+Callbacks are not interrupted and not every boundary is checked, so this is not a hard
+deadline. Prior effects/unknown usage remain. Empty/raising candidate callbacks that are
+skipped no longer provide their former blocked/failed diagnostics; see the
+[candidate-budget evidence](../reports/candidate-budget-ab.json), without a general
+speed or fee promise. Repeating an identical call against a fixed observation is
 unsupported. The default context policy keeps eight recent admitted action results plus
 an older action ledger; if admitted context still exceeds the conservative 15,000-character
 budget, it returns review rather than silently dropping constraints. Keep raw evidence in

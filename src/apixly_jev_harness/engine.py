@@ -420,6 +420,8 @@ class Engine:
                         return finish("done")
                     if steps >= max_steps:
                         return finish("max_steps")
+                    if expired():
+                        return finish("budget_exceeded")
                     ctx.step = steps
                     actions = copy.deepcopy(list(workflow.candidates(ctx, copy.deepcopy(state))))
                     if not actions:

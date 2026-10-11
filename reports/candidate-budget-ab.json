@@ -1,0 +1,6139 @@
+{
+  "mode": "offline-synthetic-candidate-budget",
+  "baseline_commit": "30524752a83438decb431b36267ac81378f0bcb8",
+  "candidate": "working tree at invocation; published with its source commit",
+  "baseline_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "2a66fe04dc2bf2d57f18f540af469e2b5978f0eac0f78d739471cc47013974b6",
+    "src/apixly_jev_harness/backend.py": "f7709b468d3d7c131fb8be42b882e5a0387db0077d1fc07e420153b0447f6754",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/engine.py": "488efddf4ade7ba4ab47f959b94c607a40046f7f173b7fe7ac6e5826e38ba049",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "30b9dc766df860f9897032a1f902e4e1a7afbd6eff8c381d85ea9e1013a0bfe7",
+    "src/apixly_jev_harness/task_cli.py": "69045fe104037bb401d20ebdd4091b1bcc01596ee7c8076cff547da69296a7e6",
+    "src/apixly_jev_harness/verify.py": "cad171c63144a60d898553eb5a3d7dc0dd2189f2b20006d8edbe9f0f5a78b1e0"
+  },
+  "candidate_source_sha256": {
+    "src/apixly_jev_harness/__init__.py": "9999dcc9843dee69b2c68b7721f8c826c89e2d6f93720e1dbae80a020f304a98",
+    "src/apixly_jev_harness/backend.py": "f7709b468d3d7c131fb8be42b882e5a0387db0077d1fc07e420153b0447f6754",
+    "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+    "src/apixly_jev_harness/cli.py": "8d9434bf8a8b539163194a84e3f099761d08ef32201f99cbce46c139f3726d94",
+    "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+    "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+    "src/apixly_jev_harness/engine.py": "1db8e15b86aa92f593b5354a1a7e8a2e168bd6e0a4c903fd37a5df336053036c",
+    "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+    "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+    "src/apixly_jev_harness/task.py": "30b9dc766df860f9897032a1f902e4e1a7afbd6eff8c381d85ea9e1013a0bfe7",
+    "src/apixly_jev_harness/task_cli.py": "d1ebbd533c59a76a99812f3692cdee80582b0c2ba832f1fa525f6ff951d93e48",
+    "src/apixly_jev_harness/verify.py": "cad171c63144a60d898553eb5a3d7dc0dd2189f2b20006d8edbe9f0f5a78b1e0"
+  },
+  "runner_sha256": "3a73a0431ee51263da808295c54843c1c3394411e9f49d3e277e15db5eadd356",
+  "python_version": "3.14.2",
+  "cases": {
+    "slow_false_empty": {
+      "kind": "empty",
+      "group": "budget_fix",
+      "verify_time": 11.0
+    },
+    "slow_false_raises": {
+      "kind": "raises",
+      "group": "budget_fix",
+      "verify_time": 11.0
+    },
+    "slow_false_task_dynamic": {
+      "kind": "task",
+      "group": "budget_fix",
+      "verify_time": 11.0
+    },
+    "slow_false_generator": {
+      "kind": "generator",
+      "group": "budget_fix",
+      "verify_time": 11.0
+    },
+    "prior_effect_unknown_slow_false": {
+      "kind": "after_effect_empty",
+      "group": "budget_fix",
+      "verify_time": 11.0,
+      "unknown_usage": true
+    },
+    "false_exact_timeout_boundary": {
+      "kind": "nonempty",
+      "group": "budget_fix",
+      "verify_time": 10.0
+    },
+    "initially_expired": {
+      "kind": "initial_expired",
+      "group": "compatibility"
+    },
+    "fast_false_normal_tool": {
+      "kind": "normal",
+      "group": "compatibility"
+    },
+    "late_true_keeps_completion": {
+      "kind": "late_true",
+      "group": "compatibility",
+      "verify_time": 11.0
+    },
+    "max_steps_precedes_new_guard": {
+      "kind": "max_steps",
+      "group": "compatibility",
+      "verify_time": 11.0
+    }
+  },
+  "compatibility_parity": true,
+  "reproduction": "python benchmarks/candidate_budget.py --output local-results/candidate-budget-ab.json",
+  "scope": "Ten fixed synthetic Task/Workflow/Engine fixtures, three paired repeats with alternating arm order. An explicit callback-driven monotonic clock, never sleep, models false verification reaching/passing the ten-second budget before candidate collection. Empty, raising, Task dynamic-provider and generator collectors prove collection does not begin after known exhaustion; one completed prior effect preserves steps and unknown scripted usage. Controls preserve initial expiry, ordinary fast progression, late successful verification, max-step precedence and the exact >= timeout boundary. Callback traces and journal event subsequences preserve baseline failures without raw input/body details. Selection is scripted and native inference/real HTTPTransport forbidden; actual model/network/UI calls zero if guards stay zero.",
+  "negative_results": "The new guard changes terminal phase: blocked/no-candidates or a collector failure becomes budget_exceeded because that downstream callback never ran. Return bytes and event sequences therefore can increase/decrease without quality or performance meaning. Prior effects and unknown usage are retained; a late true verifier can still complete and max_steps still wins after false verification at that existing boundary. This remains a cooperative between-callback budget, not a hard deadline, callback cancellation, rollback, safe retry or a guarantee against a callback's own I/O. No AI quality, speed or fee gain is claimed.",
+  "cost_conversion": "No tariff or savings assumed. Actual model usage is zero only when both guards remain zero; guard hits record unknown actual usage and fail fixtures. Scripted usage is separate from actual usage. Real perf_counter timing includes run admission, trusted callbacks, optional scripted decision/effect and private journal flush/fsync; excludes imports, synthetic clock/workflow setup and terminal analysis/source hashing. The synthetic clock only triggers budget transitions and never represents measured latency. Returned bytes omit local archive paths; scalar input/context sizes are not provider-token counts.",
+  "summary": {
+    "baseline": {
+      "runs": 30,
+      "correct": 12,
+      "groups": {
+        "budget_fix": {
+          "runs": 18,
+          "correct": 0
+        },
+        "compatibility": {
+          "runs": 12,
+          "correct": 12
+        }
+      },
+      "statuses": {
+        "blocked": 6,
+        "budget_exceeded": 12,
+        "done": 6,
+        "failed": 3,
+        "max_steps": 3
+      },
+      "candidate_entries": 27,
+      "collector_body_calls": 27,
+      "provider_calls": 3,
+      "generator_yields": 3,
+      "effects": 9,
+      "scripted_decisions": 9,
+      "unknown_scripted_usage_rows": 3,
+      "native_inference_attempts": 0,
+      "real_network_attempts": 0,
+      "selection_input_bytes": 15156,
+      "shared_context_bytes": 2448,
+      "median_whole_operation_seconds": 0.0011305630032438785,
+      "returned_context_bytes": 14361,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    "candidate": {
+      "runs": 30,
+      "correct": 30,
+      "groups": {
+        "budget_fix": {
+          "runs": 18,
+          "correct": 18
+        },
+        "compatibility": {
+          "runs": 12,
+          "correct": 12
+        }
+      },
+      "statuses": {
+        "budget_exceeded": 21,
+        "done": 6,
+        "max_steps": 3
+      },
+      "candidate_entries": 9,
+      "collector_body_calls": 9,
+      "provider_calls": 0,
+      "generator_yields": 0,
+      "effects": 9,
+      "scripted_decisions": 9,
+      "unknown_scripted_usage_rows": 3,
+      "native_inference_attempts": 0,
+      "real_network_attempts": 0,
+      "selection_input_bytes": 15156,
+      "shared_context_bytes": 2448,
+      "median_whole_operation_seconds": 0.0011235834972467273,
+      "returned_context_bytes": 14184,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    }
+  },
+  "rows": [
+    {
+      "case": "slow_false_empty",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "blocked",
+        "complete": false,
+        "reason": "no_candidates",
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0008152089867508039,
+      "returned_context_bytes": 427,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_empty",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009985000069718808,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_empty",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010801250027725473,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_empty",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "blocked",
+        "complete": false,
+        "reason": "no_candidates",
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0011173340026289225,
+      "returned_context_bytes": 427,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_empty",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "blocked",
+        "complete": false,
+        "reason": "no_candidates",
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0011437920038588345,
+      "returned_context_bytes": 427,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_empty",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001150333002442494,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_raises",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "raises",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "failed",
+        "complete": false,
+        "reason": null,
+        "error_type": "RuntimeError",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0009348750027129427,
+      "returned_context_bytes": 429,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_raises",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "raises",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009378749964525923,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_raises",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "raises",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009920419979607686,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_raises",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "raises",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "failed",
+        "complete": false,
+        "reason": null,
+        "error_type": "RuntimeError",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0010394580021966249,
+      "returned_context_bytes": 429,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_raises",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "raises",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "failed",
+        "complete": false,
+        "reason": null,
+        "error_type": "RuntimeError",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.000995875001535751,
+      "returned_context_bytes": 429,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_raises",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "raises",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009977919980883598,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_task_dynamic",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "task",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 1,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "task_candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          },
+          {
+            "callback": "provider",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.28209479100769386,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_task_dynamic",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "task",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0028446659998735413,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_task_dynamic",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "task",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000875749989063479,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_task_dynamic",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "task",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 1,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "task_candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          },
+          {
+            "callback": "provider",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0009587920067133382,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_task_dynamic",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "task",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 1,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "task_candidates",
+            "synthetic_time": 11.0,
+            "effects": 0
+          },
+          {
+            "callback": "provider",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0010026669915532693,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_task_dynamic",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "task",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017239999870071188,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_generator",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "generator",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 1,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "generator_start",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.002004541995120235,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_generator",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "generator",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009980410104617476,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "slow_false_generator",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "generator",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010209169995505363,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_generator",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "generator",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 1,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "generator_start",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0011454160121502355,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "slow_false_generator",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "generator",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 1,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "generator_start",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0013323750026756898,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "slow_false_generator",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "generator",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009895000112010166,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "prior_effect_unknown_slow_false",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "after_effect_empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "unknown_usage": true,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null
+      },
+      "result": {
+        "status": "blocked",
+        "complete": false,
+        "reason": "no_candidates",
+        "error_type": null,
+        "candidate_entries": 2,
+        "collector_body_calls": 2,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null,
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 1
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.001354291001916863,
+      "returned_context_bytes": 608,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "prior_effect_unknown_slow_false",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "after_effect_empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "unknown_usage": true,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null,
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013586249988293275,
+      "returned_context_bytes": 589,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "prior_effect_unknown_slow_false",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "after_effect_empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "unknown_usage": true,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null,
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0014888330042595044,
+      "returned_context_bytes": 589,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "prior_effect_unknown_slow_false",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "after_effect_empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "unknown_usage": true,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null
+      },
+      "result": {
+        "status": "blocked",
+        "complete": false,
+        "reason": "no_candidates",
+        "error_type": null,
+        "candidate_entries": 2,
+        "collector_body_calls": 2,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null,
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 1
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0015330419992096722,
+      "returned_context_bytes": 608,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "prior_effect_unknown_slow_false",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "after_effect_empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "unknown_usage": true,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null
+      },
+      "result": {
+        "status": "blocked",
+        "complete": false,
+        "reason": "no_candidates",
+        "error_type": null,
+        "candidate_entries": 2,
+        "collector_body_calls": 2,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null,
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 11.0,
+            "effects": 1
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0014060420071473345,
+      "returned_context_bytes": 608,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "prior_effect_unknown_slow_false",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "after_effect_empty",
+        "group": "budget_fix",
+        "verify_time": 11.0,
+        "unknown_usage": true,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": false,
+        "reported_scripted_usage": null,
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0015376249939436093,
+      "returned_context_bytes": 589,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "false_exact_timeout_boundary",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "nonempty",
+        "group": "budget_fix",
+        "verify_time": 10.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 10.0,
+        "synthetic_clock_final": 10.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 10.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 10.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0012708330032182857,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "false_exact_timeout_boundary",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "nonempty",
+        "group": "budget_fix",
+        "verify_time": 10.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 10.0,
+        "synthetic_clock_final": 10.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 10.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001105165996705182,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "false_exact_timeout_boundary",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "nonempty",
+        "group": "budget_fix",
+        "verify_time": 10.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 10.0,
+        "synthetic_clock_final": 10.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 10.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009560410107951611,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "false_exact_timeout_boundary",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "nonempty",
+        "group": "budget_fix",
+        "verify_time": 10.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 10.0,
+        "synthetic_clock_final": 10.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 10.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 10.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.0010294579988112673,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "false_exact_timeout_boundary",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "nonempty",
+        "group": "budget_fix",
+        "verify_time": 10.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 10.0,
+        "synthetic_clock_final": 10.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 10.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 10.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": false,
+      "whole_operation_seconds": 0.000998374991468154,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "false_exact_timeout_boundary",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "nonempty",
+        "group": "budget_fix",
+        "verify_time": 10.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 10.0,
+        "synthetic_clock_final": 10.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 10.0,
+            "effects": 0,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012014579988317564,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "initially_expired",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "initial_expired",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 0,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0009399580012541264,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "initially_expired",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "initial_expired",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 0,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011076250084443018,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "initially_expired",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "initial_expired",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 0,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0012843330041505396,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "initially_expired",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "initial_expired",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 0,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0010879579931497574,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "initially_expired",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "initial_expired",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 0,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0008915409998735413,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "initially_expired",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "initial_expired",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "budget_exceeded",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "budget_exceeded",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 0,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 11.0,
+            "effects": 0
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00092712500190828,
+      "returned_context_bytes": 408,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "fast_false_normal_tool",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "normal",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 0.0,
+        "synthetic_clock_final": 0.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 1,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001273792004212737,
+      "returned_context_bytes": 644,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "fast_false_normal_tool",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "normal",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 0.0,
+        "synthetic_clock_final": 0.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 1,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00180283299414441,
+      "returned_context_bytes": 644,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "fast_false_normal_tool",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "normal",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 0.0,
+        "synthetic_clock_final": 0.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 1,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013408750091912225,
+      "returned_context_bytes": 644,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "fast_false_normal_tool",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "normal",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 0.0,
+        "synthetic_clock_final": 0.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 1,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017391250003129244,
+      "returned_context_bytes": 644,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "fast_false_normal_tool",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "normal",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 0.0,
+        "synthetic_clock_final": 0.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 1,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017053750052582473,
+      "returned_context_bytes": 644,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "fast_false_normal_tool",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "normal",
+        "group": "compatibility",
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 0.0,
+        "synthetic_clock_final": 0.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 1,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0015018330013845116,
+      "returned_context_bytes": 644,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "late_true_keeps_completion",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "late_true",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011144159943796694,
+      "returned_context_bytes": 396,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "late_true_keeps_completion",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "late_true",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011131670034956187,
+      "returned_context_bytes": 396,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "late_true_keeps_completion",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "late_true",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001133999990997836,
+      "returned_context_bytes": 396,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "late_true_keeps_completion",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "late_true",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.000967707994277589,
+      "returned_context_bytes": 396,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "late_true_keeps_completion",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "late_true",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0011019170051440597,
+      "returned_context_bytes": 396,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "late_true_keeps_completion",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "late_true",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 2,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "done",
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      },
+      "result": {
+        "status": "done",
+        "complete": true,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 0,
+        "collector_body_calls": 0,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 0,
+        "steps": 0,
+        "intent_events": 0,
+        "scripted_decisions": 0,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        },
+        "verify_calls": 1,
+        "observe_calls": 1,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 0,
+            "matched": true
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 0,
+        "request_sizes": [],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.001011542000924237,
+      "returned_context_bytes": 396,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    },
+    {
+      "case": "max_steps_precedes_new_guard",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "max_steps",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 1,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "max_steps",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "max_steps",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0016309170023305342,
+      "returned_context_bytes": 651,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 1
+    },
+    {
+      "case": "max_steps_precedes_new_guard",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "max_steps",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 1,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "max_steps",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "max_steps",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.00172433300758712,
+      "returned_context_bytes": 651,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 1
+    },
+    {
+      "case": "max_steps_precedes_new_guard",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "max_steps",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 1,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "max_steps",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "max_steps",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017444580007577315,
+      "returned_context_bytes": 651,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 2
+    },
+    {
+      "case": "max_steps_precedes_new_guard",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "max_steps",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 1,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "max_steps",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "max_steps",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0013176670036045834,
+      "returned_context_bytes": 651,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 2
+    },
+    {
+      "case": "max_steps_precedes_new_guard",
+      "runtime_version": "0.1.15",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "max_steps",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 1,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "max_steps",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "max_steps",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0015380000113509595,
+      "returned_context_bytes": 651,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "baseline",
+      "repeat": 3
+    },
+    {
+      "case": "max_steps_precedes_new_guard",
+      "runtime_version": "0.1.16",
+      "runtime_loaded_from_requested_source": true,
+      "fixture": {
+        "kind": "max_steps",
+        "group": "compatibility",
+        "verify_time": 11.0,
+        "timeout_seconds": 10.0,
+        "max_steps": 1,
+        "clock_advance": "explicit synthetic callback transition; no sleep"
+      },
+      "expected": {
+        "status": "max_steps",
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        }
+      },
+      "result": {
+        "status": "max_steps",
+        "complete": false,
+        "reason": null,
+        "error_type": null,
+        "candidate_entries": 1,
+        "collector_body_calls": 1,
+        "provider_calls": 0,
+        "generator_yields": 0,
+        "effects": 1,
+        "steps": 1,
+        "intent_events": 1,
+        "scripted_decisions": 1,
+        "usage_complete": true,
+        "reported_scripted_usage": {
+          "input_tokens": 7,
+          "output_tokens": 2
+        },
+        "verify_calls": 2,
+        "observe_calls": 3,
+        "synthetic_elapsed_seconds": 11.0,
+        "synthetic_clock_final": 11.0,
+        "callback_trace": [
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 0.0,
+            "effects": 0,
+            "matched": false
+          },
+          {
+            "callback": "candidates",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "scripted_selection",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 0
+          },
+          {
+            "callback": "execute",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "observe",
+            "synthetic_time": 0.0,
+            "effects": 1
+          },
+          {
+            "callback": "verify",
+            "synthetic_time": 11.0,
+            "effects": 1,
+            "matched": false
+          }
+        ],
+        "journal_events": [
+          "start",
+          "observed",
+          "verified",
+          "candidates",
+          "decision",
+          "freshness",
+          "intent",
+          "executed",
+          "observed",
+          "verified",
+          "terminal"
+        ],
+        "journal_candidate_events": 1,
+        "request_sizes": [
+          {
+            "selection_input_bytes": 1684,
+            "shared_context_bytes": 272
+          }
+        ],
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "correct": true,
+      "whole_operation_seconds": 0.0017298329912591726,
+      "returned_context_bytes": 651,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      },
+      "arm": "candidate",
+      "repeat": 3
+    }
+  ]
+}

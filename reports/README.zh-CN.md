@@ -685,3 +685,51 @@ python benchmarks/parameter_snapshots.py --output local-results/parameter-snapsh
 
 没有重跑付费模型矩阵、浏览器操作、锁屏桌面或 URL 提交。历史验证、签名、传输及
 GEO 证据保留已有范围，原生桌面验收仍未证明。
+
+## 候选采集前的墙钟预算（0.1.16）
+
+在每轮顶部，验证返回 false 后原有 max_steps 检查仍优先，再在启动 workflow.candidates 前
+重查耗时。该检查发现达到或超过预算时返回 budget_exceeded；晚到的 true 仍完成 done。
+验证为 false 时，max_steps 在此位置仍优先于超时检查。此前调用/效果及未知用量保留。这只是一处协作式
+检查点，不会中断回调，不是完整硬截止，不新增上下文、模型、授权、selector 或参数规则。
+
+[候选预算 A/B](candidate-budget-ab.json)对比基线提交
+`30524752a83438decb431b36267ac81378f0bcb8`与候选版本：10 个固定合成
+Task/Workflow/Engine fixture，交替两臂顺序做 3 次配对重复，共 60 行、每臂 30 行。
+回调控制的单调时钟不 sleep，模拟达到或超过十秒预算；这个虚拟耗时与真实测量的
+整段延迟分开。6 个 fixture（每臂 18 行）验证已知预算耗尽且验证为 false 后不启动
+新一轮候选采集。4 个控制 fixture 保留初始过期、正常快速进展、晚到验证完成及步骤
+上限优先级；含上限的 elapsed >= timeout 边界不变。
+
+| 指标 | 基线 | 候选版本 |
+|---|---:|---:|
+| 过预算 false 验证检查点符合预期 | 0/18 | 18/18 |
+| 兼容场景符合预期 | 12/12 | 12/12 |
+| 全矩阵候选采集进入次数 | 27 | 9 |
+| Task provider 调用 / Workflow generator yields | 3 / 3 | 0 / 0 |
+| 模拟 effects / scripted decisions | 9 / 9 | 9 / 9 |
+| scripted 用量未知行数 | 3 | 3 |
+| 选择输入 / 共享上下文字节数 | 15,156 / 2,448 | 15,156 / 2,448 |
+| 返回上下文字节数 | 14,361 | 14,184 |
+| 混合场景整段耗时中位数 | 1.131 ms | 1.124 ms |
+
+12 行控制场景逐对行为一致，全矩阵不是 parity。原来 6 行 blocked、3 行 failed 改为
+budget_exceeded，因为空候选或抛错 collector 未被调用；那些下游诊断不可获得，也
+不能猜测。另 9 行修复场景先前就返回 budget_exceeded，但仍开始了多余采集。此前合法
+采集/effects、未知 scripted 用量及逐行回调/journal 事件序列保留。减少的合成采集次数
+不证明真实 API 请求或费用减少。
+
+返回减少 177 字节来自终态/阶段变化，不是节省上下文。混合中位数不证明提速；动态
+Task fixture 的中位数增加约 0.721 ms。原生推理、真实 HTTP/模型/UI 调用为零，真实
+用量与已知/未知 scripted 用量分开。不假设费率、AI 质量、普遍速度或费用收益。真实
+perf_counter 计时覆盖 run 准入、可信回调、可选 scripted decisions/effects 及私有
+journal flush/fsync；排除导入、合成时钟/workflow 设置及调用后分析/来源哈希。不验证
+真实 I/O 截止、回调取消、回滚或安全重试；其他验证路径和执行规则保留已有范围。
+使用安装了 `.[dev]` 的完整 Git 检出及新输出路径复现：
+
+```sh
+python benchmarks/candidate_budget.py --output local-results/candidate-budget-ab.json
+```
+
+没有重跑付费模型矩阵、浏览器操作、锁屏桌面或 URL 提交。历史验证、快照、传输及
+GEO 证据保留已有范围，原生桌面验收仍未证明。
