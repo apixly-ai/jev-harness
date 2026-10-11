@@ -62,6 +62,15 @@ scope `loop_shared_context`、失败阶段、unit `json_characters`、limit 及 
 检查合成准入/计量，真实模型、网络或 UI 调用为零。新增元数据增加终态字节，
 不能证明语义质量、提速或费用收益。
 
+请求规划另有接管信息：可选 `telemetry.planning`（loop 中为
+`telemetry.calls[].planning`）标识原生空计划，scope 为 `current_selection`、phase
+为 `request_planning`，并标记 `inference_dispatched: false`。类型化的收窄/缺上下文
+原因仍区分，未知状态使用通用规划复核码。已有的已知零用量只适用于这次选择，不代表
+此前 loop 调用/效果或未知用量。应修正候选/描述或必需字段，并保留目标与安全约束，
+不盲目重试。不改变 fit 规则、prompt 或上限；通用完整 spec 验证异常和已派发的
+HTTP413 保留已有处理。见[规划契约](agent-contract.zh-CN.md#request-planning-handoff)
+与[离线 A/B](../reports/planning-diagnostics-ab.json)；它们不能证明语义质量、提速或降费。
+
 私有日志使用独占创建、POSIX 模式 0600、JSONL 追加，以及 flush/fsync；绝不会覆盖
 已有路径。日志包含原始观察、实际参数和结果，未经审阅不要公开。CLI 终态输出不含
 原始证据；可信脚本也必须避免打印自己的原始数据。

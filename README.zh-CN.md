@@ -8,7 +8,7 @@
 
 这是面向 AI 编写有界任务脚本的 Python 运行时。每轮提供目标、准入对话、现场、执行
 历史和工具契约，Jev 选择工具与参数候选，程序执行并独立验证完成。Apixly 独立社区
-项目，非 TypeSafe AI 官方产品。早期 0.1.9，不承诺通用任务成功或普遍降低费用。
+项目，非 TypeSafe AI 官方产品。早期 0.1.10，不承诺通用任务成功或普遍降低费用。
 
 发行名 **apixly-jev-harness**，Python 命名空间 `apixly_jev_harness`，明确 CLI 别名
 `apixly-jev-harness`。使用本仓库的准确 Git 安装 URL；PyPI 的 jev-harness 属于其他项目。
@@ -41,7 +41,7 @@ Jev 浏览器验收以 4 次工具执行达到最终状态。两者分别标注�
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -49,7 +49,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal '达到指定目标' --inputs '{"target":3}'
 ```
 
-仅在开发时将 `@v0.1.9` 换成 `@main`。
+仅在开发时将 `@v0.1.10` 换成 `@main`。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
@@ -151,13 +151,22 @@ needs_review/context_budget_exceeded，附仅含计量信息的 context_budget �
 执行一次；重复调用在执行前返回 blocked/repeated_action_state。
 不支持观察固定时反复轮询相同调用；应在有界工具内部处理轮询，或暴露有意义的现场进度。
 
-推理未能确定选择时，可能返回由 host 生成的 diagnostic，标明 tool_selection 或
+未能确定选择时，可能返回由 host 生成的 diagnostic，标明 tool_selection 或
 parameter_selection，后者附注册工具/参数标识，以及白名单 reason_codes 和
-automatic_retry: false。telemetry.calls 的每次推理记录也带阶段及适用的标识。
+automatic_retry: false。telemetry.calls 的每次选择记录也带阶段及适用的标识。
 [契约](docs/agent-contract.md#decision-diagnostics) 说明原因码与主 AI 接管建议；
 诊断不导出异常原文、响应 body 或绑定值。静态候选域、策略和执行错误保留已有终态原因。
 诊断不改变执行资格、退出状态或授权。Harness 不自动重复任务调用，固定 SDK 已有的
 有界 429/503/529 重试仍保留，因此不承诺只发一次网络请求。
+
+原生 choice 请求计划为空时，新增可选 telemetry.planning（loop 中为
+telemetry.calls[].planning）：scope current_selection、phase request_planning、
+inference_dispatched: false 和固定原因码，区分缺少必需上下文与需要收窄的输入，
+不猜测未知原因。已有的已知零用量只适用于这次选择，此前可能已有 loop 调用、效果
+或未知用量。应按 diagnostic 阶段修正候选/描述或必需字段，并保留目标与安全约束。
+不盲目重试，不新增上限或改变模型选择。见
+[规划契约](docs/agent-contract.zh-CN.md#request-planning-handoff) 与
+[离线 A/B](reports/planning-diagnostics-ab.json)；它们不能证明语义准确率、提速或降费。
 
 浏览器和桌面是[工具适配器](docs/adapters.md)，不是运行时里的专用业务程序。
 Camofox 限定来源并使用新鲜观察目标，桌面依赖 macOS Accessibility/Windows UIA。

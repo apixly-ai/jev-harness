@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.9. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.10. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.9 release?
+## How do I install the exact v0.1.10 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -161,3 +161,19 @@ an older action ledger; if admitted context still exceeds the conservative 15,00
 budget, it returns review rather than silently dropping constraints. Keep raw evidence in
 private journals and admit only safe summaries. See [context management](context.md) and
 the [synchronous callback contract](agent-contract.md#synchronous-callback-contract).
+
+<a id="request-planning"></a>
+
+## What should an AI do when a selection is not dispatched?
+
+Read `planning` in the current selection's telemetry, and the loop diagnostic's tool or
+parameter stage. `request_needs_narrowing` indicates typed input needing narrowing;
+`request_needs_context` indicates required context/fields are missing. Unknown planning
+statuses use generic `request_planning_review`. Repair the program's candidates/descriptions
+or required fields while keeping the goal and safety constraints, rather than blindly retrying.
+The native runner was not entered for that selection, but earlier loop calls/effects or
+unknown usage may remain. Limits, prompts and model choices are unchanged; provider/HTTP413
+failures and generic full-spec validation exceptions are separate. See the
+[planning contract](agent-contract.md#request-planning-handoff) and
+[offline evidence](../reports/planning-diagnostics-ab.json), without a semantic-quality,
+speed or fee claim.

@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.9 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.10 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -364,7 +364,7 @@ Python 脚本是可信代码，不在沙箱中运行。
 <a id="decision-diagnostics"></a>
 ## 决策诊断
 
-终态数据包可能包含宿主生成的可选 `diagnostic`，用于尚未解决的工具或参数推理调用。
+终态数据包可能包含宿主生成的可选 `diagnostic`，用于尚未解决的工具或参数选择调用。
 它不改变终态、执行资格或授权。例如：
 
 ```json
@@ -382,7 +382,7 @@ Python 脚本是可信代码，不在沙箱中运行。
 ```
 
 `stage` 是 `tool_selection` 或 `parameter_selection`。参数阶段包含来自已注册绑定
-上下文的 `tool_id` 和 `parameter`。`telemetry.calls` 中的每个实际推理条目都带有
+上下文的 `tool_id` 和 `parameter`。`telemetry.calls` 中的每个选择调用条目都带有
 相同的 stage 及适用的标识符。只有一个候选的绑定不会产生推理调用。静态候选域、
 策略和执行失败继续使用原有终态原因；诊断仅覆盖选择调用。
 
@@ -395,6 +395,7 @@ Python 脚本是可信代码，不在沙箱中运行。
 - 选择：`below_min_top_probability`、`below_min_margin`、`below_min_confidence`、
   `selected_option_not_top`、`model_review`、`no_matching_candidate`、`invalid_selection`、
   `unresolved_selection`、`decision_failed`。
+- 请求规划：`request_needs_narrowing`、`request_needs_context`、`request_planning_review`。
 
 诊断绝不输出异常文本、响应正文或绑定参数值。未知错误回退为通用 code；code 是
 交接信号，不是对上游根因的诊断。缺失/未知用量仍保持未知。
@@ -408,3 +409,38 @@ Python 脚本是可信代码，不在沙箱中运行。
 [decision-diagnostics A/B](../reports/decision-diagnostics-ab.json) 使用合成的离线
 HTTP mock，真实模型调用为零。它检查安全 code 和阶段元数据。额外元数据会增加
 终态字节数，未知错误会丢失细节，目前尚未证明真实语义恢复的成功率。
+
+<a id="request-planning-handoff"></a>
+## 请求规划接管
+
+固定版本的原生 choice planner 没有生成推理项时，返回的遥测包含 `planning`；
+loop 中为 `telemetry.calls[].planning`，直接 choice 为 `telemetry.planning`。例如：
+
+```json
+{
+  "planning": {
+    "scope": "current_selection",
+    "phase": "request_planning",
+    "inference_dispatched": false,
+    "reason_codes": ["request_needs_narrowing"]
+  }
+}
+```
+
+类型化规划判断的 `NEEDS_NARROWING` 对应 `request_needs_narrowing`，`NEEDS_CONTEXT`
+对应 `request_needs_context`。未知规划判断转为 `UNAVAILABLE` 与通用
+`request_planning_review`，不输出原状态文本，也不猜测原因。空记录列表的原因码为空，
+保留现有结果语义；其他选择路径不包含这项元数据。Loop 诊断保留这些白名单原因码
+及已有工具/参数阶段，不改变运行时退出状态。
+
+`inference_dispatched: false` 只证明这次选择没有进入原生推理 runner。已有的已知
+零用量保留，不证明整个 loop 请求/效果为零或用量完整。此前已花费的调用、效果和
+未知用量仍保留在终态证据中。应按阶段检查程序提供的候选/描述或必需上下文/记录字段，
+保留目标与安全约束，有意识地修复输入，不盲目重试。
+
+不新增准入上限，也不改变 fit 规则、prompt 或模型选择。这不同于 `model_review`、
+提供方失败或通用验证异常。独立的 16,000 字符完整 spec `ValueError` 路径不重新
+分类；已派发的 HTTP413 仍保留 `http_413_body_suppressed` 和未知用量。Loop 含上限
+的 15,000 JSON 字符预算、授权、验证及不确定性处理均不变。
+[规划诊断 A/B](../reports/planning-diagnostics-ab.json) 使用离线合成的规划/派发检查，
+没有真实模型、网络或 UI 调用，不能证明语义准确率、提速或费用收益。

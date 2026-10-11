@@ -17,7 +17,7 @@ from .callbacks import (
     project_contract_error,
 )
 from .context import CONTEXT_CHARACTER_LIMIT
-from .diagnostics import HTTP_CODE_PATTERN, PROVIDER_CODES, SELECTION_CODES
+from .diagnostics import HTTP_CODE_PATTERN, PLANNING_CODES, PROVIDER_CODES, SELECTION_CODES
 from .engine import AgentLoop, Workflow, validate_run_options
 from .output import TaskOutput
 
@@ -249,7 +249,7 @@ SPEC = {
     "name": "jev-harness",
     "distribution": "apixly-jev-harness",
     "python_import": "apixly_jev_harness",
-    "version": "0.1.9",
+    "version": "0.1.10",
     "parameter_binding": "staged_candidate_choice",
     "argument_parsing": {
         "scope": "all command parsers when argparse reports an error",
@@ -409,12 +409,26 @@ SPEC = {
         "helper_requires": "nonempty_text_or_control_condition",
         "missing_control_fields": "do_not_match",
     },
+    "request_planning": {
+        "scope": "current_selection",
+        "metadata_field": "telemetry.planning or telemetry.calls[].planning",
+        "phase": "request_planning",
+        "empty_plan_inference_dispatched": False,
+        "reason_codes": sorted(PLANNING_CODES),
+        "typed_statuses": ["NEEDS_CONTEXT", "NEEDS_NARROWING"],
+        "unknown_status": "UNAVAILABLE with request_planning_review",
+        "whole_run_zero_calls_or_effects": False,
+        "arbitrary_validation_error_classification": False,
+        "raw_context_or_error_text": False,
+        "automatic_retry": False,
+        "planner_admission_limits": "pinned upstream rules unchanged",
+    },
     "diagnostic": {
         "optional": True,
         "scope": "selection_calls",
         "stages": ["tool_selection", "parameter_selection"],
         "fields": ["stage", "tool_id", "parameter", "reason_codes", "automatic_retry"],
-        "reason_codes": sorted(PROVIDER_CODES | SELECTION_CODES),
+        "reason_codes": sorted(PROVIDER_CODES | SELECTION_CODES | PLANNING_CODES),
         "http_code_pattern": HTTP_CODE_PATTERN,
         "automatic_retry": False,
         "call_telemetry_stage": True,

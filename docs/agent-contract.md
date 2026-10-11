@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.9 for a reproducible release;
+package downloads still require network access. Pin v0.1.10 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -382,7 +382,7 @@ each callback must enforce its I/O timeout. Inference has no result cache.
 ## Decision diagnostics
 
 A terminal packet may include an optional host-generated `diagnostic` for an unresolved
-tool or parameter inference call. It does not change the terminal status, execution
+tool or parameter selection call. It does not change the terminal status, execution
 eligibility or authorization. For example:
 
 ```json
@@ -400,7 +400,7 @@ eligibility or authorization. For example:
 ```
 
 `stage` is `tool_selection` or `parameter_selection`. The parameter stage includes
-`tool_id` and `parameter` from the registered binding context. Each actual inference
+`tool_id` and `parameter` from the registered binding context. Each selection-call
 entry in `telemetry.calls` carries the same stage and applicable identifiers. Singleton
 bindings do not make inference calls. Static domain, policy and execution failures
 continue to use their existing terminal reasons; diagnostics cover selection calls only.
@@ -414,6 +414,8 @@ continue to use their existing terminal reasons; diagnostics cover selection cal
 - Selection: `below_min_top_probability`, `below_min_margin`, `below_min_confidence`,
   `selected_option_not_top`, `model_review`, `no_matching_candidate`, `invalid_selection`,
   `unresolved_selection`, `decision_failed`.
+- Request planning: `request_needs_narrowing`, `request_needs_context`,
+  `request_planning_review`.
 
 Diagnostics never export exception text, response bodies or bound parameter values.
 Unknown errors fall back to generic codes; a code is a handoff signal, not a diagnosis
@@ -431,3 +433,43 @@ The [decision-diagnostics A/B](../reports/decision-diagnostics-ab.json) uses syn
 offline HTTP mocks and zero real model calls. It checks safe codes and stage metadata.
 The extra metadata increases terminal bytes, unknown errors lose detail, and no real
 semantic recovery success rate has been established.
+
+## Request planning handoff
+
+When the pinned native choice planner produces no inference items, the returned telemetry
+includes `planning`; in a loop this appears in `telemetry.calls[].planning`, and a direct
+choice uses `telemetry.planning`. For example:
+
+```json
+{
+  "planning": {
+    "scope": "current_selection",
+    "phase": "request_planning",
+    "inference_dispatched": false,
+    "reason_codes": ["request_needs_narrowing"]
+  }
+}
+```
+
+Typed planning judgment `NEEDS_NARROWING` maps to `request_needs_narrowing`; `NEEDS_CONTEXT`
+maps to `request_needs_context`. Unknown planning judgments become `UNAVAILABLE` with the
+generic `request_planning_review`, without exporting raw status text or inventing a cause.
+An empty record list has empty reason codes and retains its existing result semantics.
+Other selection paths omit this metadata. Loop diagnostics preserve these allowlisted
+codes with the existing tool/parameter stage; runtime exit states are unchanged.
+
+`inference_dispatched: false` proves only that this selection did not enter the native
+inference runner. Its existing known-zero usage remains; it does not establish zero
+requests, effects or complete usage for the whole loop. Earlier spent calls, effects and
+unknown usage remain in the terminal evidence. Use the stage to inspect program-supplied
+candidates/descriptions or required context/record fields, keeping the goal and safety
+constraints. Repair the input deliberately rather than blindly retrying.
+
+This adds no admission caps or changed fit rules, prompts or model choices. It is distinct
+from `model_review`, provider failures and generic validation exceptions. The separate
+16,000-character full-spec `ValueError` path is not reclassified; a dispatched HTTP413
+retains `http_413_body_suppressed` and unknown usage. The loop's inclusive 15,000 JSON-character
+cap, authorization, verification and uncertainty handling are unchanged. The
+[planning-diagnostics A/B](../reports/planning-diagnostics-ab.json) uses offline synthetic
+planning/dispatch checks with no real model, network or UI calls, and does not establish
+semantic accuracy, speed or fee savings.

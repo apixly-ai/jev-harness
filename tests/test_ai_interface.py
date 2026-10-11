@@ -119,6 +119,18 @@ def test_machine_spec_exposes_loop_context_budget_unit_and_scope(capsys):
     assert budget["direct_decide_admission"] == "unchanged"
 
 
+def test_machine_spec_exposes_current_selection_planner_deferral(capsys):
+    assert main(["spec"]) == 0
+    spec = json.loads(capsys.readouterr().out)
+    planning = spec["request_planning"]
+    assert planning["scope"] == "current_selection"
+    assert planning["metadata_field"] == "telemetry.planning or telemetry.calls[].planning"
+    assert planning["empty_plan_inference_dispatched"] is False
+    assert planning["whole_run_zero_calls_or_effects"] is False
+    assert planning["arbitrary_validation_error_classification"] is False
+    assert "request_needs_narrowing" in spec["diagnostic"]["reason_codes"]
+
+
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')

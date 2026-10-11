@@ -29,6 +29,7 @@ jobs:
       - run: python benchmarks/task_output.py --output local-results/task-output-ab.json
       - run: python benchmarks/cli_arguments.py --output local-results/cli-arguments-ab.json
       - run: python benchmarks/context_budget.py --output local-results/context-budget-ab.json
+      - run: python benchmarks/planning_diagnostics.py --output local-results/planning-diagnostics-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

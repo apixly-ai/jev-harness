@@ -414,3 +414,45 @@ python benchmarks/context_budget.py --output local-results/context-budget-ab.jso
 使用安装了 `.[dev]` 的完整 Git 检出和新输出路径。CI 在 Python 3.10、3.12 和 3.14
 下运行离线夹具。没有重跑之前的真实测试矩阵、锁屏桌面或 URL 提交。
 原生桌面完成及搜索收录仍未验证。
+
+
+## 类型化请求规划交接（0.1.10）
+
+原生 Choice 规划为空时，harness 现在保留 `NEEDS_NARROWING` 或 `NEEDS_CONTEXT`
+类型状态，并报告固定规划原因。未知状态统一为 `UNAVAILABLE` 和
+`request_planning_review`，不导出原状态或异常文字。可选的 `telemetry.planning`
+（循环中位于某次 call 的 `planning`）包含 `scope: current_selection`、
+`phase: request_planning` 和 `inference_dispatched: false`。这些字段只在 host 的实际
+空计划路径、进入 native batch dispatcher 之前生成；选择诊断保留工具/参数阶段和固定原因码。
+
+[离线规划 A/B](planning-diagnostics-ab.json)比较完整已发布 0.1.9 源码
+（`bb808e1472d3894e276689115574f126c193c52a`）与候选版本，使用 14 个固定场景、
+三次配对重复并交替顺序。两组最终状态、选择、效果、派发和用量行为均为 42/42 正确，
+逐对行为一致。新诊断/计量符合预期的次数从 12/42 变为 42/42。三个场景、九条记录的
+类型状态修正单独计数（33/42 至 42/42），不代表模型准确率提升。候选组返回 30 条
+延后调用的规划记录。两组均有 18 次模拟 batch 派发、21 次 MockTransport 尝试和三次
+合成效果/intent；真实模型与网络调用均为零。
+
+场景覆盖 pinned planner 的实际 fit 检查：大段 ASCII/中文记录、254 个候选、必需记录
+字段缺失、工具与依赖参数延后、模拟重试后的既有未知用量、可信默认值恢复、未知或注入
+规划状态、完整 spec 验证异常及 HTTP 413。九条记录保留未知的模拟用量，重试仅来自 SDK
+已有的有界策略。参数延后不清除先前调用或未知用量；可信恢复清除当前失败诊断但保留历史
+规划信息，后续执行异常仍是不确定结果。独立回归保留空记录的旧完成语义及固定码严格投影。
+
+负面结果：返回内容从 33,295 增至 37,777 字节；部分本地场景更慢，小规模混合计时不证明
+提速、语义质量或费用收益。规划器限制、fit 规则、问题、实际推理及循环上下文上限均未改。
+这不是新增输入尺寸 ProviderError 分类：SDK 在规划阶段给出类型化延后。普通 `ValueError`
+保持普通异常；已派发的 HTTP 413 仍是 `http_413_body_suppressed`，用量保持未知。
+不按异常文字猜原因，也不引入盲目重试。
+
+未派发、已知零调用的范围仅是当前 selection，同一 run 可能已有调用、未知计费或效果；
+缺少 `planning` 也不证明已派发。主 AI 应保留目标与安全约束，再收窄程序候选/描述或补齐
+必需上下文。模型选择仍不是授权或完成证据。
+
+```sh
+python benchmarks/planning_diagnostics.py --output local-results/planning-diagnostics-ab.json
+```
+
+使用安装了 `.[dev]` 的完整 Git 检出和新输出路径。CI 仅在 Python 3.10、3.12、3.14
+运行离线场景。没有重跑付费矩阵、锁屏桌面或 URL 提交。原生桌面完成、真实抓取、索引与
+AI 引用仍是相互独立的未验证证据层。

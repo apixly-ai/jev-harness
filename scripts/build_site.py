@@ -456,6 +456,7 @@ def main():
         "task-output-ab.json",
         "cli-arguments-ab.json",
         "context-budget-ab.json",
+        "planning-diagnostics-ab.json",
         "geo-bilingual-2026-10-11.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)

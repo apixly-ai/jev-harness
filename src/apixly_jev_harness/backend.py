@@ -8,7 +8,7 @@ from jev_context.provider import evaluate as provider_evaluate
 from jev_filter import analysis as core
 from jev_filter.batch import run as native_run
 
-from .diagnostics import provider_failure_code
+from .diagnostics import PLANNING_STATUS_CODES, provider_failure_code
 
 _ACTIVE = ContextVar("apixly_jev_harness_transport", default=None)
 
@@ -75,11 +75,29 @@ def evaluate(parts, task, workers, spec):
         return core.evaluate(parts, task, workers, spec)
     planned = core.plan(parts, task, spec)
     if not planned["items"]:
-        return {p["id"]: {"status": "NEEDS_NARROWING", "decision": "REVIEW"} for p in parts}, {
+        deferred = planned.get("deferred", {})
+        judgments, reasons = {}, []
+        for part in parts:
+            status = deferred.get(part["id"]) if isinstance(deferred, dict) else None
+            reason = PLANNING_STATUS_CODES.get(status) if isinstance(status, str) else None
+            judgments[part["id"]] = {
+                "status": status if reason else "UNAVAILABLE",
+                "decision": "REVIEW",
+            }
+            reason = reason or "request_planning_review"
+            if reason not in reasons:
+                reasons.append(reason)
+        return judgments, {
             "ok": True,
             "usage_complete": True,
             "usage": {"input_tokens": 0, "output_tokens": 0},
             "requests": 0,
+            "planning": {
+                "scope": "current_selection",
+                "phase": "request_planning",
+                "inference_dispatched": False,
+                "reason_codes": reasons,
+            },
         }
     question = planned["items"][0]["request"]["questions"]["target"]
     if "parameter" in spec.get("context", {}):

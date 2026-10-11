@@ -75,6 +75,18 @@ in the explicit goal and trusted program. The [offline A/B](../reports/context-b
 checks synthetic admission/measurement with zero real model, network or UI calls. Extra
 metadata increases terminal bytes, without establishing semantic quality, speed or savings.
 
+Request planning has a separate handoff: optional `telemetry.planning` or loop
+`telemetry.calls[].planning` identifies a native empty plan with scope `current_selection`,
+phase `request_planning` and `inference_dispatched: false`. Typed narrowing/missing-context
+reasons remain distinct; unknown statuses use a generic planning-review code. Existing
+known-zero usage applies only to that selection, not prior loop calls/effects or unknown
+usage. Repair candidates/descriptions or required fields while preserving goal and safety
+constraints; do not blindly retry. No fit rules, prompts or caps change. Generic full-spec
+validation errors and dispatched HTTP413 retain their existing handling. See the
+[planning contract](agent-contract.md#request-planning-handoff) and
+[offline A/B](../reports/planning-diagnostics-ab.json); these do not prove semantic quality,
+speed or fee savings.
+
 Private journals use exclusive creation, POSIX mode 0600, JSONL append, flush/fsync, and
 never overwrite an existing path. They include raw observations, actual arguments and
 results. Do not publish them without review. CLI terminal output contains no raw evidence;

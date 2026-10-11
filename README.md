@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.9**; no promise of general task success or universal savings.
+AI product. Early **0.1.10**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.9` only for active development.
+Use `@main` instead of `@v0.1.10` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -177,9 +177,9 @@ only once; a repeated invocation stops before execution with `blocked/repeated_a
 Polling the same call against a fixed observation is unsupported. Handle polling inside
 a tool with its own bounds, or expose meaningful observed progress.
 
-Unresolved inference may return a host-generated `diagnostic` identifying
+Unresolved selection may return a host-generated `diagnostic` identifying
 `tool_selection` or `parameter_selection`, registered tool/parameter identifiers for
-the latter, allowlisted `reason_codes` and `automatic_retry: false`. Each inference
+the latter, allowlisted `reason_codes` and `automatic_retry: false`. Each selection
 entry in `telemetry.calls` carries its stage and applicable identifiers. The
 [contract](docs/agent-contract.md#decision-diagnostics) explains the codes and primary-agent
 handoff; exceptions, response bodies and bound values are not exported in diagnostics.
@@ -187,6 +187,17 @@ Static domain, policy and execution errors keep their existing terminal reasons.
 Diagnostics do not change eligibility, status or authorization. The harness does not
 repeat task calls automatically; the pinned SDK's bounded 429/503/529 retries remain,
 so this is not a one-network-request guarantee.
+
+An empty native choice plan now carries optional `telemetry.planning` (or loop
+`telemetry.calls[].planning`): scope `current_selection`, phase `request_planning`,
+`inference_dispatched: false` and fixed reason codes. It distinguishes required context
+from input needing narrowing without inventing an unknown cause. The existing known-zero
+usage applies to that selection; earlier loop calls, effects or unknown usage may remain.
+Use the diagnostic stage to repair candidates/descriptions or required fields while
+preserving goal and safety constraints. There is no blind retry, new cap or changed model
+choice. See the [planning contract](docs/agent-contract.md#request-planning-handoff) and
+[offline A/B](reports/planning-diagnostics-ab.json); these do not establish semantic
+accuracy, speed or fee savings.
 
 Browser and desktop are [tool adapters](docs/adapters.md), not application-specific
 programs in the runtime. Camofox uses fresh observed targets and allowed origins;

@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.9，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.10，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.9 版本？
+## 如何安装准确的 v0.1.10 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.9'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.10'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -140,3 +140,16 @@ DOM 文本与字段。早期需复核及因授权门槛停止的结果也保留�
 15,000 字符预算，会返回复核，而不会悄悄丢弃约束。原始证据留在私有日志中，仅准入
 安全摘要。详见[上下文管理](context.zh-CN.md)与
 [同步回调契约](agent-contract.zh-CN.md#synchronous-callback-contract)。
+
+<a id="request-planning"></a>
+
+## 选择没有派发时，AI 应如何处理？
+
+阅读当前选择遥测中的 `planning`，及 loop 诊断的工具或参数阶段。
+`request_needs_narrowing` 表示类型化的输入需要收窄，`request_needs_context` 表示
+缺少必需上下文/字段；未知规划状态使用通用 `request_planning_review`。应修正程序的
+候选/描述或必需字段，并保留目标与安全约束，不盲目重试。这次选择未进入原生 runner，
+但此前可能已有 loop 调用/效果或未知用量。上限、prompt 与模型选择不变，提供方/
+HTTP413 失败及通用完整 spec 验证异常另行处理。见
+[规划契约](agent-contract.zh-CN.md#request-planning-handoff) 与
+[离线证据](../reports/planning-diagnostics-ab.json)，不声称语义质量、提速或费用收益。

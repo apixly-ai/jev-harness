@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.9. Install the repository at `@v0.1.9` for a reproducible release;
+Contract version: 0.1.10. Install the repository at `@v0.1.10` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -136,7 +136,7 @@ sandbox. Protect private journals; recover only necessary evidence for unresolve
 
 An unresolved selection may include a host-generated diagnostic with stage
 tool_selection or parameter_selection, registered tool_id/parameter for the latter,
-allowlisted reason_codes, and automatic_retry=false. Each actual inference entry in
+allowlisted reason_codes, and automatic_retry=false. Each selection-call entry in
 telemetry.calls carries its stage and applicable identifiers. Static domain, policy and
 execution errors retain existing terminal reasons. Diagnostics contain no exception
 text, response body or bound values, and do not alter status, eligibility or authorization.
@@ -148,6 +148,20 @@ The harness does not repeat task calls automatically. The pinned SDK's bounded
 See the contract's Decision diagnostics section for the whitelist. Synthetic offline
 HTTP-mock acceptance has zero real model calls, increases terminal bytes, and does not
 establish real semantic recovery success.
+
+Read spec.request_planning for an empty native plan: telemetry.planning or
+telemetry.calls[].planning has scope=current_selection, phase=request_planning,
+inference_dispatched=false and fixed reasons request_needs_narrowing/request_needs_context/
+request_planning_review. Known typed statuses remain distinct; unknown statuses become
+UNAVAILABLE with the generic code, never a guessed cause. Empty record lists have no
+reason codes; other selection paths omit planning. The loop diagnostic keeps tool/parameter
+stage. Use it to repair candidates/descriptions or required context/record fields while
+preserving goal and safety constraints; do not blindly retry. Known-zero usage is only for
+that selection: prior calls/effects or unknown usage remain. No fit rules, caps, prompts or
+model choices change. Generic full-spec ValueError and dispatched HTTP413 are not
+reclassified (HTTP413 keeps its safe code and unknown usage). See the planning contract
+and reports/planning-diagnostics-ab.json for offline synthetic checks with no real
+model/network/UI calls or accuracy/speed/fee claim.
 
 Use generic browser/desktop adapters only within their platform and target scope. Headless
 Camofox must preserve the named session; native desktop needs an unlocked target app.

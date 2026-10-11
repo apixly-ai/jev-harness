@@ -424,3 +424,56 @@ python benchmarks/context_budget.py --output local-results/context-budget-ab.jso
 Use a full Git checkout with `.[dev]` and a new output path. CI runs offline fixtures on
 Python 3.10, 3.12 and 3.14. No earlier live matrix, locked desktop or URL submission was
 repeated. Native desktop completion and search indexing remain unverified.
+
+
+## Typed request-planning handoff (0.1.10)
+
+An empty native Choice plan now preserves its typed `NEEDS_NARROWING` or `NEEDS_CONTEXT`
+status and reports fixed planning reasons. Unknown statuses become `UNAVAILABLE` with
+`request_planning_review`; raw status/error text is not exported. Optional
+`telemetry.planning` (or a loop call’s `planning`) has scope `current_selection`, phase
+`request_planning` and `inference_dispatched: false`. This is generated only on the
+host’s actual empty-plan path, before the native batch dispatcher. Selection diagnostics
+retain the host tool/parameter stage and fixed planning codes.
+
+The [offline planning A/B](planning-diagnostics-ab.json) compares exact released 0.1.9
+(`bb808e1472d3894e276689115574f126c193c52a`) with the candidate on 14 fixed fixtures,
+three paired repetitions with alternating arm order. Final status/selection/effect,
+dispatch and usage behavior remains 42/42 correct in both arms, with pairwise parity.
+New diagnostic/measurement conformance changes from 12/42 to 42/42. Deliberate typed
+status corrections on three fixtures/nine rows are counted separately (33/42 to 42/42),
+not as model accuracy improvements. The candidate returns 30 deferred-call planning
+records. Both arms make 18 mock batch dispatches, 21 MockTransport attempts and three
+synthetic effects/intents; actual model and network calls are zero.
+
+Fixtures exercise real pinned planner fit checks with large ASCII/Chinese records,
+254 choices and missing required record fields, tool and dependent-parameter deferral,
+previous unknown usage after a mocked retry, trusted fallback, unknown/injected planner
+status, generic full-spec validation and HTTP 413. Nine rows preserve unknown mock usage.
+The only retry is the SDK’s existing bounded policy. Deferred parameter selection does
+not erase an earlier call or unknown usage; fallback clears a current failure diagnostic
+while retaining historical planning metadata, and later effect errors remain uncertain.
+Separate regressions preserve empty-record completion and strict fixed-code projection.
+
+Negative results: returned output grows from 33,295 to 37,777 bytes. Some local fixtures
+become slower; mixed small timings establish no speed, semantic-quality or fee gain.
+The planner’s limits, fit rules, prompts, actual inference and loop context cap are
+unchanged. This is not a new input-size ProviderError taxonomy: the pinned SDK emits
+these typed deferrals from planning. Generic `ValueError` remains generic, and an
+already dispatched HTTP 413 remains `http_413_body_suppressed` with unknown usage.
+No exception-message matching or blind retry is introduced.
+
+The no-dispatch/known-zero statement applies only to that selection. Earlier calls,
+unknown billing and effects may exist in the same run. Absence of `planning` does not
+prove dispatch. Keep goal/safety constraints intact while the primary AI narrows
+program-supplied candidates/descriptions or supplies required context. Model selection
+still provides neither permission nor completion proof.
+
+```sh
+python benchmarks/planning_diagnostics.py --output local-results/planning-diagnostics-ab.json
+```
+
+Use a full Git checkout with `.[dev]` and a new output path. CI runs only offline cases
+under Python 3.10, 3.12 and 3.14. No paid model matrix, locked-desktop retry or URL submission
+was repeated. Native desktop completion, crawler visits, indexing and AI citations remain
+separate unverified evidence layers.

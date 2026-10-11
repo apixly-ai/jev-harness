@@ -5,6 +5,11 @@ import re
 from jev_context.provider import ProviderError
 
 HTTP_CODE_PATTERN = r"http_[1-5][0-9]{2}_body_suppressed"
+PLANNING_STATUS_CODES = {
+    "NEEDS_NARROWING": "request_needs_narrowing",
+    "NEEDS_CONTEXT": "request_needs_context",
+}
+PLANNING_CODES = frozenset({*PLANNING_STATUS_CODES.values(), "request_planning_review"})
 PROVIDER_CODES = frozenset(
     {
         "credentials_missing",
@@ -72,6 +77,17 @@ def selection_diagnostic(packet, records, stage):
         code = reason.get("reason") if isinstance(reason, dict) else None
         if isinstance(code, str) and code in SELECTION_CODES and code not in codes:
             codes.append(code)
+    planning = telemetry.get("planning")
+    if (
+        isinstance(planning, dict)
+        and planning.get("scope") == "current_selection"
+        and planning.get("phase") == "request_planning"
+        and planning.get("inference_dispatched") is False
+    ):
+        reasons = planning.get("reason_codes", [])
+        for code in reasons if isinstance(reasons, list) else []:
+            if isinstance(code, str) and code in PLANNING_CODES and code not in codes:
+                codes.append(code)
     selected = packet.get("selected_ids", [])
     if not codes:
         if not packet.get("ok"):
