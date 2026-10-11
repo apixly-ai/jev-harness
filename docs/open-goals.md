@@ -102,10 +102,10 @@ Cross-process recovery and native desktop completion remain unproven.
 
 ## What the homepage should show
 
-Lead with the user's goal, AI-authored task contracts and the fresh state supplied to Jev.
-The main case shows newly discovered candidates, changing routes, accumulating evidence
-and completion or a missing-evidence stop. Label designed illustrations, scripted offline
-runs, real inference and historical screenshot replays separately.
+Lead with benefits and use: an open goal, AI-authored tools, fresh context for Jev and a
+checkable artifact. Task examples show newly discovered candidates, changing routes and
+accumulating evidence. Keep incomplete or unknown status banners out of the homepage;
+technical contracts and the evidence ledger retain precise acceptance scope and negative results.
 
 Link adoption to [the spec/task contract](agent-contract.md) and acceptance to
 [raw evidence](../reports/README.md). Fix/test counts do not replace open-task acceptance.

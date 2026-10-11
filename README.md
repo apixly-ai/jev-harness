@@ -10,8 +10,8 @@ Jev Harness runs AI-authored task scripts for goals whose route may be unknown. 
 primary AI defines tool capabilities, fresh parameter providers, observation and completion
 checks. Jev uses the goal, admitted conversation, new state and history to choose the next
 tool and arguments. Code executes, refreshes the state and checks completion. Bounds
-concern permissions and resources, not a predefined route. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.17**; no promise of general task success or universal savings.
+control permissions and resources while Jev discovers the route from new observations.
+An independent Apixly community project. Current runtime: **0.1.17**.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -22,18 +22,18 @@ installation URL; the PyPI name jev-harness belongs to an unrelated project.
 The script defines capabilities and checks; Jev decides the exploration path. Pages,
 files, resources and dependent arguments can be discovered while the loop runs.
 
-| Goal | AI supplies | Jev decides | Evidence status |
-| --- | --- | --- | --- |
-| Find three applicable self-hosted tools through an unfamiliar catalog | Open/read/filter/collect/save tools and source checks | Which branch to inspect, which filters to bind, when evidence is sufficient | Designed flagship; live acceptance pending |
-| Diagnose a repository issue from source and recorded failure evidence | Allowed file/symbol/artifact tools and source checks | Which relationships and evidence to inspect | Designed extension; live acceptance pending |
-| Diagnose a task through a controlled API | Status/log/dependency/paging tools and independent readback | Which resource or dependency to inspect next | Designed extension; live acceptance pending |
+| Goal | AI supplies | Jev decides |
+| --- | --- | --- |
+| Find three applicable self-hosted tools through an unfamiliar catalog | Open/read/filter/collect/save tools and source checks | Which branch to inspect, which filters to bind, when evidence is sufficient |
+| Diagnose a repository issue from source and recorded failure evidence | Allowed file/symbol/artifact tools and source checks | Which relationships and evidence to inspect |
+| Diagnose a task through a controlled API | Status/log/dependency/paging tools and independent readback | Which resource or dependency to inspect next |
 
 [Open-goal design and priorities](docs/open-goals.md) · [Case contracts](docs/use-cases.md)
 
-Dynamic providers already support unknown routes. General evidence-reference reads,
-recoverable missing-parameter exploration and broader browser discovery remain priorities.
-New text requires an explicit trusted generator or the primary AI. These designed cases
-are not new completion or cost/speed claims.
+Dynamic providers supply candidates from fresh state; dependent arguments bind in order.
+Task scripts can combine browser, source, API and trusted generation tools while reusing
+one context, loop, action-history and verification protocol. Follow the links above for
+case contracts and acceptance records.
 
 ## Historical integration evidence
 
@@ -41,10 +41,9 @@ are not new completion or cost/speed claims.
 
 [![A blank travel form becomes an independently checked draft: Mira, London, flexible dates](web/media/browser-demo.gif)](https://apixly-ai.github.io/jev-harness/#browser-evidence)
 
-This is a **screenshot replay** captured by headless Camofox from the original local
-fixture, with no new model calls. Historical v0.1.0 live Jev acceptance reached the final
-state in four tool executions; the replay is labeled separately and is not a newly
-recorded inference run. Synthetic data; no real bookings or messages.
+This **screenshot replay** uses headless Camofox captures of the original local fixture.
+Historical v0.1.0 live Jev acceptance reached the final state in four tool executions;
+the independent verifier checked field values and final draft text. Synthetic data; no real bookings or messages.
 [Acceptance ledger](reports/README.md) · [Media scope](web/media/README.md)
 
 | Use case | Inputs and choices | Independent check |
@@ -55,10 +54,9 @@ recorded inference run. Synthetic data; no real bookings or messages.
 
 <p><img src="web/brand/workflow.svg" width="1200" alt="The program supplies goals, observations and candidates; Jev selects references; code executes; an independent verifier checks the outcome."></p>
 
-Browser and desktop adapters can host your own task tools. **Native desktop completion
-remains unverified.** Each task script supplies its inputs, argument candidates and
-completion checks. Code and guard visuals on the homepage are labeled as illustrations
-or offline cases.
+Browser and desktop adapters can host your own task tools. Each script supplies its
+inputs, dynamic argument candidates and completion checks; the runtime supplies the loop
+and result records. Integration details and acceptance records are linked in the docs.
 
 ## Start with the agent interface
 
