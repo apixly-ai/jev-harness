@@ -1,5 +1,7 @@
 # Context management for Jev decisions
 
+[简体中文](context.zh-CN.md)
+
 Every turn has distinct sections: goal, shared facts, explicitly admitted user/assistant
 messages, current observation, action/result history and budgets. Jev receives these
 sections plus available tools and parameter descriptions. It does not inherit an AI

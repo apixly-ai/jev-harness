@@ -20,6 +20,7 @@ jobs:
           python-version: '3.12'
       - run: pip install -e '.[dev]'
       - run: python scripts/build_site.py
+      - run: python scripts/check_site.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

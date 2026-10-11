@@ -1,5 +1,7 @@
 # The AI-native task contract
 
+[简体中文](agent-contract.zh-CN.md)
+
 The product is a reusable task runtime, not a library of application-specific cases.
 An agent should learn one interface and supply its business tools as a short script.
 

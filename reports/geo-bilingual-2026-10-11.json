@@ -1,0 +1,69 @@
+{
+  "project": "apixly-ai/jev-harness",
+  "captured_at": "2026-10-11 02:29:44 UTC",
+  "query_set_id": "jev-harness-v1",
+  "surface": {
+    "tool": "web search",
+    "engine": "not_reported",
+    "region": "not_reported",
+    "ranking_measurement": false
+  },
+  "queries": [
+    {
+      "kind": "brand",
+      "text": "Jev Harness Apixly",
+      "options": {}
+    },
+    {
+      "kind": "nonbrand",
+      "text": "Jev agent loop tool parameter candidates",
+      "options": {}
+    }
+  ],
+  "observations": [
+    {
+      "query": "Jev Harness Apixly",
+      "official_urls_observed": [],
+      "indexing": "unknown"
+    },
+    {
+      "query": "Jev agent loop tool parameter candidates",
+      "official_urls_observed": [],
+      "indexing": "unknown"
+    }
+  ],
+  "outcomes": {
+    "answer_citation": "not_measured",
+    "recommendation": "not_measured",
+    "adoption": "not_measured"
+  },
+  "limits": "Absence from this bounded returned sample is not proof of index absence. No causal ranking or exposure improvement established.",
+  "technical_delivery": {
+    "built_bilingual_pages": 16,
+    "sitemap_urls": 16,
+    "local_references_checked": 513,
+    "broken_local_references": 0,
+    "stage": "local_build_before_publication"
+  },
+  "improvements": [
+    "Complete Chinese documentation for task contract, context, adapters, architecture and evidence",
+    "Bilingual FAQ and use-case pages with static visible inputs, choices and verifiers",
+    "Page-preserving language switches and bidirectional hreflang/x-default",
+    "Language-specific canonical URLs, descriptions and WebPage identity with shared software entity",
+    "Bilingual sitemap and llms.txt navigation; no special AI-ranking claim"
+  ],
+  "sources": [
+    "https://developers.google.com/search/docs/fundamentals/ai-optimization-guide",
+    "https://developers.google.com/search/docs/specialty/international/localized-versions",
+    "https://www.indexnow.org/documentation"
+  ],
+  "validation": {
+    "runtime_source": "0.1.8",
+    "scope": "website and documentation",
+    "tests": "196 passed; runtime coverage 89.30%; final site regression 4/4 passed",
+    "native_ui": "18 responsive checks in headless Camofox; header and body language links preserve page in both directions"
+  },
+  "baseline_revision": "a01e000cee72b784f006137b2e47ea1a5652b270",
+  "candidate_revision": "the commit containing this prepublication report",
+  "publication": "not_verified_in_this_prepublication_report"
+}

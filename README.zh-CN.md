@@ -2,7 +2,7 @@
 
 # Jev Harness
 
-[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [AI 接口](docs/agent-contract.md) · [验收证据](reports/README.md)
+[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [常见问题](docs/faq.zh-CN.md) · [使用案例](docs/use-cases.zh-CN.md) · [AI 接口](docs/agent-contract.zh-CN.md) · [验收证据](reports/README.zh-CN.md)
 
 **编写任务，注册工具，让 Jev 选择下一次调用和参数。**
 

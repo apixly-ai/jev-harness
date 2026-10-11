@@ -2,7 +2,7 @@
 
 # Jev Harness
 
-[简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
+[简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [FAQ](docs/faq.md) · [Use cases](docs/use-cases.md) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
 
 **Write a task. Register tools. Let Jev choose the next call and its parameters.**
 

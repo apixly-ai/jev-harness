@@ -1,5 +1,7 @@
 # Browser and desktop tool adapters
 
+[简体中文](adapters.zh-CN.md)
+
 Adapters register generic observed operations with the same Task parameter protocol.
 They are examples of extension seams; application-specific forms do not live in core code.
 

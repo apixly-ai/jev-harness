@@ -1,5 +1,7 @@
 # Acceptance evidence and scope
 
+[简体中文](README.zh-CN.md)
+
 The runtime is the product; these cases test reusable seams rather than special-case
 features. All inputs are local synthetic data. No bookings or messages were sent.
 
@@ -363,3 +365,12 @@ python benchmarks/cli_arguments.py --output local-results/cli-arguments-ab.json
 Use a full Git checkout with `.[dev]` and a new output path. CI runs the offline fixtures
 under Python 3.10, 3.12 and 3.14. No earlier live matrix, UI operation, locked desktop or
 URL submission was repeated. Native desktop and search indexing remain unverified.
+
+## Bilingual site and discovery baseline
+
+The [bilingual-site report](geo-bilingual-2026-10-11.json) records a prepublication local
+build of 16 English/Chinese pages, language counterparts, project identity, FAQ, case
+evidence and a frozen brand/nonbrand query set. The sampled baseline did not return an
+official Harness URL; this is not proof of index absence. HTTP delivery, crawl, indexing,
+query discovery, AI citation and adoption are separate stages. No exposure or ranking
+improvement is established by a successful build or IndexNow receipt.

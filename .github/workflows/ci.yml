@@ -31,3 +31,4 @@ jobs:
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py
+      - run: python scripts/check_site.py

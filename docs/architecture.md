@@ -1,5 +1,7 @@
 # Architecture and prior art
 
+[简体中文](architecture.zh-CN.md)
+
 The primary AI plans and writes a task script. Deterministic code gathers facts, admits
 context, constructs tool/parameter domains and verifies results. Jev makes native typed
 choices. The loop executes only the registered, bound action after freshness and policy

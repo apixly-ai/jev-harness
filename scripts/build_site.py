@@ -2,9 +2,11 @@
 
 import html
 import json
+import posixpath
 import re
 import shutil
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import markdown
 
@@ -15,53 +17,173 @@ OUT = ROOT / "site"
 BASE = "https://apixly-ai.github.io/jev-harness/"
 REPO = "https://github.com/apixly-ai/jev-harness"
 PAGES = {
-    "agent-contract": ("docs/agent-contract.md", "AI-native task contract"),
-    "context": ("docs/context.md", "Context management"),
-    "adapters": ("docs/adapters.md", "Browser and desktop adapters"),
-    "architecture": ("docs/architecture.md", "Architecture and references"),
-    "evidence": ("reports/README.md", "Acceptance evidence"),
+    "agent-contract": {
+        "en": (
+            "docs/agent-contract.md",
+            "Python agent task contract",
+            "Install Jev Harness, define typed tools and parameter candidates, and run bounded Python tasks with explicit context and independent verification.",
+        ),
+        "zh-CN": (
+            "docs/agent-contract.zh-CN.md",
+            "Python 智能体任务协议",
+            "安装 Jev Harness，定义类型化工具与参数候选，使用明确上下文和独立结果验证运行有边界的 Python 任务。",
+        ),
+    },
+    "context": {
+        "en": (
+            "docs/context.md",
+            "Context management for Jev agent loops",
+            "How Jev Harness admits goals, facts, dialogue and tool results, preserves evidence references, and blocks repeated actions against unchanged state.",
+        ),
+        "zh-CN": (
+            "docs/context.zh-CN.md",
+            "Jev 智能体循环的上下文管理",
+            "了解 Jev Harness 如何准入目标、事实、对话与工具结果，保留证据引用，并阻断相同状态下的重复动作。",
+        ),
+    },
+    "adapters": {
+        "en": (
+            "docs/adapters.md",
+            "Browser and desktop task adapters",
+            "Connect bounded Jev Harness tasks to headless Camofox, macOS Accessibility or Windows UIA. Read permission, freshness and acceptance limits.",
+        ),
+        "zh-CN": (
+            "docs/adapters.zh-CN.md",
+            "浏览器与桌面任务适配器",
+            "将有边界的 Jev Harness 任务连接到无头 Camofox、macOS Accessibility 或 Windows UIA，了解授权、新鲜度和验收范围。",
+        ),
+    },
+    "architecture": {
+        "en": (
+            "docs/architecture.md",
+            "Jev Harness architecture and design references",
+            "How the primary AI, deterministic program, typed Jev decisions and independent verifier cooperate in Apixly’s Python task runtime.",
+        ),
+        "zh-CN": (
+            "docs/architecture.zh-CN.md",
+            "Jev Harness 架构与设计参考",
+            "了解主 AI、确定性程序、类型化 Jev 决策和独立验证器如何在 Apixly 的 Python 任务运行时中协作。",
+        ),
+    },
+    "evidence": {
+        "en": (
+            "reports/README.md",
+            "Acceptance evidence and benchmark limits",
+            "Inspect historical live synthetic browser acceptance, offline A/B reports, measured usage, negative results and unverified desktop completion.",
+        ),
+        "zh-CN": (
+            "reports/README.zh-CN.md",
+            "验收证据与评测范围",
+            "复查历史真实合成浏览器验收、离线 A/B 报告、实测用量、负面结果，以及尚未验证的原生桌面完成状态。",
+        ),
+    },
+    "faq": {
+        "en": (
+            "docs/faq.md",
+            "Jev Harness FAQ: installation, tools and verification",
+            "Answers about Apixly’s Jev Harness identity, exact Git installation, Jev Filter integration, typed choices, billing, browser evidence and execution limits.",
+        ),
+        "zh-CN": (
+            "docs/faq.zh-CN.md",
+            "Jev Harness 常见问题：安装、工具与验证",
+            "了解 Apixly Jev Harness 的项目身份、准确 Git 安装方式、Jev Filter 集成、类型化候选、计费、浏览器证据和执行边界。",
+        ),
+    },
+    "use-cases": {
+        "en": (
+            "docs/use-cases.md",
+            "Jev Harness use cases: browser drafts and typed tasks",
+            "Three inspectable Jev Harness cases with goals, supplied inputs and choices, completion checks, reproducible commands and exact evidence scope.",
+        ),
+        "zh-CN": (
+            "docs/use-cases.zh-CN.md",
+            "Jev Harness 使用案例：浏览器草稿与类型化任务",
+            "查看三类 Jev Harness 案例的目标、程序提供的输入与候选、完成验证、复现命令和明确证据范围。",
+        ),
+    },
 }
 
 
+def language_paths(path):
+    english = path.removeprefix("zh/")
+    return english, "zh/" + english
+
+
 def shell(title, description, body, path="", lang="en"):
-    prefix = "../" if path.startswith("zh/") else ""
+    zh = lang == "zh-CN"
+    prefix = "../" if zh else ""
+    en_path, zh_path = language_paths(path)
     canonical = BASE + path
-    alternate = (
-        f'<link rel="alternate" hreflang="en" href="{BASE}"><link rel="alternate" hreflang="zh-CN" href="{BASE}zh/">'
-        if path in ("", "zh/")
-        else ""
+    title = title if "Jev Harness" in title else title + " · Jev Harness"
+    alternates = "".join(
+        f'<link rel="alternate" hreflang="{code}" href="{BASE}{target}">'
+        for code, target in (("en", en_path), ("zh-CN", zh_path), ("x-default", en_path))
     )
-    data = {
-        "@context": "https://schema.org",
-        "@type": "SoftwareSourceCode",
-        "name": "Jev Harness",
-        "description": description,
-        "codeRepository": REPO,
-        "url": BASE,
-        "programmingLanguage": "Python",
-        "license": REPO + "/blob/main/LICENSE",
-        "version": VERSION,
-        "author": {
+    switch = prefix + (en_path or "index.html") if zh else zh_path
+    image = BASE + ("brand/social.zh-CN.png" if zh else "social.png")
+    graph = [
+        {
             "@type": "Organization",
+            "@id": BASE + "#maintainer",
             "name": "Apixly",
             "url": "https://github.com/apixly-ai",
         },
+        {
+            "@type": "SoftwareSourceCode",
+            "@id": BASE + "#software",
+            "name": "Jev Harness",
+            "identifier": "apixly-jev-harness",
+            "alternateName": "Apixly Jev Harness",
+            "description": "Apixly’s independent Python runtime for bounded Jev agent loops with typed tool and parameter choices and independently verified outcomes.",
+            "codeRepository": REPO,
+            "url": BASE,
+            "programmingLanguage": "Python",
+            "runtimePlatform": "Python 3.10+",
+            "license": REPO + "/blob/main/LICENSE",
+            "version": VERSION,
+            "author": {"@id": BASE + "#maintainer"},
+        },
+        {
+            "@type": "WebPage",
+            "@id": canonical + "#webpage",
+            "url": canonical,
+            "name": title,
+            "description": description,
+            "inLanguage": lang,
+            "about": {"@id": BASE + "#software"},
+            "publisher": {"@id": BASE + "#maintainer"},
+        },
+    ]
+    data = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False)
+    labels = {
+        "showcase": "演示案例" if zh else "Showcase",
+        "contract": "任务协议" if zh else "Task contract",
+        "faq": "常见问题" if zh else "FAQ",
+        "evidence": "验收证据" if zh else "Evidence",
     }
-    page = f'''<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)} · Jev Harness</title><meta name="description" content="{html.escape(description, quote=True)}"><link rel="canonical" href="{canonical}">{alternate}<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website"><meta property="og:image" content="{BASE}{"brand/social.zh-CN.png" if lang == "zh-CN" else "social.png"}"><link rel="stylesheet" href="{prefix}style.css"><script type="application/ld+json">{json.dumps(data)}</script></head><body><nav><a class="brand" href="{prefix}{"zh/" if lang == "zh-CN" else "index.html"}"><svg class="brand-glyph" viewBox="0 0 36 36" aria-hidden="true" fill="none"><path d="M5 14V5h12m-4-4 4 4-4 4M22 5h9v12m-4-4 4 4 4-4" stroke="#c6f67a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 22v9H19m4-4-4 4 4 4M14 31H5V19m-4 4 4-4 4 4" stroke="#7de3e5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> jev<span> / harness</span></a><a href="{prefix}{"zh/" if lang == "zh-CN" else "index.html"}#showcase">Showcase</a><a href="{prefix}agent-contract.html">Agent contract</a><a href="{prefix}context.html">Context</a><a href="{prefix}evidence.html">Evidence</a><a href="{REPO}">GitHub ↗</a><a href="{prefix}{"index.html" if lang == "zh-CN" else "zh/"}">{"EN" if lang == "zh-CN" else "中文"}</a></nav>{body}<footer><span>Jev Harness · Apixly independent community project · MIT</span><span>Not an official TypeSafe AI product. Early {VERSION}.</span></footer></body></html>'''
-    if lang == "zh-CN":
-        for old, new in [
-            (">Showcase<", ">演示案例<"),
-            (">Agent contract<", ">任务协议<"),
-            (">Context<", ">上下文<"),
-            (">Evidence<", ">验收证据<"),
-            ("Apixly independent community project", "Apixly 独立社区项目"),
-            (
-                f"Not an official TypeSafe AI product. Early {VERSION}.",
-                f"非 TypeSafe AI 官方产品。早期 {VERSION}。",
-            ),
-        ]:
-            page = page.replace(old, new)
-    return page
+    nav = "".join(
+        f'<a href="{target}">{label}</a>'
+        for target, label in (
+            ("index.html#showcase", labels["showcase"]),
+            ("agent-contract.html", labels["contract"]),
+            ("faq.html", labels["faq"]),
+            ("evidence.html", labels["evidence"]),
+            (REPO, "GitHub ↗"),
+        )
+    )
+    footer = (
+        f"Apixly 独立社区项目 · 非 TypeSafe AI 官方产品 · 早期 {VERSION}"
+        if zh
+        else f"Independent Apixly community project · Not official TypeSafe AI software · Early {VERSION}"
+    )
+    return f'''<!doctype html><html lang="{lang}"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{html.escape(title)}</title><meta name="description" content="{html.escape(description, quote=True)}">
+<link rel="canonical" href="{canonical}">{alternates}
+<meta property="og:title" content="{html.escape(title, quote=True)}"><meta property="og:description" content="{html.escape(description, quote=True)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website"><meta property="og:image" content="{image}"><meta property="og:locale" content="{"zh_CN" if zh else "en_US"}"><meta property="og:locale:alternate" content="{"en_US" if zh else "zh_CN"}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{html.escape(title, quote=True)}"><meta name="twitter:description" content="{html.escape(description, quote=True)}"><meta name="twitter:image" content="{image}">
+<link rel="icon" type="image/svg+xml" href="{prefix}brand/icon.svg"><link rel="stylesheet" href="{prefix}style.css"><script type="application/ld+json">{data}</script></head><body>
+<nav aria-label="{"主导航" if zh else "Main navigation"}"><a class="brand" href="index.html"><svg class="brand-glyph" viewBox="0 0 36 36" aria-hidden="true" fill="none"><path d="M5 14V5h12m-4-4 4 4-4 4M22 5h9v12m-4-4 4 4 4-4" stroke="#c6f67a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 22v9H19m4-4-4 4 4 4M14 31H5V19m-4 4 4-4 4 4" stroke="#7de3e5" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg> jev<span> / harness</span></a>{nav}<a class="language-switch" href="{switch}" lang="{"en" if zh else "zh-CN"}" hreflang="{"en" if zh else "zh-CN"}">{"EN" if zh else "中文"}</a></nav>
+{body}<footer><span>Jev Harness · MIT · {footer}</span><span><a href="{prefix}sitemap.xml">Sitemap</a> · <a href="{prefix}llms.txt">llms.txt</a></span></footer></body></html>'''
 
 
 def home(zh=False):
@@ -72,8 +194,8 @@ def home(zh=False):
 
     icon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 9V5h4M15 5h4v4M19 15v4h-4M9 19H5v-4M9 9h6v6H9z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
     lead = t(
-        "Turn a task into a loop that can act. You define the tools and choices. Jev picks the next step. Your code checks the result.",
-        "把任务变成可以执行的循环。你定义工具与候选，Jev 选择下一步，程序执行并核对结果。",
+        "Jev Harness is Apixly’s Python runtime for bounded agent tasks. You define tools and parameter candidates. Jev chooses the next step; your code executes and verifies it.",
+        "Jev Harness 是 Apixly 的 Python 智能体任务运行时。你定义工具与参数候选，Jev 选择下一步，程序执行并独立验证结果。",
     )
     install = f"pip install 'git+https://github.com/apixly-ai/jev-harness.git@v{VERSION}'"
     language = ".zh-CN" if zh else ""
@@ -86,6 +208,7 @@ def home(zh=False):
       <p class="hero-lead">{lead}</p>
       <div class="actions"><a class="button" href="#showcase">{t("Watch it work", "看看它怎么做")} <span aria-hidden="true">↗</span></a><a class="button secondary" href="#start">{t("Build your first task", "开始编写任务")} <span aria-hidden="true">→</span></a></div>
       <div class="hero-meta"><span>Python 3.10+</span><span>MIT</span><span>v{VERSION}</span></div>
+      <p class="entity-note">{t("Install <code>apixly-jev-harness</code> from this repository’s pinned Git URL. Independent community project; not official TypeSafe AI software.", "使用本仓库固定版本的 Git URL 安装 <code>apixly-jev-harness</code>。独立社区项目，非 TypeSafe AI 官方产品。")}</p>
     </div>
     <div class="control-room" role="img" aria-label="{t("Loop illustration: observe a travel form, choose from registered tools, bind a supplied candidate and independently verify the draft.", "执行循环示意：观察旅行表单，选择注册工具，绑定已提供候选，独立验证草稿。")} ">
       <div class="room-head"><span>{icon} TASK CONTROL ROOM</span><span class="mini-badge">{t("LOOP ILLUSTRATION", "循环示意")}</span></div>
@@ -142,10 +265,16 @@ jev-harness <b>check-task</b> task.py
 <span class="code-muted"># {t("Configure TYPESAFE_API_KEY in your environment", "在环境中配置 TYPESAFE_API_KEY")}</span>
 jev-harness <b>run</b> task.py \\
   --goal "Reach target" --inputs '{{"target":3}}'</pre></div></section>
+  <section class="section questions" aria-labelledby="questions-title"><div class="section-heading"><div><div class="eyebrow">05 / {t("FIND YOUR ANSWER", "找到需要的答案")}</div><h2 id="questions-title">{t("Clear answers.<br>Evidence within reach.", "问题有答案，<br>证据可复查。")}</h2></div></div><div class="question-links"><a href="{p}faq.html"><strong>{t("What is Jev Harness?", "Jev Harness 是什么？")} ↗</strong><small>{t("Project identity, Jev Filter integration, installation, billing and execution limits.", "项目身份、Jev Filter 集成、安装、计费和执行边界。")}</small></a><a href="{p}use-cases.html"><strong>{t("Which tasks fit the loop?", "哪些任务适合这个循环？")} ↗</strong><small>{t("Read each case’s inputs, supplied choices, verifier and reproduction path.", "查看每个案例的输入、程序提供候选、验证器与复现路径。")}</small></a></div></section>
   <section class="related"><span>{t("PART OF YOUR TOOLKIT", "工具箱里的其他项目")}</span><a href="https://apixly-ai.github.io/jev-filter/"><b>Jev Filter</b><small>{t("Find the signal in many records", "从多条记录中筛选信号")}</small>↗</a><a href="https://github.com/JIA-ss/ai-remote"><b>ai-remote</b><small>{t("MCP access to your computers", "通过 MCP 访问你的电脑")}</small>↗</a></section>
 </main><script src="{p}home.js" defer></script>'''
+    for slug in PAGES:
+        body = body.replace(f'href="{p}{slug}.html"', f'href="{slug}.html"')
     return shell(
-        t("Your tools. Jev’s next move.", "工具你来定义，下一步交给 Jev。"),
+        t(
+            "Jev Harness: Python agent loops with typed tool choices",
+            "Jev Harness：类型化工具选择与结果验证的 Python 智能体循环",
+        ),
         lead,
         body,
         "zh/" if zh else "",
@@ -153,45 +282,139 @@ jev-harness <b>run</b> task.py \\
     )
 
 
-def rewrite_links(content):
-    mapping = {
-        "architecture.md": "architecture.html",
-        "context.md": "context.html",
-        "adapters.md": "adapters.html",
-        "agent-contract.md": "agent-contract.html",
-        "acceptance.json": "acceptance.json",
-        "parameter-prompt-ab.json": "parameter-prompt-ab.json",
-        "parameter-ab.json": "parameter-ab.json",
-        "evidence-progress-ab.json": "evidence-progress-ab.json",
-        "../reports/evidence-progress-ab.json": "evidence-progress-ab.json",
-        "decision-diagnostics-ab.json": "decision-diagnostics-ab.json",
-        "../reports/decision-diagnostics-ab.json": "decision-diagnostics-ab.json",
-        "tool-choice-offline-ab.json": "tool-choice-offline-ab.json",
-        "tool-choice-live-ab.json": "tool-choice-live-ab.json",
-        "../reports/tool-choice-offline-ab.json": "tool-choice-offline-ab.json",
-        "../reports/tool-choice-live-ab.json": "tool-choice-live-ab.json",
-        "static-check-ab.json": "static-check-ab.json",
-        "../reports/static-check-ab.json": "static-check-ab.json",
-        "run-preflight-ab.json": "run-preflight-ab.json",
-        "../reports/run-preflight-ab.json": "run-preflight-ab.json",
-        "callback-contract-ab.json": "callback-contract-ab.json",
-        "../reports/callback-contract-ab.json": "callback-contract-ab.json",
-        "task-output-ab.json": "task-output-ab.json",
-        "../reports/task-output-ab.json": "task-output-ab.json",
-        "cli-arguments-ab.json": "cli-arguments-ab.json",
-        "../reports/cli-arguments-ab.json": "cli-arguments-ab.json",
+def rewrite_links(content, zh=False, source="docs/agent-contract.md"):
+    prefix = "../" if zh else ""
+    page_sources = {
+        str(Path(file).as_posix()): slug + ".html"
+        for slug, variants in PAGES.items()
+        for file, _, _ in variants.values()
     }
+    report_names = {file.name for file in (ROOT / "reports").glob("*.json")}
 
     def replace(match):
-        href = match.group(1)
-        if href.startswith(("http:", "https:", "#")):
+        attribute, href = match.groups()
+        if href.startswith(("http:", "https:", "#", "mailto:", "data:")):
             return match.group(0)
-        target = mapping.get(href)
-        if target:
-            return f'href="{target}"'
-        return f'href="{REPO}/blob/main/{href}"'
+        parts = urlsplit(html.unescape(href))
+        normalized = posixpath.normpath(posixpath.join(str(Path(source).parent), parts.path))
+        filename = Path(parts.path).name
+        if normalized in page_sources:
+            target = page_sources[normalized]
+        elif filename in report_names or filename == "spec.json":
+            target = prefix + filename
+        elif normalized in ("README.md", "README.zh-CN.md"):
+            target = "index.html"
+        elif normalized.startswith("web/media/"):
+            target = prefix + "media/" + normalized.removeprefix("web/media/")
+        elif normalized.startswith("web/brand/"):
+            target = prefix + "brand/" + normalized.removeprefix("web/brand/")
+        else:
+            target = REPO + "/blob/main/" + normalized
+        if parts.fragment:
+            target += "#" + parts.fragment
+        return f'{attribute}="{html.escape(target, quote=True)}"'
 
-    return re.sub(r'href="([^"]+)"', replace, content)
+    rewritten = re.sub(r'(href|src|poster)="([^"]+)"', replace, content)
+
+    def language_switch(match):
+        start, target, end, label = match.groups()
+        if urlsplit(target).scheme or not target.endswith(".html"):
+            return match.group(0)
+        if label == "English":
+            target = ("../" if zh else "") + target
+        else:
+            target = ("" if zh else "zh/") + target
+        return start + target + end + label + "</a>"
+
+    return re.sub(
+        r'(<a\b[^>]*href=")([^"]+)("[^>]*>)(English|简体中文|中文)</a>',
+        language_switch,
+        rewritten,
+    )
+
+
+def document(source, title, description, slug, zh=False):
+    language = "zh-CN" if zh else "en"
+    content = markdown.markdown(
+        (ROOT / source).read_text(), extensions=["fenced_code", "tables", "toc"]
+    )
+    links = "".join(
+        f'<a href="{name}.html"'
+        + (' aria-current="page"' if name == slug else "")
+        + ">"
+        + html.escape(variants[language][1])
+        + "</a>"
+        for name, variants in PAGES.items()
+    )
+    body = (
+        '<main class="doc"><div class="doc-breadcrumb"><a href="index.html">Jev Harness</a>'
+        + " / "
+        + html.escape(title)
+        + '</div><nav class="doc-links" aria-label="'
+        + ("文档导航" if zh else "Documentation")
+        + '">'
+        + links
+        + "</nav>"
+        + rewrite_links(content, zh=zh, source=source)
+        + '<p class="doc-source"><a href="'
+        + REPO
+        + "/blob/main/"
+        + source
+        + '">'
+        + ("在 GitHub 查看本文源码" if zh else "View this page’s source on GitHub")
+        + " ↗</a></p></main>"
+    )
+    return shell(title, description, body, ("zh/" if zh else "") + slug + ".html", language)
+
+
+def discovery_files():
+    pairs = [("", "zh/")] + [(slug + ".html", "zh/" + slug + ".html") for slug in PAGES]
+    urls = [BASE + path for pair in pairs for path in pair]
+    entries = []
+    for english, chinese in pairs:
+        links = "".join(
+            f'<xhtml:link rel="alternate" hreflang="{lang}" href="{BASE}{path}"/>'
+            for lang, path in (("en", english), ("zh-CN", chinese), ("x-default", english))
+        )
+        entries.extend(f"<url><loc>{BASE}{path}</loc>{links}</url>" for path in (english, chinese))
+    (OUT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'
+        + "".join(entries)
+        + "</urlset>\n"
+    )
+    (OUT / "sitemap.txt").write_text("\n".join(urls) + "\n")
+    sections = [
+        "# Jev Harness",
+        "Apixly’s independent MIT Python runtime for bounded Jev agent loops. Not an official TypeSafe AI product.",
+        f"Distribution: apixly-jev-harness. Python namespace: apixly_jev_harness. CLI: jev-harness / apixly-jev-harness. Version: {VERSION}.",
+        f"Install: pip install 'git+{REPO}.git@v{VERSION}'. The PyPI name jev-harness belongs to an unrelated project.",
+        "Programs provide registered tools and parameter candidates, execute effects and independently verify completion. Jev selects supplied references. Inference is billable; unknown usage remains unknown. No general success or savings guarantee.",
+        "Historical browser acceptance uses a local synthetic fixture. Homepage media is a zero-inference screenshot replay. Native desktop completion remains unverified.",
+        "## English",
+        f"- [Homepage]({BASE}): Jev Harness identity, visual cases and installation.",
+    ]
+    sections.extend(
+        f"- [{variants['en'][1]}]({BASE}{slug}.html): {variants['en'][2]}"
+        for slug, variants in PAGES.items()
+    )
+    sections += [
+        "## 简体中文",
+        f"- [中文主页]({BASE}zh/): Jev Harness 项目介绍、演示案例和安装入口。",
+    ]
+    sections.extend(
+        f"- [{variants['zh-CN'][1]}]({BASE}zh/{slug}.html): {variants['zh-CN'][2]}"
+        for slug, variants in PAGES.items()
+    )
+    sections += [
+        "## Machine-readable evidence",
+        f"- [Task spec]({BASE}spec.json)",
+        f"- [Historical acceptance]({BASE}acceptance.json)",
+        f"- [Media provenance]({BASE}media/showcase.json)",
+        f"- [Repository]({REPO})",
+    ]
+    (OUT / "llms.txt").write_text("\n\n".join(sections) + "\n")
+    return len(urls)
 
 
 def main():
@@ -211,18 +434,11 @@ def main():
     (OUT / (key + ".txt")).write_text(key)
     (OUT / "index.html").write_text(home())
     (OUT / "zh/index.html").write_text(home(True))
-    for slug, (source, title) in PAGES.items():
-        body = rewrite_links(
-            markdown.markdown((ROOT / source).read_text(), extensions=["fenced_code", "tables"])
-        )
-        (OUT / (slug + ".html")).write_text(
-            shell(
-                title,
-                title + " for Jev-native agent task scripts.",
-                '<main class="doc">' + body + "</main>",
-                slug + ".html",
-            )
-        )
+    for slug, variants in PAGES.items():
+        for language, (source, title, description) in variants.items():
+            zh = language == "zh-CN"
+            target = OUT / ("zh" if zh else "") / (slug + ".html")
+            target.write_text(document(source, title, description, slug, zh))
     from apixly_jev_harness.task_cli import SPEC
 
     (OUT / "spec.json").write_text(json.dumps(SPEC, indent=2))
@@ -239,30 +455,13 @@ def main():
         "callback-contract-ab.json",
         "task-output-ab.json",
         "cli-arguments-ab.json",
+        "geo-bilingual-2026-10-11.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)
-    (OUT / "social.svg").write_text(
-        '<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#090d14"/><text x="90" y="140" fill="#a7efb1" font-family="sans-serif" font-size="32">JEV / HARNESS</text><text x="90" y="295" fill="#edf4f7" font-family="sans-serif" font-size="90">Give Jev the loop.</text><text x="90" y="385" fill="#9aaeba" font-family="sans-serif" font-size="30">Tools + parameters. Explicit context. Verified outcomes.</text></svg>'
-    )
-    urls = [BASE, BASE + "zh/"] + [BASE + slug + ".html" for slug in PAGES]
-    (OUT / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-        + "".join("<url><loc>" + u + "</loc></url>" for u in urls)
-        + "</urlset>"
-    )
-    (OUT / "llms.txt").write_text(
-        "# Jev Harness\n\nIndependent Apixly community task runtime, not official TypeSafe AI software.\n\n"
-        + "\n".join("- " + BASE + slug + ".html" for slug in PAGES)
-        + "\n\nMachine contract: "
-        + BASE
-        + "spec.json\nEvidence: "
-        + BASE
-        + "acceptance.json\n"
-    )
+    shutil.copy(ROOT / "web/brand/social.svg", OUT / "social.svg")
+    count = discovery_files()
     (OUT / ".nojekyll").touch()
-    print(
-        "Built landing page, 5 documentation pages, Chinese overview, sitemap and machine contracts."
-    )
+    print(f"Built {count} bilingual pages, sitemap, evidence and machine contracts.")
 
 
 if __name__ == "__main__":
