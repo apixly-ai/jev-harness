@@ -2,7 +2,7 @@
 
 [简体中文](faq.zh-CN.md) · [Project overview](../README.md) · [Task contract](agent-contract.md)
 
-These answers describe Apixly's Jev Harness v0.1.16. They distinguish the runtime's
+These answers describe Apixly's Jev Harness v0.1.17. They distinguish the runtime's
 contracts, historical live evidence and illustrative media so readers can check each claim.
 
 <a id="what-is-jev-harness"></a>
@@ -42,7 +42,7 @@ and the [adoption sequence](agent-contract.md#adoption-sequence).
 
 <a id="install"></a>
 
-## How do I install the exact v0.1.16 release?
+## How do I install the exact v0.1.17 release?
 
 Python 3.10+ and Git are required. Create a virtual environment and install the tagged
 repository URL:
@@ -50,7 +50,7 @@ repository URL:
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -91,6 +91,17 @@ custom deepcopy may fail even on an unselected value. Complete-domain copying co
 additional time/memory based on all candidate values' object structure; failures and
 unknown usage remain. See the
 [snapshot evidence](../reports/parameter-snapshots-ab.json), without a speed or fee promise.
+
+Task.bind/execute also require a standard Action matching its latest offered snapshot
+under builtin typed comparison: bool differs from numbers, list/tuple differ, and finite
+1/1.0 remains equivalent. This is not byte/object identity. Enum/str/dict/list subclasses
+may now be rejected even unchanged; normalize before offering, not after binding. Direct
+calls keep the existing ValueError codes; Engine execute rejection can remain uncertain
+even before the tool body. Keep prior effects/unknown usage and reconcile instead of
+retrying. Standard Engine does not actively mutate Actions. See the
+[offered-action contract](agent-contract.md#offered-action-consistency) and
+[offline evidence](../reports/action-identity-ab.json); no model-attack, general wrong-argument,
+semantic quality, speed or fee claim follows.
 
 <a id="suitable-tasks"></a>
 

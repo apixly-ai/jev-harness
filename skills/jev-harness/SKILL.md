@@ -5,7 +5,7 @@ description: Use a Jev-native agent loop for bounded multi-step tasks when an AI
 
 # Jev Harness
 
-Contract version: 0.1.16. Install the repository at `@v0.1.16` for a reproducible release;
+Contract version: 0.1.17. Install the repository at `@v0.1.17` for a reproducible release;
 use `@main` for active development.
 
 Read `jev-harness spec` first. This is a task-script runtime, not a tool interception hook
@@ -95,6 +95,22 @@ values' object structure, including unselected ones; custom deepcopy can execute
 trusted behavior or fail earlier, even before selection; its behavior is not proven.
 Preserve those failures and unknown prior usage; caller tools own
 business freshness/identity. See reports/parameter-snapshots-ab.json; no speed/fee guarantee.
+Read spec.task_action_identity. Task.bind/execute require type(action) is Action and a
+builtin-str ID before lookup, then
+compare id/description/params/irreversible with the existing internal typed matcher.
+Bool/number substitutions and cross-kind list/tuple do not match; nested keys stay typed,
+while finite numeric 1/1.0 remains equivalent. This is not byte/object identity or a new
+public API. Enum/str/dict/list subclasses can fail even unchanged: normalize to appropriate
+builtin values before offering candidates, never coerce the selected/bound Action.
+Pass through the offered/bound object. Direct calls retain action_not_offered/action_not_bound
+ValueError codes. Engine bind rejection normally fails; execute rejection may be
+execution_uncertain with available pending action_id even before the tool body. Rejection
+does not prove zero effects; preserve prior effects/unknown usage and reconcile, no retry.
+Standard Engine does not actively modify Actions. Custom Workflow, global Action.__eq__,
+fingerprints, helper behavior, model/authorization/cache/freshness rules are unchanged.
+Recursive comparison adds local work and avoids custom equality only inside comparison;
+trusted preparation still has Python hooks. See reports/action-identity-ab.json for bounded
+synthetic evidence, not real model attack, general wrong args, AI quality, speed or fee gain.
 Choice providers must bind (ctx, observation) or (ctx, observation, bound_arguments);
 optional keyword-only arguments are allowed. Inspect the entry signature with
 follow_wrapped=False, respecting explicit __signature__. No *args, or at least three
@@ -141,7 +157,7 @@ completion to arbitrary __eq__. Expected text accepts None/builtin str only; oth
 types/subclasses raise verification_text_required before strip during construction,
 distinct from unsupported comparison values returning false. Text checks need observed
 builtin str, not list/dict membership. Implicit custom matchers/subclasses are a compatibility narrowing; use a
-caller-owned verify for deliberate complex semantics. This helper-only change does not
+caller-owned verify for deliberate complex semantics. This 0.1.14 helper-only change does not
 alter global admission, custom verify, model choice, execution permissions or fresh
 candidates/no caching. Rejecting false initial done can cause subsequent tools/extra
 decisions, not speed/fee savings or AI accuracy. See reports/verification-types-ab.json;

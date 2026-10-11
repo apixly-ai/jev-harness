@@ -10,7 +10,7 @@ Jev Harness is a Python runtime for AI-authored, bounded task scripts. It gives 
 explicit goal, admitted conversation, current observation, execution history and tool
 contracts. Jev chooses a tool and parameter candidates; code executes and independently
 verifies completion. Independent community project by Apixly, not an official TypeSafe
-AI product. Early **0.1.16**; no promise of general task success or universal savings.
+AI product. Early **0.1.17**; no promise of general task success or universal savings.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -49,7 +49,7 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -57,7 +57,7 @@ jev-harness check-task task.py
 jev-harness run task.py --goal 'Reach the requested target' --inputs '{"target":3}'
 ```
 
-Use `@main` instead of `@v0.1.16` only for active development.
+Use `@main` instead of `@v0.1.17` only for active development.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
@@ -140,6 +140,19 @@ structure, and an unselected custom deepcopy failure can now stop the task earli
 Failures and unknown usage are
 retained; no speed or fee benefit is promised. See the
 [parameter-snapshot A/B](reports/parameter-snapshots-ab.json).
+
+`Task.bind` and `Task.execute` compare a standard `Action` with the latest offered
+snapshot using builtin typed fields. Boolean/number substitutions, including nested
+keys, no longer pass as equal; finite `1`/`1.0` remains equivalent. This is neither
+byte equality nor object identity. Unchanged Enum/str/dict/list subclasses can also be
+rejected: normalize values before offering candidates, not after binding. Direct calls
+retain existing ValueError codes; Engine bind rejection normally returns `failed`, while
+execute rejection can remain `execution_uncertain` even before the tool body. Preserve
+prior effects/unknown usage and reconcile rather than retry. Standard Engine does not
+actively rewrite Actions; this is a low-level consistency guard, not evidence of a model
+attack or general wrong arguments. See the
+[contract](docs/agent-contract.md#offered-action-consistency) and
+[action-identity A/B](reports/action-identity-ab.json); no quality, speed or fee promise.
 
 Callbacks must declare synchronous behavior; known coroutine, async-generator and
 generator callbacks are rejected without invoking their bodies. Synchronous generator
@@ -228,6 +241,8 @@ exact click actions; scripts must own business identity and idempotency.
 ## Verification, not promises
 
 The `verify_state` helper requires nonempty text or at least one control condition.
+Its typed matching was introduced as a helper-only change in 0.1.14; the later offered
+action guard reuses its internal comparison without changing helper behavior.
 Every expected control field must be observed; a missing field does not establish `null`.
 Control values now use recursive builtin-type matching: booleans differ from numbers,
 while finite `1`/`1.0` numeric equivalence remains. Lists/tuples match only their own kind,

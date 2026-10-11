@@ -2,7 +2,7 @@
 
 [English](faq.md) · [项目概览](../README.zh-CN.md) · [任务契约](agent-contract.zh-CN.md)
 
-这些回答介绍 Apixly 的 Jev Harness v0.1.16，并区分运行时契约、历史真实推理证据与
+这些回答介绍 Apixly 的 Jev Harness v0.1.17，并区分运行时契约、历史真实推理证据与
 说明性媒体，便于读者核对每一项声明。
 
 <a id="what-is-jev-harness"></a>
@@ -38,14 +38,14 @@ Jev Harness 围绕已注册工具、参数候选域和调用方负责的完成�
 
 <a id="install"></a>
 
-## 如何安装准确的 v0.1.16 版本？
+## 如何安装准确的 v0.1.17 版本？
 
 需要 Python 3.10+ 与 Git。创建虚拟环境并安装带版本标签的仓库地址：
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
 jev-harness spec
 jev-harness init-task task.py
 jev-harness check-task task.py
@@ -79,6 +79,15 @@ Provider 参数数量判断以 follow_wrapped=False 获取入口签名，尊重�
 可能失败，完整域复制按全部候选值的对象结构增加时间/内存开销，失败和未知用量
 保留。见
 [快照证据](../reports/parameter-snapshots-ab.json)，不承诺提速或省费。
+
+Task.bind/execute 还要求标准 Action 以 builtin 类型比较匹配最近提供的快照：布尔
+不同于数字，list/tuple 不同，有限数字 1/1.0 仍等价。这不是字节/对象身份。未修改的
+Enum/str/dict/list 子类也可能被拒绝，应在提供候选前正规化，不要绑定后转换。直接
+调用保留已有 ValueError 原因码；Engine execute 拒绝即使没进入工具函数体仍可能
+是不确定状态。此前效果/未知用量保留，应核对后处理而非重试。标准 Engine 不主动
+修改 Action。见[已提供动作契约](agent-contract.zh-CN.md#offered-action-consistency)与
+[离线证据](../reports/action-identity-ab.json)，不代表模型攻击、普遍错参、语义质量、
+提速或省费。
 
 <a id="suitable-tasks"></a>
 

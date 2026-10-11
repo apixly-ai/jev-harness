@@ -18,6 +18,7 @@ def _key_tag(value):
 
 
 def _equal(left, right):
+    """Shared internal value semantics for helper checks and Task call consistency."""
     left_kind, right_kind = type(left), type(right)
     if left_kind is bool or right_kind is bool:
         return left_kind is right_kind and left is right
@@ -47,7 +48,7 @@ def _equal(left, right):
             if tag is None or tag not in tagged or not _equal(value, tagged[tag]):
                 return False
         return True
-    # An exact helper must not delegate completion to arbitrary object equality.
+    # Do not delegate a supported-value comparison to arbitrary object equality.
     return False
 
 

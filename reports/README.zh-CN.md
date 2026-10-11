@@ -733,3 +733,62 @@ python benchmarks/candidate_budget.py --output local-results/candidate-budget-ab
 
 没有重跑付费模型矩阵、浏览器操作、锁屏桌面或 URL 提交。历史验证、快照、传输及
 GEO 证据保留已有范围，原生桌面验收仍未证明。
+
+## 已提供动作的类型一致性（0.1.17）
+
+Task.bind/execute 复用已有内部类型比较，核对标准 Action 字段与最近提供的快照，
+查找前检查 builtin str ID。布尔/数字替换及 list/tuple 转换不再误通过，有限数字
+1/1.0 仍等价。这不是字节相同或对象身份，标准 Engine 不主动改写 Action。全局
+Action.__eq__、fingerprint、验证、模型、授权、缓存及 freshness 规则不变，不新增公开 API。
+
+[动作一致性 A/B](action-identity-ab.json)对比基线提交
+`dd6a63325e149a287e3600d0ae9b7bd2789a83dd`与候选版本：18 个固定合成 fixture，
+交替两臂顺序做 3 次配对重复，共 108 行、每臂 54 行。7 个 fixture 通过公开的低层
+Task API 手工替换已提供/已绑定的字段或类型；标准 Engine 不做这些修改，不是模型
+输出攻击。6 个控制 fixture 保留 staged/joint 数字 1/1.0 及数字 key 等价、正常 Engine
+进展和带未知 scripted 用量的依赖动作刷新。5 个负面 fixture 使用不同的逐臂预期，
+记录未修改的 JSON 兼容值或元数据失去兼容。
+
+| 指标 | 基线 | 候选版本 |
+|---|---:|---:|
+| 7 个手工修改场景中被接受的尝试 | 21/21 | 0/21 |
+| 兼容场景符合预期 | 18/18 | 18/18 |
+| 全矩阵符合各臂自己的预期 | 33/54 | 54/54 |
+| 模拟 effects | 57 | 21 |
+| scripted decisions / provider 调用 | 27 / 6 | 27 / 6 |
+| scripted 用量未知行数 | 3 | 3 |
+| execution_uncertain 行数 / 其中测量的工具函数体未进入 | 0 / 0 | 9 / 9 |
+| guard fixture 自定义 equality 调用 / class-property 读取 | 6 / 3 | 0 / 0 |
+| 选择输入 / 共享上下文字节数 | 60,207 / 7,932 | 60,207 / 7,932 |
+| 返回投影字节数 | 17,583 | 18,918 |
+| 混合场景整段耗时中位数 | 0.775 ms | 0.816 ms |
+
+18 行控制场景行为逐对一致，全矩阵不是 parity。15 行负面场景均符合各臂不同预期：
+基线未修改的 IntEnum、字符串 enum、字典子类值/元数据或字符串 enum 工具 ID 可以
+正确执行；候选版本有 9 行 execute guard execution_uncertain、6 行 bind failed。
+9 行 uncertain 已记录 intent，未进入测量的工具函数体；这个合成计数不能证明全局
+没有副作用，也不授权重试。因此 33/54 → 54/54 是指定结果符合度，不是任务成功率
+或 AI 质量。少 36 次 effects 包含拒绝 21 次手工修改，也包含失去的 15 次原本合法执行，
+不是普遍安全或成本收益。应在提供候选前正规化，不要绑定后转换。
+
+递归比较增加本地 guard 开销。混合中位数增加约 0.04025 ms；布尔/数字 execute
+fixture 增加约 0.236209 ms，兼容的 joint 数字 fixture 增加约 0.180542 ms。返回增加
+1,335 字节；混合终态/投影变化不能衡量上下文或费用节省。直接 API 行使用现有
+ValueError 原因码的固定异常投影，不伪造 Engine 终态。自定义 equality/class-property
+计数只针对这些 guard fixture；可信 deepcopy/序列化/调用方代码仍可执行 hook，因此
+不是 Python 沙箱或通用能力边界。数字等价有意保留，不支持的类型/子类即使 Action
+未修改也可能被拒绝。
+
+原生推理、真实 HTTP/模型/UI 调用及固定私有 marker 暴露检查均为零。scripted 已知/
+未知用量与真实用量分开，未知行仍未知。不假设费率、AI 语义质量、真实 UI 验收、提速
+或费用收益。真实 perf_counter 计时覆盖 Task 候选域构造/绑定/guard/执行或 Engine
+准入、scripted 选择、effects 及私有 journal flush/fsync；排除导入/task fixture 设置及
+调用后分析/来源哈希，仅 loop 预算时钟冻结。返回投影不含本地归档路径，输入/上下文
+大小标量不代表提供方 token 数。使用安装了 `.[dev]` 的完整 Git 检出及新输出路径复现：
+
+```sh
+python benchmarks/action_identity.py --output local-results/action-identity-ab.json
+```
+
+没有重跑付费模型矩阵、浏览器操作、锁屏桌面或 URL 提交。历史 helper、快照、预算、
+传输及 GEO 证据保留已有范围，原生桌面验收仍未证明。

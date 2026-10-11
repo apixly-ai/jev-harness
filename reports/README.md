@@ -823,3 +823,75 @@ python benchmarks/candidate_budget.py --output local-results/candidate-budget-ab
 No paid model matrix, browser operation, locked-desktop retry or URL submission was
 repeated. Historical verification, snapshot, transport and GEO evidence retain their
 scope; native desktop acceptance remains unverified.
+
+## Offered-action typed consistency (0.1.17)
+
+Task.bind/execute now compare standard Action fields with the latest offered snapshot
+using the existing internal typed matcher, with a builtin-string ID checked before
+lookup. Bool/number substitutions and list/tuple coercion no longer pass; finite numeric
+1/1.0 remains equivalent. This is neither byte equality nor object identity, and standard
+Engine does not actively rewrite Actions. Global Action.__eq__, fingerprints, verification,
+models, authorization, cache and freshness rules are unchanged; no public API is added.
+
+The [action-identity A/B](action-identity-ab.json) compares baseline commit
+`dd6a63325e149a287e3600d0ae9b7bd2789a83dd` with the candidate on 18 fixed synthetic
+fixtures, three paired repeats with alternating arm order: 108 rows, 54 per arm. Seven
+fixtures manually replace offered/bound fields or types through the public low-level Task
+API. Standard Engine does not perform these mutations; this is not a model-output attack.
+Six controls retain staged/joint numeric 1/1.0 and numeric-key equivalence, normal Engine
+progression and fresh dependent actions with unknown scripted usage. Five negative
+fixtures use distinct per-arm outcomes to record unchanged JSON-compatible values or
+metadata losing compatibility.
+
+| Measurement | Baseline | Candidate |
+|---|---:|---:|
+| Accepted attempts in the seven manual-mutation fixtures | 21/21 | 0/21 |
+| Compatibility expected outcomes | 18/18 | 18/18 |
+| Each arm's own expected outcomes across the full matrix | 33/54 | 54/54 |
+| Simulated effects | 57 | 21 |
+| Scripted decisions / provider calls | 27 / 6 | 27 / 6 |
+| Rows with unknown scripted usage | 3 | 3 |
+| Execution-uncertain rows / those with measured tool body not entered | 0 / 0 | 9 / 9 |
+| Guard-fixture custom equality calls / class-property reads | 6 / 3 | 0 / 0 |
+| Selection-input / shared-context bytes | 60,207 / 7,932 | 60,207 / 7,932 |
+| Returned projected bytes | 17,583 | 18,918 |
+| Mixed-fixture median whole-operation time | 0.775 ms | 0.816 ms |
+
+Behavior parity applies to the 18 control rows, not the whole matrix. All 15 negative
+rows conform to their distinct per-arm expectations: baseline's unchanged IntEnum,
+string enum, dictionary-subclass values/metadata or string-enum tool ID can execute
+correctly; candidate has nine execute-guard `execution_uncertain` results and six bind
+`failed` results. The nine uncertain rows already recorded intent and did not enter the
+measured tool body. This synthetic count proves neither global absence of side effects
+nor permission to retry. Thus 33/54 → 54/54 is specified outcome conformance, not task
+success or AI quality. The 36 fewer effects include both 21 rejected manual mutations
+and 15 formerly legitimate executions lost to compatibility narrowing; they are not a
+general safety or cost benefit. Normalize values before offering, not after binding.
+
+Recursive comparison adds local guard work. The mixed median increases by about
+0.04025 ms; the bool/numeric execute fixture increases about 0.236209 ms, and the
+compatible joint-numeric fixture about 0.180542 ms. Returned bytes increase 1,335;
+these mixed terminal/projection changes do not measure context or fee savings. Direct
+API rows use fixed exception projections for existing ValueError codes, not fabricated
+Engine terminals. Custom equality/class-property counts concern these guard fixtures
+only: trusted deepcopy/serialization/caller code may still run hooks, so this is not a
+Python sandbox or general capability boundary. Numeric equivalence intentionally
+remains; unsupported/subclass rejection can affect even unchanged Actions.
+
+Native inference, real HTTP/model/UI calls and the fixed private-marker exposure check
+are zero. Scripted known/unknown usage is separate from actual usage; unknown rows stay
+unknown. No tariff, AI semantic quality, real UI acceptance, speed or fee gain is assumed.
+Real `perf_counter` timing includes Task domain materialization/binding/guards/execution
+or Engine admission, scripted selection, effects and private journal flush/fsync; it
+excludes imports/task-fixture setup and post-call analysis/source hashing. Only the loop
+budget clock is frozen. Returned projections omit local archive paths; scalar input and
+context sizes are not provider-token counts. Reproduce with a full Git checkout, `.[dev]`
+and a new output path:
+
+```sh
+python benchmarks/action_identity.py --output local-results/action-identity-ab.json
+```
+
+No paid model matrix, browser operation, locked-desktop retry or URL submission was
+repeated. Historical helper, snapshot, budget, transport and GEO evidence retain their
+scope; native desktop acceptance remains unverified.

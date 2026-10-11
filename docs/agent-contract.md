@@ -12,13 +12,13 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.1.16 for a reproducible release;
+package downloads still require network access. Pin v0.1.17 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -296,6 +296,37 @@ domains bind without inference. It avoids Cartesian explosion. Explicit `strateg
 supports small complete-call catalogs for controlled comparisons. Maximum 250 tools/calls
 and 253 choices per parameter. Empty child domains request context, not guessed values.
 
+## Offered action consistency
+
+The low-level `Task.bind` and `Task.execute` guard requires `type(action) is Action`
+and a builtin-string ID before looking up its latest offered snapshot. It compares
+the `id`, `description`, `params` and `irreversible` fields using the existing internal
+typed comparison. Boolean/number substitutions do not match, including nested values
+and typed dictionary keys. Lists/tuples stay same-kind; supported values are builtin
+None/bool/int/finite-float/str/list/tuple/dict. Finite numeric `1`/`1.0` still matches,
+including numeric keys. This is offered-field consistency, not byte equality or object
+identity, and does not add a public comparison API or change global `Action.__eq__`.
+
+Unsupported values/subclasses do not match, even in an unchanged Action. JSON-compatible Enum and
+str/dict/list subclasses that were previously accepted may now be rejected. Normalize
+candidate data to appropriate builtin values before offering it; do not coerce a selected
+or bound Action afterward. Pass through the offered/bound Action. Recursive comparison
+adds local traversal cost; comparison avoids custom equality, while trusted deepcopy,
+JSON and other preparation can still invoke Python hooks. It is not a sandbox or atomic
+acquisition, and does not prove business identity or external target freshness.
+
+Direct calls retain `ValueError('action_not_offered')` at bind and
+`ValueError('action_not_bound')` at execute. Engine bind rejection normally returns
+`failed`; execute rejection can return `execution_uncertain` with the available pending
+action ID even when that tool body was not entered, because execution was already marked
+as started. Rejection alone is not proof of zero effects. Prior effects and unknown usage
+remain; do not automatically retry. Standard Engine passes the selected Action and does
+not actively rewrite it. Custom Workflow behavior, fingerprints, `verify_state`, model
+selection, authorization, caching and freshness rules are unchanged. The
+[action-identity A/B](../reports/action-identity-ab.json) concerns synthetic low-level
+consistency and compatibility, not a real model attack, general wrong arguments, semantic
+AI quality, speed or fee savings.
+
 ## Synchronous callback contract
 
 The runtime admits declared synchronous callbacks. Known coroutine, async-generator and
@@ -430,7 +461,7 @@ This construction rejection differs from unsupported comparison values returning
 When checking text, the observed value must be builtin `str`; a list/dictionary containing
 the expected text does not satisfy the condition. Earlier implicit custom-matcher/subclass
 support is narrowed: use caller-owned `verify` for deliberately different semantics or
-complex objects. This changes `verify_state` only, not global input admission, custom
+complex objects. The 0.1.14 change applied to `verify_state` only, not global input admission, custom
 verifiers, model choice, authorization or candidate refresh/no caching. A failed initial
 check can now permit subsequent tool execution and more selection calls instead of a
 false `done`; normal execution gates still apply. The

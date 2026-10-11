@@ -14,12 +14,12 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.1.16 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.1.17 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.16'
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.1.17'
 jev-harness spec
 jev-harness skill
 jev-harness init-task task.py
@@ -273,6 +273,31 @@ Provider 身份保留，需要候选域时仍重新调用。不增加结果缓�
 目录，用于受控比较。最多 250 个工具/调用，每个参数最多 253 个候选。
 空的子候选域会请求上下文，不会猜测值。
 
+<a id="offered-action-consistency"></a>
+## 已提供动作的一致性
+
+低层 Task.bind/Task.execute 防护在查找最近提供的快照之前，要求精确的 Action 实例
+及 builtin str ID。id、description、params、irreversible 四个字段复用已有内部类型
+比较。布尔/数字替换不匹配，包括嵌套值与字典 key；list/tuple 只匹配同类，支持
+builtin None/bool/int/有限 float/str/list/tuple/dict。有限数字 1/1.0（含数字 key）仍
+相等。这是已提供字段一致性，不是字节相同或对象身份；不新增公开比较 API，也不
+改变全局 Action.__eq__。
+
+不支持的值/子类即使 Action 未修改也不匹配，先前接受的 JSON 兼容 Enum、str/dict/list 子类
+可能变为拒绝。应在提供候选前把数据正规化为合适的 builtin 值，不要选择或绑定后
+转换 Action；传回已提供/已绑定的 Action。递归比较增加本地遍历开销，比较不调用
+自定义相等方法，但可信 deepcopy、JSON 及其他准备过程仍可执行 Python hook。
+这不是沙箱或原子采集，也不证明业务身份或外部目标 freshness。
+
+直接调用保留 bind 的 ValueError('action_not_offered') 与 execute 的
+ValueError('action_not_bound')。Engine 中 bind 拒绝通常返回 failed；execute 拒绝即使
+尚未进入工具函数体，也可能返回 execution_uncertain 及可用的 pending action ID，
+因为执行已被标记为开始。拒绝本身不证明零效果。此前效果与未知用量保留，不自动
+重试。标准 Engine 传递选定的 Action，不主动改写它。自定义 Workflow 行为、fingerprint、
+verify_state、模型选择、授权、缓存及 freshness 规则不变。见
+[动作一致性 A/B](../reports/action-identity-ab.json)，范围是合成低层一致性与兼容，
+不代表真实模型攻击、普遍错参、AI 语义质量、提速或省费。
+
 <a id="synchronous-callback-contract"></a>
 ## 同步回调契约
 
@@ -395,7 +420,7 @@ loop 的 deepcopy/JSON 排序仍可能调用 Python hook，不是沙箱，也不
 verification_text_required 配置错误拒绝。这是构造阶段拒绝，不同于不支持的比较值
 返回 false。检查文本时，观察值必须是 builtin str；list/dict 包含预期文本并不满足条件。先前
 隐式的自定义 matcher/子类支持收窄；需要其他语义或复杂对象时，使用调用方的 verify。
-只改变 verify_state，不改变全局输入准入、自定义验证器、模型选择、授权或候选刷新/
+0.1.14 这一改动只改变 verify_state，不改变全局输入准入、自定义验证器、模型选择、授权或候选刷新/
 无缓存。初始检查不通过后，可能继续执行工具并增加选择调用，替代错误 done；已有
 执行门槛仍有效。[类型验证 A/B](../reports/verification-types-ab.json)针对独立的类型
 验证，不代表 AI 语义准确率或真实浏览器/桌面验收，不暗示全矩阵行为一致、提速或降费。

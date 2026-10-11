@@ -7,6 +7,7 @@ from dataclasses import dataclass
 
 from .callbacks import provider_arity, require_synchronous
 from .engine import Action, DecisionStop, Workflow, _json
+from .verify import _equal
 
 
 @dataclass(frozen=True)
@@ -243,8 +244,17 @@ class Task(Workflow):
         self._offered = {a.id: copy.deepcopy(a) for a in actions}
         return actions
 
+    def _same_action(self, action):
+        if type(action) is not Action or type(action.id) is not str:
+            return False
+        offered = self._offered.get(action.id)
+        return offered is not None and _equal(
+            (action.id, action.description, action.params, action.irreversible),
+            (offered.id, offered.description, offered.params, offered.irreversible),
+        )
+
     def bind(self, ctx, state, action, choose):
-        if action != self._offered.get(action.id):
+        if not self._same_action(action):
             raise ValueError("action_not_offered")
         if self.strategy == "joint":
             return action
@@ -299,7 +309,7 @@ class Task(Workflow):
         return bound
 
     def execute(self, ctx, action):
-        if action != self._offered.get(action.id) or "arguments" not in action.params:
+        if not self._same_action(action) or "arguments" not in action.params:
             raise ValueError("action_not_bound")
         return self._tools[action.params["tool"]]["function"](
             **copy.deepcopy(action.params["arguments"])
