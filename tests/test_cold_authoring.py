@@ -560,8 +560,10 @@ def test_native_provider_refuses_a_credential_readable_by_others(cold, tmp_path)
     assert "credential" in str(raised.value) or "permission" in str(raised.value)
 
 
+@windows_only
 def test_wsl_daemon_keeps_isolation_flags_and_maps_drive_paths(cold, tmp_path, monkeypatch):
     monkeypatch.setattr(cold, "DOCKER", {"prefix": ["docker"], "wsl_distro": None})
+    monkeypatch.setattr(cold, "_keep_wsl_alive", lambda distro: None)
     monkeypatch.setattr(cold.Path, "resolve", lambda self, strict=False: self)
     direct = cold.DockerActor(tmp_path / "corpus", tmp_path / "work").command("n")
     cold.configure_docker("Ubuntu")
@@ -596,3 +598,28 @@ def test_container_processes_never_inherit_the_mcp_stdin(cold, tmp_path, monkeyp
     assert calls[0]["stdin"] is cold.subprocess.DEVNULL
     assert calls[1]["input"] == b"" and calls[2]["input"] == b"payload"
     assert calls[3]["stdin"] is cold.subprocess.DEVNULL
+
+
+def test_wsl_route_holds_one_attached_session_without_stdin(cold, monkeypatch):
+    started = []
+
+    class Holder:
+        def __init__(self, argv, **kwargs):
+            started.append((argv, kwargs))
+            self.alive = True
+
+        def poll(self):
+            return None if self.alive else 0
+
+        def terminate(self):
+            self.alive = False
+
+    monkeypatch.setattr(cold, "DOCKER", {"prefix": ["docker"], "wsl_distro": None})
+    monkeypatch.setattr(cold.subprocess, "Popen", Holder)
+    monkeypatch.setattr("atexit.register", lambda function: None)
+    cold.configure_docker("Ubuntu")
+    cold.configure_docker("Ubuntu")
+    assert len(started) == 1
+    argv, kwargs = started[0]
+    assert argv == ["wsl.exe", "-d", "Ubuntu", "-u", "root", "--", "sleep", "86400"]
+    assert kwargs["stdin"] is cold.subprocess.DEVNULL

@@ -44,6 +44,7 @@ def evidence(runtime, rows, *, windows=frozenset(), version="2.4.8"):
         pid_of=lambda port: 10 if port == 9378 else None,
         rows=rows,
         windows=lambda pids: set(windows) & pids,
+        platform="win32",
     )
 
 

@@ -206,7 +206,9 @@ def _profile(argv):
     return None
 
 
-def headless_evidence(base, user, *, service_version=None, pid_of=None, rows=None, windows=None):
+def headless_evidence(
+    base, user, *, service_version=None, pid_of=None, rows=None, windows=None, platform=None
+):
     """Browser-process launch arguments and visible windows for one service listener."""
     port = urllib.parse.urlsplit(base).port
     pid = (pid_of or listener_pid)(port)
@@ -214,7 +216,7 @@ def headless_evidence(base, user, *, service_version=None, pid_of=None, rows=Non
     tree = _descendants(table, pid) if pid is not None else []
     # Browser instances are launched with a profile; content processes are not.
     browsers = [row for row in tree if _profile(row["argv"]) is not None]
-    expected = profile_directory_name(user, service_version=service_version)
+    expected = profile_directory_name(user, platform=platform, service_version=service_version)
     session = [
         row
         for row in browsers

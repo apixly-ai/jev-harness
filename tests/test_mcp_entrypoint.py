@@ -246,7 +246,8 @@ def test_stdio_mcp_is_utf8_even_when_the_locale_codec_is_not(tmp_path):
         for key, value in os.environ.items()
         if key not in ("PYTHONIOENCODING", "PYTHONUTF8")
     }
-    environment.update(LC_ALL="C", LANG="C", PYTHONUTF8="0")
+    # Only the stdio codec is non-UTF-8 (argv decoding stays intact on every platform).
+    environment.update(PYTHONIOENCODING="latin-1", PYTHONUTF8="0")
     completed = subprocess.run(
         [
             sys.executable,

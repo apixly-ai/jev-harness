@@ -126,7 +126,32 @@ def configure_docker(wsl_distro=None):
     DOCKER["prefix"] = (
         ["wsl.exe", "-d", wsl_distro, "-u", "root", "--", "docker"] if wsl_distro else ["docker"]
     )
-    return dict(DOCKER)
+    if wsl_distro:
+        _keep_wsl_alive(wsl_distro)
+    return {key: DOCKER[key] for key in ("prefix", "wsl_distro")}
+
+
+def _keep_wsl_alive(wsl_distro):
+    """Hold one attached WSL session so an idle distribution never stops dockerd mid-run.
+
+    WSL shuts a distribution down shortly after its last attached process exits, even
+    with daemons running; each docker call is a short-lived wsl.exe. The holder is a
+    plain sleep, never reads stdin and is terminated when this process exits.
+    """
+    import atexit
+
+    holder = DOCKER.get("keepalive")
+    if holder is not None and holder.poll() is None:
+        return holder
+    holder = subprocess.Popen(
+        ["wsl.exe", "-d", wsl_distro, "-u", "root", "--", "sleep", "86400"],
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    DOCKER["keepalive"] = holder
+    atexit.register(holder.terminate)
+    return holder
 
 
 def docker_path(path):

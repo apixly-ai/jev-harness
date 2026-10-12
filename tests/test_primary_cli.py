@@ -6,7 +6,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
-from platform_support import WINDOWS, make_symlink, owner_only
+from platform_support import WINDOWS, make_symlink, owner_only, windows_only
 
 TOOLS = [
     {
@@ -510,6 +510,7 @@ def test_owned_synthetic_mcp_scope_is_usable_under_noninteractive_approval_polic
     assert 'mcp_servers.jev_eval.default_tools_approval_mode="auto"' in commands[0]
 
 
+@windows_only
 def test_windows_batch_shim_is_never_executed_through_cmd(primary, monkeypatch, tmp_path):
     shim = tmp_path / "codex.cmd"
     shim.write_text("@echo off\n", encoding="utf-8", newline="\n")
