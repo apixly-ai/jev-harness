@@ -159,6 +159,153 @@ def test_many_captured_records_keep_observation_bounded_but_verifier_sees_all(tm
     assert checked == [12]
 
 
+def test_workspace_search_keeps_source_index_compact_without_discarding_originals(tmp_path):
+    from apixly_jev_harness.workspace import WorkspaceTools
+
+    root = tmp_path / "source"
+    root.mkdir()
+    bodies = {}
+    for i in range(8):
+        bodies[f"source-{i}.txt"] = f"needle record {i} with source provenance\n" * 10
+        (root / f"source-{i}.txt").write_text(bodies[f"source-{i}.txt"])
+    store = EvidenceStore()
+    pack = WorkspaceTools(root, store, queries=["needle"])
+    task = EvidenceTask(
+        [pack],
+        store=store,
+        labels=["fact"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: False,
+    )
+    packet = pack.search_files("needle")
+    seen = task.observe(None)
+    assert len(json.dumps(seen)) < 3600
+    assert len(seen["evidence"]["sources"]) == 8
+    assert all(len(row["summary"]) <= 80 for row in seen["evidence"]["sources"])
+    assert all("summary" not in row for row in seen["toolkits"]["files"]["captured"])
+    for match in packet["matches"]:
+        ref = match["ref"]
+        assert store.read(ref)["text"] == bodies[match["path"]]
+        assert store.describe(ref)["metadata"]["match_lines"] == list(range(1, 11))
+        assert len(store.describe(ref)["summary"]) == 240
+    pack.close()
+
+
+def test_compact_model_sources_preserve_full_source_cards_for_independent_verifier(tmp_path):
+    store = EvidenceStore()
+    ref = store.put("Source fact with full provenance", "source:one", {"version": "current"})
+    checked = []
+    task = EvidenceTask(
+        [],
+        store=store,
+        labels=["fact"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: checked.append(s["evidence"]["sources"]) or True,
+    )
+    task.record_evidence({"ref": ref, "offset": 0, "limit": 1200}, "fact")
+    task.save_report()
+    assert "metadata" not in task.observe(None)["evidence"]["sources"][0]
+    assert task.verify(None, task.observe(None)) is True
+    assert checked == [[store.describe(ref)]]
+
+
+def test_evidence_tool_selection_briefs_keep_all_fresh_parameter_choices(tmp_path):
+    from apixly_jev_harness import Context, Option, Parameter
+
+    store = EvidenceStore()
+    task = EvidenceTask(
+        [],
+        store=store,
+        labels=["fact"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: False,
+    )
+    values = [Option(str(i), f"Source term {i}: " + "description " * 30, i) for i in range(80)]
+
+    @task.tool(
+        "Inspect a supplied source",
+        parameters={"value": Parameter("Relevant source", lambda c, s: values)},
+    )
+    def inspect(value):
+        return value
+
+    ctx = Context("Investigate", {}, {})
+    action = next(x for x in task.candidates(ctx, task.observe(ctx)) if x.id == "inspect")
+    full = json.loads(action.description)
+    assert len(full["parameters"]["value"]["choices"]) == 80
+    brief = json.loads(task.selection_description(action))
+    domain = brief["parameters"]["value"]
+    assert domain["candidate_count"] == 80
+    assert len(domain["preview"]) == 3 and domain["preview_truncated"] is True
+    assert len(task.selection_description(action)) < 800
+    selected_domains = []
+
+    def choose(records, *args):
+        selected_domains.append(records)
+        return {"ok": True, "complete": True, "selected_ids": ["79"]}
+
+    bound = task.bind(ctx, task.observe(ctx), action, choose)
+    assert len(selected_domains[0]) == 80
+    assert bound.params["arguments"] == {"value": 79}
+    assert task.execute(ctx, bound) == 79
+
+
+def test_record_category_choices_explain_eligibility_without_prescribing_order(tmp_path):
+    from apixly_jev_harness import Context
+
+    store = EvidenceStore()
+    ref = store.put("Source category marker and original evidence", "source:current")
+    task = EvidenceTask(
+        [],
+        store=store,
+        labels=["fact", "other"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: False,
+        record_checks={"fact": lambda row: "marker" in row["text"], "other": lambda row: False},
+    )
+    passage = {"ref": ref, "offset": 0, "limit": 1200}
+    row = task.read_evidence(passage)
+    # Invoke the existing admission using a normally bound action.
+    ctx = Context("Save source fact", {}, {})
+    offered = next(x for x in task.candidates(ctx, task.observe(ctx)) if x.id == "read_evidence")
+    bound = task.bind(ctx, task.observe(ctx), offered, lambda *a: None)
+    task.result_context(ctx, bound, row)
+    options = task._domain(
+        task._tools["record_evidence"]["parameters"]["label"], ctx, task.observe(ctx), {}
+    )
+    assert [x.id for x in options] == ["fact"]
+    assert "source:current" in options[0].description
+    assert "already recorded: 0" in options[0].description
+    assert "eligible read windows: 1" in options[0].description
+    task.record_evidence(passage, "fact")
+    extra = store.put("Another marker with additional evidence", "source:second")
+    more = {"ref": extra, "offset": 0, "limit": 1200}
+    task.result_context(ctx, bound, task.read_evidence(more))
+    later = task._domain(
+        task._tools["record_evidence"]["parameters"]["label"], ctx, task.observe(ctx), {}
+    )
+    assert "already recorded: 1" in later[0].description
+    assert later[0].value == "fact"
+
+
+def test_record_tool_is_not_offered_when_all_eligible_read_windows_are_already_recorded(tmp_path):
+    from apixly_jev_harness import Context
+
+    store = EvidenceStore()
+    ref = store.put("Fact", "source:current")
+    task = EvidenceTask(
+        [], store=store, labels=["fact"], output=tmp_path / "r.json", verify=lambda c, s: False
+    )
+    ctx = Context("Collect source evidence", {}, {})
+    state = task.observe(ctx)
+    read = next(x for x in task.candidates(ctx, state) if x.id == "read_evidence")
+    bound = task.bind(ctx, state, read, lambda *a: None)
+    task.result_context(ctx, bound, task.execute(ctx, bound))
+    assert "record_evidence" in {x.id for x in task.candidates(ctx, task.observe(ctx))}
+    task.record_evidence({"ref": ref, "offset": 0, "limit": 4}, "fact")
+    assert "record_evidence" not in {x.id for x in task.candidates(ctx, task.observe(ctx))}
+
+
 def test_exploration_policy_is_explicit_and_only_applies_to_tool_stage(tmp_path, monkeypatch):
     from apixly_jev_harness import AgentLoop
 
@@ -313,3 +460,26 @@ def test_observation_exposes_required_labels_and_saved_artifact_contract(tmp_pat
     assert state["completion"]["missing_labels"] == ["cause", "proof"]
     assert state["completion"]["report_matches_records"] is False
     assert state["completion"]["independent_check_required"] is True
+
+
+def test_saved_report_handoff_contains_original_quotes_and_rejects_changed_disk(tmp_path):
+    from apixly_jev_harness import EvidenceStore, EvidenceTask
+
+    store = EvidenceStore()
+    ref = store.put("Recorded observation: current version is 2.3.", source="source:current")
+    task = EvidenceTask(
+        [],
+        store=store,
+        labels=["version"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: True,
+    )
+    task.record_evidence({"ref": ref, "offset": 0, "limit": 1200}, "version")
+    task.save_report()
+    packet = task.report_snapshot()
+    assert packet["available"] is True
+    assert packet["records"][0]["text"] == "Recorded observation: current version is 2.3."
+    assert packet["records"][0]["sha256"] == store.describe(ref)["sha256"]
+    task.output.write_text("{}")
+    assert task.report_snapshot()["available"] is False
+    assert task.report_snapshot()["records"] == []

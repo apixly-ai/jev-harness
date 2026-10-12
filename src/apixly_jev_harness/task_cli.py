@@ -58,6 +58,51 @@ def increment(amount):
 
 TOOLKIT_TEMPLATES = ("workspace", "http", "browser")
 
+QUICKSTART = {
+    "name": "Jev Harness",
+    "model_calls": 0,
+    "purpose": "Execute a caller-defined goal through registered tools, observations and an independent completion check.",
+    "script": {
+        "export": "workflow = TaskScript(build)",
+        "factory": "build(inputs) -> Task",
+        "imports": "from apixly_jev_harness import Task, TaskScript, Parameter, Option",
+        "callbacks": "observe(ctx) -> JSON; verify(ctx, observation) -> bool",
+        "trusted_python": True,
+        "source_execution_by_jev": False,
+    },
+    "tools": {
+        "registration": "@task.tool(description, name=..., parameters={name: Parameter(description, choices)}, result_context=...)",
+        "parameter_values": "caller_supplied_candidates",
+        "dynamic_choices": "choices(ctx, observation) or choices(ctx, observation, previously_bound_params)",
+        "candidate": "Option(id, description, value)",
+        "dependent_params": "Parameter(..., depends_on=(parent_name,))",
+        "selection": "Jev chooses a tool then parameter references from fresh observations; code binds actual values.",
+    },
+    "toolkits": {
+        "workspace": "WorkspaceTools(root, store, queries=...): permitted file discovery, search and evidence capture",
+        "http": "WebTools(HttpProvider(url, allowed_origins=...), store): GET discovery and source capture",
+        "browser": "WebTools(CamofoxProvider(url=url, session=..., allowed_origins=...), store): observed links and sections",
+        "evidence_task": "EvidenceTask([pack], store=store, labels=..., output=..., verify=..., record_checks=...)",
+        "evidence_store": "EvidenceStore(): retained originals, source digests and bounded source windows",
+        "validation": "Caller record_checks and verify establish the requested facts; schema marker presence alone does not establish semantic truth.",
+    },
+    "cli": {
+        "init": "jev-harness init-task task.py --toolkit workspace",
+        "check": "jev-harness check-task task.py",
+        "run": "jev-harness run task.py --goal GOAL --inputs JSON --max-steps 20 --timeout 120 --archive NEW_PATH",
+        "mcp": "jev-harness mcp task.py --goal GOAL --inputs JSON --execution-name run_task",
+        "detailed_protocol": "jev-harness spec",
+    },
+    "outcome": {
+        "completion": "caller_independent_verifier",
+        "terminal": "status, complete, steps, telemetry and optional artifact",
+        "mcp_routes": "run_task performs the Jev loop; operate performs one registered effect. Choose before the first effect; read_report reads saved quotes after either route.",
+        "failure": "Partial, review and uncertain outcomes are retained; no automatic effect retries.",
+        "usage": "Jev inference is billable; actual or unknown model usage is retained. Primary model usage is separate.",
+        "bounds": "Step and cooperative wall limits; caller callbacks bound their own I/O.",
+    },
+}
+
 
 def _template(toolkit):
     if toolkit is None:
@@ -104,6 +149,7 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("skill", help="Print bundled AI task instructions; offline")
     commands.add_parser("spec", help="Machine-readable interface and adoption contract; offline")
+    commands.add_parser("quickstart", help="Compact task-script and toolkit API card; offline")
     check = commands.add_parser(
         "check-task", help="Parse/compile Python and check assignment without executing; offline"
     )
@@ -150,6 +196,9 @@ def main(argv=None):
         return 0
     if args.command == "spec":
         print(json.dumps(SPEC))
+        return 0
+    if args.command == "quickstart":
+        print(json.dumps(QUICKSTART))
         return 0
     if args.command == "check-task":
         try:
@@ -315,10 +364,21 @@ SPEC = {
         "requirements_source": "caller_task_contract",
         "candidate_order_is_priority": False,
         "direct_choice_without_loop_marker": "unchanged",
+        "selection_description": {
+            "signature": "selection_description(action) -> str",
+            "default": "original offered description",
+            "action_argument": "deepcopy; execution identity retained separately",
+            "synchronous_admission": True,
+            "thin_factory_admission_before_caching": True,
+            "evidence_task": "parameter contract plus candidate count and up to 3 hints of 80 characters",
+            "full_binding_domains": "fresh, unchanged",
+            "direct_mcp_domains": "full, unchanged",
+        },
     },
     "commands": {
         "skill": {"offline": True},
         "spec": {"offline": True},
+        "quickstart": {"offline": True, "format": "compact_json_api_card", "inference": False},
         "init-task": {
             "required": ["script"],
             "offline": True,
@@ -332,7 +392,15 @@ SPEC = {
         "mcp": {
             "entrypoint": "jev-harness mcp",
             "required": ["script", "goal"],
-            "optional": ["inputs", "context", "max-steps", "timeout", "archive", "direct-only"],
+            "optional": [
+                "inputs",
+                "context",
+                "max-steps",
+                "timeout",
+                "archive",
+                "direct-only",
+                "execution-name",
+            ],
             "transport": "stdio_json_rpc",
             "task_source": "caller_trusted_script",
             "jev_delegation_billable": True,
@@ -467,7 +535,17 @@ SPEC = {
         "template_markers_are_expected_answers_or_routes": False,
     },
     "mcp": {
-        "tools": ["observe", "arguments", "operate", "delegate"],
+        "tools": ["observe", "arguments", "operate", "run_task", "read_report"],
+        "execution_tool_name": "caller-defined --execution-name; default run_task",
+        "legacy_unadvertised_alias": "delegate",
+        "typed_output": ["outputSchema", "structuredContent", "JSON_text_content"],
+        "report_read": {
+            "records_per_page": 4,
+            "artifact_match_required": True,
+            "inference": False,
+            "after_delegation": True,
+            "after_execution_deadline": True,
+        },
         "route_selection": "before_first_operation",
         "direct": "primary_AI_selects_registered_tool_and_parameter_refs",
         "delegate": "Jev_runs_same_task_and_returns_terminal_evidence",

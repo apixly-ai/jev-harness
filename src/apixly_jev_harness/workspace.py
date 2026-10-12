@@ -172,6 +172,10 @@ class WorkspaceTools:
             "skipped": skipped,
         }
 
+    def prepare(self):
+        """Bounded metadata discovery for route selection; no source text acquisition."""
+        return self.list_files()
+
     def _read_text(self, path, *, remaining=None):
         relative = PurePosixPath(path)
         if relative.is_absolute() or not relative.parts or ".." in relative.parts:
@@ -287,7 +291,11 @@ class WorkspaceTools:
             "catalog_digest": hashlib.sha256(json.dumps(catalog).encode()).hexdigest(),
             "queries": list(self._queries),
             "queries_truncated": self._queries_truncated,
-            "captured": [self.store.describe(ref) for ref in list(self._captured.values())[-8:]],
+            "captured": [
+                {key: card[key] for key in ("ref", "source", "characters")}
+                for ref in list(self._captured.values())[-8:]
+                for card in [self.store.describe(ref)]
+            ],
             "last": copy.deepcopy(self._last),
         }
 

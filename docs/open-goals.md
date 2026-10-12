@@ -29,6 +29,22 @@ be required as startup `required_context`.
 `depends_on` acquires child choices after selecting a parent. A static complete pool is
 not required.
 
+The same registered task can be exposed through MCP without a separate next-step router.
+Discovery presents a goal-bound execution description, the independent check and budgets;
+`initialize.instructions` explains direct `operate` calls and whole-task Jev execution.
+The execution tool advertises an `outputSchema` and returns JSON text plus
+`structuredContent`, including optional artifact receipts and original report quotes.
+Callers may name the execution action with `--execution-name`; its title and description
+continue to identify Jev Harness. This makes the capability legible to an AI without
+requiring a skill rule that dictates its route.
+
+Workspace first observation performs bounded metadata preparation, not source-body reads.
+Captured sources share one compact evidence index with 80-character summaries; full
+SHA-256, metadata and the 240-character `store.describe()` summary remain local. After
+saving, `read_report` reads up to four original quotes per page only while the artifact
+matches current records. Readback is available after either route and performs no task
+effects or inference. See [toolkit contracts](toolkits.md) for binding and pagination.
+
 ## Flagship: explore an unfamiliar multi-page source
 
 **Example goal:** “Starting from this unfamiliar catalog, find three self-hosted tools
@@ -93,10 +109,10 @@ unavailable evidence. **Status: design; complete live acceptance is pending.**
 | Priority | Current state | What the next acceptance must demonstrate |
 | --- | --- | --- |
 | General browser discovery | Dynamic surface targets exist; the default adapter still has form-order bias and does not cover every browsing primitive | Unknown branches, same-label links, filter dependencies and long content, with origin and freshness checks intact |
-| Evidence references and bounded reads | Raw results/journals are private; recent full summaries can stop at the 15k-character budget | Source, summary and references admit large results; older evidence can be read in slices without dropping goals or constraints |
+| Evidence references and bounded reads | Shared source index, bounded passage reads and verified report pagination are available; full captures remain local | Large-result exploration and older evidence readback without losing goals or constraints; keep context-budget stops visible |
 | Exploration recovery before execution | Empty dependent domains currently stop with needs_context; authors can express preconditions using available | Explicitly recoverable missing facts return to Jev to choose discovery, with decision limits; uncertain execution is never retried |
 
-These are gaps and development priorities, not released capabilities. Adapters and cases
+The table separates current interfaces from further acceptance requirements. Adapters and cases
 validate the general mechanism; application-specific behavior stays outside the core.
 Cross-process recovery and native desktop completion remain unproven.
 

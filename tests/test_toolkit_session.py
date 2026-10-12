@@ -392,3 +392,113 @@ def test_delegation_proxy_does_not_hide_asynchronous_callback_kind(monkeypatch):
     assert result["contract_error"]["callback"] == "observe"
     assert result["telemetry"]["requests"] == 0
     assert bodies == []
+
+
+def test_report_quotes_remain_readable_after_delegation_without_route_transfer(
+    tmp_path, monkeypatch
+):
+    from apixly_jev_harness import AgentLoop, EvidenceStore, EvidenceTask
+
+    store = EvidenceStore()
+    ref = store.put("Current data: captured original.", source="source:current")
+    task = EvidenceTask(
+        [], store=store, labels=["data"], output=tmp_path / "report.json", verify=lambda c, s: True
+    )
+    task.record_evidence({"ref": ref, "offset": 0, "limit": 1200}, "data")
+    task.save_report()
+    client = ToolkitSession(task, goal="Read current data")
+    monkeypatch.setattr(
+        AgentLoop, "run", lambda *a, **k: {"status": "done", "complete": True, "steps": 0}
+    )
+    result = client.delegate()
+    assert result["report"]["records"][0]["text"] == "Current data: captured original."
+    assert client.read_report()["records"] == result["report"]["records"]
+    with pytest.raises(ValueError, match="after_delegation"):
+        client.operate("read_evidence", {"passage": ref + ":0"})
+    assert client.events == [{"route": "jev"}]
+
+
+def test_first_inspection_prepares_source_catalog_without_committing_route(tmp_path):
+    from apixly_jev_harness import EvidenceStore, EvidenceTask, TaskScript, WorkspaceTools
+
+    (tmp_path / "a.txt").write_text("one source")
+    store = EvidenceStore()
+    pack = WorkspaceTools(tmp_path, store)
+    task = EvidenceTask(
+        [pack],
+        store=store,
+        labels=["fact"],
+        output=tmp_path / "report.json",
+        verify=lambda c, s: False,
+    )
+    client = ToolkitSession(TaskScript(lambda inputs: task), goal="Investigate source scope")
+    first = client.observe()
+    assert first["observation"]["toolkits"]["files"]["file_count"] == 1
+    assert client.steps == 0 and client.events == [] and first["delegation_available"] is True
+    assert store.references() == []
+    second = client.observe()
+    assert second["state_ref"] == first["state_ref"]
+    pack.close()
+
+
+@pytest.mark.parametrize("kind", ["coroutine", "generator", "async_generator"])
+def test_thin_script_rejects_declared_nonsynchronous_selection_view_before_inference(
+    tmp_path, monkeypatch, kind
+):
+    from apixly_jev_harness import AgentLoop, Task, TaskScript
+
+    entered = []
+    if kind == "coroutine":
+
+        async def unsupported(self, action):
+            entered.append("view")
+            return action.description
+    elif kind == "generator":
+
+        def unsupported(self, action):
+            entered.append("view")
+            yield action.description
+    else:
+
+        async def unsupported(self, action):
+            entered.append("view")
+            yield action.description
+
+    class Custom(Task):
+        selection_description = unsupported
+
+    task = Custom(observe=lambda c: {}, verify=lambda c, s: False)
+    task.tool("Registered no-effect operation")(lambda: entered.append("effect"))
+    workflow = TaskScript(lambda inputs: task)
+    monkeypatch.setattr(AgentLoop, "decide", lambda *a, **k: pytest.fail("inference reached"))
+    result = AgentLoop().run(
+        workflow, goal="Inspect registered capability", archive=tmp_path / "journal.jsonl"
+    )
+    assert result["contract_error"] == {
+        "code": "synchronous_callback_required",
+        "callback": "selection_description",
+        "kind": kind,
+    }
+    assert entered == []
+    assert result["steps"] == 0
+    assert workflow._task is None
+
+
+def test_saved_report_can_be_read_after_execution_wall_budget_has_expired(tmp_path, monkeypatch):
+    from apixly_jev_harness import EvidenceStore, EvidenceTask, ToolkitSession
+
+    store = EvidenceStore()
+    ref = store.put("Original saved source", "source:one")
+    task = EvidenceTask(
+        [], store=store, labels=["fact"], output=tmp_path / "report.json", verify=lambda c, s: False
+    )
+    task.record_evidence({"ref": ref, "offset": 0, "limit": 1200}, "fact")
+    task.save_report()
+    client = ToolkitSession(task, goal="Collect source evidence")
+    monkeypatch.setattr(client, "_remaining", lambda: 0)
+    packet = client.read_report()
+    assert packet["available"] is True
+    assert packet["records"][0]["text"] == "Original saved source"
+    assert client.steps == 0 and client.events == []
+    with pytest.raises(ValueError, match="session_budget"):
+        client.observe()

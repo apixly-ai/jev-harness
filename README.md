@@ -11,7 +11,7 @@ primary AI defines tool capabilities, fresh parameter providers, observation and
 checks. Jev uses the goal, admitted conversation, new state and history to choose the next
 tool and arguments. Code executes, refreshes the state and checks completion. Bounds
 control permissions and resources while Jev discovers the route from new observations.
-An independent Apixly community project. Current runtime: **0.2.1**.
+An independent Apixly community project. Current runtime: **0.3.0**.
 
 The distribution is **apixly-jev-harness**, the Python namespace is `apixly_jev_harness`,
 and `apixly-jev-harness` is an unambiguous CLI alias. Use this repository’s exact Git
@@ -73,15 +73,15 @@ inference and platform dependency. Installation makes no model calls.
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.1'
-jev-harness spec
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.3.0'
+jev-harness quickstart
 jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
 # Billable: configure TYPESAFE_API_KEY or TYPESAFE_API_KEY_FILE in your environment.
 jev-harness run task.py --goal 'Investigate source evidence and save categorized quotes' --inputs '{"root":"permitted-corpus","queries":["relevant_identifier"],"markers":{"implementation":"<source marker>"},"output":"local-results/report.json"}'
 ```
 
-Use `@main` instead of `@v0.2.1` only for active development. Replace illustrative inputs
+Use `@main` instead of `@v0.3.0` only for active development. Replace illustrative inputs
 with your permitted sources and quote criteria. Marker checks demonstrate the hook;
 business correctness belongs in the caller verifier.
 

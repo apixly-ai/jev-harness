@@ -1,0 +1,122 @@
+{
+  "track": "cold_authoring_and_execution",
+  "goal": "Read-only current repository investigation, eight normal files, three source-evidence categories",
+  "arms": [
+    {
+      "arm": "native",
+      "actual_route": "direct_container_shell",
+      "authored_harness_script": false,
+      "jev_substantive_execution": false,
+      "whole_operation_seconds": 99.77291175001301,
+      "primary": {
+        "ok": true,
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 126206,
+          "cached_input_tokens": 104192,
+          "output_tokens": 2203,
+          "reasoning_output_tokens": 223
+        },
+        "unexpected_item_count": 0
+      },
+      "raw_format": {
+        "passed": false,
+        "reason": "flat_records_envelope_required"
+      },
+      "raw_independent_check": {
+        "passed": false,
+        "reason": "artifact_missing_or_invalid",
+        "mechanical_fixture_valid": true
+      },
+      "normalized_independent_check": {
+        "passed": true,
+        "labels": {
+          "implementation": true,
+          "reproduction": true,
+          "counterevidence": true
+        },
+        "records": 8,
+        "mechanical_fixture_valid": true,
+        "quality_scope": "source-authenticated required facts; not schema-marker success"
+      },
+      "shape_adapter": "posthoc_shape_adapter",
+      "raw_sha256": "1c3aa11554b01b683544d1027211b0fd69208c92ce91f8e04cb31e25cb574755",
+      "normalized_sha256": "060749d004b3c4635a7465747b20b4206e3c0df889c4cb99e7a60e69dc5514b2",
+      "actual_jev_usage": {
+        "requests": 0,
+        "usage_complete": true,
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    },
+    {
+      "arm": "optional",
+      "actual_route": "direct_container_shell",
+      "authored_harness_script": false,
+      "jev_substantive_execution": false,
+      "whole_operation_seconds": 95.21641833300237,
+      "primary": {
+        "ok": true,
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 129609,
+          "cached_input_tokens": 89472,
+          "output_tokens": 2384,
+          "reasoning_output_tokens": 376
+        },
+        "unexpected_item_count": 0
+      },
+      "raw_format": {
+        "passed": true,
+        "scope": "format_only_not_factual_quality"
+      },
+      "raw_independent_check": {
+        "passed": true,
+        "labels": {
+          "implementation": true,
+          "reproduction": true,
+          "counterevidence": true
+        },
+        "records": 7,
+        "mechanical_fixture_valid": true,
+        "quality_scope": "source-authenticated required facts; not schema-marker success"
+      },
+      "normalized_independent_check": {
+        "passed": true,
+        "labels": {
+          "implementation": true,
+          "reproduction": true,
+          "counterevidence": true
+        },
+        "records": 7,
+        "mechanical_fixture_valid": true,
+        "quality_scope": "source-authenticated required facts; not schema-marker success"
+      },
+      "shape_adapter": "none",
+      "raw_sha256": "03824bd8d99b3df26530481a2f5f40ddae0980787eca50c2cd67621ac1777c75",
+      "normalized_sha256": "67003e58e0abc0801e792e39f45f71766a0fa8d7e343465fb7faeb120f45f829",
+      "actual_jev_usage": {
+        "requests": 0,
+        "usage_complete": true,
+        "input_tokens": 0,
+        "output_tokens": 0
+      }
+    }
+  ],
+  "baseline_scope": "ordinary sh/Python in network-none Docker carried over MCP; not Codex built-in host shell",
+  "isolation": "real Docker canary: corpus and public runtime read-only, owned work writable, no oracle/credential/socket mount; original actor tool events remain private",
+  "adoption": "optional primary chose direct operation; neither arm authored or executed a Jev task script",
+  "artifact_contract_correction": "Original prompt listed record fields/categories without prescribing the flat envelope/label enum. Native produced explicit category groups; raw rejection is retained and source-authenticated factual scoring after controller-only posthoc shape adaptation passes. Optional flat output passes originally. No source quote/hash/span/timing/usage changed. Future actor_prompt is explicit; no repeated paid run.",
+  "pricing": "unknown; no tariff or invoice conversion",
+  "scripts_prepared": false,
+  "product_skills_disabled": true,
+  "route_preference_in_prompt": false,
+  "whole_operation_scope": "primary turn including capability discovery, native authoring/execution and final response; source fixture/runtime bootstrap inside server; no completed harness authoring interval",
+  "authoring_seconds": null,
+  "authoring_not_applicable_reason": "Neither actor created a harness task file; native Python was authored in shell commands.",
+  "reproduction": "benchmarks/cold_authoring.py serve, current explicit actor_prompt differs only in clarified output schema; original prompt/receipts private. Public SDK wheel and dependency hashes retained in canary."
+}

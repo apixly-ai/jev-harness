@@ -25,6 +25,9 @@ The examples themselves do not establish general semantic quality, speed or fee 
 
 A toolkit has `name`, `observe()` and `install(task)`. Its observation is a compact,
 stable projection; observing or offering arguments does not create new source captures.
+The first `EvidenceTask` observation calls declared `prepare()` hooks once.
+`WorkspaceTools.prepare()` performs bounded file metadata discovery without reading source
+bodies or creating evidence captures; its catalog makes current file candidates available.
 Acquisition occurs during tool execution, except that `WebTools` construction captures
 the entry source when the lazy factory first materializes. Providers expose meaningful
 `Option` descriptions and fresh parameter domains through the ordinary `Task` protocol.
@@ -70,12 +73,16 @@ data. Scope and authorization for other datasets remain the caller's responsibil
 ## Read evidence progressively
 
 `store.put(text, source, metadata)` returns a capture-specific reference. `describe(ref)`
-and `references()` expose source, length, digest, summary and metadata. `read(ref, offset,
+and `references()` expose source, length, full SHA-256, a summary of up to 240 characters
+and metadata. `read(ref, offset,
 limit)` returns a bounded original-text window, up to 1,200 characters. `chunk_options()`
 provides passage candidates; `EvidenceTask` also provides passage-page selection.
 
-Whole captured text remains in the store. Jev's observation keeps the last eight source
-and record summaries, counts and a `last_read` window of at most 1,200 characters.
+Whole captured text remains in the store. The shared evidence source index keeps the last
+eight references, sources, lengths and summaries of up to 80 characters. Toolkit source
+references do not repeat those summaries; full SHA-256 and metadata remain available in
+the local store. Jev also receives recent record summaries, counts and a `last_read` window
+of at most 1,200 characters.
 Older captures can still be read through references and dynamic passage candidates.
 These are in-process captures, not an automatic persistent raw-source archive. The saved
 report contains selected records and provenance; a new process cannot resume the old
@@ -114,6 +121,7 @@ python -m apixly_jev_harness.mcp examples/workspace_task.py --goal 'Investigate 
 | `arguments` | Send the current `state_ref` to inspect candidates; parent references resolve dependent child choices |
 | `operate` | Send the current `state_ref` and offered parameter IDs to execute one tool |
 | `run_task` | Hand the registered task to the Jev loop within the session budget |
+| `read_report` | Read a saved, matching evidence report in pages of up to four original quotes; no tool effects or inference |
 
 For a dependent tool, call `arguments` with the tool name and already selected parent
 reference IDs; choose a child from the returned domain. `operate` requires all parameter
@@ -123,6 +131,20 @@ perform operations sequentially in one session. Stale, unoffered or repeated ope
 are rejected. Existing Python methods retain optional `state_ref` compatibility, while
 MCP clients must send it.
 
+MCP discovery describes the execution tool for the bound goal, inputs, permissions,
+independent check and step/time limits without loading a lazy factory or running inference.
+Its `outputSchema` describes terminal status, completion, telemetry and optional artifact
+and report fields; successful tool responses supply both JSON text and `structuredContent`.
+`initialize.instructions` explains the two routes factually: `operate` executes one
+registered tool, while `run_task` lets Jev select tools and fresh parameter references for
+the whole task. It does not prescribe which route an AI must choose.
+
+Callers can use `--execution-name investigate_sources` to give the execution action a
+name matching their task. Names use a lowercase letter followed by lowercase letters,
+digits or underscores, up to 64 characters, and cannot collide with the other MCP tools.
+The title and description still identify Jev Harness and the Jev loop; renaming does not
+hide who performs the decisions.
+
 The observation also includes delegation readiness, the current goal, confirmation that
 the same tools/verifier are used, and the artifact receipt. Python callers use
 `session.delegate()`; the old MCP `delegate` name remains an unadvertised compatibility
@@ -131,8 +153,13 @@ alias for `run_task`.
 From v0.2.1, `run_task` may be the first session call for a `TaskScript`. Once the loop
 materializes the registered task, its `artifact_receipt()` is forwarded in the terminal
 `artifact` field when available; callers need not call `observe` first merely to obtain
-that receipt. This is delegated functionality, not evidence that an AI naturally chooses
-delegation.
+that receipt. An evidence task also returns the first report page. `read_report` with
+`{"page": 1}` retrieves subsequent pages using `has_more`/`pages`. Original quoted records
+include source references, character windows and SHA-256. They are returned only while
+the saved artifact matches the task's records; a mismatch returns `available: false` and
+no quotes. Readback works after either route and neither resumes execution nor invokes
+inference. These interfaces make both routes inspectable; they do not establish that an
+AI naturally chooses delegation.
 
 Choose direct operation or Jev delegation at the start of the session. Inspection may
 precede that choice, but the session cannot switch routes after execution or merge the

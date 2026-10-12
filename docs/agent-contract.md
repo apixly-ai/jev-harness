@@ -15,14 +15,14 @@ the existing PyPI jev-harness package is a different project.
 ## Install and run your first task
 
 Python 3.10+ and Git are required. Installation is offline with respect to model calls;
-package downloads still require network access. Pin v0.2.1 for a reproducible release;
+package downloads still require network access. Pin v0.3.0 for a reproducible release;
 use `@main` instead for active development.
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.1'
-jev-harness spec
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.3.0'
+jev-harness quickstart
 jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
 # Billable: use caller-configured TYPESAFE_API_KEY or TYPESAFE_API_KEY_FILE.
@@ -37,7 +37,7 @@ saved artifact. [Toolkits](toolkits.md) also support HTTP and rendered Camofox s
 
 ## Adoption sequence
 
-1. Read `jev-harness spec` (offline JSON).
+1. Read `jev-harness quickstart` (compact offline API card); `spec` gives the full protocol.
 2. Define the goal, scope, admitted facts/messages and observable success condition.
 3. Generate `jev-harness init-task task.py --toolkit workspace`, or compose reusable packs
    in `TaskScript(build)`; register additional tools only when the task needs them.
@@ -692,3 +692,11 @@ clients are outside this scope. Model identity, unknown usage, authorization, ex
 exit states and retry policy are unchanged. See the
 [transport-counters A/B](../reports/transport-counters-ab.json) for the test scope;
 no price, cost-saving or speed guarantee follows from these counters.
+
+`selection_description(action)` is an optional synchronous tool-stage view. The engine
+passes an independent Action copy; the original offered action retains execution identity.
+TaskScript validates this callback before caching its task. EvidenceTask shows parameter
+contracts, counts and up to three 80-character hints during tool choice; binding still
+receives every fresh option and direct MCP inspection keeps full domains. Saved report
+pages can be read after the execution deadline; this does not resume effects, call Jev or
+prove goal completion.

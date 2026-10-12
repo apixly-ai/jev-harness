@@ -78,6 +78,7 @@ class EvidenceTask(Task):
         self.records, self._passages, self._page = [], {}, 0
         self._saved_hash = None
         self._latest_read = None
+        self._prepared = False
         self._check = verify
         super().__init__(observe=self._state, verify=self._verify)
         for pack in self.toolkits:
@@ -113,17 +114,11 @@ class EvidenceTask(Task):
         self.tool(
             "Record a read source passage under a requested evidence label",
             name="record_evidence",
-            available=lambda c, s: bool(self._passages),
+            available=lambda c, s: bool(self._label_options()),
             parameters={
                 "label": Parameter(
                     "Requested evidence category to support; prefer categories still missing useful evidence",
-                    lambda c, s: [
-                        Option(x, x, x)
-                        for x in self.labels
-                        if not self.record_checks
-                        or any(self._supports(x, p) for p in self._passages.values())
-                    ],
-                    selection="explore",
+                    lambda c, s: self._label_options(),
                 ),
                 "passage": Parameter(
                     "Previously read passage specifically supporting the selected label",
@@ -137,7 +132,7 @@ class EvidenceTask(Task):
                             copy.deepcopy(value),
                         )
                         for key, value in self._passages.items()
-                        if self._supports(bound["label"], value)
+                        if self._supports_new(bound["label"], value)
                     ],
                     depends_on=("label",),
                 ),
@@ -151,7 +146,53 @@ class EvidenceTask(Task):
             result_context=compact_result,
         )(self.save_report)
 
+    def prepare(self):
+        """Run declared source preparations once, without a tool effect or inference."""
+        from .callbacks import require_synchronous
+
+        if not self._prepared:
+            for pack in self.toolkits:
+                callback = getattr(pack, "prepare", None)
+                if callback is not None:
+                    require_synchronous(callback, "observe")
+                    callback()
+            self._prepared = True
+
+    def selection_description(self, action):
+        """Brief tool contracts; full candidate domains are selected afresh during binding."""
+        if self.strategy != "staged":
+            return action.description
+        description = json.loads(action.description)
+        for parameter in description.get("parameters", {}).values():
+            choices = parameter.pop("choices", None)
+            if choices is not None:
+                parameter["candidate_count"] = len(choices)
+                parameter["preview"] = [
+                    {"id": x["id"], "description": x["description"][:80]} for x in choices[:3]
+                ]
+                parameter["preview_truncated"] = len(choices) > 3
+        return json.dumps(description, ensure_ascii=False)
+
+    def _label_options(self):
+        options = []
+        for label in self.labels:
+            eligible = [
+                self._window(p) for p in self._passages.values() if self._supports_new(label, p)
+            ]
+            if not eligible:
+                continue
+            sources = list(dict.fromkeys(row["source"] for row in eligible))
+            recorded = sum(row["label"] == label for row in self.records)
+            description = (
+                f"Evidence category: {label}; already recorded: {recorded}; "
+                f"record-check eligible read windows: {len(eligible)}; "
+                f"source examples: {json.dumps(sources[:3], ensure_ascii=False)}"
+            )
+            options.append(Option(label, description, label))
+        return options
+
     def _state(self, ctx):
+        sources = self.store.references()
         return {
             "toolkits": {pack.name: pack.observe() for pack in self.toolkits},
             "completion": {
@@ -163,8 +204,14 @@ class EvidenceTask(Task):
                 "independent_check_required": True,
             },
             "evidence": {
-                "sources": self.store.references()[-8:],
-                "source_count": len(self.store.references()),
+                "sources": [
+                    {
+                        **{key: row[key] for key in ("ref", "source", "characters")},
+                        "summary": row["summary"][:80],
+                    }
+                    for row in sources[-8:]
+                ],
+                "source_count": len(sources),
                 "page": self._page,
                 "read_passages": list(self._passages),
                 "records": [
@@ -207,11 +254,29 @@ class EvidenceTask(Task):
             "sources": list(dict.fromkeys(row["source"] for row in self.records)),
         }
 
+    def report_snapshot(self, page=0):
+        if type(page) is not int or page < 0:
+            raise ValueError("nonnegative_report_page_required")
+        pages = max(1, (len(self.records) + 3) // 4)
+        if page >= pages:
+            raise ValueError("report_page_not_available")
+        available = self._artifact_matches()
+        return {
+            "available": available,
+            "page": page,
+            "pages": pages,
+            "record_count": len(self.records),
+            "has_more": available and page + 1 < pages,
+            "records": copy.deepcopy(self.records[page * 4 : (page + 1) * 4]) if available else [],
+            "artifact_sha256": self._saved_hash if available else None,
+        }
+
     def _verify(self, ctx, state):
         if not self._artifact_matches():
             return False
         verification_state = copy.deepcopy(state)
         verification_state["evidence"]["records"] = copy.deepcopy(self.records)
+        verification_state["evidence"]["sources"] = self.store.references()[-8:]
         return self._check(ctx, verification_state)
 
     def _window(self, passage):
@@ -227,6 +292,12 @@ class EvidenceTask(Task):
         if type(passed) is not bool:
             raise ValueError("record_check_must_return_bool")
         return passed
+
+    def _supports_new(self, label, passage):
+        return (
+            self._supports(label, passage)
+            and {"label": label, **self._window(passage)} not in self.records
+        )
 
     def _passage_description(self, passage):
         row = self._window(passage)
@@ -344,15 +415,21 @@ class _DelegatedWorkflow(Workflow):
                 "authorize",
                 "bind",
                 "result_context",
+                "selection_description",
             ):
                 require_synchronous(
                     getattr(self.owner.task, role), role, allow_generator=role == "candidates"
                 )
             self.checked = True
+        if isinstance(self.owner.task, EvidenceTask):
+            self.owner.task.prepare()
         return self.owner.task.observe(ctx)
 
     def candidates(self, ctx, state):
         return self.owner.task.candidates(ctx, state)
+
+    def selection_description(self, action):
+        return self.owner.task.selection_description(action)
 
     def verify(self, ctx, state):
         return self.owner.task.verify(ctx, state)
@@ -393,6 +470,7 @@ class ToolkitSession:
 
         if not isinstance(task, (Task, TaskScript)):
             raise TypeError("registered_task_required")
+        self.report_tool_advertised = isinstance(task, (EvidenceTask, TaskScript))
         self.ctx, _ = validate_run_options(
             goal=goal,
             inputs=inputs,
@@ -419,11 +497,14 @@ class ToolkitSession:
             raise ValueError("session_budget_exceeded")
         from .engine import _fingerprint
 
-        self._state = copy.deepcopy(self.task.observe(self.ctx))
         if isinstance(self.task, TaskScript):
             self.task = self.task.materialize(self.ctx)
         if self.task.strategy != "staged":
             raise ValueError("toolkit_session_requires_staged_task")
+        self._checkpoint()
+        if isinstance(self.task, EvidenceTask):
+            self.task.prepare()
+        self._state = copy.deepcopy(self.task.observe(self.ctx))
         if self._remaining() <= 0:
             raise ValueError("session_budget_exceeded")
         complete = self.task.verify(self.ctx, copy.deepcopy(self._state))
@@ -582,6 +663,13 @@ class ToolkitSession:
                 }
         return {"tool": tool, "parameters": visible}
 
+    def read_report(self, page=0):
+        """Read saved verified bytes; execution deadlines do not prevent result retrieval."""
+        task = self.task._task if isinstance(self.task, TaskScript) else self.task
+        if not isinstance(task, EvidenceTask):
+            raise ValueError("evidence_report_not_registered_or_materialized")
+        return task.report_snapshot(page)
+
     def delegate(self):
         from .engine import AgentLoop
 
@@ -612,6 +700,8 @@ class ToolkitSession:
         materialized = self.task._task if isinstance(self.task, TaskScript) else self.task
         if hasattr(materialized, "artifact_receipt"):
             result["artifact"] = materialized.artifact_receipt()
+        if isinstance(materialized, EvidenceTask):
+            result["report"] = materialized.report_snapshot()
         return result
 
 
@@ -638,6 +728,9 @@ class TaskScript(Workflow):
             task = self.factory(copy.deepcopy(ctx.inputs))
             if not isinstance(task, Task):
                 raise TypeError("factory_must_return_registered_task")
+            from .callbacks import require_synchronous
+
+            require_synchronous(task.selection_description, "selection_description")
             self._task = task
         return self._task
 
@@ -649,6 +742,11 @@ class TaskScript(Workflow):
 
     def candidates(self, ctx, state):
         return self.materialize(ctx).candidates(ctx, state)
+
+    def selection_description(self, action):
+        if self._task is None:
+            raise ValueError("task_not_materialized")
+        return self._task.selection_description(action)
 
     def bind(self, ctx, state, action, choose):
         return self.materialize(ctx).bind(ctx, state, action, choose)

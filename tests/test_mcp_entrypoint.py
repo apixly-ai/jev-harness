@@ -111,3 +111,112 @@ def test_public_mcp_parser_keeps_the_fixed_cli_argument_packet(capsys):
         "model_calls": 0,
     }
     assert captured.err == ""
+
+
+def test_list_advertises_bound_goal_without_materializing_or_mutating_session():
+    from apixly_jev_harness import Task, TaskScript, ToolkitSession
+
+    calls = []
+
+    def build(inputs):
+        calls.append(1)
+        return Task(observe=lambda c: {}, verify=lambda c, s: False)
+
+    client = ToolkitSession(
+        TaskScript(build), goal="Investigate release requirements", max_steps=17, timeout_seconds=90
+    )
+    out = io.StringIO()
+    serve(client, source=io.StringIO('{"id":1,"method":"tools/list"}\n'), destination=out)
+    tools = json.loads(out.getvalue())["result"]["tools"]
+    run = next(t for t in tools if t["name"] == "run_task")
+    assert "Jev Harness" in run["description"]
+    assert "Investigate release requirements" in run["description"]
+    assert run["outputSchema"]["properties"]["complete"]["type"] == "boolean"
+    assert calls == [] and client.steps == 0 and client.events == []
+
+
+def test_mcp_structured_terminal_matches_text_without_losing_unknown_usage(monkeypatch):
+    client, _ = session()
+    packet = {
+        "status": "needs_review",
+        "complete": False,
+        "steps": 0,
+        "telemetry": {"usage": None, "usage_complete": False},
+    }
+    monkeypatch.setattr(client, "delegate", lambda: packet)
+    out = io.StringIO()
+    serve(
+        client,
+        source=io.StringIO(
+            '{"id":1,"method":"tools/call","params":{"name":"run_task","arguments":{}}}\n'
+        ),
+        destination=out,
+    )
+    r = json.loads(out.getvalue())["result"]
+    assert r["structuredContent"] == packet
+    assert json.loads(r["content"][0]["text"]) == packet
+    assert r["structuredContent"]["telemetry"]["usage"] is None
+
+
+def test_initialize_explains_both_routes_without_acquiring_task_state():
+    client, state = session()
+    out = io.StringIO()
+    serve(client, source=io.StringIO('{"id":1,"method":"initialize"}\n'), destination=out)
+    guidance = json.loads(out.getvalue())["result"]["instructions"]
+    assert "run_task" in guidance[:512] and "operate" in guidance[:512]
+    assert "Jev Harness" in guidance[:512]
+    assert state["value"] == 0 and client.events == []
+
+
+def test_caller_can_expose_a_purpose_named_goal_operation_without_changing_execution(monkeypatch):
+    client, _ = session()
+    replies = io.StringIO()
+    packet = {
+        "status": "done",
+        "complete": True,
+        "steps": 0,
+        "telemetry": {"usage": None, "usage_complete": False},
+    }
+    calls = []
+    monkeypatch.setattr(client, "delegate", lambda: calls.append(1) or packet)
+    requests = [
+        {"id": 1, "method": "tools/list"},
+        {
+            "id": 2,
+            "method": "tools/call",
+            "params": {"name": "collect_source_evidence", "arguments": {}},
+        },
+    ]
+    serve(
+        client,
+        source=io.StringIO("".join(json.dumps(r) + "\n" for r in requests)),
+        destination=replies,
+        execution_name="collect_source_evidence",
+    )
+    rows = [json.loads(line) for line in replies.getvalue().splitlines()]
+    names = {x["name"] for x in rows[0]["result"]["tools"]}
+    assert "collect_source_evidence" in names and "run_task" not in names
+    assert rows[1]["result"]["structuredContent"] == packet
+    assert calls == [1]
+
+
+def test_invalid_execution_name_fails_before_loading_trusted_script(tmp_path, capsys):
+    marker = tmp_path / "imported"
+    script = tmp_path / "task.py"
+    script.write_text(f"from pathlib import Path\nPath({str(marker)!r}).touch()\nworkflow = None\n")
+    assert main([str(script), "--goal", "Inspect", "--execution-name", "operate"]) == 2
+    assert not marker.exists()
+    assert json.loads(capsys.readouterr().out)["phase"] == "configuration"
+
+
+def test_lazy_factory_does_not_change_advertised_tool_names_after_first_inspection():
+    from apixly_jev_harness import Task, TaskScript, ToolkitSession
+    from apixly_jev_harness.mcp import describe_tools
+
+    script = TaskScript(lambda inputs: Task(observe=lambda c: {}, verify=lambda c, s: False))
+    client = ToolkitSession(script, goal="Inspect regular registered task")
+    before = {x["name"] for x in describe_tools(client)}
+    client.observe()
+    assert {x["name"] for x in describe_tools(client)} == before
+    with pytest.raises(ValueError, match="evidence_report"):
+        client.read_report()

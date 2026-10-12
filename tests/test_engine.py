@@ -346,3 +346,45 @@ def test_program_stop_cannot_bypass_completion_verifier(engine):
 
     result = engine.run(FalseComplete(), goal="Reach two")
     assert result["complete"] is False
+
+
+def test_semantic_selection_view_cannot_mutate_the_offered_execution_parameters():
+    from apixly_jev_harness import Action, Engine, Workflow
+
+    received = []
+
+    class CallerWorkflow(Workflow):
+        def observe(self, ctx):
+            return {"done": bool(received)}
+
+        def verify(self, ctx, state):
+            return state["done"]
+
+        def candidates(self, ctx, state):
+            return [Action("inspect", "Inspect permitted source", {"value": ["original"]})]
+
+        def selection_description(self, action):
+            action.params["value"][0] = "view-copy"
+            return "Compact semantic view"
+
+        def execute(self, ctx, action):
+            received.append(action.params["value"][0])
+            return {"captured": True}
+
+    class Scripted(Engine):
+        def decide(self, *args, **kwargs):
+            return {
+                "ok": True,
+                "complete": True,
+                "selected_ids": ["inspect"],
+                "review_ids": [],
+                "telemetry": {
+                    "requests": 0,
+                    "usage_complete": True,
+                    "usage": {"input_tokens": 0, "output_tokens": 0},
+                },
+            }
+
+    result = Scripted().run(CallerWorkflow(), goal="Inspect source")
+    assert result["complete"] is True
+    assert received == ["original"]

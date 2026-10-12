@@ -244,7 +244,14 @@ def _command(binary, model, effort, schema, mcp_command=None, mcp_args=None):
             )
         )
     if mcp_command is not None:
-        for name in ("observe", "arguments", "operate", "run_task"):
+        for name in (
+            "observe",
+            "arguments",
+            "operate",
+            "run_task",
+            "read_report",
+            "collect_source_evidence",
+        ):
             command.extend(
                 ("--config", f'mcp_servers.jev_eval.tools.{name}.approval_mode="approve"')
             )

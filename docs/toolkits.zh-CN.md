@@ -24,7 +24,9 @@
 | ToolkitSession | 用同一任务支持直接引用操作，或一次 Jev 委托 |
 
 工具包提供 name、observe() 和 install(task)。观察是简洁、稳定的投影；观察或提供
-参数不会创建新来源 capture。采集发生在工具执行期间；例外是延迟 factory 首次构建
+参数不会创建新来源 capture。EvidenceTask 首次观察会执行一次声明的 prepare()；
+WorkspaceTools.prepare() 只做有界文件元数据发现，不读取源码正文、不创建证据 capture，
+使当前文件候选可用。采集发生在工具执行期间；例外是延迟 factory 首次构建
 WebTools 时，会采集入口来源。Provider 通过普通 Task 协议提供有意义的 Option 描述
 和新参数域。
 
@@ -65,11 +67,12 @@ check-task 是静态检查；run 可采集来源，Jev 推理付费，凭据留�
 ## 按需读取证据
 
 store.put(text, source, metadata) 返回本次 capture 引用。describe(ref) 和 references()
-提供来源、长度、digest、摘要和元数据。read(ref, offset, limit) 返回最多 1,200 字符
+提供来源、长度、完整 SHA-256、最多 240 字符的摘要和元数据。read(ref, offset, limit) 返回最多 1,200 字符
 的原文窗口。chunk_options() 提供段落候选，EvidenceTask 另提供段落分页选择。
 
-完整采集文本保留在 store；Jev 的观察只保留最后八个来源和记录摘要、计数以及最多
-1,200 字符的 last_read。较早 capture 仍可通过引用和动态段落候选读取。这是进程内
+完整采集文本保留在 store。共享 evidence 来源索引保留最后八个引用、来源、长度及
+最多 80 字符的摘要，工具包来源引用不再重复这些摘要；完整 SHA-256 和元数据仍保留
+在本地 store。Jev 另收到近期记录摘要、计数及最多 1,200 字符的 last_read。较早 capture 仍可通过引用和动态段落候选读取。这是进程内
 capture，不是自动持久化的原文归档。已保存报告包含所选记录与出处，新进程不能续接
 旧 store 或 session。已有 loop 上下文预算仍可能停止过大的投影。
 
@@ -105,11 +108,22 @@ python -m apixly_jev_harness.mcp examples/workspace_task.py --goal 'Investigate 
 | arguments | 带当前 state_ref 查看参数候选，传入父引用后解析依赖子候选 |
 | operate | 带当前 state_ref 与已提供参数 ID 执行一项工具 |
 | run_task | 在 session 预算内把注册任务交给 Jev loop |
+| read_report | 每页读取最多四条已保存且匹配的原始引用，不执行任务工具或推理 |
 
 对于带依赖的工具，调用 arguments 时传入工具名和已选父引用 ID，再从返回域选子候选。
 operate 需要当前提供的全部参数 ID；广告的 MCP arguments/operate 还必须带最近
 observe.state_ref 中的指纹。操作后刷新观察，一个 session 内顺序执行。旧状态、未提供
 或重复操作会被拒绝。既有 Python 方法的 state_ref 保持可选兼容，MCP 客户端必传。
+
+MCP 发现接口会按绑定目标描述执行工具、inputs、权限、独立检查和步数/时间边界，
+不为此加载延迟 factory 或运行推理。outputSchema 描述终态、完成状态、遥测及可选
+artifact/report 字段；成功工具响应同时提供 JSON 文本和 structuredContent。
+initialize.instructions 事实性说明两条路线：operate 执行一项注册工具，run_task 让
+Jev 根据现场选择工具和新参数引用完成整项任务，不规定 AI 必须选择哪条路线。
+
+调用方可用 --execution-name investigate_sources 按任务命名执行动作。名称以小写
+字母开头，后接小写字母、数字或下划线，最多 64 字符，不能与其他 MCP 工具重名。
+标题和描述仍明确标识 Jev Harness 与 Jev loop，不因改名隐藏决策执行方。
 
 观察还包括委托是否就绪、当前目标、使用相同 tools/verifier 的声明以及产物 receipt。
 Python 调用方使用 session.delegate()；旧 MCP delegate 名称作为不广告的兼容别名
@@ -117,7 +131,11 @@ Python 调用方使用 session.delegate()；旧 MCP delegate 名称作为不广�
 
 从 v0.2.1 起，run_task 可以是 TaskScript 的首次 session 调用。Loop 构建注册任务后，
 若该任务提供 artifact_receipt()，会将回执转发到终态 artifact 字段；调用方无需为了
-获得回执而先调用 observe。这证明委托功能可用，不证明 AI 会自然选择委托路线。
+获得回执而先调用 observe。证据任务还返回首个报告页；read_report 传 {"page": 1}
+读取后续页，结合 has_more/pages 继续分页。每页最多四条原始引用，含来源引用、
+字符窗口及 SHA-256；只有保存产物仍匹配任务 records 才返回正文，否则返回
+available: false 和空引用。两条路线结束后均可只读回查，不恢复执行、不调用推理。
+这些接口让两条路线都可核查，不代表 AI 已被证明会自然选择托管。
 
 在 session 开始时选择直接操作或 Jev 委托，可以先查看接口，但执行后不能切换路线或
 合并两种历史。--direct-only 隐藏委托。这是进程内 session，不提供跨进程 resume；

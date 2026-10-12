@@ -38,8 +38,9 @@ UNKNOWN_USAGE = {
     "usage_complete": False,
 }
 # Responses are fixed before execution. The transport never sees the expectation table.
+# Current-runtime save indexes reflect that already recorded windows are no longer offered.
 CASES = {
-    "ambiguous_legal_tool": [("c0", 0.39), ("c0", 0.99), ("c1", 0.99), ("c2", 0.99)],
+    "ambiguous_legal_tool": [("c0", 0.39), ("c0", 0.99), ("c1", 0.99), ("c1", 0.99)],
     "exploratory_target": [("c0", 0.99), ("c0", 0.39)],
     "matched_target_low": [("c0", 0.99), ("c0", 0.39)],
     "matched_target_high": [("c0", 0.99), ("c0", 0.60)],
@@ -49,7 +50,7 @@ CASES = {
     "child_after_label": [("c0", 0.99), ("c1", 0.99), ("c0", 0.60)],
     "unknown_reference": [],
     "foreign_link": [],
-    "tail_read": [("c0", 0.99), ("c1", 0.99), ("c2", 0.99)],
+    "tail_read": [("c0", 0.99), ("c1", 0.99), ("c1", 0.99)],
     "twelve_records": [("c1", 0.99)],
     "unknown_http_usage": [None],
     "direct_then_delegate": [],

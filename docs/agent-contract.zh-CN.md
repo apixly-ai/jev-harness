@@ -16,13 +16,13 @@ PyPI 上已有的 jev-harness 包是另一个项目。
 ## 安装并运行第一个任务
 
 需要 Python 3.10+ 和 Git。安装过程不会调用模型，但下载包仍需要网络。
-固定到 v0.2.1 可以复现这一发布版本；进行持续开发时使用 `@main`。
+固定到 v0.3.0 可以复现这一发布版本；进行持续开发时使用 `@main`。
 
 ```sh
 python -m venv .venv
 . .venv/bin/activate
-pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.2.1'
-jev-harness spec
+pip install 'git+https://github.com/apixly-ai/jev-harness.git@v0.3.0'
+jev-harness quickstart
 jev-harness init-task task.py --toolkit workspace
 jev-harness check-task task.py
 # 付费：使用调用方配置的 TYPESAFE_API_KEY 或 TYPESAFE_API_KEY_FILE。
@@ -617,3 +617,9 @@ Session 时省略元数据；缺省是未知，不证明尝试为零。
 此范围。模型身份、未知用量、授权、执行、退出状态及重试策略均不变。见
 [传输计数 A/B](../reports/transport-counters-ab.json)的测试范围；这些计数不带来价格、
 降费或提速保证。
+
+`selection_description(action)` 是可选的同步工具阶段视图。Engine 传入独立 Action 副本，
+原始已提供 action 保留执行身份；TaskScript 在缓存任务前完成此回调的同步准入检查。
+EvidenceTask 选工具时提供参数契约、候选数量及最多三个 80 字符提示；绑定阶段仍收到
+全部最新候选，直接 MCP 检查也保留完整参数域。执行期限结束后仍可分页读取已保存报告；
+这不会恢复操作、调用 Jev，也不代表目标完成。

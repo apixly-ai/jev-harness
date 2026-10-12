@@ -1,0 +1,650 @@
+{
+  "scope": "prepared-script source investigations; authoring and unrestricted native operation excluded",
+  "historical_baseline": {
+    "source": "toolkit-live-2026-10-11.json",
+    "free_choices": 5,
+    "delegations": 0,
+    "first_four_prompt_inspection_caveat": true
+  },
+  "interface_control_scope": "same runtime with legacy v0.2.1 metadata projection, not the historical runtime",
+  "choice_trials": [
+    {
+      "trial": "adoption-compact-efficiency-20261012/medium-0-named",
+      "track": "execution_after_preparation",
+      "objective": "efficient",
+      "record_contract": "schema_markers",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": false,
+      "qualified_substantive_delegation": false,
+      "steps": 18,
+      "whole_operation_seconds": 71.13916187497671,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 208078,
+          "cached_input_tokens": 177408,
+          "output_tokens": 1575,
+          "reasoning_output_tokens": 422
+        },
+        "reason": "unexpected_item_activity",
+        "unexpected_item_count": 4
+      },
+      "jev": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "9963982b419e6d9d7ebcde007d8d78f326736f4a23593f72ffce9d551807f395",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "a81bdaa1b2fc45b5320438ee5137b5e1b39622ff645a2beb991dcaf76089201f",
+        "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+        "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+        "src/apixly_jev_harness/workspace.py": "91358e0e2535594a451ad1c075be5d97bb6090a0331c0cd6026ef78885177627",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-current-efficient-20261012/medium-1-named",
+      "track": "execution_after_preparation",
+      "objective": "efficient",
+      "record_contract": "current",
+      "actual_route": "jev",
+      "independently_verified": true,
+      "primary_protocol_qualified": true,
+      "qualified_substantive_delegation": true,
+      "steps": 11,
+      "whole_operation_seconds": 51.32967320800526,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 65005,
+          "cached_input_tokens": 33152,
+          "output_tokens": 588,
+          "reasoning_output_tokens": 268
+        },
+        "reason": null,
+        "unexpected_item_count": 0
+      },
+      "jev": {
+        "requests": 18,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 88754,
+          "output_tokens": 1691
+        },
+        "resolved_models": [
+          "jev-1.13.0"
+        ],
+        "max_context_bytes": 14428
+      },
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "0bdff79afb78bf26961bc3a6e8071277a00b18e4457ce40a8b70d4bca3cd81a4",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "e90219fbf6679c06e442be3f3ded92e519432867840e51507a15b9994c77b306",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "a81bdaa1b2fc45b5320438ee5137b5e1b39622ff645a2beb991dcaf76089201f",
+        "src/apixly_jev_harness/callbacks.py": "63337e54b1aa41e7b17585c4ef84723f4fd3bfd1a467de12123c691f246578b8",
+        "src/apixly_jev_harness/task_cli.py": "2d3a26ef7baa5bf1345ebd47307edb5cc1953e9868d293a5b980ca73bb01139d",
+        "src/apixly_jev_harness/workspace.py": "91358e0e2535594a451ad1c075be5d97bb6090a0331c0cd6026ef78885177627",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-current-neutral-20261012/medium-0-named",
+      "track": "execution_after_preparation",
+      "objective": "neutral",
+      "record_contract": "current",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": true,
+      "qualified_substantive_delegation": false,
+      "steps": 10,
+      "whole_operation_seconds": 104.96729299999424,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 450108,
+          "cached_input_tokens": 413568,
+          "output_tokens": 1564,
+          "reasoning_output_tokens": 140
+        },
+        "reason": null,
+        "unexpected_item_count": 0
+      },
+      "jev": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "0bdff79afb78bf26961bc3a6e8071277a00b18e4457ce40a8b70d4bca3cd81a4",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "e90219fbf6679c06e442be3f3ded92e519432867840e51507a15b9994c77b306",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "a81bdaa1b2fc45b5320438ee5137b5e1b39622ff645a2beb991dcaf76089201f",
+        "src/apixly_jev_harness/callbacks.py": "63337e54b1aa41e7b17585c4ef84723f4fd3bfd1a467de12123c691f246578b8",
+        "src/apixly_jev_harness/task_cli.py": "2d3a26ef7baa5bf1345ebd47307edb5cc1953e9868d293a5b980ca73bb01139d",
+        "src/apixly_jev_harness/workspace.py": "91358e0e2535594a451ad1c075be5d97bb6090a0331c0cd6026ef78885177627",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-efficiency-medium-20261012/medium-0-named",
+      "track": "execution_after_preparation",
+      "objective": "efficient",
+      "record_contract": "schema_markers",
+      "actual_route": "jev",
+      "independently_verified": false,
+      "primary_protocol_qualified": false,
+      "qualified_substantive_delegation": false,
+      "steps": 1,
+      "whole_operation_seconds": 49.372910374979256,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 103420,
+          "cached_input_tokens": 74880,
+          "output_tokens": 744,
+          "reasoning_output_tokens": 351
+        },
+        "reason": "unexpected_item_activity",
+        "unexpected_item_count": 2
+      },
+      "jev": {
+        "requests": 2,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 4321,
+          "output_tokens": 203
+        },
+        "resolved_models": [
+          "jev-1.13.0"
+        ],
+        "max_context_bytes": 8771
+      },
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "8cc6c33a3e4cb519eef70fdc4983c49b17d5e54324b2f5c202cfe2a4da614f02",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "6b4e1eff323afa67b9dcd0e24901c2b57cf3555f0515a5355fd04ba9590293af",
+        "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+        "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+        "src/apixly_jev_harness/workspace.py": "1fbe8029413afde9fbceac730f000bb68d0370249a261eca0abbd658e62ac1ca",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-handoff-pilot-20261012/files-1-choice",
+      "track": "prepared_script_execution",
+      "objective": "neutral",
+      "record_contract": "schema_markers",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": true,
+      "qualified_substantive_delegation": false,
+      "steps": 8,
+      "whole_operation_seconds": 57.37146833297447,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 312238,
+          "cached_input_tokens": 277760,
+          "output_tokens": 1165,
+          "reasoning_output_tokens": 43
+        },
+        "reason": null,
+        "unexpected_item_count": 0
+      },
+      "jev": null,
+      "source_sha256": null
+    },
+    {
+      "trial": "adoption-interface-medium-20261012/medium-0-legacy",
+      "track": "execution_after_preparation",
+      "objective": "neutral",
+      "record_contract": "schema_markers",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": false,
+      "qualified_substantive_delegation": false,
+      "steps": 17,
+      "whole_operation_seconds": 117.52966387500055,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 624088,
+          "cached_input_tokens": 587392,
+          "output_tokens": 2543,
+          "reasoning_output_tokens": 317
+        },
+        "reason": "unexpected_item_activity",
+        "unexpected_item_count": 4
+      },
+      "jev": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "04f3bf168102ea7ad379703b8835c05f3d9189f15170a2ee6f1472d9e47fb298",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "bdeaabf000bf6e051dd3c349919642d46d6d8e6ee8d540311c5203bf2f807d51",
+        "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+        "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+        "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-interface-medium-20261012/medium-0-task",
+      "track": "execution_after_preparation",
+      "objective": "neutral",
+      "record_contract": "schema_markers",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": true,
+      "qualified_substantive_delegation": false,
+      "steps": 11,
+      "whole_operation_seconds": 91.84980487500434,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 502425,
+          "cached_input_tokens": 463488,
+          "output_tokens": 1742,
+          "reasoning_output_tokens": 283
+        },
+        "reason": null,
+        "unexpected_item_count": 0
+      },
+      "jev": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "04f3bf168102ea7ad379703b8835c05f3d9189f15170a2ee6f1472d9e47fb298",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "bdeaabf000bf6e051dd3c349919642d46d6d8e6ee8d540311c5203bf2f807d51",
+        "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+        "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+        "src/apixly_jev_harness/workspace.py": "6def314642b030a2179ed6d4cd888c09a776a82247731bc8adbd944781f1b93f",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-named-medium-20261012/medium-1-named",
+      "track": "execution_after_preparation",
+      "objective": "neutral",
+      "record_contract": "schema_markers",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": true,
+      "qualified_substantive_delegation": false,
+      "steps": 18,
+      "whole_operation_seconds": 116.7805684999912,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 766098,
+          "cached_input_tokens": 694784,
+          "output_tokens": 2456,
+          "reasoning_output_tokens": 311
+        },
+        "reason": null,
+        "unexpected_item_count": 0
+      },
+      "jev": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "8cc6c33a3e4cb519eef70fdc4983c49b17d5e54324b2f5c202cfe2a4da614f02",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "b77d248ba87ca9dece8243290a21df3ba7907906d5be0b8f77cef5a1b4b31cae",
+        "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+        "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+        "src/apixly_jev_harness/workspace.py": "1fbe8029413afde9fbceac730f000bb68d0370249a261eca0abbd658e62ac1ca",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "adoption-prepared-medium-20261012/medium-1-task",
+      "track": "execution_after_preparation",
+      "objective": "neutral",
+      "record_contract": "schema_markers",
+      "actual_route": "direct",
+      "independently_verified": true,
+      "primary_protocol_qualified": true,
+      "qualified_substantive_delegation": false,
+      "steps": 16,
+      "whole_operation_seconds": 121.794139790989,
+      "primary": {
+        "model_requested": "gpt-6.1-sol",
+        "model_resolved": null,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 677910,
+          "cached_input_tokens": 608000,
+          "output_tokens": 2554,
+          "reasoning_output_tokens": 291
+        },
+        "reason": null,
+        "unexpected_item_count": 0
+      },
+      "jev": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "8cc6c33a3e4cb519eef70fdc4983c49b17d5e54324b2f5c202cfe2a4da614f02",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "c41c7e3a9b4c994ac4a59304fd54b8b6e96e51fd9d7890d67bd754cf65c952d0",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "bdeaabf000bf6e051dd3c349919642d46d6d8e6ee8d540311c5203bf2f807d51",
+        "src/apixly_jev_harness/callbacks.py": "e14fa70328634bf3eae87c027d9efc33bfde3a3caebe77b388537335c7250298",
+        "src/apixly_jev_harness/task_cli.py": "6520d8d380937d838556059ab7f17a76f84d4f99955f20f5459911236764f5d6",
+        "src/apixly_jev_harness/workspace.py": "1fbe8029413afde9fbceac730f000bb68d0370249a261eca0abbd658e62ac1ca",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    }
+  ],
+  "functionality_trials": [
+    {
+      "trial": "compact-categories-jev-functionality-20261012",
+      "track": "explicit_delegation_functionality_not_adoption",
+      "status": "needs_review",
+      "steps": 7,
+      "reason": "unresolved_parameter:label",
+      "diagnostic": {
+        "stage": "parameter_selection",
+        "tool_id": "record_evidence",
+        "parameter": "label",
+        "reason_codes": [
+          "below_min_top_probability",
+          "below_min_margin"
+        ],
+        "automatic_retry": false
+      },
+      "whole_operation_seconds": 7.427038291003555,
+      "loop_elapsed_seconds": 7.424353166017681,
+      "independently_verified": false,
+      "jev": {
+        "requests": 15,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 66862,
+          "output_tokens": 1335
+        },
+        "resolved_models": [
+          "jev-1.13.0"
+        ],
+        "max_context_bytes": 12162
+      },
+      "recording_error": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "64c43286d62750fc1185e0aeb709c7c51e2a55f965a0c92823032beb28dad246",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "e90219fbf6679c06e442be3f3ded92e519432867840e51507a15b9994c77b306",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "a81bdaa1b2fc45b5320438ee5137b5e1b39622ff645a2beb991dcaf76089201f",
+        "src/apixly_jev_harness/callbacks.py": "63337e54b1aa41e7b17585c4ef84723f4fd3bfd1a467de12123c691f246578b8",
+        "src/apixly_jev_harness/task_cli.py": "2d3a26ef7baa5bf1345ebd47307edb5cc1953e9868d293a5b980ca73bb01139d",
+        "src/apixly_jev_harness/workspace.py": "91358e0e2535594a451ad1c075be5d97bb6090a0331c0cd6026ef78885177627",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "compact-jev-functionality-20261012",
+      "track": "explicit_delegation_functionality_not_adoption",
+      "status": "needs_review",
+      "steps": 7,
+      "reason": null,
+      "diagnostic": {
+        "automatic_retry": false,
+        "reason_codes": [
+          "request_needs_narrowing"
+        ],
+        "stage": "tool_selection"
+      },
+      "whole_operation_seconds": null,
+      "loop_elapsed_seconds": 5.6450195829966106,
+      "independently_verified": false,
+      "jev": {
+        "requests": 13,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 53736,
+          "output_tokens": 1157
+        },
+        "resolved_models": [
+          "jev-1.13.0"
+        ],
+        "max_context_bytes": 8965
+      },
+      "recording_error": "result exporter used relative source path with absolute relative_to; terminal and known usage recovered from journal; no paid retry",
+      "source_sha256": null
+    },
+    {
+      "trial": "compact-staged-jev-functionality-20261012",
+      "track": "explicit_delegation_functionality_not_adoption",
+      "status": "needs_review",
+      "steps": 7,
+      "reason": "unresolved_parameter:label",
+      "diagnostic": {
+        "stage": "parameter_selection",
+        "tool_id": "record_evidence",
+        "parameter": "label",
+        "reason_codes": [
+          "model_review"
+        ],
+        "automatic_retry": false
+      },
+      "whole_operation_seconds": 5.589138125011232,
+      "loop_elapsed_seconds": 5.586084208014654,
+      "independently_verified": false,
+      "jev": {
+        "requests": 15,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 65844,
+          "output_tokens": 1336
+        },
+        "resolved_models": [
+          "jev-1.13.0"
+        ],
+        "max_context_bytes": 11925
+      },
+      "recording_error": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "3b7e100223c0965e71a275c41d22b7fb4e03d306c3ef64e0602cdc1daa0e5d3c",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "e90219fbf6679c06e442be3f3ded92e519432867840e51507a15b9994c77b306",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "a81bdaa1b2fc45b5320438ee5137b5e1b39622ff645a2beb991dcaf76089201f",
+        "src/apixly_jev_harness/callbacks.py": "63337e54b1aa41e7b17585c4ef84723f4fd3bfd1a467de12123c691f246578b8",
+        "src/apixly_jev_harness/task_cli.py": "2d3a26ef7baa5bf1345ebd47307edb5cc1953e9868d293a5b980ca73bb01139d",
+        "src/apixly_jev_harness/workspace.py": "91358e0e2535594a451ad1c075be5d97bb6090a0331c0cd6026ef78885177627",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b"
+      }
+    },
+    {
+      "trial": "current-contract-jev-functionality-20261012",
+      "track": "explicit_delegation_functionality_not_adoption",
+      "status": "done",
+      "steps": 10,
+      "reason": null,
+      "diagnostic": null,
+      "whole_operation_seconds": 6.142063457984477,
+      "loop_elapsed_seconds": 6.139157333003823,
+      "independently_verified": true,
+      "jev": {
+        "requests": 16,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 76237,
+          "output_tokens": 1513
+        },
+        "resolved_models": [
+          "jev-1.13.0"
+        ],
+        "max_context_bytes": 13869
+      },
+      "recording_error": null,
+      "source_sha256": {
+        "src/apixly_jev_harness/task.py": "19d468cc07c0706c8e037e1e1bab368ffea9320dc9f79d82a4a861c6194dff17",
+        "src/apixly_jev_harness/web_tools.py": "c7d5a39c469581e1029ee9fcccc28880665890d9df0d94bf81d42e37bd552774",
+        "src/apixly_jev_harness/backend.py": "169d8e301cb98163c89880c7b090e3824610109da189be35e1e76da33b88c054",
+        "src/apixly_jev_harness/toolkit.py": "9c8caff0ae9f903ff85ed8ce0faf48aee3d375835998339a83219181be870e38",
+        "src/apixly_jev_harness/surfaces.py": "65ce73edfe9f6a3c16de373b3a1b85671c3d2cc661f3a50dd906a15721c7d8f1",
+        "src/apixly_jev_harness/diagnostics.py": "9e8e98dc4b103c1a6687dbd31bd2dd01739309c7e4021b9ecb0f28b6976a0f71",
+        "src/apixly_jev_harness/__init__.py": "f7591f09a2ffa547b7f5d1ccbcdef592fb0aa5ea73adb02a66567b9472801d5a",
+        "src/apixly_jev_harness/engine.py": "e90219fbf6679c06e442be3f3ded92e519432867840e51507a15b9994c77b306",
+        "src/apixly_jev_harness/context.py": "b9d76abb33f8a1ebe8731fe6d5fe6811445132a6046448fc0e2cc871507d50ea",
+        "src/apixly_jev_harness/cli.py": "92f237431f3fbf59521075babec384a504c2bb83a942cc1ffa30f7d1cb58a38e",
+        "src/apixly_jev_harness/mcp.py": "a81bdaa1b2fc45b5320438ee5137b5e1b39622ff645a2beb991dcaf76089201f",
+        "src/apixly_jev_harness/callbacks.py": "63337e54b1aa41e7b17585c4ef84723f4fd3bfd1a467de12123c691f246578b8",
+        "src/apixly_jev_harness/task_cli.py": "2d3a26ef7baa5bf1345ebd47307edb5cc1953e9868d293a5b980ca73bb01139d",
+        "src/apixly_jev_harness/workspace.py": "91358e0e2535594a451ad1c075be5d97bb6090a0331c0cd6026ef78885177627",
+        "src/apixly_jev_harness/verify.py": "074e9f2a80ca41bab426f10f648558968dc24f30ea7dbbddfbd825e6aba8a9ee",
+        "src/apixly_jev_harness/evidence.py": "236a651f79c20663aa3690586ed1fcab422951cf1dfdae8dce1a75b1679b4800",
+        "src/apixly_jev_harness/output.py": "94be8b482e4279e29aca128a35caf54744dbe8db8188f14905488f8ddde93a0b",
+        "benchmarks/repository_task.py": "5b92d29b1f542e6145cd6fd8640332cff6f8280008dbf1815061c568156a2690"
+      }
+    }
+  ],
+  "offline_context_ab": {
+    "legacy_projection": {
+      "planning_seconds": 0.00029120800900273025,
+      "request_planned": true,
+      "deferred_statuses": [],
+      "context_bytes": 12507,
+      "candidate_bytes": 9384,
+      "actual_model_usage": {
+        "requests": 0,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    "compact_projection": {
+      "planning_seconds": 0.00015308300498872995,
+      "request_planned": true,
+      "deferred_statuses": [],
+      "context_bytes": 8026,
+      "candidate_bytes": 2713,
+      "actual_model_usage": {
+        "requests": 0,
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 0,
+          "output_tokens": 0
+        }
+      }
+    },
+    "mode": "offline_request_planning_ab",
+    "comparison_scope": "same runtime, old observation/candidate projection reconstructed vs compact projection",
+    "source_files_captured": 6,
+    "originals_and_sha256_preserved": true,
+    "full_parameter_domain_count": 78,
+    "preview_domain_count": 3,
+    "source_text_returned_publicly": false,
+    "model_accuracy_measured": false,
+    "task_latency_measured": false,
+    "adoption_measured": false
+  },
+  "conclusion": "One protocol-qualified, independently verified substantive delegation under a generic client-interaction efficiency objective. Neutral prepared choices remain direct. No unconditional preference or AI authoring claim.",
+  "negative_results": "Capacity-stop and label-review failures are retained. Marker-only actor validation did not qualify current-version evidence; caller source checks were strengthened outside the core. Extra CLI resource-discovery activity remains unqualified under the strict prepared helper. One exporter failed after execution; its known terminal/usage were recovered from the journal and whole-operation timing remains unknown.",
+  "pricing": "unknown; no tariff, invoice or savings conversion",
+  "model_identity": "Jev resolved identities are recorded; requested primary CLI identity is not a resolved provider identity",
+  "reproduction": "opt-in benchmarks/adoption.py; synthetic benchmarks/adoption_cases.py, caller benchmarks/repository_task.py; offline benchmarks/handoff_context.py; source hashes per trial",
+  "skills_force_route": false,
+  "source_text_and_private_paths_exported": false
+}

@@ -1020,3 +1020,7 @@ python benchmarks/action_identity.py --output local-results/action-identity-ab.j
 No paid model matrix, browser operation, locked-desktop retry or URL submission was
 repeated. Historical helper, snapshot, budget, transport and GEO evidence retain their
 scope; native desktop acceptance remains unverified.
+
+- [AI route choice and compact handoff — 2026-10-12](adoption-2026-10-12.md): conditional free delegation, current-source checks, all review/capacity failures, and offline context projection A/B. Prepared scripts; authoring excluded.
+
+- [Cold task authoring and native operation — 2026-10-12](cold-authoring-2026-10-12.md): isolated native/optional comparison, factual source verification, retained format-contract correction, full primary usage and no task-script adoption.

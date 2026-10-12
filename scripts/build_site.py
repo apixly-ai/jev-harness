@@ -375,7 +375,7 @@ python -m venv .venv
 <span class="code-muted"># {t("Install the pinned version", "安装固定版本")}</span>
 {html.escape(install)}
 
-jev-harness <b>spec</b>
+jev-harness <b>quickstart</b>
 jev-harness <b>init-task</b> task.py --toolkit workspace
 jev-harness <b>check-task</b> task.py
 <span class="code-muted"># {t("Configure TYPESAFE_API_KEY in your environment", "在环境中配置 TYPESAFE_API_KEY")}</span>

@@ -206,10 +206,26 @@ def test_machine_spec_exposes_toolkits_factories_and_single_path_mcp(capsys):
     assert spec["toolkits"]["built_in"] == list(TOOLKITS)
     assert spec["toolkits"]["observation"] == "stable_compact_source_references"
     assert spec["evidence"]["raw_text_read_limit"] == 1200
-    assert spec["mcp"]["tools"] == ["observe", "arguments", "operate", "delegate"]
+    assert spec["mcp"]["tools"] == ["observe", "arguments", "operate", "run_task", "read_report"]
+    assert "execution-name" in spec["commands"]["mcp"]["optional"]
+    assert spec["mcp"]["report_read"]["records_per_page"] == 4
     assert spec["mcp"]["route_selection"] == "before_first_operation"
     assert spec["mcp"]["switch_after_operations"] is False
     assert spec["mcp"]["automatic_delegation_claim"] is False
+
+
+def test_quickstart_is_compact_offline_interface_without_route_preference(capsys, monkeypatch):
+    monkeypatch.setattr(task_cli.AgentLoop, "run", lambda *a, **k: pytest.fail("inference"))
+    assert task_cli.main(["quickstart"]) == 0
+    output = capsys.readouterr().out
+    packet = json.loads(output)
+    assert len(output.encode()) < 4000
+    assert packet["model_calls"] == 0
+    assert packet["script"]["factory"] == "build(inputs) -> Task"
+    assert packet["tools"]["parameter_values"] == "caller_supplied_candidates"
+    assert packet["cli"]["run"].startswith("jev-harness run ")
+    assert packet["outcome"]["completion"] == "caller_independent_verifier"
+    assert "prefer" not in output.lower() and "must use" not in output.lower()
 
 
 @pytest.mark.parametrize("complete", [True, False])

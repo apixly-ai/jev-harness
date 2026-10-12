@@ -13,6 +13,7 @@ CALLBACK_ROLES = frozenset(
         "result_context",
         "choices",
         "candidates",
+        "selection_description",
         "bind",
         "context_policy",
     }
