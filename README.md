@@ -30,6 +30,24 @@ files, resources and dependent arguments can be discovered while the loop runs.
 
 [Open-goal design and priorities](docs/open-goals.md) · [Case contracts](docs/use-cases.md)
 
+## Recurring work: decide first, capture it once
+
+Before choosing a route, judge whether the work will run again on new data with the same
+criteria: daily operations, triage queues, monitor feeds, recurring reports.
+
+| Work | Capture it as |
+| --- | --- |
+| Recurring per-item judgment over many free-text records (alerts, tickets, logs, reviews) | `jev-harness init-task task.py --toolkit records`: one typed Jev question per record, batched |
+| Recurring work that exact rules handle (fixed formats, enumerable templates) | A plain script; no Jev needed |
+| One-off, small work | Do it directly |
+
+Leave the script and a short runbook (inputs, criteria, run command, verification, last
+result) in the workspace. Rerun it next time and verify the new result independently.
+In a 1,000-alert triage evaluation a Claude primary chose the records route in 10 of 11
+runs, all independently verified, at a median $0.27 and 65 s versus $0.95 and 147 s for
+reading every alert. A next-day session reused the saved script. On template text it
+wrote plain rules instead. [Report](reports/delegation-2026-10-12.md)
+
 Dynamic providers supply candidates from fresh state; dependent arguments bind in order.
 Task scripts can combine browser, source, API and trusted generation tools while reusing
 one context, loop, action-history and verification protocol. Follow the links above for

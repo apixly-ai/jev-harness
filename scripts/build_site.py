@@ -117,12 +117,12 @@ PAGES = {
         "en": (
             "docs/open-goals.md",
             "Open goals, dynamic tools and Jev delegation",
-            "Give an AI an open goal, let it write task tools, and let Jev discover the route through dynamic tool and parameter choices. Inspect independent evidence and pending acceptance plans.",
+            "Give an AI an open goal, let it write task tools, and let Jev discover the route through dynamic tool and parameter choices. Capture recurring batch judgment once and rerun it. Inspect independent evidence and pending acceptance plans.",
         ),
         "zh-CN": (
             "docs/open-goals.zh-CN.md",
             "开放目标、动态工具与 Jev 托管",
-            "给 AI 一个开放目标，让它编写任务工具，再由 Jev 通过动态工具与参数选择探索未知路径。复查独立证据与待完成的验收计划。",
+            "给 AI 一个开放目标，让它编写任务工具，再由 Jev 通过动态工具与参数选择探索未知路径。重复的批量判断沉淀一次即可重跑。复查独立证据与待完成的验收计划。",
         ),
     },
 }

@@ -22,6 +22,8 @@
 | EvidenceTask | 组合注册工具、段落读取、证据分类和独立核验的已保存报告 |
 | TaskScript(build) | 根据已校验的运行时 inputs，延迟构建一次注册任务 |
 | ToolkitSession | 用同一任务支持直接引用操作，或一次 Jev 委托 |
+| Engine().decide(records, goal=..., analysis_spec=...) | 用类型化问题批量判断大量记录；用 `init-task --toolkit records` 生成脚手架 |
+| SurfaceTask(surface, ..., allow=..., tools=...) | 对已观察控件点击/选择/填写；`allow(target)` 收窄可选控件；用 `init-task --toolkit surface` 生成脚手架 |
 
 工具包提供 name、observe() 和 install(task)。观察是简洁、稳定的投影；观察或提供
 参数不会创建新来源 capture。EvidenceTask 首次观察会执行一次声明的 prepare()；

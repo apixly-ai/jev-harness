@@ -22,6 +22,8 @@ The examples themselves do not establish general semantic quality, speed or fee 
 | `EvidenceTask` | Compose registered tools with passage reading, labeled evidence and an independently checked saved report |
 | `TaskScript(build)` | Build one registered task lazily from validated runtime inputs |
 | `ToolkitSession` | Expose the same task for direct reference-based operations or one Jev delegation |
+| `Engine().decide(records, goal=..., analysis_spec=...)` | Judge many records with typed questions in batched requests; scaffold with `init-task --toolkit records` |
+| `SurfaceTask(surface, ..., allow=..., tools=...)` | Click/select/fill over observed controls; `allow(target)` narrows offered controls; scaffold with `init-task --toolkit surface` |
 
 A toolkit has `name`, `observe()` and `install(task)`. Its observation is a compact,
 stable projection; observing or offering arguments does not create new source captures.
