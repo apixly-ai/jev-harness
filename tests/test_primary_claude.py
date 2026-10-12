@@ -145,3 +145,11 @@ def test_cli_failure_keeps_usage_incomplete(claude):
     packet, _ = run(claude, "not json", returncode=1)
     assert packet["ok"] is False and packet["reason"] == "cli_failed"
     assert packet["usage_complete"] is False and packet["automatic_retry"] is False
+
+
+def test_unconnected_evaluation_server_disqualifies_even_a_clean_answer(claude):
+    packet, _ = run(
+        claude,
+        stream(tools=["StructuredOutput"], servers=[{"name": "jev_eval", "status": "failed"}]),
+    )
+    assert packet["ok"] is False and packet["reason"] == "evaluation_server_not_connected"

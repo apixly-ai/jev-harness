@@ -95,3 +95,39 @@ def test_backend_truth_is_mirrored_on_every_save_attempt(pair):
     draft = {**state.expected()}
     state.save(draft)
     assert seen == [1, 2] and state.check_goal()["passed"] is False
+
+
+def test_serve_paths_are_absolute_for_a_foreign_working_directory(pair, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    arguments = pair.serve_arguments(
+        Path("run/native"),
+        "optional",
+        wheel=Path("w.whl"),
+        variant=0,
+        headless_config=Path("service.json"),
+        session_seconds=600,
+        credential=Path("key"),
+    )
+    for flag in ("--directory", "--wheel", "--headless-config", "--credential-file"):
+        assert Path(arguments[arguments.index(flag) + 1]).is_absolute()
+    assert Path(arguments[0]).is_absolute()
+
+
+def test_runner_stops_only_its_recorded_container(pair, monkeypatch, tmp_path):
+    import cold_authoring
+
+    write(tmp_path / "actor.json", {"container": "abc123"})
+    calls = []
+
+    def fake_run(argv, **kwargs):
+        calls.append(argv)
+        assert kwargs["stdin"] is pair.subprocess.DEVNULL
+        stdout = "abc123\n" if "ps" in argv else ""
+        return pair.subprocess.CompletedProcess(argv, 0, stdout=stdout, stderr="")
+
+    monkeypatch.setattr(pair.subprocess, "run", fake_run)
+    monkeypatch.setattr(cold_authoring, "DOCKER", {"prefix": ["docker"], "wsl_distro": None})
+    assert pair.stop_leftover_container(tmp_path)["stopped_by_runner"] is True
+    assert calls[-1] == ["docker", "stop", "--time", "1", "abc123"]
+    write(tmp_path / "actor.json", {"container": "abc; rm -rf"})
+    assert pair.stop_leftover_container(tmp_path) == {"container_recorded": False}

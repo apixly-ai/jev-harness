@@ -37,11 +37,14 @@ def _environment():
     The CLI authenticates with its own saved login; nothing from the calling agent's
     session, an API base override or the TypeSafe/Jev credentials is inherited.
     """
-    return {
+    environment = {
         key: value
         for key, value in os.environ.items()
         if not key.upper().startswith(_STRIPPED_PREFIXES)
     }
+    # The evaluation server prepares a container and an owned tab before it answers.
+    environment["MCP_TIMEOUT"] = "120000"
+    return environment
 
 
 def claude_launcher(binary="claude"):
@@ -179,6 +182,11 @@ def parse(stdout, approved_tools):
         packet["reason"] = "non_evaluation_tool_inventory"
     elif any(row["name"] != SERVER for row in packet["inventory"]["mcp_servers"]):
         packet["reason"] = "foreign_mcp_server"
+    elif not any(
+        row["name"] == SERVER and row["status"] == "connected"
+        for row in packet["inventory"]["mcp_servers"]
+    ):
+        packet["reason"] = "evaluation_server_not_connected"
     elif result.get("subtype") != "success" or result.get("is_error"):
         packet["reason"] = "failed_result:" + str(result.get("subtype"))
     elif packet["unexpected"] or packet["permission_denials"]:

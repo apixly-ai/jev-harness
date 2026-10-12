@@ -267,3 +267,93 @@ def test_surface_response_parent_replacement_cannot_write_outside_owned_ipc(brow
         assert (original / (identifier + ".json")).is_file()
     finally:
         bridge.close()
+
+
+class _Actor:
+    def __init__(self):
+        self.started = self.closed = 0
+
+    def start(self):
+        self.started += 1
+        return self
+
+    def close(self):
+        self.closed += 1
+
+
+def test_handshake_answers_before_slow_preparation_and_unknown_methods_do_not_exit(
+    browser, tmp_path
+):
+    import io
+    import threading
+    import time
+
+    release = threading.Event()
+    actor = _Actor()
+
+    class Session:
+        optional, live, directory = False, False, tmp_path
+        events = []
+
+        def __init__(self):
+            self.actor = actor
+            self.broker = broker_for(browser)
+
+    def prepare():
+        release.wait(5)
+        session = Session()
+        session.actor.start()
+        return session
+
+    class Recorder(io.StringIO):
+        def __init__(self):
+            super().__init__()
+            self.times = []
+
+        def flush(self):
+            self.times.append(time.monotonic())
+
+    pending = browser.PendingSession(tmp_path, optional=False, live=False, prepare=prepare)
+    requests = [
+        {"jsonrpc": "2.0", "id": 1, "method": "server/discover"},
+        {"jsonrpc": "2.0", "id": 2, "method": "initialize", "params": {}},
+        {"jsonrpc": "2.0", "id": 3, "method": "tools/list"},
+        {"jsonrpc": "2.0", "id": 4, "method": "tools/call", "params": {"name": "check_goal"}},
+    ]
+    released = {}
+
+    def open_gate():
+        released["at"] = time.monotonic()
+        release.set()
+
+    threading.Timer(0.5, open_gate).start()
+    output = Recorder()
+    stream = io.StringIO("".join(json.dumps(r) + "\n" for r in requests))
+    browser.serve(pending, stream, output)
+    rows = [json.loads(line) for line in output.getvalue().splitlines()]
+    assert rows[0]["error"]["code"] == -32601
+    assert rows[1]["result"]["serverInfo"]["name"] == "browser-cold-eval"
+    assert [t["name"] for t in rows[2]["result"]["tools"]] == [
+        t["name"] for t in browser.tools(False)
+    ]
+    assert rows[3]["result"]["structuredContent"]["passed"] is False
+    assert all(moment < released["at"] for moment in output.times[:3])
+    assert output.times[3] >= released["at"]
+    # A pending session leaves cleanup ordering (evidence first) to its caller.
+    assert actor.started == 1 and actor.closed == 0
+
+
+def test_failed_preparation_is_returned_as_a_tool_error_without_retry(browser, tmp_path):
+    import io
+
+    def prepare():
+        raise RuntimeError("camofox_runtime_not_confirmed:browser_process_not_headless")
+
+    pending = browser.PendingSession(tmp_path, optional=False, live=False, prepare=prepare)
+    call = {"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "observe"}}
+    output = io.StringIO()
+    browser.serve(pending, io.StringIO(json.dumps(call) + "\n"), output)
+    result = json.loads(output.getvalue())["result"]
+    assert result["isError"] is True
+    body = json.loads(result["content"][0]["text"])
+    assert "session_preparation_failed" in body["error"] and body["automatic_retry"] is False

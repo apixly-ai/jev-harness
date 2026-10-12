@@ -14,12 +14,14 @@ import hashlib
 import json
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
 from _private_files import secure_fs as _secure_fs
 from browser_cold import actor_prompt, case_contract, tools
 from cold_authoring import ROOT, _write_json
+from primary_claude import _environment as primary_environment
 
 SERVER = Path(__file__).resolve().parent / "browser_cold.py"
 OUTPUT_SCHEMA = {
@@ -68,26 +70,27 @@ def serve_arguments(
     credential,
     docker_wsl_distro=None,
 ):
+    # The CLI starts MCP servers in its own working directory: every path is absolute.
     arguments = [
         str(SERVER),
         "serve",
         "--directory",
-        str(directory),
+        str(Path(directory).absolute()),
         "--arm",
         arm,
         "--wheel",
-        str(wheel),
+        str(Path(wheel).absolute()),
         "--variant",
         str(variant),
         "--session-seconds",
         str(session_seconds),
     ]
     if headless_config is not None:
-        arguments += ["--headless-config", str(headless_config)]
+        arguments += ["--headless-config", str(Path(headless_config).absolute())]
     if docker_wsl_distro is not None:
         arguments += ["--docker-wsl-distro", docker_wsl_distro]
     if arm == "optional" and credential is not None:
-        arguments += ["--live", "--credential-file", str(credential)]
+        arguments += ["--live", "--credential-file", str(Path(credential).absolute())]
     return arguments
 
 
@@ -162,6 +165,32 @@ def close_leftover_owned_tab(directory, base=None):
     return {"owned_tab_recorded": True, "left_open": True, "closed_by_runner": True}
 
 
+def stop_leftover_container(directory, docker_wsl_distro=None):
+    """Stop the arm's own recorded container only if a terminated serve left it running."""
+    from cold_authoring import DOCKER, configure_docker
+
+    recorded = (_read(Path(directory) / "actor.json") or {}).get("container")
+    if type(recorded) is not str or not recorded.isalnum():
+        return {"container_recorded": False}
+    configure_docker(docker_wsl_distro)
+    listed = subprocess.run(
+        [*DOCKER["prefix"], "ps", "-q", "--no-trunc", "--filter", "id=" + recorded],
+        stdin=subprocess.DEVNULL,
+        capture_output=True,
+        text=True,
+        timeout=60,
+    ).stdout
+    if recorded not in listed:
+        return {"container_recorded": True, "left_running": False}
+    subprocess.run(
+        [*DOCKER["prefix"], "stop", "--time", "1", recorded],
+        stdin=subprocess.DEVNULL,
+        capture_output=True,
+        timeout=60,
+    )
+    return {"container_recorded": True, "left_running": True, "stopped_by_runner": True}
+
+
 def rehearse(
     output, *, wheel=None, headless_config=None, session_seconds=600, docker_wsl_distro=None
 ):
@@ -170,6 +199,7 @@ def rehearse(
     _secure_fs.make_private_directory(output, parents=True)
     wheel = Path(wheel) if wheel else build_wheel(output / "wheel")[0]
     directory = output / "native"
+    foreign = tempfile.mkdtemp(prefix="jev-rehearsal-cwd-")
     started = time.perf_counter()
     process = subprocess.Popen(
         [
@@ -188,6 +218,9 @@ def rehearse(
         stdin=subprocess.PIPE,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
+        # Same launch conditions as the primary CLI: foreign cwd, stripped environment.
+        cwd=foreign,
+        env=primary_environment(),
     )
     requests = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
@@ -281,9 +314,14 @@ def run_arm(
         tab_cleanup = close_leftover_owned_tab(directory)
     except Exception as error:
         tab_cleanup = {"error_type": type(error).__name__}
+    try:
+        container_cleanup = stop_leftover_container(directory, docker_wsl_distro)
+    except Exception as error:
+        container_cleanup = {"error_type": type(error).__name__}
     packet = {
         "arm": arm,
         "tab_cleanup": tab_cleanup,
+        "container_cleanup": container_cleanup,
         "variant": variant,
         "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
         "route_preference_in_prompt": False,

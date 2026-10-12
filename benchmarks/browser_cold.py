@@ -744,94 +744,160 @@ class BrowserColdSession:
         self.surface_bridge.close()
 
 
+class PendingSession:
+    """Answer the MCP handshake at once; prepare the browser session in the background.
+
+    Preparing the container, owned tab and runtime evidence takes seconds. Clients probe
+    and initialize sooner, so only tools/call waits. A failed preparation is returned
+    as a tool error; nothing is retried.
+    """
+
+    def __init__(self, directory, *, optional, live, prepare, timeout_seconds=240):
+        self.directory, self.optional, self.live = Path(directory), optional, live
+        self.session, self.error, self.timeout_seconds = None, None, timeout_seconds
+        # The caller orders cleanup: durable evidence first, then tab and container.
+        self.owns_cleanup = False
+        self._ready = threading.Event()
+        self._thread = threading.Thread(target=self._prepare, args=(prepare,), daemon=True)
+        self._thread.start()
+
+    def _prepare(self, prepare):
+        try:
+            self.session = prepare()
+        except BaseException as error:
+            self.error = error
+        finally:
+            self._ready.set()
+
+    def wait(self):
+        if not self._ready.wait(self.timeout_seconds):
+            raise RuntimeError("session_preparation_timeout")
+        if self.error is not None:
+            raise RuntimeError(
+                "session_preparation_failed:"
+                + type(self.error).__name__
+                + ":"
+                + str(self.error)[:120]
+            )
+        return self.session
+
+    def settle(self, timeout_seconds=None):
+        """Wait for preparation to finish (never abandon a half-opened tab)."""
+        self._ready.wait(self.timeout_seconds if timeout_seconds is None else timeout_seconds)
+        return self.session
+
+
+class _ReadySession(PendingSession):
+    def __init__(self, session):
+        self.directory, self.optional, self.live = session.directory, session.optional, session.live
+        self.session, self.error, self.timeout_seconds = session, None, 0
+        self.owns_cleanup = True
+        self._ready = threading.Event()
+        session.actor.start()
+        self._ready.set()
+
+
+def _tool_error(error):
+    return {
+        "isError": True,
+        "content": [
+            {
+                "type": "text",
+                "text": json.dumps(
+                    {
+                        "error_type": type(error).__name__,
+                        "error": str(error)[:160],
+                        "automatic_retry": False,
+                    }
+                ),
+            }
+        ],
+    }
+
+
+def _call(session, params):
+    name, args = params["name"], params.get("arguments", {})
+    if name == "shell":
+        packet = session.actor.shell(**args)
+        session.events.append(
+            {
+                "tool": "shell",
+                "command_sha256": _sha(args["command"].encode()),
+                "seconds": packet["seconds"],
+            }
+        )
+    elif name == "run_script":
+        packet = session.run_script(**args)
+    elif name in SurfaceBridge.METHODS:
+        if not set(args) <= set(SurfaceBridge.METHODS[name]):
+            raise ValueError("browser_arguments_not_allowed")
+        packet = getattr(session.broker, name)(**args)
+        if name == "act":
+            session.broker.settle(args["ticket"], args["action_id"])
+            packet = {
+                **packet,
+                "observation": session.broker.observe(),
+                "check": session.broker.check_goal(),
+            }
+        session.events.append({"tool": name, "effects": session.broker.effects})
+    else:
+        raise ValueError("browser_tool_not_registered")
+    _replace_json(
+        session.directory / "session-progress.json",
+        {
+            "events": session.events,
+            "effects": session.broker.effects,
+            "broker_events": session.broker.events,
+            "uncertain": session.broker.uncertain,
+        },
+    )
+    return {
+        "content": [{"type": "text", "text": json.dumps(packet, ensure_ascii=False)}],
+        "structuredContent": packet if type(packet) is dict else {"fresh": packet},
+    }
+
+
 def serve(session, source=None, destination=None):
+    pending = session if isinstance(session, PendingSession) else _ReadySession(session)
     source = source or utf8_stream(sys.stdin)
     destination = destination or utf8_stream(sys.stdout)
-    with session.actor:
+    try:
         for line in source:
             if len(line) > 100000:
                 raise ValueError("actor_rpc_too_large")
             request = json.loads(line)
             if "id" not in request:
                 continue
-            method, params, result = request.get("method"), request.get("params", {}), {}
+            method, params = request.get("method"), request.get("params") or {}
+            response = {"jsonrpc": "2.0", "id": request["id"]}
             if method == "initialize":
-                result = {
+                response["result"] = {
                     "protocolVersion": params.get("protocolVersion", "2024-11-05"),
                     "capabilities": {"tools": {}},
                     "serverInfo": {"name": "browser-cold-eval", "version": "browser-cold-v1"},
                 }
             elif method == "tools/list":
-                result = {"tools": tools(session.optional, live=session.live)}
+                response["result"] = {"tools": tools(pending.optional, live=pending.live)}
+            elif method == "ping":
+                response["result"] = {}
             elif method == "tools/call":
                 try:
-                    name, args = params["name"], params.get("arguments", {})
-                    if name == "shell":
-                        packet = session.actor.shell(**args)
-                        session.events.append(
-                            {
-                                "tool": "shell",
-                                "command_sha256": _sha(args["command"].encode()),
-                                "seconds": packet["seconds"],
-                            }
-                        )
-                    elif name == "run_script":
-                        packet = session.run_script(**args)
-                    elif name in SurfaceBridge.METHODS:
-                        if not set(args) <= set(SurfaceBridge.METHODS[name]):
-                            raise ValueError("browser_arguments_not_allowed")
-                        packet = getattr(session.broker, name)(**args)
-                        if name == "act":
-                            session.broker.settle(args["ticket"], args["action_id"])
-                            packet = {
-                                **packet,
-                                "observation": session.broker.observe(),
-                                "check": session.broker.check_goal(),
-                            }
-                        session.events.append({"tool": name, "effects": session.broker.effects})
-                    else:
-                        raise ValueError("browser_tool_not_registered")
-                    _replace_json(
-                        session.directory / "session-progress.json",
-                        {
-                            "events": session.events,
-                            "effects": session.broker.effects,
-                            "broker_events": session.broker.events,
-                            "uncertain": session.broker.uncertain,
-                        },
-                    )
-                    result = {
-                        "content": [
-                            {"type": "text", "text": json.dumps(packet, ensure_ascii=False)}
-                        ],
-                        "structuredContent": packet if type(packet) is dict else {"fresh": packet},
-                    }
+                    response["result"] = _call(pending.wait(), params)
                 except Exception as error:
-                    result = {
-                        "isError": True,
-                        "content": [
-                            {
-                                "type": "text",
-                                "text": json.dumps(
-                                    {
-                                        "error_type": type(error).__name__,
-                                        "error": str(error)[:160],
-                                        "automatic_retry": False,
-                                    }
-                                ),
-                            }
-                        ],
-                    }
+                    response["result"] = _tool_error(error)
             else:
-                raise ValueError("unsupported_browser_rpc")
-            response = {"jsonrpc": "2.0", "id": request["id"], "result": result}
-            fd = _secure_fs.open_private_file(session.directory / "rpc.jsonl", "a")
+                response["error"] = {"code": -32601, "message": "Method not found"}
+            fd = _secure_fs.open_private_file(pending.directory / "rpc.jsonl", "a")
             with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as audit:
                 audit.write(
                     json.dumps({"method": method, "response": response}, ensure_ascii=False) + "\n"
                 )
             destination.write(json.dumps(response, ensure_ascii=False) + "\n")
             destination.flush()
+    finally:
+        prepared = pending.settle()
+        if prepared is not None and pending.owns_cleanup:
+            prepared.actor.close()
 
 
 CAMOFOX_BASE = os.environ.get("JEV_CAMOFOX_URL", "http://127.0.0.1:9378")
@@ -1198,27 +1264,32 @@ def main(argv=None):
     _secure_fs.make_private_directory(args.directory, parents=True)
     case = case_contract(args.variant)
     _write_json(args.directory / "case-contract.json", case)
-    health = check_camofox(headless_config=args.headless_config)
-    _write_json(args.directory / "browser-health.json", health)
-    runtime = args.directory / "public-runtime"
-    _write_json(args.directory / "runtime-provenance.json", build_runtime(runtime, args.wheel))
-    page, session = None, None
+    held = {}
     with DraftServer(case) as fixture:
         fixture.state.on_change = lambda: _replace_json(
             args.directory / "backend-live.json",
             {"backend": fixture.state.snapshot(), "check": fixture.state.check_goal()},
         )
-        try:
-            ready = await_session_ready(CAMOFOX_BASE, "camofox-general")
-            page = CamofoxPage("general", url=fixture.url, base=CAMOFOX_BASE)
-            _write_json(args.directory / "session-ready.json", ready)
+
+        def prepare():
             _write_json(
-                args.directory / "browser-running-health.json",
-                check_camofox(headless_config=args.headless_config, require_running=True),
+                args.directory / "browser-health.json",
+                check_camofox(headless_config=args.headless_config),
             )
+            runtime = args.directory / "public-runtime"
+            _write_json(
+                args.directory / "runtime-provenance.json", build_runtime(runtime, args.wheel)
+            )
+            ready = await_session_ready(CAMOFOX_BASE, "camofox-general")
+            held["page"] = page = CamofoxPage("general", url=fixture.url, base=CAMOFOX_BASE)
+            _write_json(args.directory / "session-ready.json", ready)
             _write_json(
                 args.directory / "owned-tab.json",
                 {"session": "general", "tab": page.tab, "owned": page.owned},
+            )
+            _write_json(
+                args.directory / "browser-running-health.json",
+                check_camofox(headless_config=args.headless_config, require_running=True),
             )
             broker = BrowserBroker(
                 page,
@@ -1227,7 +1298,7 @@ def main(argv=None):
                 check_goal=fixture.state.check_goal,
                 timeout_seconds=args.session_seconds,
             )
-            session = BrowserColdSession(
+            held["session"] = session = BrowserColdSession(
                 args.directory,
                 case,
                 runtime,
@@ -1235,10 +1306,24 @@ def main(argv=None):
                 optional=args.arm == "optional",
                 credential_file=args.credential_file,
             )
-            serve(session)
+            session.actor.start()
+            # Recorded so a runner can stop exactly this container if serve is terminated.
+            _write_json(args.directory / "actor.json", {"container": session.actor.identifier})
+            return session
+
+        pending = PendingSession(
+            args.directory,
+            optional=args.arm == "optional",
+            live=args.credential_file is not None,
+            prepare=prepare,
+        )
+        try:
+            serve(pending)
         finally:
+            pending.settle()
+            session = held.get("session")
             if session is not None:
-                session.close()
+                broker = session.broker
                 _write_json(
                     args.directory / "session-events.json",
                     {
@@ -1254,12 +1339,28 @@ def main(argv=None):
                         "actual_usage_location": "script-execution.json bridge.actual_model_usage"
                         if session.executions
                         else None,
+                        "preparation_error": None
+                        if pending.error is None
+                        else type(pending.error).__name__,
                         "scope": "real_browser_native_control_via_mcp_and_isolated_container_shell",
                     },
                 )
+            elif pending.error is not None:
+                _write_json(
+                    args.directory / "preparation-failure.json",
+                    {
+                        "error_type": type(pending.error).__name__,
+                        "error": str(pending.error)[:300],
+                        "automatic_retry": False,
+                    },
+                )
             _write_json(args.directory / "backend-saved.json", fixture.state.snapshot())
+            page = held.get("page")
             if page is not None and page.owned:
                 page.close()
+            if session is not None:
+                session.actor.close()
+                session.close()
     return 0
 
 
