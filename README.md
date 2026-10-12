@@ -35,6 +35,18 @@ Task scripts can combine browser, source, API and trusted generation tools while
 one context, loop, action-history and verification protocol. Follow the links above for
 case contracts and acceptance records.
 
+**Same safety on POSIX and Windows hosts.** Workspace reads and evaluation IPC open files
+relative to an already-open directory descriptor or handle and never follow links;
+Windows rejects every reparse point (symlinks, junctions, container-made links that look
+like regular files). Private reports and journals are 0600 on POSIX and protected
+owner-only DACLs on Windows. MCP stdio is UTF-8 on every platform. Platforms without
+these primitives fail closed rather than falling back to path strings.
+
+**Browser runs are proven, not configured.** Before a browser task counts, the named
+session's context must be active, its browser processes must carry `-headless` with no
+visible window, and a pointer probe in the same session must show humanized movement.
+Service configuration is recorded but never accepted as that proof.
+
 ## Historical integration evidence
 
 [Interactive homepage & video](https://apixly-ai.github.io/jev-harness/#browser-evidence) · [Download MP4 replay](web/media/browser-demo.mp4)
@@ -304,7 +316,10 @@ intent, so these reports cannot prove full-task, browser or desktop completion. 
 reports for measured outcomes and usage; no general quality or cost benefit is established.
 
 A live Jev/Camofox synthetic form reached the independently checked final state in
-four tool executions. Early attempts requiring review are retained. Desktop live
+four tool executions. Early attempts requiring review are retained. In a 2026-10-12
+browser cold start, a Claude primary chose direct operation both without and with an
+optional Jev route (13 effects each, both independently verified; Jev usage zero), so
+default preference is not established. [Report](reports/browser-cold-2026-10-12.md). Desktop live
 acceptance is **not yet proven**: this host is locked; offline adapter tests do not
 replace native acceptance. [Exact evidence and limits](reports/README.md).
 

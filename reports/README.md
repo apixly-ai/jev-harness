@@ -2,6 +2,29 @@
 
 [简体中文](README.zh-CN.md)
 
+## Browser cold start with a Claude primary (2026-10-12)
+
+[Report](browser-cold-2026-10-12.md) · [receipts](browser-cold-2026-10-12.json).
+A Claude Code primary (`claude-opus-5-5`, resolved identically, no fallback) received
+the same real headless Camofox draft goal twice. The direct-only control and the arm with
+an optional caller-authored Jev route **both operated directly**: 13 effects each, and the
+independent check of the backend-saved draft passed with one save attempt. The optional
+arm wrote no task file; actual Jev inference was zero. Whole operation: 79.7 s and 73.5 s
+(same route; not a latency result). This adds one negative route-choice result.
+
+Browser acceptance now requires runtime observations rather than configuration: the
+session context is active, browser processes carry `-headless` with no visible window,
+and a pointer probe shows a humanized trajectory (a humanize-off instance gives 1 move).
+Zero-model transport passed on the host, in containers and through the worker bridge.
+Retained: an infrastructure attempt where the evaluation server never connected (both
+arms had no task tools; not counted, usage published), a post-completion container loss,
+the switch from the unavailable ChatGPT-account model to Claude, and a host AF_UNIX
+fault that moved containers from Docker Desktop to dockerd inside WSL.
+
+The runtime and benchmarks now run on Windows hosts without weaker checks:
+descriptor/handle-relative no-follow file access that rejects all reparse points,
+owner-only private artifacts via protected DACLs, and UTF-8 MCP stdio.
+
 ## First-call delegation receipts (0.2.1)
 
 [Functional MCP acceptance](lazy-delegation-live.json) exercises a lazy task script with
@@ -1024,3 +1047,5 @@ scope; native desktop acceptance remains unverified.
 - [AI route choice and compact handoff — 2026-10-12](adoption-2026-10-12.md): conditional free delegation, current-source checks, all review/capacity failures, and offline context projection A/B. Prepared scripts; authoring excluded.
 
 - [Cold task authoring and native operation — 2026-10-12](cold-authoring-2026-10-12.md): isolated native/optional comparison, factual source verification, retained format-contract correction, full primary usage and no task-script adoption.
+
+- [Browser cold start with a Claude primary — 2026-10-12](browser-cold-2026-10-12.md): real Camofox, runtime-evidence gate, both arms operated directly and passed the independent check; Jev usage zero.

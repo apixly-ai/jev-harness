@@ -1,0 +1,650 @@
+{
+  "track": "browser_cold_start_route_choice",
+  "date": "2026-10-12",
+  "goal_variant": 0,
+  "primary_cli": "Claude Code CLI (headless -p, stream-json), requested claude-opus-5-5, effort high",
+  "isolation": "Linux container (python:3.12-slim) on dockerd inside WSL Ubuntu; network none, read-only corpus/runtime, writable /work, uid 1000, no oracle/credential/docker socket",
+  "browser": "camofox-browser 2.4.8 (Camoufox 152.0.4 beta.30), headless, humanize, named session general, Windows 11",
+  "transport_acceptance": {
+    "host_program_path": {
+      "passed": true,
+      "effects": 13,
+      "check": {
+        "passed": true,
+        "saved": true,
+        "problems": [],
+        "save_attempts": 1,
+        "check": "independent_backend_saved_state",
+        "execution_uncertain": false
+      },
+      "whole_seconds": 23.62416459992528,
+      "runtime_evidence": {
+        "passed": true,
+        "problems": [],
+        "context_active": true,
+        "service": {
+          "ok": true,
+          "engine": "camoufox",
+          "version": "2.4.8",
+          "poolSize": 1
+        },
+        "browser_processes": 2,
+        "all_browser_processes_headless": true,
+        "session_mapping": "profile_directory_match",
+        "session_profile_process": true,
+        "visible_windows": 0,
+        "pointer_moves": 114,
+        "pointer_distinct_positions": 109,
+        "pointer_span_ms": 1322,
+        "probe_tab_owned_and_closed": true
+      },
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    "humanize_negative_control": {
+      "configuration": "separate temporary Camofox instance with CAMOFOX_HUMANIZE=false",
+      "pointer_moves": 1,
+      "pointer_span_ms": 0,
+      "scope": "private probe console output; discriminates the trajectory probe"
+    },
+    "docker_ipc": [
+      {
+        "passed": true,
+        "direct_effects": 13,
+        "direct_check": true,
+        "direct_process_seconds": 19.487455900060013,
+        "worker_terminal": "blocked",
+        "worker_effects": 1,
+        "worker_engine_seconds": 8.54123824997805,
+        "fake_provider_submissions": 2,
+        "unknown_fake_submissions": 0,
+        "whole_seconds": 105.93923579994589,
+        "actual_model_usage": {
+          "requests": 0,
+          "models": {},
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "usage_complete": true
+        }
+      },
+      {
+        "passed": true,
+        "direct_effects": 13,
+        "direct_check": true,
+        "direct_process_seconds": 14.749224699800834,
+        "worker_terminal": "blocked",
+        "worker_effects": 1,
+        "worker_engine_seconds": 1.9240620229999763,
+        "fake_provider_submissions": 2,
+        "unknown_fake_submissions": 0,
+        "whole_seconds": 45.76598529983312,
+        "actual_model_usage": {
+          "requests": 0,
+          "models": {},
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "usage_complete": true
+        }
+      }
+    ],
+    "container_isolation": {
+      "passed": true,
+      "isolation": {
+        "/controller-oracle.json": false,
+        "/controller-credential-canary": false,
+        "/controller": false,
+        "/var/run/docker.sock": false,
+        "corpus_write_blocked": true,
+        "root_write_blocked": true,
+        "network_blocked": true
+      },
+      "empty_work_before": true
+    },
+    "serve_rehearsal": {
+      "passed": true,
+      "observed_actions": 5,
+      "initial_check": {
+        "passed": false,
+        "saved": false,
+        "problems": [
+          "not_saved"
+        ],
+        "save_attempts": 0,
+        "check": "independent_backend_saved_state",
+        "execution_uncertain": false
+      },
+      "effects": 0,
+      "runtime_evidence": {
+        "passed": true,
+        "problems": [],
+        "context_active": true,
+        "service": {
+          "ok": true,
+          "engine": "camoufox",
+          "version": "2.4.8",
+          "poolSize": 1
+        },
+        "browser_processes": 2,
+        "all_browser_processes_headless": true,
+        "session_mapping": "profile_directory_match",
+        "session_profile_process": true,
+        "visible_windows": 0,
+        "pointer_moves": 113,
+        "pointer_distinct_positions": 109,
+        "pointer_span_ms": 1400,
+        "probe_tab_owned_and_closed": true
+      },
+      "launch": "foreign working directory and stripped environment, as the primary CLI launches MCP servers"
+    }
+  },
+  "infrastructure_failed_attempt": {
+    "cause": "serve received relative paths and the CLI starts MCP servers in its own working directory; jev_eval never connected, so neither arm had task tools",
+    "counted_as_task_result": false,
+    "arms": [
+      {
+        "arm": "native",
+        "route": "no_effect",
+        "effects": null,
+        "tool_counts": {},
+        "independent_check": null,
+        "backend_saved": null,
+        "save_attempts": null,
+        "authored_python_files": 0,
+        "run_script_used": false,
+        "jev_usage": null,
+        "whole_operation_seconds": 9.24404270015657,
+        "serve_finalized": false,
+        "tab_cleanup": {
+          "owned_tab_recorded": false
+        },
+        "container_cleanup": null,
+        "runtime_evidence": null,
+        "budgets": {
+          "browser_effects": 24,
+          "session_seconds": 600,
+          "jev_steps": 24,
+          "jev_seconds": 100,
+          "jev_provider_requests": 50,
+          "primary_cli_seconds": 900
+        },
+        "route_preference_in_prompt": false,
+        "product_skill_disabled": true,
+        "approved_tools": [
+          "observe",
+          "fresh",
+          "act",
+          "settle",
+          "check_goal",
+          "shell"
+        ],
+        "primary": {
+          "ok": true,
+          "status": "completed",
+          "reason": null,
+          "model_requested": "claude-opus-5-5",
+          "models_resolved": [
+            "claude-opus-5-5"
+          ],
+          "model_fallbacks": [],
+          "tool_calls": {
+            "StructuredOutput": 1
+          },
+          "unexpected_tool_calls": 0,
+          "permission_denials": 0,
+          "num_turns": 2,
+          "usage_scope": "claude_code_result_model_usage",
+          "usage_complete": true,
+          "usage_by_model": {
+            "claude-opus-5-5": {
+              "input_tokens": 2,
+              "output_tokens": 572,
+              "cache_read_input_tokens": 0,
+              "cache_creation_input_tokens": 4905
+            }
+          },
+          "cli_reported_cost_usd_estimate": 0.050688,
+          "whole_process_seconds": 9.229829400079325,
+          "final_output": {
+            "complete": false,
+            "summary": "No draft was created. The jev_eval MCP server, which provides the browser and workspace access, failed to connect (\"Connection closed\"), and the only tool available was this structured response. I couldn't read /corpus/README.md or /corpus/inputs.json, open the workspace, or save the 'Active project failures' digest draft. Nothing was sent or activated, there are no saved settings to confirm, and no independent check was run, so there is no pass result. Reconnect the jev_eval server and retry.",
+            "approach_reason": "The required browser and workspace tools weren't available because the MCP server failed to connect. Reporting the failure honestly was the only safe choice; claiming a saved draft or a passed check would have been false."
+          },
+          "effective_inventory": {
+            "tools": [
+              "StructuredOutput"
+            ],
+            "non_evaluation_tools": [],
+            "mcp_servers": [
+              {
+                "name": "jev_eval",
+                "status": "failed"
+              }
+            ],
+            "skills": [],
+            "slash_commands": [],
+            "permission_mode": "dontAsk",
+            "builtin_plugins": [
+              "cc-plugin-agents-md",
+              "cc-plugin-telemetry",
+              "cc-plugin-plugin-authoring"
+            ]
+          }
+        },
+        "qualified_under_current_adapter": false,
+        "requalified_reason": "evaluation_server_not_connected"
+      },
+      {
+        "arm": "optional",
+        "route": "no_effect",
+        "effects": null,
+        "tool_counts": {},
+        "independent_check": null,
+        "backend_saved": null,
+        "save_attempts": null,
+        "authored_python_files": 0,
+        "run_script_used": false,
+        "jev_usage": null,
+        "whole_operation_seconds": 12.269689700100571,
+        "serve_finalized": false,
+        "tab_cleanup": {
+          "owned_tab_recorded": false
+        },
+        "container_cleanup": null,
+        "runtime_evidence": null,
+        "budgets": {
+          "browser_effects": 24,
+          "session_seconds": 600,
+          "jev_steps": 24,
+          "jev_seconds": 100,
+          "jev_provider_requests": 50,
+          "primary_cli_seconds": 900
+        },
+        "route_preference_in_prompt": false,
+        "product_skill_disabled": true,
+        "approved_tools": [
+          "observe",
+          "fresh",
+          "act",
+          "settle",
+          "check_goal",
+          "shell",
+          "run_script"
+        ],
+        "primary": {
+          "ok": true,
+          "status": "completed",
+          "reason": null,
+          "model_requested": "claude-opus-5-5",
+          "models_resolved": [
+            "claude-opus-5-5"
+          ],
+          "model_fallbacks": [],
+          "tool_calls": {
+            "StructuredOutput": 1
+          },
+          "unexpected_tool_calls": 0,
+          "permission_denials": 0,
+          "num_turns": 2,
+          "usage_scope": "claude_code_result_model_usage",
+          "usage_complete": true,
+          "usage_by_model": {
+            "claude-opus-5-5": {
+              "input_tokens": 2,
+              "output_tokens": 748,
+              "cache_read_input_tokens": 4328,
+              "cache_creation_input_tokens": 576
+            }
+          },
+          "cli_reported_cost_usd_estimate": 0.0204416,
+          "whole_process_seconds": 12.257798000006005,
+          "final_output": {
+            "complete": false,
+            "summary": "No draft was created, so there's nothing to check. The jev_eval MCP server, which provides the browser and workspace tools, failed to connect (\"Connection closed\"). Without it I couldn't read /corpus/README.md or /corpus/inputs.json, open the workspace, or save the 'Active project failures' digest draft. Nothing was sent or activated. Once the server is reconnected, the draft can be created with these settings: note 'Operations preview'; all active production projects; failed and blocked events only; weekdays in Asia/Shanghai; the existing Preview inbox; saved as a draft only. The saved settings would then be read back to confirm them.",
+            "approach_reason": "The only tools for reaching the browser and workspace come from the jev_eval MCP server, which failed to connect. I stopped and reported that rather than guess at results or claim a draft was saved without checking it."
+          },
+          "effective_inventory": {
+            "tools": [
+              "StructuredOutput"
+            ],
+            "non_evaluation_tools": [],
+            "mcp_servers": [
+              {
+                "name": "jev_eval",
+                "status": "failed"
+              }
+            ],
+            "skills": [],
+            "slash_commands": [],
+            "permission_mode": "dontAsk",
+            "builtin_plugins": [
+              "cc-plugin-agents-md",
+              "cc-plugin-telemetry",
+              "cc-plugin-plugin-authoring"
+            ]
+          }
+        },
+        "qualified_under_current_adapter": false,
+        "requalified_reason": "evaluation_server_not_connected"
+      }
+    ],
+    "fix": "absolute serve paths, foreign-cwd rehearsal, unconnected server disqualifies the turn"
+  },
+  "pair": [
+    {
+      "arm": "native",
+      "route": "direct",
+      "effects": 13,
+      "tool_counts": {
+        "shell": 1,
+        "observe": 1,
+        "act": 13,
+        "check_goal": 1
+      },
+      "independent_check": {
+        "passed": true,
+        "saved": true,
+        "problems": [],
+        "save_attempts": 1,
+        "check": "independent_backend_saved_state",
+        "execution_uncertain": false
+      },
+      "backend_saved": {
+        "title": "Active project failures",
+        "note": "Operations preview",
+        "timezone": "Asia/Shanghai",
+        "frequency": "weekdays",
+        "events": [
+          "failed",
+          "blocked"
+        ],
+        "projects": [
+          "aurora",
+          "cedar"
+        ],
+        "mailbox": "preview",
+        "status": "draft"
+      },
+      "save_attempts": 1,
+      "authored_python_files": 0,
+      "run_script_used": false,
+      "jev_usage": null,
+      "whole_operation_seconds": 79.69300199998543,
+      "serve_finalized": true,
+      "tab_cleanup": {
+        "owned_tab_recorded": true,
+        "left_open": false
+      },
+      "container_cleanup": {
+        "container_recorded": true,
+        "left_running": false
+      },
+      "runtime_evidence": {
+        "passed": true,
+        "problems": [],
+        "context_active": true,
+        "service": {
+          "ok": true,
+          "engine": "camoufox",
+          "version": "2.4.8",
+          "poolSize": 1
+        },
+        "browser_processes": 2,
+        "all_browser_processes_headless": true,
+        "session_mapping": "profile_directory_match",
+        "session_profile_process": true,
+        "visible_windows": 0,
+        "pointer_moves": 113,
+        "pointer_distinct_positions": 109,
+        "pointer_span_ms": 1289,
+        "probe_tab_owned_and_closed": true
+      },
+      "budgets": {
+        "browser_effects": 24,
+        "session_seconds": 600,
+        "jev_steps": 24,
+        "jev_seconds": 100,
+        "jev_provider_requests": 50,
+        "primary_cli_seconds": 900
+      },
+      "route_preference_in_prompt": false,
+      "product_skill_disabled": true,
+      "approved_tools": [
+        "observe",
+        "fresh",
+        "act",
+        "settle",
+        "check_goal",
+        "shell"
+      ],
+      "primary": {
+        "ok": true,
+        "status": "completed",
+        "reason": null,
+        "model_requested": "claude-opus-5-5",
+        "models_resolved": [
+          "claude-opus-5-5"
+        ],
+        "model_fallbacks": [],
+        "tool_calls": {
+          "mcp__jev_eval__shell": 1,
+          "mcp__jev_eval__observe": 1,
+          "mcp__jev_eval__act": 13,
+          "mcp__jev_eval__check_goal": 1,
+          "StructuredOutput": 1
+        },
+        "unexpected_tool_calls": 0,
+        "permission_denials": 0,
+        "num_turns": 18,
+        "usage_scope": "claude_code_result_model_usage",
+        "usage_complete": true,
+        "usage_by_model": {
+          "claude-opus-5-5": {
+            "input_tokens": 32,
+            "output_tokens": 2512,
+            "cache_read_input_tokens": 247066,
+            "cache_creation_input_tokens": 26467
+          }
+        },
+        "cli_reported_cost_usd_estimate": 0.3115172,
+        "whole_process_seconds": 79.67904329998419,
+        "final_output": {
+          "complete": true,
+          "summary": "The draft is saved and passes the independent backend check (passed=true, saved=true, no problems, 1 save attempt). Saved settings: title 'Active project failures', note 'Operations preview', timezone Asia/Shanghai, frequency weekdays, events failed and blocked (successful unchecked), projects Aurora and Cedar (the active production ones; Birch is archived and Sandbox is staging, so both were left out), mailbox Preview inbox (changed from Audit archive), status draft. Nothing was sent or activated; the only button I pressed was 'Save draft'.",
+          "approach_reason": "The form was small (4 project checkboxes, a few fields, one mailbox dropdown), so I used the observe/act tools directly. Each step returned a fresh view of the page, which let me confirm every change took effect and check the final review before the one save. Writing a script would have added setup without any benefit."
+        },
+        "effective_inventory": {
+          "tools": [
+            "StructuredOutput",
+            "mcp__jev_eval__act",
+            "mcp__jev_eval__check_goal",
+            "mcp__jev_eval__fresh",
+            "mcp__jev_eval__observe",
+            "mcp__jev_eval__settle",
+            "mcp__jev_eval__shell"
+          ],
+          "non_evaluation_tools": [],
+          "mcp_servers": [
+            {
+              "name": "jev_eval",
+              "status": "connected"
+            }
+          ],
+          "skills": [],
+          "slash_commands": [],
+          "permission_mode": "dontAsk",
+          "builtin_plugins": [
+            "cc-plugin-agents-md",
+            "cc-plugin-telemetry",
+            "cc-plugin-plugin-authoring"
+          ]
+        }
+      }
+    },
+    {
+      "arm": "optional",
+      "route": "direct",
+      "effects": 13,
+      "tool_counts": {
+        "shell": 2,
+        "observe": 1,
+        "act": 13,
+        "check_goal": 1
+      },
+      "independent_check": {
+        "passed": true,
+        "saved": true,
+        "problems": [],
+        "save_attempts": 1,
+        "check": "independent_backend_saved_state",
+        "execution_uncertain": false
+      },
+      "backend_saved": {
+        "title": "Active project failures",
+        "note": "Operations preview",
+        "timezone": "Asia/Shanghai",
+        "frequency": "weekdays",
+        "events": [
+          "failed",
+          "blocked"
+        ],
+        "projects": [
+          "aurora",
+          "cedar"
+        ],
+        "mailbox": "preview",
+        "status": "draft"
+      },
+      "save_attempts": 1,
+      "authored_python_files": 0,
+      "run_script_used": false,
+      "jev_usage": null,
+      "whole_operation_seconds": 73.46597690018825,
+      "serve_finalized": true,
+      "tab_cleanup": {
+        "owned_tab_recorded": true,
+        "left_open": false
+      },
+      "container_cleanup": {
+        "container_recorded": true,
+        "left_running": false
+      },
+      "runtime_evidence": {
+        "passed": true,
+        "problems": [],
+        "context_active": true,
+        "service": {
+          "ok": true,
+          "engine": "camoufox",
+          "version": "2.4.8",
+          "poolSize": 1
+        },
+        "browser_processes": 2,
+        "all_browser_processes_headless": true,
+        "session_mapping": "profile_directory_match",
+        "session_profile_process": true,
+        "visible_windows": 0,
+        "pointer_moves": 106,
+        "pointer_distinct_positions": 102,
+        "pointer_span_ms": 1192,
+        "probe_tab_owned_and_closed": true
+      },
+      "budgets": {
+        "browser_effects": 24,
+        "session_seconds": 600,
+        "jev_steps": 24,
+        "jev_seconds": 100,
+        "jev_provider_requests": 50,
+        "primary_cli_seconds": 900
+      },
+      "route_preference_in_prompt": false,
+      "product_skill_disabled": true,
+      "approved_tools": [
+        "observe",
+        "fresh",
+        "act",
+        "settle",
+        "check_goal",
+        "shell",
+        "run_script"
+      ],
+      "primary": {
+        "ok": true,
+        "status": "completed",
+        "reason": null,
+        "model_requested": "claude-opus-5-5",
+        "models_resolved": [
+          "claude-opus-5-5"
+        ],
+        "model_fallbacks": [],
+        "tool_calls": {
+          "mcp__jev_eval__shell": 2,
+          "mcp__jev_eval__observe": 1,
+          "mcp__jev_eval__act": 13,
+          "mcp__jev_eval__check_goal": 1,
+          "StructuredOutput": 1
+        },
+        "unexpected_tool_calls": 0,
+        "permission_denials": 0,
+        "num_turns": 19,
+        "usage_scope": "claude_code_result_model_usage",
+        "usage_complete": true,
+        "usage_by_model": {
+          "claude-opus-5-5": {
+            "input_tokens": 34,
+            "output_tokens": 2894,
+            "cache_read_input_tokens": 259317,
+            "cache_creation_input_tokens": 27350
+          }
+        },
+        "cli_reported_cost_usd_estimate": 0.3286794,
+        "whole_process_seconds": 73.45316019980237,
+        "final_output": {
+          "complete": true,
+          "summary": "The draft is saved and passed the independent backend check (passed=true, saved=true, no problems, 1 save attempt). Saved settings: title 'Active project failures', note 'Operations preview', timezone Asia/Shanghai, frequency weekdays, events failed and blocked (successful events unchecked), projects Aurora and Cedar (the only active production projects; Birch, which is archived, and Sandbox, which is staging, were left out), mailbox Preview inbox, status draft. Nothing was sent or activated. I didn't write the optional /work/report.json file because the container had shut down by then; the saved draft itself is unaffected.",
+          "approach_reason": "The form was small and fixed: 4 project checkboxes, a few fields and selects, and one save button. Doing it directly in the browser took 13 actions, used no paid inference, and let me check each change and review the draft before the only save click. A Jev script would have cost provider requests and added more risk without any benefit here."
+        },
+        "effective_inventory": {
+          "tools": [
+            "StructuredOutput",
+            "mcp__jev_eval__act",
+            "mcp__jev_eval__check_goal",
+            "mcp__jev_eval__fresh",
+            "mcp__jev_eval__observe",
+            "mcp__jev_eval__run_script",
+            "mcp__jev_eval__settle",
+            "mcp__jev_eval__shell"
+          ],
+          "non_evaluation_tools": [],
+          "mcp_servers": [
+            {
+              "name": "jev_eval",
+              "status": "connected"
+            }
+          ],
+          "skills": [],
+          "slash_commands": [],
+          "permission_mode": "dontAsk",
+          "builtin_plugins": [
+            "cc-plugin-agents-md",
+            "cc-plugin-telemetry",
+            "cc-plugin-plugin-authoring"
+          ]
+        }
+      }
+    }
+  ],
+  "post_completion_defect": {
+    "arm": "optional",
+    "observation": "after the independent check had passed, a final shell call to write an optional report found the actor container gone",
+    "cause": "the WSL distribution stopped while idle between short-lived wsl.exe docker calls",
+    "effect_on_route_or_result": "none observed; route chosen at session start, saved state already verified",
+    "fix": "one attached wsl.exe keep-alive session for the run"
+  },
+  "scope": "one pair, one variant; not a success-rate, latency or cost distribution",
+  "pricing": "CLI-reported cost fields are estimates from the CLI, not invoices"
+}
