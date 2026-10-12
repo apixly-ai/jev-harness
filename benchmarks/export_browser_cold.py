@@ -92,6 +92,8 @@ def arm(directory, name):
         "runtime_evidence": _runtime(result.get("runtime_evidence")),
         "budgets": result.get("budgets"),
         "route_preference_in_prompt": result.get("route_preference_in_prompt"),
+        "objective": result.get("objective", "neutral"),
+        "objective_note": result.get("objective_note"),
         "product_skill_disabled": result.get("product_skill_disabled"),
         "approved_tools": result.get("approved_tools"),
         "primary": _primary(result.get("primary") or {}),
@@ -106,6 +108,7 @@ def main(argv=None):
     parser.add_argument("--worker-canary", type=Path, action="append", required=True)
     parser.add_argument("--isolation-canary", type=Path, required=True)
     parser.add_argument("--rehearsal", type=Path, required=True)
+    parser.add_argument("--cost-premise", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     transport = _read(args.transport_canary / "report.json")
@@ -192,6 +195,18 @@ def main(argv=None):
             "cause": "the WSL distribution stopped while idle between short-lived wsl.exe docker calls",
             "effect_on_route_or_result": "none observed; route chosen at session start, saved state already verified",
             "fix": "one attached wsl.exe keep-alive session for the run",
+        },
+        "cost_premise_run": None
+        if args.cost_premise is None
+        else {
+            "design": "optional arm only, same goal, tools, budgets and model as the counted pair; the prompt adds the recorded operator cost note (published list prices and the operator's expectation), naming no tool or route",
+            "price_sources": {
+                "jev": "docs.typesafe.ai/models: jev-1.13.0 $0.042 per million input tokens, output free",
+                "claude": "platform.claude.com/docs/en/about-claude/pricing: Haiku 5.5 $0.10/$0.50 (prompts up to 100K), Opus 5.5 $4/$20",
+                "openai": "developers.openai.com/api/docs/pricing: gpt-5.6-luna $0.20/$1.20 (up to 272K input)",
+                "checked": "2026-10-12",
+            },
+            "arm": arm(args.cost_premise, "optional"),
         },
         "scope": "one pair, one variant; not a success-rate, latency or cost distribution",
         "pricing": "CLI-reported cost fields are estimates from the CLI, not invoices",

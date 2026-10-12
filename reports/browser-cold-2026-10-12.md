@@ -5,11 +5,15 @@ operation through the bounded browser tools, performed **13 effects** and passed
 independent check of the backend-saved draft. The optional arm could also author a task
 script and hand it to live Jev; it declined, so **actual Jev inference was zero**. This is
 one more negative route-choice result: the harness is not shown to be a default preference.
+A same-day follow-up that told the primary Jev's published price next to Claude Haiku 5.5,
+GPT-5.6 Luna and its own price did not change the choice either (see
+[Cost-premise follow-up](#cost-premise-follow-up)).
 
 | Arm | Route | Effects | Independent saved-state check | Whole operation | Primary turns |
 |---|---|---:|---|---:|---:|
 | Direct-only control | Direct `observe`/`act` | 13 | Pass, 1 save attempt | 79.7 s | 18 |
 | Same tools + optional caller-authored Jev | Direct `observe`/`act`; no task file, no `run_script` | 13 | Pass, 1 save attempt | 73.5 s | 19 |
+| Follow-up: optional arm + operator price note | Direct `observe`/`act`; no task file, no `run_script` | 13 | Pass, 1 save attempt | 77.6 s | 18 |
 
 Goal (variant 0): create a weekday failure-digest draft for all active production
 projects, include failed and blocked events, use the given timezone and the existing
@@ -35,6 +39,46 @@ The CLI also reports cost estimates (0.312 and 0.329 USD); they are not invoices
 operation includes CLI start, MCP server preparation (container, owned tab, runtime
 probe), all turns and the final answer. One pair is not a latency or cost comparison;
 both arms used the same route, so the 6 s difference is ordinary variation.
+
+## Cost-premise follow-up
+
+Question: does telling the primary that Jev is cheap change its route? The optional arm
+ran once more with the same goal, tools, budgets, model and effort. The prompt added one
+operator note with published list prices (USD per million tokens, checked 2026-10-12 on
+docs.typesafe.ai, platform.claude.com and developers.openai.com):
+
+| Model | Input | Output |
+|---|---:|---:|
+| Jev (TypeSafe `jev-1.13.0`) | 0.042 | free |
+| Claude Haiku 5.5 (prompts up to 100K) | 0.10 | 0.50 |
+| OpenAI GPT-5.6 Luna (up to 272K input) | 0.20 | 1.20 |
+| Claude Opus 5.5 (the primary itself) | 4 | 20 |
+
+It also stated the operator's expectation that delegating multi-step operation to Jev
+lowers total model cost. It named no tool and asked for no route; the exact note is in the
+receipts.
+
+Result: the primary again operated directly. It made 13 effects and the independent check
+passed with one save attempt. It wrote no task file and made no `run_script` call, so Jev
+usage was zero. The run took 18 turns and 77.6 s whole operation. `claude-opus-5-5`
+resolved with no fallback. Usage was 34 input, 264,819 cache read, 23,170 cache creation
+and 2,677 output tokens; the CLI estimate was 0.292 USD.
+
+Stated reason: the task was short and choosing projects needed judgment. Writing a Jev
+script and checking its billable run "would likely have cost more of my own tokens than
+the clicks did". Acting directly also let it check each state change and the review page.
+
+Reading:
+
+- **The price note did not move the route on this task.** The primary's argument concerns
+  its own tokens, which are spent in either route. Jev's price only applies to the steps it
+  would take over.
+- **The direct route's primary cost is small in absolute terms.** At list prices it was
+  about 0.29 USD for the whole run. The CLI estimate matches list prices if its cache
+  writes are billed at the 1-hour rate (an inference, not an invoice).
+- **The counterfactual was not measured.** No script was written, so whether authoring
+  and verifying one costs the primary less than 13 direct steps remains unmeasured.
+- **This is one sample, not a preference rate.**
 
 ## What the primary could and could not do
 
@@ -102,10 +146,11 @@ precondition for opening a tab. After the owned tab opens, the gate requires:
 
 ## Scope
 
-One pair, one variant, one primary model; it measures what this primary chose on this
-13-control form, not a success rate, latency or cost distribution. It does not show that
+One pair plus one cost-premise follow-up, one variant, one primary model; it measures
+what this primary chose on this 13-control form, not a success rate, latency or cost
+distribution. It does not show that
 authoring a Jev script is slower or faster: no script was written. Live Jev inference and
-TypeSafe usage in the counted pair were zero. Receipts:
+TypeSafe usage in the counted pair and the follow-up were zero. Receipts:
 [browser-cold-2026-10-12.json](browser-cold-2026-10-12.json); runners
 `benchmarks/browser_cold.py`, `benchmarks/browser_cold_pair.py`,
 `benchmarks/camofox_runtime.py`, `benchmarks/primary_claude.py`.

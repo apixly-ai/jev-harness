@@ -24,6 +24,20 @@ from cold_authoring import ROOT, _write_json
 from primary_claude import _environment as primary_environment
 
 SERVER = Path(__file__).resolve().parent / "browser_cold.py"
+# Operator cost premise for the "cost" objective: published list prices (USD per million
+# tokens, checked 2026-10-12 on docs.typesafe.ai/models, platform.claude.com pricing and
+# developers.openai.com pricing) plus the operator's expectation. It names no tool and
+# does not ask for a route; it is recorded verbatim with each result.
+COST_NOTE = (
+    "Operator cost note (published list prices, USD per million tokens): Jev "
+    "(TypeSafe jev-1.13.0) $0.042 input, output tokens free; Claude Haiku 5.5 $0.10 input, "
+    "$0.50 output; OpenAI GPT-5.6 Luna $0.20 input, $1.20 output; your own model, Claude "
+    "Opus 5.5, $4 input, $20 output. Jev is cheaper per token than even these small models, "
+    "so the operator expects delegating multi-step operation to Jev to lower total model "
+    "cost compared with operating every step yourself."
+)
+OBJECTIVES = {"neutral": "", "cost": COST_NOTE}
+
 OUTPUT_SCHEMA = {
     "type": "object",
     "properties": {
@@ -262,6 +276,16 @@ def rehearse(
     return report
 
 
+def arm_prompt(case, objective="neutral"):
+    note = OBJECTIVES[objective]
+    return (
+        actor_prompt(case)
+        + ("\n" + note if note else "")
+        + "\nReturn whether the actual saved draft passes the independent check, a concise "
+        "summary and the practical reason for the execution approach you chose."
+    )
+
+
 def run_arm(
     output,
     arm,
@@ -276,16 +300,13 @@ def run_arm(
     session_seconds,
     primary_timeout,
     docker_wsl_distro=None,
+    objective="neutral",
 ):
     from primary_claude import run_mcp_session
 
     directory = output / arm
     case = case_contract(variant)
-    prompt = (
-        actor_prompt(case)
-        + "\nReturn whether the actual saved draft passes the independent check, a concise "
-        "summary and the practical reason for the execution approach you chose."
-    )
+    prompt = arm_prompt(case, objective)
     approved = [tool["name"] for tool in tools(arm == "optional", live=credential is not None)]
     started = time.perf_counter()
     primary = run_mcp_session(
@@ -324,6 +345,8 @@ def run_arm(
         "container_cleanup": container_cleanup,
         "variant": variant,
         "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
+        "objective": objective,
+        "objective_note": OBJECTIVES[objective] or None,
         "route_preference_in_prompt": False,
         "product_skill_disabled": True,
         "approved_tools": approved,
@@ -364,6 +387,7 @@ def main(argv=None):
     pair.add_argument("--session-seconds", type=int, default=600)
     pair.add_argument("--primary-timeout", type=int, default=900)
     pair.add_argument("--docker-wsl-distro")
+    pair.add_argument("--objective", choices=sorted(OBJECTIVES), default="neutral")
     args = parser.parse_args(argv)
     if args.mode == "rehearse":
         report = rehearse(
@@ -383,7 +407,12 @@ def main(argv=None):
         parser.error("--arms must name native and/or optional")
     _secure_fs.make_private_directory(args.output, parents=True)
     wheel, wheel_sha256 = build_wheel(args.output / "wheel")
-    summary = {"arms": arms, "wheel_sha256": wheel_sha256, "results": {}}
+    summary = {
+        "arms": arms,
+        "objective": args.objective,
+        "wheel_sha256": wheel_sha256,
+        "results": {},
+    }
     for arm in arms:
         packet = run_arm(
             args.output,
@@ -398,6 +427,7 @@ def main(argv=None):
             session_seconds=args.session_seconds,
             primary_timeout=args.primary_timeout,
             docker_wsl_distro=args.docker_wsl_distro,
+            objective=args.objective,
         )
         summary["results"][arm] = {
             "primary_ok": packet["primary"]["ok"],

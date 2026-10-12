@@ -131,3 +131,17 @@ def test_runner_stops_only_its_recorded_container(pair, monkeypatch, tmp_path):
     assert calls[-1] == ["docker", "stop", "--time", "1", "abc123"]
     write(tmp_path / "actor.json", {"container": "abc; rm -rf"})
     assert pair.stop_leftover_container(tmp_path) == {"container_recorded": False}
+
+
+def test_cost_objective_appends_only_the_recorded_price_note(pair):
+    case = pair.case_contract(0)
+    neutral = pair.arm_prompt(case)
+    cost = pair.arm_prompt(case, "cost")
+    assert neutral == pair.arm_prompt(case, "neutral")
+    assert pair.COST_NOTE not in neutral
+    assert cost.replace("\n" + pair.COST_NOTE, "", 1) == neutral
+    for price in ("$0.042", "$0.10", "$0.20", "$4 input"):
+        assert price in pair.COST_NOTE
+    assert "run_script" not in pair.COST_NOTE and "must" not in pair.COST_NOTE.lower()
+    with pytest.raises(KeyError):
+        pair.arm_prompt(case, "unknown")

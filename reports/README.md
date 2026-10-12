@@ -11,6 +11,12 @@ an optional caller-authored Jev route **both operated directly**: 13 effects eac
 independent check of the backend-saved draft passed with one save attempt. The optional
 arm wrote no task file; actual Jev inference was zero. Whole operation: 79.7 s and 73.5 s
 (same route; not a latency result). This adds one negative route-choice result.
+A follow-up optional arm whose prompt added published list prices (USD per million
+tokens: Jev $0.042 input with free output; Claude Haiku 5.5 $0.10/$0.50; GPT-5.6 Luna
+$0.20/$1.20; the primary's Claude Opus 5.5 $4/$20) and the operator's expectation that
+delegation lowers cost still operated directly: 13 effects, check passed, Jev usage zero,
+77.6 s, CLI estimate 0.292 USD. Its reason: authoring and checking a Jev script would cost
+more of its own tokens than 13 clicks on a short form (unmeasured; no script was written).
 
 Browser acceptance now requires runtime observations rather than configuration: the
 session context is active, browser processes carry `-headless` with no visible window,
@@ -1048,4 +1054,4 @@ scope; native desktop acceptance remains unverified.
 
 - [Cold task authoring and native operation — 2026-10-12](cold-authoring-2026-10-12.md): isolated native/optional comparison, factual source verification, retained format-contract correction, full primary usage and no task-script adoption.
 
-- [Browser cold start with a Claude primary — 2026-10-12](browser-cold-2026-10-12.md): real Camofox, runtime-evidence gate, both arms operated directly and passed the independent check; Jev usage zero.
+- [Browser cold start with a Claude primary — 2026-10-12](browser-cold-2026-10-12.md): real Camofox, runtime-evidence gate, both arms operated directly and passed the independent check; Jev usage zero, also after a price note.

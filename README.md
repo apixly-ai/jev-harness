@@ -318,8 +318,9 @@ reports for measured outcomes and usage; no general quality or cost benefit is e
 A live Jev/Camofox synthetic form reached the independently checked final state in
 four tool executions. Early attempts requiring review are retained. In a 2026-10-12
 browser cold start, a Claude primary chose direct operation both without and with an
-optional Jev route (13 effects each, both independently verified; Jev usage zero), so
-default preference is not established. [Report](reports/browser-cold-2026-10-12.md). Desktop live
+optional Jev route (13 effects each, both independently verified; Jev usage zero), and
+again after being told Jev's list price beside Claude Haiku 5.5, GPT-5.6 Luna and its own,
+so default preference is not established. [Report](reports/browser-cold-2026-10-12.md). Desktop live
 acceptance is **not yet proven**: this host is locked; offline adapter tests do not
 replace native acceptance. [Exact evidence and limits](reports/README.md).
 
