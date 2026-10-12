@@ -1,0 +1,1904 @@
+{
+  "track": "delegation_task_shape_search",
+  "date": "2026-10-12",
+  "primary_cli": "Claude Code CLI (headless -p, stream-json), requested claude-opus-5-5, effort high",
+  "isolation": "Linux container (python:3.12-slim) on dockerd inside WSL Ubuntu; network none, read-only corpus/runtime, writable /work, uid 1000; credential and labels host-only",
+  "pricing": {
+    "jev": "jev-1.13.0 $0.042 per million input tokens, output free (docs.typesafe.ai/models, checked 2026-10-12)",
+    "primary": "cli_reported_cost_usd_estimate is the Claude Code CLI's own estimate, not an invoice"
+  },
+  "browser_repeated_form": {
+    "task": "six team workspaces with differing navigation, labels, page split, pagination and a confirmation step; one draft per team; independent per-team backend check",
+    "bounds": "200 browser effects, 12 run_script executions, 600 Jev seconds, 300 provider requests per session",
+    "zero_model_host_program_path": {
+      "passed": true,
+      "effects": 93,
+      "passed_teams": 6,
+      "whole_seconds": 115.70043050008826
+    },
+    "zero_model_container_canary": {
+      "passed": true,
+      "direct_effects": 93,
+      "direct_check_passed": true,
+      "fake_provider_executions": [
+        {
+          "execution": 1,
+          "terminal": "blocked",
+          "mock_submissions": 6,
+          "remaining": {
+            "executions": 11,
+            "provider_requests": 294,
+            "jev_seconds": 590.0762543000747,
+            "browser_effects": 198
+          }
+        },
+        {
+          "execution": 2,
+          "terminal": "blocked",
+          "mock_submissions": 6,
+          "remaining": {
+            "executions": 10,
+            "provider_requests": 288,
+            "jev_seconds": 579.5628675001208,
+            "browser_effects": 196
+          }
+        }
+      ],
+      "whole_seconds": 271.0659270999022
+    },
+    "live_jev_reference_script_development_runs": [
+      {
+        "passed_teams": 0,
+        "effects": 22,
+        "uncertain": false,
+        "totals": {
+          "requests": 55,
+          "input_tokens": 179636,
+          "output_tokens": 4279,
+          "execution_seconds": 99.13814689987339
+        },
+        "jev_cost_usd_at_published_price": 0.0075,
+        "teams": [
+          {
+            "team": "atlas",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 2,
+            "requests": 6,
+            "saved": false
+          },
+          {
+            "team": "borealis",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 5,
+            "requests": 12,
+            "saved": false
+          },
+          {
+            "team": "cobalt",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 2,
+            "requests": 6,
+            "saved": false
+          },
+          {
+            "team": "delta",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 3,
+            "requests": 8,
+            "saved": false
+          },
+          {
+            "team": "ember",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 4,
+            "requests": 10,
+            "saved": false
+          },
+          {
+            "team": "fjord",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 6,
+            "requests": 13,
+            "saved": false
+          }
+        ]
+      },
+      {
+        "passed_teams": 0,
+        "effects": 25,
+        "uncertain": false,
+        "totals": {
+          "requests": 59,
+          "input_tokens": 189846,
+          "output_tokens": 4339,
+          "execution_seconds": 103.11490609985776
+        },
+        "jev_cost_usd_at_published_price": 0.008,
+        "teams": [
+          {
+            "team": "atlas",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 1,
+            "requests": 4,
+            "saved": false
+          },
+          {
+            "team": "borealis",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 6,
+            "requests": 13,
+            "saved": false
+          },
+          {
+            "team": "cobalt",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 2,
+            "requests": 6,
+            "saved": false
+          },
+          {
+            "team": "delta",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 5,
+            "requests": 12,
+            "saved": false
+          },
+          {
+            "team": "ember",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 5,
+            "requests": 11,
+            "saved": false
+          },
+          {
+            "team": "fjord",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 6,
+            "requests": 13,
+            "saved": false
+          }
+        ]
+      },
+      {
+        "passed_teams": 0,
+        "effects": 45,
+        "uncertain": false,
+        "totals": {
+          "requests": 98,
+          "input_tokens": 359995,
+          "output_tokens": 7382,
+          "execution_seconds": 159.66275460016914
+        },
+        "jev_cost_usd_at_published_price": 0.0151,
+        "teams": [
+          {
+            "team": "atlas",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 5,
+            "requests": 11,
+            "saved": false
+          },
+          {
+            "team": "borealis",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 6,
+            "requests": 13,
+            "saved": false
+          },
+          {
+            "team": "cobalt",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 15,
+            "requests": 32,
+            "saved": false
+          },
+          {
+            "team": "delta",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 9,
+            "requests": 19,
+            "saved": false
+          },
+          {
+            "team": "ember",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 4,
+            "requests": 10,
+            "saved": false
+          },
+          {
+            "team": "fjord",
+            "status": "needs_review",
+            "reason": null,
+            "steps": 6,
+            "requests": 13,
+            "saved": false
+          }
+        ]
+      },
+      {
+        "passed_teams": 0,
+        "effects": 33,
+        "uncertain": false,
+        "totals": {
+          "requests": 80,
+          "input_tokens": 316845,
+          "output_tokens": 6530,
+          "execution_seconds": 117.24153369967826
+        },
+        "jev_cost_usd_at_published_price": 0.0133,
+        "teams": [
+          {
+            "team": "atlas",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 10,
+            "requests": 24,
+            "saved": false
+          },
+          {
+            "team": "borealis",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 6,
+            "requests": 14,
+            "saved": false
+          },
+          {
+            "team": "cobalt",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 3,
+            "requests": 8,
+            "saved": false
+          },
+          {
+            "team": "delta",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 3,
+            "requests": 8,
+            "saved": false
+          },
+          {
+            "team": "ember",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 5,
+            "requests": 12,
+            "saved": false
+          },
+          {
+            "team": "fjord",
+            "status": "needs_review",
+            "reason": "unresolved_parameter:target",
+            "steps": 6,
+            "requests": 14,
+            "saved": false
+          }
+        ]
+      }
+    ],
+    "fixture_fixes_retained": [
+      "a Borealis field labelled 'Send schedule' was hidden by the send/delete safety filter; renamed 'Repeat schedule'",
+      "Fjord's Save button sat below the fold and no route can scroll; review controls moved above the draft preview",
+      "repeated executions first failed on create-only artifact files; per-run files are now numbered and summaries replaced atomically"
+    ],
+    "primary_pair_run": false,
+    "reason_no_pair": "the mechanism did not complete any team with a reference script, so a primary choosing it would only measure a known failure"
+  },
+  "records_triage": {
+    "task": "save the ids of notification events that need a page now; independent check needs precision and recall of at least 0.95 against hidden labels",
+    "template_corpus": {
+      "records": 2000,
+      "generator": "benchmarks/records_triage.py (owned templates, seed 20261012)",
+      "acceptance": {
+        "zero_model_canary": {
+          "passed": true,
+          "empty_check": {
+            "passed": false,
+            "saved": false,
+            "problems": [
+              "not_saved"
+            ],
+            "check": "independent_hidden_label_score"
+          },
+          "oracle_check": {
+            "passed": true,
+            "saved": true,
+            "submitted": 554,
+            "unknown_ids": 0,
+            "problems": [],
+            "check": "independent_hidden_label_score"
+          },
+          "partial_check": {
+            "passed": false,
+            "saved": true,
+            "submitted": 277,
+            "unknown_ids": 0,
+            "problems": [
+              "accuracy_below_threshold"
+            ],
+            "check": "independent_hidden_label_score"
+          },
+          "fake_provider_execution": {
+            "terminal": {
+              "status": "done",
+              "complete": true,
+              "steps": 1,
+              "archive": "/work/jev-1.jsonl",
+              "telemetry": {
+                "requests": 1,
+                "usage_complete": true,
+                "usage": {
+                  "input_tokens": 1,
+                  "output_tokens": 1
+                },
+                "calls": [
+                  {
+                    "ok": true,
+                    "usage": {
+                      "input_tokens": 1,
+                      "output_tokens": 1
+                    },
+                    "usage_complete": true,
+                    "transport": {
+                      "clients_created": 1,
+                      "client_reuses": 0,
+                      "requests": 1
+                    },
+                    "unknown_usage_attempts": 0,
+                    "workers": 1,
+                    "cache_enabled": false,
+                    "provider_failure_codes": [],
+                    "backend": "jev-context/typed-batch",
+                    "package_version": "0.4.1",
+                    "requests": 1,
+                    "source_records": 1,
+                    "packed_requests": 0,
+                    "selection": {
+                      "type": "choice",
+                      "confidence": 1.0,
+                      "probabilities": {
+                        "c0": 1.0,
+                        "c1": 0.0,
+                        "c2": 0.0,
+                        "c3": 0.0,
+                        "NONE": 0.0,
+                        "REVIEW": 0.0
+                      },
+                      "choice": "c0"
+                    },
+                    "model_requested": "jev-1.13.0",
+                    "model_resolved": "offline-cold-replay",
+                    "models": {
+                      "offline-cold-replay": {
+                        "input_tokens": 1,
+                        "output_tokens": 1
+                      }
+                    },
+                    "selection_review_reasons": [],
+                    "stage": "tool_selection",
+                    "elapsed_seconds": 0.06113239499999956,
+                    "context_bytes": 1018,
+                    "context_characters": 1018,
+                    "context_character_limit": 15000
+                  }
+                ],
+                "owned_transport": {
+                  "scope": "run_owned_provider_client",
+                  "snapshot": "terminal_finish",
+                  "request_attempts": 1,
+                  "clients_created": 1,
+                  "client_reuses": 0,
+                  "counters_complete": true
+                }
+              },
+              "elapsed_seconds": 1.7964403629999985,
+              "cache_enabled": false
+            },
+            "independent_check": {
+              "passed": false,
+              "saved": true,
+              "submitted": 2000,
+              "unknown_ids": 0,
+              "problems": [
+                "accuracy_below_threshold"
+              ],
+              "check": "independent_hidden_label_score"
+            },
+            "mock_submissions": 26,
+            "remaining": {
+              "executions": 2,
+              "provider_requests": 124,
+              "jev_seconds": 294.77984909992665
+            }
+          },
+          "whole_seconds": 16.941978899994865,
+          "scope": "zero-model container transport; host known-answer writes and a fake provider, neither AI authorship nor live Jev acceptance"
+        },
+        "live_jev_unedited_scaffold": {
+          "passed": true,
+          "terminal": {
+            "status": "done",
+            "complete": true,
+            "steps": 1
+          },
+          "score": {
+            "submitted": 554,
+            "true_positive": 554,
+            "false_positive": 0,
+            "false_negative": 0,
+            "unknown_ids": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "duplicate_ids": 0,
+            "passed": true
+          },
+          "execution_seconds": 17.44637669995427,
+          "requests": 26,
+          "input_tokens": 383626,
+          "output_tokens": 79890,
+          "usage_complete": true,
+          "jev_cost_usd_at_published_price": 0.0161,
+          "scope": "live Jev on the unedited records scaffold with our question; mechanism capability only, not AI authorship, preference or a success rate"
+        },
+        "foreign_cwd_rehearsal": {
+          "passed": true,
+          "tools": [
+            "shell",
+            "check_goal",
+            "run_script"
+          ],
+          "initial_check": {
+            "passed": false,
+            "saved": false,
+            "problems": [
+              "not_saved"
+            ],
+            "check": "independent_hidden_label_score"
+          },
+          "whole_seconds": 13.956830899929628
+        }
+      },
+      "pair": [
+        {
+          "arm": "native",
+          "corpus": "template",
+          "objective": "neutral",
+          "objective_note": null,
+          "priced_tool_docs": false,
+          "run_script_description": null,
+          "route": "direct",
+          "tool_counts": {
+            "shell": 6,
+            "check_goal": 1
+          },
+          "authored_python_files": 1,
+          "script_executions": [],
+          "independent_check": {
+            "submitted": 554,
+            "true_positive": 554,
+            "false_positive": 0,
+            "false_negative": 0,
+            "unknown_ids": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "passed": true
+          },
+          "jev_usage_total": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "usage_complete": true
+          },
+          "jev_cost_usd_at_published_price": 0.0,
+          "whole_operation_seconds": 36.32670530001633,
+          "serve_finalized": true,
+          "container_cleanup": {
+            "container_recorded": true,
+            "left_running": true,
+            "stopped_by_runner": true
+          },
+          "budgets": {
+            "executions": 3,
+            "steps_per_execution": 8,
+            "per_execution_seconds": 100,
+            "per_execution_requests": 50,
+            "provider_requests": 150,
+            "jev_seconds": 300,
+            "primary_cli_seconds": 1200
+          },
+          "route_preference_in_prompt": false,
+          "product_skill_disabled": true,
+          "primary": {
+            "ok": true,
+            "status": "completed",
+            "reason": null,
+            "model_requested": "claude-opus-5-5",
+            "models_resolved": [
+              "claude-opus-5-5"
+            ],
+            "model_fallbacks": [],
+            "tool_calls": {
+              "mcp__jev_eval__shell": 6,
+              "mcp__jev_eval__check_goal": 1,
+              "StructuredOutput": 1
+            },
+            "unexpected_tool_calls": 0,
+            "permission_denials": 0,
+            "num_turns": 9,
+            "usage_scope": "claude_code_result_model_usage",
+            "usage_complete": true,
+            "usage_by_model": {
+              "claude-opus-5-5": {
+                "input_tokens": 14,
+                "output_tokens": 2506,
+                "cache_read_input_tokens": 67660,
+                "cache_creation_input_tokens": 20602
+              }
+            },
+            "cli_reported_cost_usd_estimate": 0.228524,
+            "whole_process_seconds": 36.31441430002451,
+            "final_output": {
+              "complete": true,
+              "summary": "The saved report passes the independent check: it submitted 554 IDs, none of which were unknown, and no problems were reported. I saved /work/report.json listing the 554 events about customer-facing production outages or severe degradation that are still ongoing. The 2000 events are built from about 260 fixed sentence templates. I sorted them with keyword rules in /work/s/c.py. Events were dropped if they mentioned a non-production environment (staging, QA cluster, sandbox, pre-prod, dev canary, test tenant). Events were also dropped if they said the incident was resolved, had recovered, was mitigated or was being closed. The same applied to internal-only impact, maintenance, drills, tabletop exercises, chaos tests, false alarms and synthetic-check noise, and routine notices like certificate renewals, cost reports, new dashboards, finished deploys and capacity changes. An event was kept if what was left described customers being hurt: 5xx errors, error rate above 20%, timeouts, being unable to sign in or pay, blank pages, failing requests, being unreachable, or being unable to complete the flow. After the rules ran, no event was left unclassified.",
+              "approach_reason": "When I grouped the events by their wording, they collapsed into a small set of fixed templates. Rules I could check by eye fully cover them, so this was quick and deterministic. Live model inference wasn't needed, and the run_script tool for it wasn't offered anyway."
+            },
+            "effective_inventory": {
+              "tools": [
+                "StructuredOutput",
+                "mcp__jev_eval__check_goal",
+                "mcp__jev_eval__shell"
+              ],
+              "non_evaluation_tools": [],
+              "mcp_servers": [
+                {
+                  "name": "jev_eval",
+                  "status": "connected"
+                }
+              ],
+              "skills": [],
+              "slash_commands": [],
+              "permission_mode": "dontAsk",
+              "builtin_plugins": [
+                "cc-plugin-agents-md",
+                "cc-plugin-telemetry",
+                "cc-plugin-plugin-authoring"
+              ]
+            }
+          }
+        },
+        {
+          "arm": "optional",
+          "corpus": "template",
+          "objective": "neutral",
+          "objective_note": null,
+          "priced_tool_docs": false,
+          "run_script_description": null,
+          "route": "direct",
+          "tool_counts": {
+            "shell": 6,
+            "check_goal": 1
+          },
+          "authored_python_files": 1,
+          "script_executions": [],
+          "independent_check": {
+            "submitted": 554,
+            "true_positive": 554,
+            "false_positive": 0,
+            "false_negative": 0,
+            "unknown_ids": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "passed": true
+          },
+          "jev_usage_total": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "usage_complete": true
+          },
+          "jev_cost_usd_at_published_price": 0.0,
+          "whole_operation_seconds": 47.471001600148156,
+          "serve_finalized": true,
+          "container_cleanup": {
+            "container_recorded": true,
+            "left_running": true,
+            "stopped_by_runner": true
+          },
+          "budgets": {
+            "executions": 3,
+            "steps_per_execution": 8,
+            "per_execution_seconds": 100,
+            "per_execution_requests": 50,
+            "provider_requests": 150,
+            "jev_seconds": 300,
+            "primary_cli_seconds": 1200
+          },
+          "route_preference_in_prompt": false,
+          "product_skill_disabled": true,
+          "primary": {
+            "ok": true,
+            "status": "completed",
+            "reason": null,
+            "model_requested": "claude-opus-5-5",
+            "models_resolved": [
+              "claude-opus-5-5"
+            ],
+            "model_fallbacks": [],
+            "tool_calls": {
+              "mcp__jev_eval__shell": 6,
+              "mcp__jev_eval__check_goal": 1,
+              "StructuredOutput": 1
+            },
+            "unexpected_tool_calls": 0,
+            "permission_denials": 0,
+            "num_turns": 9,
+            "usage_scope": "claude_code_result_model_usage",
+            "usage_complete": true,
+            "usage_by_model": {
+              "claude-opus-5-5": {
+                "input_tokens": 14,
+                "output_tokens": 2832,
+                "cache_read_input_tokens": 68921,
+                "cache_creation_input_tokens": 19174
+              }
+            },
+            "cli_reported_cost_usd_estimate": 0.2238722,
+            "whole_process_seconds": 47.45993679994717,
+            "final_output": {
+              "complete": true,
+              "summary": "The saved report passes the independent check. /work/report.json lists 554 of the 2000 events: 554 submitted, 0 unknown ids, no problems reported. The events are generated from a small set of fixed text templates, so I sorted them with keyword rules in /work/rules.py. An event is excluded if it mentions any of these: staging, sandbox or test tenant, the dev environment, the QA cluster or pre-prod; resolved, recovered, mitigated or closing the incident; internal-only or ops-only impact, or no customer impact; scheduled maintenance, game day drills, tabletop rehearsals or chaos exercises; probe or synthetic-check false alarms, or a healthy batch job; or routine notices such as certificate renewals, cost reports, new dashboards, finished deploys or added capacity. An event is included if it describes customers being hit, such as 5xx errors, error rate above 20%, unreachable, can't complete the flow, can't sign in or pay, blank pages, timeouts, or latency over 30 seconds. Every event landed in one bucket or the other. I grouped both sets by template and read through every group to confirm there were no misclassifications or traps.",
+              "approach_reason": "The events are generated from a small, fixed set of templates (around 100 distinct patterns once service, region and user type are swapped out), and I could read and check every one by hand. Deterministic keyword rules were exact, quick to verify and cost nothing, so I didn't run the billable Jev model-inference scripts."
+            },
+            "effective_inventory": {
+              "tools": [
+                "StructuredOutput",
+                "mcp__jev_eval__check_goal",
+                "mcp__jev_eval__run_script",
+                "mcp__jev_eval__shell"
+              ],
+              "non_evaluation_tools": [],
+              "mcp_servers": [
+                {
+                  "name": "jev_eval",
+                  "status": "connected"
+                }
+              ],
+              "skills": [],
+              "slash_commands": [],
+              "permission_mode": "dontAsk",
+              "builtin_plugins": [
+                "cc-plugin-agents-md",
+                "cc-plugin-telemetry",
+                "cc-plugin-plugin-authoring"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "natural_corpus": {
+      "records": 1000,
+      "positive": 287,
+      "generation": {
+        "model": "claude-haiku-5-5",
+        "seed": 20261012,
+        "records_sha256": "68738159c59f276a479a49b4c9c0196ea24580bce9828061f26b85d50ad1766f",
+        "cost_usd_estimate_total": 0.1614,
+        "generator": "benchmarks/triage_corpus.py (Claude Code CLI, no tools); labels derive from sampled specs only"
+      },
+      "acceptance": {
+        "zero_model_canary": {
+          "passed": true,
+          "empty_check": {
+            "passed": false,
+            "saved": false,
+            "problems": [
+              "not_saved"
+            ],
+            "check": "independent_hidden_label_score"
+          },
+          "oracle_check": {
+            "passed": true,
+            "saved": true,
+            "submitted": 287,
+            "unknown_ids": 0,
+            "problems": [],
+            "check": "independent_hidden_label_score"
+          },
+          "partial_check": {
+            "passed": false,
+            "saved": true,
+            "submitted": 143,
+            "unknown_ids": 0,
+            "problems": [
+              "accuracy_below_threshold"
+            ],
+            "check": "independent_hidden_label_score"
+          },
+          "fake_provider_execution": {
+            "terminal": {
+              "status": "done",
+              "complete": true,
+              "steps": 1,
+              "archive": "/work/jev-1.jsonl",
+              "telemetry": {
+                "requests": 1,
+                "usage_complete": true,
+                "usage": {
+                  "input_tokens": 1,
+                  "output_tokens": 1
+                },
+                "calls": [
+                  {
+                    "ok": true,
+                    "usage": {
+                      "input_tokens": 1,
+                      "output_tokens": 1
+                    },
+                    "usage_complete": true,
+                    "transport": {
+                      "clients_created": 1,
+                      "client_reuses": 0,
+                      "requests": 1
+                    },
+                    "unknown_usage_attempts": 0,
+                    "workers": 1,
+                    "cache_enabled": false,
+                    "provider_failure_codes": [],
+                    "backend": "jev-context/typed-batch",
+                    "package_version": "0.4.1",
+                    "requests": 1,
+                    "source_records": 1,
+                    "packed_requests": 0,
+                    "selection": {
+                      "type": "choice",
+                      "confidence": 1.0,
+                      "probabilities": {
+                        "c0": 1.0,
+                        "c1": 0.0,
+                        "c2": 0.0,
+                        "c3": 0.0,
+                        "NONE": 0.0,
+                        "REVIEW": 0.0
+                      },
+                      "choice": "c0"
+                    },
+                    "model_requested": "jev-1.13.0",
+                    "model_resolved": "offline-cold-replay",
+                    "models": {
+                      "offline-cold-replay": {
+                        "input_tokens": 1,
+                        "output_tokens": 1
+                      }
+                    },
+                    "selection_review_reasons": [],
+                    "stage": "tool_selection",
+                    "elapsed_seconds": 0.08103672699999898,
+                    "context_bytes": 1124,
+                    "context_characters": 1124,
+                    "context_character_limit": 15000
+                  }
+                ],
+                "owned_transport": {
+                  "scope": "run_owned_provider_client",
+                  "snapshot": "terminal_finish",
+                  "request_attempts": 1,
+                  "clients_created": 1,
+                  "client_reuses": 0,
+                  "counters_complete": true
+                }
+              },
+              "elapsed_seconds": 1.0593328559999993,
+              "cache_enabled": false
+            },
+            "independent_check": {
+              "passed": false,
+              "saved": true,
+              "submitted": 1000,
+              "unknown_ids": 0,
+              "problems": [
+                "accuracy_below_threshold"
+              ],
+              "check": "independent_hidden_label_score"
+            },
+            "mock_submissions": 17,
+            "remaining": {
+              "executions": 2,
+              "provider_requests": 133,
+              "jev_seconds": 295.0212208000012
+            }
+          },
+          "whole_seconds": 17.125070499954745,
+          "scope": "zero-model container transport; host known-answer writes and a fake provider, neither AI authorship nor live Jev acceptance"
+        },
+        "live_jev_unedited_scaffold": {
+          "passed": true,
+          "terminal": {
+            "status": "done",
+            "complete": true,
+            "steps": 1
+          },
+          "score": {
+            "submitted": 290,
+            "true_positive": 287,
+            "false_positive": 3,
+            "false_negative": 0,
+            "unknown_ids": 0,
+            "precision": 0.9896551724137931,
+            "recall": 1.0,
+            "f1": 0.9948006932409013,
+            "duplicate_ids": 0,
+            "passed": true
+          },
+          "execution_seconds": 12.531688699964434,
+          "requests": 17,
+          "input_tokens": 224251,
+          "output_tokens": 39953,
+          "usage_complete": true,
+          "jev_cost_usd_at_published_price": 0.0094,
+          "scope": "live Jev on the unedited records scaffold with our question; mechanism capability only, not AI authorship, preference or a success rate"
+        },
+        "foreign_cwd_rehearsal": {
+          "passed": true,
+          "tools": [
+            "shell",
+            "check_goal",
+            "run_script"
+          ],
+          "initial_check": {
+            "passed": false,
+            "saved": false,
+            "problems": [
+              "not_saved"
+            ],
+            "check": "independent_hidden_label_score"
+          },
+          "whole_seconds": 11.040321200154722
+        }
+      },
+      "pair": [
+        {
+          "arm": "native",
+          "corpus": "natural",
+          "objective": "neutral",
+          "objective_note": null,
+          "priced_tool_docs": false,
+          "run_script_description": null,
+          "route": "direct",
+          "tool_counts": {
+            "shell": 23,
+            "check_goal": 1
+          },
+          "authored_python_files": 0,
+          "script_executions": [],
+          "independent_check": {
+            "submitted": 287,
+            "true_positive": 287,
+            "false_positive": 0,
+            "false_negative": 0,
+            "unknown_ids": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "passed": true
+          },
+          "jev_usage_total": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "usage_complete": true
+          },
+          "jev_cost_usd_at_published_price": 0.0,
+          "whole_operation_seconds": 94.55179139995016,
+          "serve_finalized": true,
+          "container_cleanup": {
+            "container_recorded": true,
+            "left_running": false
+          },
+          "budgets": {
+            "executions": 3,
+            "steps_per_execution": 8,
+            "per_execution_seconds": 100,
+            "per_execution_requests": 50,
+            "provider_requests": 150,
+            "jev_seconds": 300,
+            "primary_cli_seconds": 1200
+          },
+          "route_preference_in_prompt": false,
+          "product_skill_disabled": true,
+          "primary": {
+            "ok": true,
+            "status": "completed",
+            "reason": null,
+            "model_requested": "claude-opus-5-5",
+            "models_resolved": [
+              "claude-opus-5-5"
+            ],
+            "model_fallbacks": [],
+            "tool_calls": {
+              "mcp__jev_eval__shell": 23,
+              "mcp__jev_eval__check_goal": 1,
+              "StructuredOutput": 1
+            },
+            "unexpected_tool_calls": 0,
+            "permission_denials": 0,
+            "num_turns": 26,
+            "usage_scope": "claude_code_result_model_usage",
+            "usage_complete": true,
+            "usage_by_model": {
+              "claude-opus-5-5": {
+                "input_tokens": 48,
+                "output_tokens": 6075,
+                "cache_read_input_tokens": 833851,
+                "cache_creation_input_tokens": 65410
+              }
+            },
+            "cli_reported_cost_usd_estimate": 0.8117422000000001,
+            "whole_process_seconds": 94.53632690012455,
+            "final_output": {
+              "complete": true,
+              "summary": "The report passes the independent check. I saved `/work/report.json` with 287 event ids, and the check found no unknown ids and no problems.\n\nI read and classified all 1000 events by hand, in batches of about 45. An event was flagged only if its latest statement says all of these:\n- it's in production or on the live site;\n- customers are affected (shoppers, merchants, buyers, viewers, subscribers, account owners, app users or end users);\n- it's still ongoing.\n\nI left out anything that turned out to be in staging, QA, dev, sandbox, pre-prod or perf-test, or that affected only staff (admin console, ops dashboard, analytics tool, back-office export job). I also left out anything already resolved or mitigated, planned maintenance, game day drills, false alarms from broken probes, and runbook questions or postmortem reminders. Where a correction contradicted an earlier line, the later statement decided, in both directions.\n\nOne judgement call: a few events don't name an environment but describe real, ongoing customer impact. I counted those as production.",
+              "approach_reason": "The README's live inference tool (run_script) wasn't offered, so batch classification by model wasn't possible. The events are full of tricky corrections, like 'staging, not prod' reversed later, or an outage that turns out to be a drill. Keyword rules would have struggled to reach 0.95 precision and recall, so I read every event directly. At about 210 KB, the whole file fit into roughly 22 batches."
+            },
+            "effective_inventory": {
+              "tools": [
+                "StructuredOutput",
+                "mcp__jev_eval__check_goal",
+                "mcp__jev_eval__shell"
+              ],
+              "non_evaluation_tools": [],
+              "mcp_servers": [
+                {
+                  "name": "jev_eval",
+                  "status": "connected"
+                }
+              ],
+              "skills": [],
+              "slash_commands": [],
+              "permission_mode": "dontAsk",
+              "builtin_plugins": [
+                "cc-plugin-agents-md",
+                "cc-plugin-telemetry",
+                "cc-plugin-plugin-authoring"
+              ]
+            }
+          }
+        },
+        {
+          "arm": "optional",
+          "corpus": "natural",
+          "objective": "neutral",
+          "objective_note": null,
+          "priced_tool_docs": false,
+          "run_script_description": null,
+          "route": "direct",
+          "tool_counts": {
+            "shell": 25,
+            "check_goal": 1
+          },
+          "authored_python_files": 0,
+          "script_executions": [],
+          "independent_check": {
+            "submitted": 287,
+            "true_positive": 287,
+            "false_positive": 0,
+            "false_negative": 0,
+            "unknown_ids": 0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "passed": true
+          },
+          "jev_usage_total": {
+            "requests": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "usage_complete": true
+          },
+          "jev_cost_usd_at_published_price": 0.0,
+          "whole_operation_seconds": 147.25694120000117,
+          "serve_finalized": true,
+          "container_cleanup": {
+            "container_recorded": true,
+            "left_running": true,
+            "stopped_by_runner": true
+          },
+          "budgets": {
+            "executions": 3,
+            "steps_per_execution": 8,
+            "per_execution_seconds": 100,
+            "per_execution_requests": 50,
+            "provider_requests": 150,
+            "jev_seconds": 300,
+            "primary_cli_seconds": 1200
+          },
+          "route_preference_in_prompt": false,
+          "product_skill_disabled": true,
+          "primary": {
+            "ok": true,
+            "status": "completed",
+            "reason": null,
+            "model_requested": "claude-opus-5-5",
+            "models_resolved": [
+              "claude-opus-5-5"
+            ],
+            "model_fallbacks": [],
+            "tool_calls": {
+              "mcp__jev_eval__shell": 25,
+              "mcp__jev_eval__check_goal": 1,
+              "StructuredOutput": 1
+            },
+            "unexpected_tool_calls": 0,
+            "permission_denials": 0,
+            "num_turns": 28,
+            "usage_scope": "claude_code_result_model_usage",
+            "usage_complete": true,
+            "usage_by_model": {
+              "claude-opus-5-5": {
+                "input_tokens": 52,
+                "output_tokens": 9604,
+                "cache_read_input_tokens": 942112,
+                "cache_creation_input_tokens": 70873
+              }
+            },
+            "cli_reported_cost_usd_estimate": 0.9476943999999999,
+            "whole_process_seconds": 147.24299820000306,
+            "final_output": {
+              "complete": true,
+              "summary": "The saved report passes the independent check. I read all 1000 events myself and labeled each one. /work/report.json lists 287 event ids that are ongoing, customer-facing production outages or severe degradations that need someone paged now. The check found 0 unknown ids. I left out events that were in staging, QA, dev, pre-prod, perf-test or sandbox environments; already resolved or mitigated; internal-only (staff consoles, analytics tools, back-office export jobs); planned maintenance, game-day drills or false alarms from broken probes; and runbook questions or postmortem reminders. When an event contained corrections, I went by the latest statement. Events that didn't name an environment but described live customer impact still happening were counted as production.",
+              "approach_reason": "The corpus was small (about 150 KB, 1000 short records), so reading every record directly was feasible and reliable. It also handled the tricky correction chains and environment wording without using billable Jev inference or the limited run_script executions. The check passed on the first submission."
+            },
+            "effective_inventory": {
+              "tools": [
+                "StructuredOutput",
+                "mcp__jev_eval__check_goal",
+                "mcp__jev_eval__run_script",
+                "mcp__jev_eval__shell"
+              ],
+              "non_evaluation_tools": [],
+              "mcp_servers": [
+                {
+                  "name": "jev_eval",
+                  "status": "connected"
+                }
+              ],
+              "skills": [],
+              "slash_commands": [],
+              "permission_mode": "dontAsk",
+              "builtin_plugins": [
+                "cc-plugin-agents-md",
+                "cc-plugin-telemetry",
+                "cc-plugin-plugin-authoring"
+              ]
+            }
+          }
+        }
+      ],
+      "operator_price_note_run": {
+        "arm": "optional",
+        "corpus": "natural",
+        "objective": "cost",
+        "objective_note": "Operator cost note (published list prices, USD per million tokens): Jev (TypeSafe jev-1.13.0) $0.042 input, output tokens free; Claude Haiku 5.5 $0.10 input, $0.50 output; OpenAI GPT-5.6 Luna $0.20 input, $1.20 output; your own model, Claude Opus 5.5, $4 input, $20 output. Jev is cheaper per token than even these small models, so the operator expects delegating work that Jev can do to lower total model cost compared with doing all of it yourself.",
+        "priced_tool_docs": false,
+        "run_script_description": null,
+        "route": "caller_authored_jev",
+        "tool_counts": {
+          "shell": 5,
+          "run_script": 1,
+          "check_goal": 1
+        },
+        "authored_python_files": 2,
+        "script_executions": [
+          {
+            "execution": 1,
+            "terminal": {
+              "status": "done",
+              "complete": true,
+              "steps": 1,
+              "reason": null
+            },
+            "independent_check": {
+              "passed": true,
+              "saved": true,
+              "submitted": 290,
+              "unknown_ids": 0,
+              "problems": [],
+              "check": "independent_hidden_label_score"
+            },
+            "execution_seconds": 13.622837800066918,
+            "logical_submissions": 22,
+            "actual_model_usage": {
+              "requests": 22,
+              "models": {
+                "jev-1.13.0": {
+                  "input_tokens": 283557,
+                  "output_tokens": 39918
+                }
+              },
+              "usage_complete": true,
+              "input_tokens": 283557,
+              "output_tokens": 39918,
+              "known_reported_tokens": {
+                "input_tokens": 283557,
+                "output_tokens": 39918
+              },
+              "unknown_usage_attempts": 0,
+              "native_sdk_attempts": 22,
+              "physical_submissions": [
+                {
+                  "request_sha256": "38e3e55b629aeb7e18980cf6663fffcc7113dbf0f4e306c8798dba8aa710ae08",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 1272,
+                    "output_tokens": 65
+                  },
+                  "http_status": 200,
+                  "seconds": 0.5455106000881642
+                },
+                {
+                  "request_sha256": "9220694c2a92d3e38009201534d267c6f96accc6e5cabb47b428ca556e3d3ab5",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13338,
+                    "output_tokens": 1833
+                  },
+                  "http_status": 200,
+                  "seconds": 0.5581491000484675
+                },
+                {
+                  "request_sha256": "e27e6bff6079ed463b71abde8fbd07f629252aaf2f107880272ffaa9c6119622",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13793,
+                    "output_tokens": 1993
+                  },
+                  "http_status": 200,
+                  "seconds": 0.375943899853155
+                },
+                {
+                  "request_sha256": "2a464ed6874dfba97f0c37ac8e33642b582b22a232f29b05daec0782c0fd34ae",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13464,
+                    "output_tokens": 1873
+                  },
+                  "http_status": 200,
+                  "seconds": 0.36254170001484454
+                },
+                {
+                  "request_sha256": "90da505e99730ff1b7cf2033bea122bd629c68217d5fd486d13e36414791447d",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13442,
+                    "output_tokens": 1873
+                  },
+                  "http_status": 200,
+                  "seconds": 0.35403789998963475
+                },
+                {
+                  "request_sha256": "f02fe8dbc3485d132e3ddad318bf3c6fac8ea15324263153634941befed7b423",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13600,
+                    "output_tokens": 1873
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3489245001692325
+                },
+                {
+                  "request_sha256": "8a0254822aa5713c3fe1bb896308cfafab58b15d33542888dc0c48b9741ff492",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13635,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3470497000962496
+                },
+                {
+                  "request_sha256": "e3a71ed0e43bb34caf0083303f07e815beabdaa57a1f1f886f9fe1516bdf932b",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13544,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.351927800104022
+                },
+                {
+                  "request_sha256": "1b553455ec415a1b09b7cea322d397389658e1fd355d7a6dff86a7791b4664b5",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13309,
+                    "output_tokens": 1873
+                  },
+                  "http_status": 200,
+                  "seconds": 0.5973209999501705
+                },
+                {
+                  "request_sha256": "fc92a29b77b5b19185955fab07f5079a7f32b2f8f56d5b721bc933d7e8497e12",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13670,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.352000700077042
+                },
+                {
+                  "request_sha256": "a61406b50214f43d0db3109e812551e81a2671544246ff3b9407e2a0bc652143",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13661,
+                    "output_tokens": 1913
+                  },
+                  "http_status": 200,
+                  "seconds": 0.37107219989411533
+                },
+                {
+                  "request_sha256": "c50ee53ba12f4f14d2c2aa96ac4f170d052716afb4811a5aa4d1ed33b1d2f1fa",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13492,
+                    "output_tokens": 1873
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3523991999682039
+                },
+                {
+                  "request_sha256": "73a9d5a3c4097842c1ce4f1ed3807741223fe135846ba4d6a50bbc9f3a44d78e",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13281,
+                    "output_tokens": 1833
+                  },
+                  "http_status": 200,
+                  "seconds": 0.36384349991567433
+                },
+                {
+                  "request_sha256": "15b0a9773215343664213d27024206088a433d9f3443142643a50715e48fbac9",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13562,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.36961269984021783
+                },
+                {
+                  "request_sha256": "036ee51a833e06e8a22561115a5351f7f6bef95f67cfc96f0d1225cfc349a7e5",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13624,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.35191099997609854
+                },
+                {
+                  "request_sha256": "be8e965c7065f5802631a88a14e33f4920652720c1f4ce5bd736e0d3af258df4",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13529,
+                    "output_tokens": 1913
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3470312999561429
+                },
+                {
+                  "request_sha256": "6e222600591a50173b48852f8d2c5fa4a8a80775564ebf66283543e0fc15397c",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13612,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3555296000558883
+                },
+                {
+                  "request_sha256": "4f3a8264d36ffcc9ebaeba70861c6ea124aa50020efcdf9ed49858ac9a0caf1e",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13569,
+                    "output_tokens": 1873
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3554416000843048
+                },
+                {
+                  "request_sha256": "d4b4f3fc13362c78b009d7bf557b89cc1805d237f51938e2c604402edb5cda40",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 11533,
+                    "output_tokens": 1633
+                  },
+                  "http_status": 200,
+                  "seconds": 0.35152170015498996
+                },
+                {
+                  "request_sha256": "83af724301531ba4f44181ff319bee197a1200cb357eb699e321109cc4bec28c",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13446,
+                    "output_tokens": 1913
+                  },
+                  "http_status": 200,
+                  "seconds": 0.35251899994909763
+                },
+                {
+                  "request_sha256": "115e2c7b7b73bc8b205916c2db708d2c6173940edb0ac73bde2a5623a9882975",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13598,
+                    "output_tokens": 1913
+                  },
+                  "http_status": 200,
+                  "seconds": 0.39934629993513227
+                },
+                {
+                  "request_sha256": "c9106f5a48411fba3a59c7f5592f07cad0408ce49bb90f8f4921cc823531545c",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 13583,
+                    "output_tokens": 1953
+                  },
+                  "http_status": 200,
+                  "seconds": 0.36071510007604957
+                }
+              ]
+            }
+          }
+        ],
+        "independent_check": {
+          "submitted": 290,
+          "true_positive": 287,
+          "false_positive": 3,
+          "false_negative": 0,
+          "unknown_ids": 0,
+          "precision": 0.9896551724137931,
+          "recall": 1.0,
+          "f1": 0.9948006932409013,
+          "passed": true
+        },
+        "jev_usage_total": {
+          "requests": 22,
+          "input_tokens": 283557,
+          "output_tokens": 39918,
+          "usage_complete": true
+        },
+        "jev_cost_usd_at_published_price": 0.0119,
+        "whole_operation_seconds": 52.391043700044975,
+        "serve_finalized": true,
+        "container_cleanup": {
+          "container_recorded": true,
+          "left_running": true,
+          "stopped_by_runner": true
+        },
+        "budgets": {
+          "executions": 3,
+          "steps_per_execution": 8,
+          "per_execution_seconds": 100,
+          "per_execution_requests": 50,
+          "provider_requests": 150,
+          "jev_seconds": 300,
+          "primary_cli_seconds": 1200
+        },
+        "route_preference_in_prompt": false,
+        "product_skill_disabled": true,
+        "primary": {
+          "ok": true,
+          "status": "completed",
+          "reason": null,
+          "model_requested": "claude-opus-5-5",
+          "models_resolved": [
+            "claude-opus-5-5"
+          ],
+          "model_fallbacks": [],
+          "tool_calls": {
+            "mcp__jev_eval__shell": 5,
+            "mcp__jev_eval__run_script": 1,
+            "mcp__jev_eval__check_goal": 1,
+            "StructuredOutput": 1
+          },
+          "unexpected_tool_calls": 0,
+          "permission_denials": 0,
+          "num_turns": 9,
+          "usage_scope": "claude_code_result_model_usage",
+          "usage_complete": true,
+          "usage_by_model": {
+            "claude-opus-5-5": {
+              "input_tokens": 16,
+              "output_tokens": 2456,
+              "cache_read_input_tokens": 86439,
+              "cache_creation_input_tokens": 18447
+            }
+          },
+          "cli_reported_cost_usd_estimate": 0.2140478,
+          "whole_process_seconds": 52.37868449999951,
+          "final_output": {
+            "complete": true,
+            "summary": "The saved report passes the independent check. /work/report.json lists 290 of the 1000 events as page-now incidents, and none of the IDs are unknown. Re-running check_goal confirmed the pass. To get there, I wrote a script (/work/triage.py) that asks Jev one PAGE/NO/REVIEW question about each event (with its service name added). The question covers every rule you gave: live production only, impact on real customers, still ongoing, no drills or maintenance, and the latest update or correction decides. Jev judged all 1000 events in one run, using about 284K input and 40K output tokens across 22 batched requests. Only PAGE answers went into the report. The full per-event answers are saved in /work/packet.json. I only used 1 of the 3 allowed runs.",
+            "approach_reason": "Each event has to be read for meaning: environment, whether it's still ongoing, who is affected, and how later corrections change it. Jev can do that in batches at about $0.042 per million input tokens, with output free. That cost about $0.012 for the whole set, far less than reading 1000 events myself with Opus. My own part was small: writing the question and the script, and confirming the check."
+          },
+          "effective_inventory": {
+            "tools": [
+              "StructuredOutput",
+              "mcp__jev_eval__check_goal",
+              "mcp__jev_eval__run_script",
+              "mcp__jev_eval__shell"
+            ],
+            "non_evaluation_tools": [],
+            "mcp_servers": [
+              {
+                "name": "jev_eval",
+                "status": "connected"
+              }
+            ],
+            "skills": [],
+            "slash_commands": [],
+            "permission_mode": "dontAsk",
+            "builtin_plugins": [
+              "cc-plugin-agents-md",
+              "cc-plugin-telemetry",
+              "cc-plugin-plugin-authoring"
+            ]
+          }
+        }
+      },
+      "priced_tool_docs_run": {
+        "arm": "optional",
+        "corpus": "natural",
+        "objective": "neutral",
+        "objective_note": null,
+        "priced_tool_docs": true,
+        "run_script_description": "Execute Jev Harness on a caller-authored /work Python task script exporting workflow=TaskScript(build). Jev chooses registered tools; trusted script code executes them, and Engine().decide judges records with live Jev inference in batched requests. Bound inputs records=/corpus/records.jsonl and output=/work/report.json; further inputs may be passed. Up to 3 executions per session; each runs at most 8 Jev steps, 100 seconds and 50 provider requests; in total at most 150 provider requests and 300 Jev seconds. Returns script digest, terminal, the independent check and separate provider usage. Live Jev inference is billable. Published Jev price: $0.042 per million input tokens; output tokens are free (TypeSafe jev-1.13.0).",
+        "route": "caller_authored_jev",
+        "tool_counts": {
+          "shell": 8,
+          "run_script": 1,
+          "check_goal": 1
+        },
+        "authored_python_files": 1,
+        "script_executions": [
+          {
+            "execution": 1,
+            "terminal": {
+              "status": "done",
+              "complete": true,
+              "steps": 1,
+              "reason": null
+            },
+            "independent_check": {
+              "passed": true,
+              "saved": true,
+              "submitted": 287,
+              "unknown_ids": 0,
+              "problems": [],
+              "check": "independent_hidden_label_score"
+            },
+            "execution_seconds": 11.839828300056979,
+            "logical_submissions": 18,
+            "actual_model_usage": {
+              "requests": 18,
+              "models": {
+                "jev-1.13.0": {
+                  "input_tokens": 241679,
+                  "output_tokens": 39946
+                }
+              },
+              "usage_complete": true,
+              "input_tokens": 241679,
+              "output_tokens": 39946,
+              "known_reported_tokens": {
+                "input_tokens": 241679,
+                "output_tokens": 39946
+              },
+              "unknown_usage_attempts": 0,
+              "native_sdk_attempts": 18,
+              "physical_submissions": [
+                {
+                  "request_sha256": "2f7074a2f53e99ffc2e2f53db7d86bcfdc23d981adf924289704ca6178e98184",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 1268,
+                    "output_tokens": 65
+                  },
+                  "http_status": 200,
+                  "seconds": 0.5333366000559181
+                },
+                {
+                  "request_sha256": "8aa7cedd64977dee46a5db561e8b03753e12fa121466a931251179719c52bbdf",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14268,
+                    "output_tokens": 2313
+                  },
+                  "http_status": 200,
+                  "seconds": 0.5500614000484347
+                },
+                {
+                  "request_sha256": "4f3d32b080b6a9944d20c119024253faa3ee97fd8df97e592cb0886635f3f5d9",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14575,
+                    "output_tokens": 2473
+                  },
+                  "http_status": 200,
+                  "seconds": 0.39255420002155006
+                },
+                {
+                  "request_sha256": "7209ab336b4a8f2eb14c8805f1d0dfefbe0935027784d4264c753900b4b23809",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14379,
+                    "output_tokens": 2433
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3710964999627322
+                },
+                {
+                  "request_sha256": "5895d23fcdbf4a30fd669142cefbae49f1f5ceb8db8f5977d65a998392e5a9b0",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14674,
+                    "output_tokens": 2473
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3589117999654263
+                },
+                {
+                  "request_sha256": "d4871952f7f45c70b64eebd0157f878552db5f40702dcbfb2de5f77748f23719",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14369,
+                    "output_tokens": 2393
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3676139998715371
+                },
+                {
+                  "request_sha256": "f20f406a7b6b325ba89ea3ffa5bc55705a53ee526144dd819c2424a1d498f474",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14362,
+                    "output_tokens": 2273
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3765209000557661
+                },
+                {
+                  "request_sha256": "72401960a7ff53bb4de81173778aa0294bb024c15b5e447e30b5de346e03e3b0",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14613,
+                    "output_tokens": 2473
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3797587000299245
+                },
+                {
+                  "request_sha256": "90bbd3ec225096f26f6c337d3a6a73243bbac203ec0819a3889973c2970d5ddf",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14499,
+                    "output_tokens": 2393
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3632871999870986
+                },
+                {
+                  "request_sha256": "0ecba8fe67d7a784a9b5eb485f448d5592aaaaed9ac62c5dcbfd9e12a0d3736f",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14250,
+                    "output_tokens": 2353
+                  },
+                  "http_status": 200,
+                  "seconds": 0.38190579996444285
+                },
+                {
+                  "request_sha256": "9545c385f1cf54afab3a242bd652810ebc7f760b3978308cbeb656e1dfc251d7",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14451,
+                    "output_tokens": 2393
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3564321999438107
+                },
+                {
+                  "request_sha256": "6d3d6de32314b98d7fd8c7c9bbcad0825798c4a457614a056a33902eb1cc170c",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14221,
+                    "output_tokens": 2313
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3575337000656873
+                },
+                {
+                  "request_sha256": "7c57e86e2f0eb919b6aab4be6d1b0d7b2546aeb6f1552aab32d847cead1af34e",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14573,
+                    "output_tokens": 2473
+                  },
+                  "http_status": 200,
+                  "seconds": 0.40028909989632666
+                },
+                {
+                  "request_sha256": "f79bdbc1cc15e06e10bdd86f2723f289fa11b1e16ee9aa059e8f13023824a3f3",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14383,
+                    "output_tokens": 2433
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3770270999521017
+                },
+                {
+                  "request_sha256": "755f2b4ec8e1ecf91233c995609410f50585747e178076ce45bd1c12d2bdeaae",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 9717,
+                    "output_tokens": 1593
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3345580000896007
+                },
+                {
+                  "request_sha256": "a28259a69aaee484b4b99ca2905a6d6595f97fc3cce1419be957d3241b61ff70",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14425,
+                    "output_tokens": 2433
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3745779001619667
+                },
+                {
+                  "request_sha256": "009048ed88cb997e2d713e9b7ae5de4c8a379eaef100674d40adc27838aee7e9",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14256,
+                    "output_tokens": 2313
+                  },
+                  "http_status": 200,
+                  "seconds": 0.3580593999940902
+                },
+                {
+                  "request_sha256": "067d3fa1d7fa00e0355c99b07a6ac8b712c2c613c36ce41ed87ad4fc4af89fcb",
+                  "state": "responded",
+                  "model": "jev-1.13.0",
+                  "usage": {
+                    "input_tokens": 14396,
+                    "output_tokens": 2353
+                  },
+                  "http_status": 200,
+                  "seconds": 0.36950099980458617
+                }
+              ]
+            }
+          }
+        ],
+        "independent_check": {
+          "submitted": 287,
+          "true_positive": 287,
+          "false_positive": 0,
+          "false_negative": 0,
+          "unknown_ids": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "passed": true
+        },
+        "jev_usage_total": {
+          "requests": 18,
+          "input_tokens": 241679,
+          "output_tokens": 39946,
+          "usage_complete": true
+        },
+        "jev_cost_usd_at_published_price": 0.0102,
+        "whole_operation_seconds": 60.6672454001382,
+        "serve_finalized": true,
+        "container_cleanup": {
+          "container_recorded": true,
+          "left_running": true,
+          "stopped_by_runner": true
+        },
+        "budgets": {
+          "executions": 3,
+          "steps_per_execution": 8,
+          "per_execution_seconds": 100,
+          "per_execution_requests": 50,
+          "provider_requests": 150,
+          "jev_seconds": 300,
+          "primary_cli_seconds": 1200
+        },
+        "route_preference_in_prompt": false,
+        "product_skill_disabled": true,
+        "primary": {
+          "ok": true,
+          "status": "completed",
+          "reason": null,
+          "model_requested": "claude-opus-5-5",
+          "models_resolved": [
+            "claude-opus-5-5"
+          ],
+          "model_fallbacks": [],
+          "tool_calls": {
+            "mcp__jev_eval__shell": 8,
+            "mcp__jev_eval__run_script": 1,
+            "mcp__jev_eval__check_goal": 1,
+            "StructuredOutput": 1
+          },
+          "unexpected_tool_calls": 0,
+          "permission_denials": 0,
+          "num_turns": 12,
+          "usage_scope": "claude_code_result_model_usage",
+          "usage_complete": true,
+          "usage_by_model": {
+            "claude-opus-5-5": {
+              "input_tokens": 22,
+              "output_tokens": 2632,
+              "cache_read_input_tokens": 136312,
+              "cache_creation_input_tokens": 23060
+            }
+          },
+          "cli_reported_cost_usd_estimate": 0.26447040000000005,
+          "whole_process_seconds": 60.65517730009742,
+          "final_output": {
+            "complete": true,
+            "summary": "The saved report passes the independent check: 287 ids submitted, 0 unknown ids, and both precision and recall are at least 0.95. Jev judged all 1000 events in one live run and marked none as unclear. Each event's text was given to Jev with its service name and one question that applied every rule from the task: production only, customers affected, still ongoing, a real incident (not maintenance, a drill or a false alarm), and not a question, policy or past incident. Jev was told the latest update or correction in the text decides. The run saved some extra fields, so I rewrote /work/report.json to hold only {\"ids\": [...]} and ran the check again; it still passed. The run used 18 provider requests (241,679 input tokens, about $0.01) and 1 of the 3 allowed runs. I didn't read through the 287 picks by hand; the hidden-label check is the only accuracy measure.",
+            "approach_reason": "Applying the \"latest statement decides\" rule to 1000 free-text events needs judgment that keyword rules would get wrong. The Jev batch tool covered every event in a few seconds for about a cent, and the independent check confirmed the result, so a second run or manual review wasn't needed."
+          },
+          "effective_inventory": {
+            "tools": [
+              "StructuredOutput",
+              "mcp__jev_eval__check_goal",
+              "mcp__jev_eval__run_script",
+              "mcp__jev_eval__shell"
+            ],
+            "non_evaluation_tools": [],
+            "mcp_servers": [
+              {
+                "name": "jev_eval",
+                "status": "connected"
+              }
+            ],
+            "skills": [],
+            "slash_commands": [],
+            "permission_mode": "dontAsk",
+            "builtin_plugins": [
+              "cc-plugin-agents-md",
+              "cc-plugin-telemetry",
+              "cc-plugin-plugin-authoring"
+            ]
+          }
+        }
+      }
+    },
+    "development_probes_host": {
+      "source": "console output of local probe scripts during development (not file receipts)",
+      "rows": [
+        {
+          "corpus": "template",
+          "records": 300,
+          "spec": "one question",
+          "precision": 1.0,
+          "recall": 1.0,
+          "requests": 5,
+          "seconds": 1.32
+        },
+        {
+          "corpus": "template",
+          "records": 2000,
+          "spec": "one question",
+          "precision": 1.0,
+          "recall": 1.0,
+          "requests": 29,
+          "seconds": 3.33
+        },
+        {
+          "corpus": "thread templates",
+          "records": 600,
+          "spec": "one question",
+          "precision": 0.873,
+          "recall": 0.99,
+          "requests": 9,
+          "seconds": 1.64
+        },
+        {
+          "corpus": "thread templates",
+          "records": 600,
+          "spec": "four typed questions combined in code",
+          "precision": 0.965,
+          "recall": 0.99,
+          "requests": 26,
+          "seconds": 2.74
+        },
+        {
+          "corpus": "natural",
+          "records": 1000,
+          "spec": "one question",
+          "precision": 0.99,
+          "recall": 1.0,
+          "requests": 16,
+          "seconds": 2.58
+        },
+        {
+          "corpus": "natural",
+          "records": 1000,
+          "spec": "four typed questions combined in code",
+          "precision": 0.997,
+          "recall": 1.0,
+          "requests": 46,
+          "seconds": 3.41
+        }
+      ]
+    }
+  },
+  "scope": "one primary model, one sample per condition; route choices and costs are single observations, not rates or distributions"
+}

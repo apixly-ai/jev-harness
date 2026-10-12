@@ -597,6 +597,7 @@ def main():
         "delegation-lifecycle-ab.json",
         "geo-bilingual-2026-10-11.json",
         "browser-cold-2026-10-12.json",
+        "delegation-2026-10-12.json",
     ):
         shutil.copy(ROOT / "reports" / report, OUT / report)
     shutil.copy(ROOT / "web/brand/social.svg", OUT / "social.svg")

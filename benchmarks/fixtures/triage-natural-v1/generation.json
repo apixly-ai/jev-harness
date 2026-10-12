@@ -1,0 +1,164 @@
+{
+ "count_requested": 1000,
+ "records": 1000,
+ "dropped": 0,
+ "positive": 287,
+ "seed": 20261012,
+ "model": "claude-haiku-5-5",
+ "seconds": 240.76972600002773,
+ "records_sha256": "68738159c59f276a479a49b4c9c0196ea24580bce9828061f26b85d50ad1766f",
+ "batches": [
+  {
+   "first_k": 0,
+   "returned": 40,
+   "cost_usd_estimate": 0.0047484,
+   "output_tokens": 9312
+  },
+  {
+   "first_k": 40,
+   "returned": 40,
+   "cost_usd_estimate": 0.007914520000000001,
+   "output_tokens": 13310
+  },
+  {
+   "first_k": 80,
+   "returned": 40,
+   "cost_usd_estimate": 0.00728852,
+   "output_tokens": 12038
+  },
+  {
+   "first_k": 120,
+   "returned": 40,
+   "cost_usd_estimate": 0.007351120000000001,
+   "output_tokens": 12096
+  },
+  {
+   "first_k": 160,
+   "returned": 40,
+   "cost_usd_estimate": 0.00607552,
+   "output_tokens": 9598
+  },
+  {
+   "first_k": 200,
+   "returned": 40,
+   "cost_usd_estimate": 0.00507532,
+   "output_tokens": 7718
+  },
+  {
+   "first_k": 240,
+   "returned": 40,
+   "cost_usd_estimate": 0.00751652,
+   "output_tokens": 12454
+  },
+  {
+   "first_k": 280,
+   "returned": 40,
+   "cost_usd_estimate": 0.00592862,
+   "output_tokens": 9247
+  },
+  {
+   "first_k": 320,
+   "returned": 40,
+   "cost_usd_estimate": 0.00547272,
+   "output_tokens": 8486
+  },
+  {
+   "first_k": 360,
+   "returned": 40,
+   "cost_usd_estimate": 0.00716332,
+   "output_tokens": 11738
+  },
+  {
+   "first_k": 400,
+   "returned": 40,
+   "cost_usd_estimate": 0.0053991199999999994,
+   "output_tokens": 8268
+  },
+  {
+   "first_k": 440,
+   "returned": 40,
+   "cost_usd_estimate": 0.005711020000000001,
+   "output_tokens": 9005
+  },
+  {
+   "first_k": 480,
+   "returned": 40,
+   "cost_usd_estimate": 0.00741672,
+   "output_tokens": 12322
+  },
+  {
+   "first_k": 520,
+   "returned": 40,
+   "cost_usd_estimate": 0.00711452,
+   "output_tokens": 11740
+  },
+  {
+   "first_k": 560,
+   "returned": 40,
+   "cost_usd_estimate": 0.005993920000000001,
+   "output_tokens": 9482
+  },
+  {
+   "first_k": 600,
+   "returned": 40,
+   "cost_usd_estimate": 0.006273320000000001,
+   "output_tokens": 9990
+  },
+  {
+   "first_k": 640,
+   "returned": 40,
+   "cost_usd_estimate": 0.00782502,
+   "output_tokens": 13081
+  },
+  {
+   "first_k": 680,
+   "returned": 40,
+   "cost_usd_estimate": 0.00783892,
+   "output_tokens": 13112
+  },
+  {
+   "first_k": 720,
+   "returned": 40,
+   "cost_usd_estimate": 0.005631519999999999,
+   "output_tokens": 8766
+  },
+  {
+   "first_k": 760,
+   "returned": 40,
+   "cost_usd_estimate": 0.00683662,
+   "output_tokens": 11131
+  },
+  {
+   "first_k": 800,
+   "returned": 40,
+   "cost_usd_estimate": 0.00675292,
+   "output_tokens": 10990
+  },
+  {
+   "first_k": 840,
+   "returned": 40,
+   "cost_usd_estimate": 0.00535942,
+   "output_tokens": 8383
+  },
+  {
+   "first_k": 880,
+   "returned": 40,
+   "cost_usd_estimate": 0.00668952,
+   "output_tokens": 10878
+  },
+  {
+   "first_k": 920,
+   "returned": 40,
+   "cost_usd_estimate": 0.0068406199999999995,
+   "output_tokens": 11255
+  },
+  {
+   "first_k": 960,
+   "returned": 40,
+   "cost_usd_estimate": 0.00519832,
+   "output_tokens": 7946
+  }
+ ],
+ "cost_usd_estimate_total": 0.1614,
+ "generator": "benchmarks/triage_corpus.py (Claude Code CLI, no tools); labels derive from sampled specs only"
+}

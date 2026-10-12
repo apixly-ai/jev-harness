@@ -24,6 +24,15 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from _private_files import secure_fs as _secure_fs
+from browser_batch import (
+    BatchState,
+    batch_contract,
+    batch_prompt,
+    index_page,
+    program_steps,
+    route,
+    team_page,
+)
 from camofox_runtime import await_session_ready
 from cold_authoring import (
     IMAGE,
@@ -41,6 +50,40 @@ from cold_authoring import (
 )
 
 from apixly_jev_harness.mcp import utf8_stream
+
+# Shared per-session bounds. "single" keeps the original one-shot protocol; "batch"
+# is the user-approved bound for the repeated task (200 effects, 600 Jev seconds and 300
+# provider requests in total; each run_script execution stays within 100 s / 50 requests).
+BUDGETS = {
+    "single": {
+        "effects": 24,
+        "executions": 1,
+        "jev_seconds": 100,
+        "provider_requests": 50,
+        "steps_per_execution": 24,
+        "session_seconds": 600,
+    },
+    "batch": {
+        "effects": 200,
+        "executions": 12,
+        "jev_seconds": 600,
+        "provider_requests": 300,
+        "steps_per_execution": 24,
+        "session_seconds": 1800,
+    },
+}
+
+
+def load_case(kind="single", variant=0):
+    if kind == "batch":
+        return batch_contract()
+    if kind != "single":
+        raise ValueError("invalid_case_kind")
+    return case_contract(variant)
+
+
+def case_kind(case):
+    return case.get("kind", "single")
 
 
 def case_contract(variant=0):
@@ -61,6 +104,8 @@ def case_contract(variant=0):
 
 
 def actor_prompt(case):
+    if case_kind(case) == "batch":
+        return batch_prompt(case)
     return (
         f"Create one notification digest draft titled {case['values']['title']!r}, with note "
         f"{case['values']['note']!r}. Include all active production projects and exclude archived "
@@ -211,7 +256,8 @@ def _replace_json(path, value):
 
 class DraftServer:
     def __init__(self, case):
-        self.state = DraftState(case)
+        batch = case_kind(case) == "batch"
+        self.state = BatchState(case) if batch else DraftState(case)
         state = self.state
 
         class Handler(BaseHTTPRequestHandler):
@@ -227,6 +273,14 @@ class DraftServer:
                 self.wfile.write(body)
 
             def do_GET(self):
+                if batch:
+                    target = route("GET", self.path)
+                    if target is None:
+                        self.respond(404, b'{"error":"not_found"}')
+                        return
+                    page = index_page() if target[0] == "index" else team_page(target[1])
+                    self.respond(200, page.encode(), "text/html")
+                    return
                 if self.path != "/":
                     self.respond(404, b'{"error":"not_found"}')
                     return
@@ -234,7 +288,8 @@ class DraftServer:
                 self.respond(200, body, "text/html")
 
             def do_POST(self):
-                if self.path != "/draft":
+                target = route("POST", self.path) if batch else None
+                if (batch and target is None) or (not batch and self.path != "/draft"):
                     with state.lock:
                         state.rejected_requests += 1
                     state.changed()
@@ -244,7 +299,8 @@ class DraftServer:
                     size = int(self.headers.get("Content-Length", "0"))
                     if not 0 < size <= 8192:
                         raise ValueError("invalid_body")
-                    saved = state.save(json.loads(self.rfile.read(size)))
+                    body = json.loads(self.rfile.read(size))
+                    saved = state.save(target[1], body) if batch else state.save(body)
                     self.respond(200, json.dumps({"saved": saved}).encode())
                 except (ValueError, TypeError):
                     self.respond(400, b'{"error":"invalid_draft"}')
@@ -270,7 +326,7 @@ class BrowserBroker:
     def __init__(
         self, surface, *, allowed_origin, values, check_goal, max_effects=24, timeout_seconds=300
     ):
-        if type(max_effects) is not int or not 1 <= max_effects <= 24:
+        if type(max_effects) is not int or not 1 <= max_effects <= 200:
             raise ValueError("invalid_browser_effect_budget")
         self.surface, self.allowed_origin, self.values = surface, allowed_origin, dict(values)
         self._check_goal = check_goal
@@ -497,7 +553,42 @@ class SurfaceBridge:
             self.response_fd = None
 
 
-def tools(optional, *, live=False):
+def _run_script_description(budgets, live):
+    if budgets["executions"] == 1:
+        bounds = (
+            "One execution, at most 24 total browser effects, 100 seconds and 50 provider "
+            "requests. "
+        )
+    else:
+        bounds = (
+            f"Up to {budgets['executions']} executions per session; each execution runs "
+            f"at most {budgets['steps_per_execution']} Jev steps, 100 seconds and 50 "
+            f"provider requests. In total at most {budgets['effects']} browser effects "
+            f"(shared with direct operation), {budgets['jev_seconds']} Jev seconds and "
+            f"{budgets['provider_requests']} provider requests. Optional focus narrows one "
+            "execution within the bound goal; a later execution may follow an edited "
+            "script. "
+        )
+    return (
+        "Execute Jev Harness on a caller-authored /work Python task script exporting "
+        "workflow=TaskScript(build). Jev chooses registered tools and fresh supplied parameter "
+        "references; code executes and the shared independent check determines completion. "
+        "SurfaceTask(RemoteSurface(), values=inputs['values'], allowed_origins=[inputs['allowed_origin']], "
+        "verify=lambda ctx,state:surface.check_goal()['passed'], authorize=...) is supported. "
+        "Goal/values/origin are bound. Same browser permissions as direct operation; prior direct "
+        "effects remain counted as hybrid work. "
+        + bounds
+        + "Returns script digest, terminal, actual backend check and separate provider usage. "
+        + (
+            "Live Jev inference is billable."
+            if live
+            else "This offline path uses a fake provider; it is not live model acceptance."
+        )
+    )
+
+
+def tools(optional, *, live=False, budgets=None):
+    budgets = budgets or BUDGETS["single"]
     empty = {"type": "object", "properties": {}, "additionalProperties": False}
     rows = []
     definitions = [
@@ -527,7 +618,7 @@ def tools(optional, *, live=False):
         ),
         (
             "check_goal",
-            "Read the independent controller check of actual backend-saved draft settings. Returns pass/gaps, never expected project IDs. Available to either execution route.",
+            "Read the independent controller check of actual backend-saved draft settings. Returns pass/gaps (per team for multi-team goals), never expected project IDs. Available to either execution route.",
             {},
         ),
         (
@@ -544,18 +635,16 @@ def tools(optional, *, live=False):
             schema["required"] = ["ticket"]
         rows.append({"name": name, "description": description, "inputSchema": schema})
     if optional:
+        properties = {"script": {"type": "string"}, "inputs": {"type": "object"}}
+        if budgets["executions"] > 1:
+            properties["focus"] = {"type": "string"}
         rows.append(
             {
                 "name": "run_script",
-                "description": "Execute Jev Harness on a caller-authored /work Python task script exporting workflow=TaskScript(build). Jev chooses registered tools and fresh supplied parameter references; code executes and the shared independent check determines completion. SurfaceTask(RemoteSurface(), values=inputs['values'], allowed_origins=[inputs['allowed_origin']], verify=lambda ctx,state:surface.check_goal()['passed'], authorize=...) is supported. Goal/values/origin are bound. Same browser permissions as direct operation; prior direct effects remain counted as hybrid work. One execution, at most 24 total browser effects, 100 seconds and 50 provider requests. Returns script digest, terminal, actual backend check and separate provider usage. "
-                + (
-                    "Live Jev inference is billable."
-                    if live
-                    else "This offline path uses a fake provider; it is not live model acceptance."
-                ),
+                "description": _run_script_description(budgets, live),
                 "inputSchema": {
                     "type": "object",
-                    "properties": {"script": {"type": "string"}, "inputs": {"type": "object"}},
+                    "properties": properties,
                     "required": ["script"],
                     "additionalProperties": False,
                 },
@@ -582,13 +671,23 @@ within the supplied synthetic-site scope. verify must return a builtin bool.
 TaskScript(build) receives a copied dict of bound inputs; build must return a Task.
 To execute a script via the optional run_script tool, first write it into /work and
 export workflow. SDK discovery: python -m apixly_jev_harness.cli quickstart (compact card)
-or spec (detailed protocol).
+or spec (detailed protocol); python -m apixly_jev_harness.cli init-task /work/task.py
+--toolkit surface writes an editable SurfaceTask scaffold.
 """
 
 
 class BrowserColdSession:
     def __init__(
-        self, directory, case, runtime, broker, *, optional=True, credential_file=None, image=IMAGE
+        self,
+        directory,
+        case,
+        runtime,
+        broker,
+        *,
+        optional=True,
+        credential_file=None,
+        image=IMAGE,
+        budgets=None,
     ):
         self.directory, self.case, self.runtime, self.broker = (
             Path(directory),
@@ -598,6 +697,8 @@ class BrowserColdSession:
         )
         self.optional, self.credential_file, self.image = optional, credential_file, image
         self.live = credential_file is not None
+        self.budgets = dict(budgets or BUDGETS[case_kind(case)])
+        self.provider_requests_used, self.jev_seconds_used = 0, 0.0
         self.work, self.corpus = self.directory / "work", self.directory / "public-corpus"
         _secure_fs.make_private_directory(self.work)
         _secure_fs.make_private_directory(self.corpus)
@@ -606,10 +707,14 @@ class BrowserColdSession:
             "allowed_origin": broker.allowed_origin,
             "output": "/work/report.json",
         }
+        if case_kind(case) == "batch":
+            self.inputs.update(
+                url=broker.allowed_origin + "/", allowed_origins=[broker.allowed_origin]
+            )
         (self.corpus / "README.md").write_text(API_NOTES, encoding="utf-8", newline="\n")
         _write_json(self.corpus / "inputs.json", self.inputs)
         self.surface_bridge = SurfaceBridge(self.directory / "surface-ipc", broker).start()
-        self.executions, self.events = 0, []
+        self.executions, self.events, self.packets = 0, [], []
         self.actor = self._container()
 
     def _container(self, *, worker_mounts=(), worker_env=None):
@@ -631,13 +736,23 @@ class BrowserColdSession:
             },
         )
 
-    def run_script(self, script, inputs=None):
-        if not self.optional or self.executions:
+    def run_script(self, script, inputs=None, focus=None):
+        budgets = self.budgets
+        if not self.optional or self.executions >= budgets["executions"]:
             raise ValueError("script_execution_unavailable_or_already_attempted")
+        if focus is not None and budgets["executions"] == 1:
+            raise ValueError("focus_not_offered")
+        requests_left = budgets["provider_requests"] - self.provider_requests_used
+        seconds_left = budgets["jev_seconds"] - self.jev_seconds_used
+        if requests_left < 2 or seconds_left < 1:
+            raise ValueError("script_provider_budget_exhausted")
+        per_requests, per_seconds = min(50, requests_left), min(100, int(seconds_left))
         start = time.perf_counter()
         try:
             if type(script) is not str or (inputs is not None and type(inputs) is not dict):
                 raise ValueError("invalid_script_arguments")
+            if focus is not None and (type(focus) is not str or not 0 < len(focus) <= 600):
+                raise ValueError("invalid_script_focus")
             extra = dict(inputs or {})
             if any(k in extra and extra[k] != v for k, v in self.inputs.items()):
                 raise ValueError("bound_browser_inputs_changed")
@@ -660,14 +775,30 @@ class BrowserColdSession:
             }
             self.events.append({"tool": "run_script", **packet})
             return packet
-        provider = NativeProvider(self.credential_file) if self.live else FakeProvider()
-        bridge = FileBridge(self.directory / "worker-ipc", provider, allow_live=self.live).start()
+        number = self.executions + 1
+        provider = (
+            NativeProvider(
+                self.credential_file, max_requests=per_requests, timeout_seconds=per_seconds
+            )
+            if self.live
+            else FakeProvider()
+        )
+        bridge = FileBridge(
+            self.directory / ("worker-ipc" if number == 1 else f"worker-ipc-{number}"),
+            provider,
+            max_requests=per_requests,
+            timeout_seconds=per_seconds,
+            allow_live=self.live,
+        ).start()
+        goal = actor_prompt(self.case) + (
+            "\nThis execution's focus, set by the caller: " + focus if focus else ""
+        )
         worker = self._container(
             worker_mounts=[
                 (frozen["path"].parent, "/task", True),
                 (bridge.directory, "/ipc", False),
             ],
-            worker_env={"COLD_BRIDGE_DIR": "/ipc", "COLD_BRIDGE_TIMEOUT": "100"},
+            worker_env={"COLD_BRIDGE_DIR": "/ipc", "COLD_BRIDGE_TIMEOUT": str(per_seconds)},
         )
         prior_effects, terminal = self.broker.effects, None
         self.executions += 1
@@ -679,15 +810,15 @@ class BrowserColdSession:
                     "apixly_jev_harness.mcp",
                     "/task/task.py",
                     "--goal",
-                    actor_prompt(self.case),
+                    goal,
                     "--inputs",
                     json.dumps(bound),
                     "--max-steps",
-                    "24",
+                    str(budgets["steps_per_execution"]),
                     "--timeout",
-                    "100",
+                    str(per_seconds),
                     "--archive",
-                    "/work/jev.jsonl",
+                    "/work/jev.jsonl" if number == 1 else f"/work/jev-{number}.jsonl",
                 ]
                 request = {
                     "jsonrpc": "2.0",
@@ -696,7 +827,10 @@ class BrowserColdSession:
                     "params": {"name": "run_task", "arguments": {}},
                 }
                 result = worker.invoke(
-                    command, input_text=json.dumps(request) + "\n", timeout=100, output_limit=65536
+                    command,
+                    input_text=json.dumps(request) + "\n",
+                    timeout=per_seconds + 20,
+                    output_limit=65536,
                 )
         except (subprocess.TimeoutExpired, OSError, subprocess.SubprocessError) as error:
             terminal = {
@@ -712,7 +846,14 @@ class BrowserColdSession:
                 terminal = json.loads(result["stdout"])["result"]["structuredContent"]
             except (ValueError, KeyError, TypeError):
                 terminal = {"status": "unknown", "complete": False}
+        summary = bridge.summary()
+        self.provider_requests_used += summary.get(
+            "logical_submissions", summary.get("mock_submissions", 0)
+        )
+        self.jev_seconds_used += time.perf_counter() - start
         packet = {
+            "execution": number,
+            "focus": focus,
             "script_sha256": frozen["sha256"],
             "script_bytes": frozen["bytes"],
             "static_check": frozen["static_check"],
@@ -722,7 +863,13 @@ class BrowserColdSession:
             "prior_direct_effects": prior_effects,
             "worker_effects": self.broker.effects - prior_effects,
             "route": "hybrid" if prior_effects else "caller_authored_jev",
-            "bridge": bridge.summary(),
+            "bridge": summary,
+            "remaining": {
+                "executions": budgets["executions"] - self.executions,
+                "provider_requests": budgets["provider_requests"] - self.provider_requests_used,
+                "jev_seconds": max(0, budgets["jev_seconds"] - self.jev_seconds_used),
+                "browser_effects": self.broker.max_effects - self.broker.effects,
+            },
             "process": {k: v for k, v in result.items() if k not in ("stdout", "stderr")},
             "scope": "live_jev_caller_authored_browser_script"
             if self.live
@@ -731,13 +878,21 @@ class BrowserColdSession:
         self.events.append(
             {
                 "tool": "run_script",
+                "execution": number,
                 "script_sha256": frozen["sha256"],
                 "route": packet["route"],
                 "seconds": packet["execution_seconds"],
             }
         )
-        _write_json(self.directory / "worker-process.json", result)
-        _write_json(self.directory / "script-execution.json", packet)
+        self.packets.append(packet)
+        _write_json(
+            self.directory
+            / ("worker-process.json" if number == 1 else f"worker-process-{number}.json"),
+            result,
+        )
+        # Repeated executions replace the summaries atomically; per-run files stay unique.
+        _replace_json(self.directory / "script-execution.json", packet)
+        _replace_json(self.directory / "script-executions.json", self.packets)
         return packet
 
     def close(self):
@@ -752,8 +907,9 @@ class PendingSession:
     as a tool error; nothing is retried.
     """
 
-    def __init__(self, directory, *, optional, live, prepare, timeout_seconds=240):
+    def __init__(self, directory, *, optional, live, prepare, timeout_seconds=240, budgets=None):
         self.directory, self.optional, self.live = Path(directory), optional, live
+        self.budgets = budgets or BUDGETS["single"]
         self.session, self.error, self.timeout_seconds = None, None, timeout_seconds
         # The caller orders cleanup: durable evidence first, then tab and container.
         self.owns_cleanup = False
@@ -790,6 +946,7 @@ class PendingSession:
 class _ReadySession(PendingSession):
     def __init__(self, session):
         self.directory, self.optional, self.live = session.directory, session.optional, session.live
+        self.budgets = session.budgets
         self.session, self.error, self.timeout_seconds = session, None, 0
         self.owns_cleanup = True
         self._ready = threading.Event()
@@ -877,7 +1034,9 @@ def serve(session, source=None, destination=None):
                     "serverInfo": {"name": "browser-cold-eval", "version": "browser-cold-v1"},
                 }
             elif method == "tools/list":
-                response["result"] = {"tools": tools(pending.optional, live=pending.live)}
+                response["result"] = {
+                    "tools": tools(pending.optional, live=pending.live, budgets=pending.budgets)
+                }
             elif method == "ping":
                 response["result"] = {}
             elif method == "tools/call":
@@ -957,7 +1116,7 @@ def check_camofox(
     return health
 
 
-def transport_canary(output, *, base=None, headless_config=None):
+def transport_canary(output, *, base=None, headless_config=None, kind="single"):
     """Known program steps verify only transport/effects; zero inference or authorship."""
     from jev_context.act.browser import CamofoxPage
 
@@ -966,7 +1125,8 @@ def transport_canary(output, *, base=None, headless_config=None):
     base = base or CAMOFOX_BASE
     started, rows, page = time.perf_counter(), [], None
     health = check_camofox(base, headless_config=headless_config)
-    with DraftServer(case_contract(0)) as fixture:
+    case = load_case(kind)
+    with DraftServer(case) as fixture:
         try:
             ready = await_session_ready(base, "camofox-general")
             page = CamofoxPage("general", url=fixture.url, base=base)
@@ -974,8 +1134,10 @@ def transport_canary(output, *, base=None, headless_config=None):
             broker = BrowserBroker(
                 page,
                 allowed_origin=fixture.url.rstrip("/"),
-                values=case_contract(0)["values"],
+                values=case["values"],
                 check_goal=fixture.state.check_goal,
+                max_effects=BUDGETS[kind]["effects"],
+                timeout_seconds=BUDGETS[kind]["session_seconds"],
             )
             _write_json(
                 output / "owned-tab.json",
@@ -992,19 +1154,24 @@ def transport_canary(output, *, base=None, headless_config=None):
                 broker.settle(seen["ticket"], a["id"])
                 rows.append({"label": label, "kind": kind, "result": result})
 
-            perform("Projects")
-            perform("Include Aurora")
-            perform("Include Cedar")
-            perform("Digest settings")
-            perform("Digest title", "fill", "title")
-            perform("Preview note", "fill", "note")
-            perform("Timezone → Asia/Shanghai", "select")
-            perform("Frequency → Weekdays", "select")
-            perform("Successful events")
-            perform("Delivery")
-            perform("Existing mailbox → Preview inbox", "select")
-            perform("Review draft")
-            perform("Save draft")
+            if kind == "batch":
+                for team in program_steps(case):
+                    for step_kind, label, value_ref in team["steps"]:
+                        perform(label, step_kind, value_ref)
+            else:
+                perform("Projects")
+                perform("Include Aurora")
+                perform("Include Cedar")
+                perform("Digest settings")
+                perform("Digest title", "fill", "title")
+                perform("Preview note", "fill", "note")
+                perform("Timezone → Asia/Shanghai", "select")
+                perform("Frequency → Weekdays", "select")
+                perform("Successful events")
+                perform("Delivery")
+                perform("Existing mailbox → Preview inbox", "select")
+                perform("Review draft")
+                perform("Save draft")
             checked = broker.check_goal()
             _write_json(output / "backend-saved.json", fixture.state.snapshot())
             report = {
@@ -1012,6 +1179,7 @@ def transport_canary(output, *, base=None, headless_config=None):
                 "check": checked,
                 "effects": broker.effects,
                 "rows": rows,
+                "case": kind,
                 "whole_seconds": time.perf_counter() - started,
                 "actual_model_usage": dict(ZERO),
                 "scope": "zero-model real Camofox transport canary; known program path, not AI authorship or preference",
@@ -1108,10 +1276,172 @@ workflow = TaskScript(build)
 """
 
 
-def _worker_phase(directory, wheel, runtime, headless_config, run):
+BATCH_DIRECT_CANARY = """
+import json
+from browser_surface import RemoteSurface
+
+surface = RemoteSurface()
+values = surface.values
+plan = json.loads(PLAN)
+
+
+def perform(kind, label, value_ref):
+    seen = surface.observe()
+    chosen = [a for a in seen["actions"] if a["kind"] == kind and a.get("label") == label]
+    if len(chosen) != 1:
+        raise SystemExit("canary_target_not_unique:" + label)
+    surface.act(chosen[0], seen, text=values[value_ref] if value_ref else None)
+    surface.settle(chosen[0])
+
+
+for team in plan:
+    for kind, label, value_ref in team["steps"]:
+        perform(kind, label, value_ref)
+print(json.dumps(surface.check_goal()))
+"""
+
+
+def batch_direct_canary(case):
+    plan = json.dumps(program_steps(case))
+    return "PLAN = " + repr(plan) + "\n" + BATCH_DIRECT_CANARY
+
+
+REFERENCE_SURFACE_SCRIPT = """
+import re
+
+from apixly_jev_harness import TaskScript
+from apixly_jev_harness.surfaces import SurfaceTask
+from browser_surface import RemoteSurface
+
+DENY = r"\\b(send|delete|remove|activate|publish|pay|purchase)\\b"
+
+
+def allow(target):
+    if target.get("role") != "checkbox":
+        return True
+    row = str(target.get("row") or "")
+    if row:  # project rows: only active production projects, only switched on
+        cells = {cell.strip().lower() for cell in row.split("|")}
+        return {"active", "production"} <= cells and not target.get("checked")
+    if "success" in str(target.get("label", "")).lower():
+        return bool(target.get("checked"))  # successful events may only be switched off
+    return not target.get("checked")  # other requested options may only be switched on
+
+
+def build(inputs):
+    surface = RemoteSurface()
+    team = inputs.get("team")
+    deny = re.compile(DENY, re.I)
+
+    def authorize(ctx, action):
+        target = action.params["arguments"].get("target")
+        return isinstance(target, dict) and (
+            target.get("kind") in ("fill", "select")
+            or (target.get("kind") == "click" and not deny.search(str(target.get("label", ""))))
+        )
+
+    def verify(ctx, observation):
+        check = surface.check_goal()
+        return check["teams"][team]["passed"] if team else check["passed"]
+
+    return SurfaceTask(
+        surface,
+        values=inputs["values"],
+        allowed_origins=inputs["allowed_origins"],
+        verify=verify,
+        authorize=authorize,
+        allow=allow,
+        tools="combined",
+    )
+
+
+workflow = TaskScript(build)
+"""
+
+
+def jev_validation(output, *, credential_file, wheel=None, headless_config=None, kind="batch"):
+    """Live Jev on a reference SurfaceTask script, one focused execution per team.
+
+    This checks whether the mechanism can complete the repeated task at all before any
+    primary AI is asked to choose. The script is ours, so it measures neither AI
+    authorship nor preference. Failures and actual provider usage are retained.
+    """
+    output = Path(output)
+    _secure_fs.make_private_directory(output, parents=True)
+    started = time.perf_counter()
+    runtime = output / "public-runtime"
+    provenance = build_runtime(runtime, wheel)
+    case = load_case(kind)
+
+    def run(session):
+        authored = session.actor.shell(
+            "cat > /work/task.py <<'PY'\n" + REFERENCE_SURFACE_SCRIPT + "PY"
+        )
+        rows = []
+        for team in case["teams"]:
+            if session.broker.check_goal()["teams"][team["id"]]["passed"]:
+                continue
+            try:
+                packet = session.run_script(
+                    "task.py",
+                    inputs={"team": team["id"]},
+                    focus=team["name"]
+                    + " team only. Work through that team's workspace pages in navigation "
+                    "order, top to bottom within each page, and save once at the end.",
+                )
+            except ValueError as error:
+                rows.append({"team": team["id"], "error": str(error)[:160]})
+                break
+            usage = (packet.get("bridge") or {}).get("actual_model_usage") or {}
+            rows.append(
+                {
+                    "team": team["id"],
+                    "terminal": {
+                        k: (packet.get("terminal") or {}).get(k)
+                        for k in ("status", "complete", "steps", "reason", "elapsed_seconds")
+                    },
+                    "team_check": packet["independent_check"]["teams"][team["id"]],
+                    "worker_effects": packet.get("worker_effects"),
+                    "execution_seconds": packet.get("execution_seconds"),
+                    "requests": usage.get("requests"),
+                    "input_tokens": usage.get("input_tokens"),
+                    "output_tokens": usage.get("output_tokens"),
+                    "usage_complete": usage.get("usage_complete"),
+                    "models": sorted((usage.get("models") or {}).keys()),
+                }
+            )
+        return {"route": "reference_script_live_jev", "authored": authored, "rows": rows}
+
+    result = _worker_phase(
+        output / "run", wheel, runtime, headless_config, run, kind, credential_file=credential_file
+    )
+    rows = result.get("rows", [])
+    report = {
+        "case": kind,
+        "passed": result["independent_check"]["passed"],
+        "independent_check": result["independent_check"],
+        "rows": rows,
+        "effects": result["effects"],
+        "uncertain": result["uncertain"],
+        "totals": {
+            key: sum((row.get(key) or 0) for row in rows)
+            for key in ("requests", "input_tokens", "output_tokens", "execution_seconds")
+        },
+        "usage_complete": all(row.get("usage_complete") for row in rows if "terminal" in row),
+        "runtime_provenance": provenance,
+        "whole_seconds": time.perf_counter() - started,
+        "scope": "live Jev on our reference SurfaceTask script, one focused run per team; mechanism capability only, not AI authorship, preference or a success rate",
+    }
+    _write_json(output / "jev-validation.json", report)
+    return report
+
+
+def _worker_phase(
+    directory, wheel, runtime, headless_config, run, kind="single", *, credential_file=None
+):
     from jev_context.act.browser import CamofoxPage
 
-    case = case_contract(0)
+    case = load_case(kind)
     page, session, broker = None, None, None
     _secure_fs.make_private_directory(directory)
     with DraftServer(case) as fixture:
@@ -1124,8 +1454,12 @@ def _worker_phase(directory, wheel, runtime, headless_config, run):
                 allowed_origin=fixture.url.rstrip("/"),
                 values=case["values"],
                 check_goal=fixture.state.check_goal,
+                max_effects=BUDGETS[kind]["effects"],
+                timeout_seconds=BUDGETS[kind]["session_seconds"],
             )
-            session = BrowserColdSession(directory, case, runtime, broker, optional=True)
+            session = BrowserColdSession(
+                directory, case, runtime, broker, optional=True, credential_file=credential_file
+            )
             with session.actor:
                 result = run(session)
             return {
@@ -1145,7 +1479,7 @@ def _worker_phase(directory, wheel, runtime, headless_config, run):
                 page.close()
 
 
-def worker_canary(output, *, wheel=None, headless_config=None):
+def worker_canary(output, *, wheel=None, headless_config=None, kind="single"):
     """Container IPC transport: direct program path, then fake-provider worker plumbing.
 
     Zero inference. The direct phase is a known program path through RemoteSurface in
@@ -1158,38 +1492,60 @@ def worker_canary(output, *, wheel=None, headless_config=None):
     runtime = output / "public-runtime"
     provenance = build_runtime(runtime, wheel)
 
+    case = load_case(kind)
+    expected_effects = (
+        sum(len(team["steps"]) for team in program_steps(case)) if kind == "batch" else 13
+    )
+
     def direct(session):
-        packet = session.actor.shell("python - <<'PY'" + DIRECT_CANARY + "PY", timeout=120)
+        source = batch_direct_canary(case) if kind == "batch" else DIRECT_CANARY
+        packet = session.actor.shell("python - <<'PY'\n" + source + "PY", timeout=600)
         return {"route": "direct_container_script", "process": packet}
 
     def worker(session):
         authored = session.actor.shell("cat > /work/task.py <<'PY'" + PLUMBING_SCRIPT + "PY")
+        if kind == "batch":
+            packets = [
+                session.run_script("task.py", focus="Atlas only"),
+                session.run_script("task.py", focus="Borealis only"),
+            ]
+            return {
+                "route": "worker_fake_provider",
+                "authored": authored,
+                "packet": packets[-1],
+                "packets": packets,
+            }
         packet = session.run_script("task.py")
         return {"route": "worker_fake_provider", "authored": authored, "packet": packet}
 
     phases = {}
     for name, run in (("direct", direct), ("worker", worker)):
         try:
-            phases[name] = _worker_phase(output / name, wheel, runtime, headless_config, run)
+            phases[name] = _worker_phase(output / name, wheel, runtime, headless_config, run, kind)
         except Exception as error:
             phases[name] = {"error_type": type(error).__name__, "error": str(error)[:200]}
     direct_ok = (
         phases["direct"].get("process", {}).get("exit_code") == 0
         and phases["direct"].get("independent_check", {}).get("passed") is True
-        and phases["direct"].get("effects") == 13
+        and phases["direct"].get("effects") == expected_effects
     )
-    packet = phases["worker"].get("packet") or {}
-    bridge = packet.get("bridge") or {}
+    packets = phases["worker"].get("packets") or [phases["worker"].get("packet") or {}]
     worker_ok = (
-        packet.get("terminal") is not None
-        and packet.get("process", {}).get("exit_code") == 0
-        and bridge.get("mock_submissions", 0) >= 1
-        and bridge.get("unknown_mock_usage_attempts") == 0
+        all(
+            packet.get("terminal") is not None
+            and packet.get("process", {}).get("exit_code") == 0
+            and (packet.get("bridge") or {}).get("mock_submissions", 0) >= 1
+            and (packet.get("bridge") or {}).get("unknown_mock_usage_attempts") == 0
+            for packet in packets
+        )
+        and [packet.get("execution") for packet in packets] == list(range(1, len(packets) + 1))
         and phases["worker"].get("uncertain") is False
-        and 0 < phases["worker"].get("effects", 0) <= 24
+        and 0 < phases["worker"].get("effects", 0) <= BUDGETS[kind]["effects"]
     )
     report = {
         "passed": direct_ok and worker_ok,
+        "case": kind,
+        "expected_direct_effects": expected_effects,
         "direct_transport_passed": direct_ok,
         "worker_plumbing_passed": worker_ok,
         "phases": phases,
@@ -1210,20 +1566,29 @@ def main(argv=None):
     canary = modes.add_parser("canary")
     canary.add_argument("--output", type=Path, required=True)
     canary.add_argument("--headless-config", type=Path)
+    canary.add_argument("--case", choices=sorted(BUDGETS), default="single")
     worker = modes.add_parser("worker-canary")
     worker.add_argument("--output", type=Path, required=True)
     worker.add_argument("--wheel", type=Path)
     worker.add_argument("--headless-config", type=Path)
+    worker.add_argument("--case", choices=sorted(BUDGETS), default="single")
+    validation = modes.add_parser("jev-validation")
+    validation.add_argument("--output", type=Path, required=True)
+    validation.add_argument("--credential-file", type=Path, required=True)
+    validation.add_argument("--wheel", type=Path)
+    validation.add_argument("--headless-config", type=Path)
+    validation.add_argument("--case", choices=sorted(BUDGETS), default="batch")
     serving = modes.add_parser("serve")
     serving.add_argument("--directory", type=Path, required=True)
     serving.add_argument("--arm", choices=("native", "optional"), required=True)
     serving.add_argument("--wheel", type=Path)
     serving.add_argument("--variant", type=int, choices=(0, 1), default=0)
+    serving.add_argument("--case", choices=sorted(BUDGETS), default="single")
     serving.add_argument("--live", action="store_true")
     serving.add_argument("--credential-file", type=Path)
     serving.add_argument("--headless-config", type=Path)
-    serving.add_argument("--session-seconds", type=int, default=600)
-    for mode in (canary, worker, serving):
+    serving.add_argument("--session-seconds", type=int)
+    for mode in (canary, worker, validation, serving):
         mode.add_argument("--docker-wsl-distro")
     args = parser.parse_args(argv)
     if getattr(args, "docker_wsl_distro", None):
@@ -1233,7 +1598,9 @@ def main(argv=None):
         print(json.dumps({"case": case, "actor_prompt": actor_prompt(case)}, ensure_ascii=False))
         return 0
     if args.mode == "worker-canary":
-        report = worker_canary(args.output, wheel=args.wheel, headless_config=args.headless_config)
+        report = worker_canary(
+            args.output, wheel=args.wheel, headless_config=args.headless_config, kind=args.case
+        )
         print(
             json.dumps(
                 {
@@ -1245,8 +1612,27 @@ def main(argv=None):
             )
         )
         return 0 if report["passed"] else 1
+    if args.mode == "jev-validation":
+        report = jev_validation(
+            args.output,
+            credential_file=args.credential_file,
+            wheel=args.wheel,
+            headless_config=args.headless_config,
+            kind=args.case,
+        )
+        print(
+            json.dumps(
+                {
+                    "passed": report["passed"],
+                    "passed_teams": report["independent_check"].get("passed_teams"),
+                    "effects": report["effects"],
+                    "totals": report["totals"],
+                }
+            )
+        )
+        return 0 if report["passed"] else 1
     if args.mode == "canary":
-        report = transport_canary(args.output, headless_config=args.headless_config)
+        report = transport_canary(args.output, headless_config=args.headless_config, kind=args.case)
         print(
             json.dumps(
                 {
@@ -1262,7 +1648,9 @@ def main(argv=None):
     from jev_context.act.browser import CamofoxPage
 
     _secure_fs.make_private_directory(args.directory, parents=True)
-    case = case_contract(args.variant)
+    case = load_case(args.case, args.variant)
+    budgets = BUDGETS[args.case]
+    session_seconds = args.session_seconds or budgets["session_seconds"]
     _write_json(args.directory / "case-contract.json", case)
     held = {}
     with DraftServer(case) as fixture:
@@ -1296,7 +1684,8 @@ def main(argv=None):
                 allowed_origin=fixture.url.rstrip("/"),
                 values=case["values"],
                 check_goal=fixture.state.check_goal,
-                timeout_seconds=args.session_seconds,
+                max_effects=budgets["effects"],
+                timeout_seconds=session_seconds,
             )
             held["session"] = session = BrowserColdSession(
                 args.directory,
@@ -1305,6 +1694,7 @@ def main(argv=None):
                 broker,
                 optional=args.arm == "optional",
                 credential_file=args.credential_file,
+                budgets=budgets,
             )
             session.actor.start()
             # Recorded so a runner can stop exactly this container if serve is terminated.
@@ -1316,6 +1706,7 @@ def main(argv=None):
             optional=args.arm == "optional",
             live=args.credential_file is not None,
             prepare=prepare,
+            budgets=budgets,
         )
         try:
             serve(pending)
@@ -1333,6 +1724,8 @@ def main(argv=None):
                         "uncertain": broker.uncertain,
                         "actor_prompt": actor_prompt(case),
                         "independent_check": broker.check_goal(),
+                        "budgets": session.budgets,
+                        "script_executions": session.executions,
                         "actual_model_usage": None
                         if session.executions and session.live
                         else dict(ZERO),

@@ -320,7 +320,12 @@ four tool executions. Early attempts requiring review are retained. In a 2026-10
 browser cold start, a Claude primary chose direct operation both without and with an
 optional Jev route (13 effects each, both independently verified; Jev usage zero), and
 again after being told Jev's list price beside Claude Haiku 5.5, GPT-5.6 Luna and its own,
-so default preference is not established. [Report](reports/browser-cold-2026-10-12.md). Desktop live
+so default preference is not established. [Report](reports/browser-cold-2026-10-12.md).
+On a 1,000-event natural-language triage task, the same primary **chose Jev** once the
+published Jev price appeared as a fact in the tool description. It ran one script and one
+Jev run (18 requests, about $0.01), passed the independent check at precision and recall
+1.0 and cost 29% of reading every event itself, in 41% of the time. One sample; template
+and browser-form negatives are retained. [Report](reports/delegation-2026-10-12.md). Desktop live
 acceptance is **not yet proven**: this host is locked; offline adapter tests do not
 replace native acceptance. [Exact evidence and limits](reports/README.md).
 

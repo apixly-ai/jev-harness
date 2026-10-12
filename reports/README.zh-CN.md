@@ -2,6 +2,27 @@
 
 [English](README.md) · 简体中文
 
+## Claude 主 AI 何时托管给 Jev（2026-10-12）
+
+[报告](delegation-2026-10-12.md) · [回执](delegation-2026-10-12.json)。
+在自然语言分诊任务上（1000 条事件，独立检查要求对隐藏标签的精确率和召回率都 >= 0.95），
+Claude Code 主 AI（`claude-opus-5-5`）在看到 Jev 的公开价格后选择了 Jev。当价格作为
+事实写进 `run_script` 说明时，它写了一个脚本、运行一次 Jev（18 次请求，按公开价约
+0.010 美元），精确率和召回率均为 1.0；主 AI 的 CLI 估算 0.264 美元，整段 60.7 秒。只写
+“billable”时，它自己读完全部 1000 条，花 0.948 美元、147.3 秒，同样 1.0 / 1.0。在提示里
+加入运营方价格说明也得到同样的 Jev 选择（0.990 / 1.0，52.4 秒）。没有 Jev 的对照组也是
+全部自己读（0.812 美元，94.6 秒）。每行一次观测。
+
+保留的负面结果：
+
+- 在模板生成的语料上，两组都写了关键词规则（1.0 / 1.0，未用 Jev）；
+- 在六个工作区布局各异的重复浏览器表单上，带参考脚本的真实 Jev 在四次开发运行中
+  一个团队都没完成（置信门槛未改动），因此没有运行主 AI 对照。
+
+新增：`init-task --toolkit records`（基于 `Engine().decide` 的批量判断）、
+`--toolkit surface`、`SurfaceTask(allow=..., tools="combined")`、候选附带表格行上下文，
+以及 quickstart 与模板中注明日期的公开价格。
+
 ## Claude 主 AI 的浏览器冷启动（2026-10-12）
 
 [报告](browser-cold-2026-10-12.md) · [回执](browser-cold-2026-10-12.json)。
@@ -935,3 +956,5 @@ python benchmarks/action_identity.py --output local-results/action-identity-ab.j
 - [冷启动任务编写与原生操作 — 2026-10-12](cold-authoring-2026-10-12.md)：隔离的原生/可选对照、事实来源核验、保留的格式契约修正、完整主 AI 用量，未采用任务脚本。
 
 - [Claude 主 AI 的浏览器冷启动 — 2026-10-12](browser-cold-2026-10-12.md)：真实 Camofox、运行时证据门槛、两组均直接操作并通过独立检查，Jev 用量为零；加入价格说明后仍如此。
+
+- [Claude 主 AI 何时托管给 Jev — 2026-10-12](delegation-2026-10-12.md)：自然语言分诊、价格作为事实呈现、一次 Jev 运行通过独立检查；保留模板语料与浏览器表单的负面结果。

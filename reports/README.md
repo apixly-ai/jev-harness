@@ -2,6 +2,29 @@
 
 [简体中文](README.zh-CN.md)
 
+## When a Claude primary delegates to Jev (2026-10-12)
+
+[Report](delegation-2026-10-12.md) · [receipts](delegation-2026-10-12.json).
+On a natural-language triage task (1,000 events, independent check precision and recall
+>= 0.95 against hidden labels), a Claude Code primary (`claude-opus-5-5`) chose Jev
+once the published Jev price was visible. With the price stated as a plain fact in the
+`run_script` description, it wrote one script, ran Jev once (18 requests, $0.010 at the
+published price) and passed with precision and recall of 1.0. Primary CLI estimate: $0.264;
+whole operation: 60.7 s. With "billable" alone it read all 1,000 records itself: $0.948 and
+147.3 s, also 1.0 / 1.0. An operator price note gave the same Jev choice (0.990 / 1.0,
+52.4 s). The control without Jev read everything ($0.812, 94.6 s). One sample per row.
+
+Retained negatives:
+
+- On a template-generated corpus both arms wrote keyword rules (1.0 / 1.0, no Jev).
+- On a repeated six-workspace browser form, live Jev with a reference script completed no
+  team in four development runs under the unchanged confidence gates, so no primary pair
+  was run.
+
+New: `init-task --toolkit records` (batch judgment over `Engine().decide`),
+`--toolkit surface`, `SurfaceTask(allow=..., tools="combined")`, row context in
+candidates, and the dated published price in the quickstart and templates.
+
 ## Browser cold start with a Claude primary (2026-10-12)
 
 [Report](browser-cold-2026-10-12.md) · [receipts](browser-cold-2026-10-12.json).
@@ -1055,3 +1078,5 @@ scope; native desktop acceptance remains unverified.
 - [Cold task authoring and native operation — 2026-10-12](cold-authoring-2026-10-12.md): isolated native/optional comparison, factual source verification, retained format-contract correction, full primary usage and no task-script adoption.
 
 - [Browser cold start with a Claude primary — 2026-10-12](browser-cold-2026-10-12.md): real Camofox, runtime-evidence gate, both arms operated directly and passed the independent check; Jev usage zero, also after a price note.
+
+- [When a Claude primary delegates to Jev — 2026-10-12](delegation-2026-10-12.md): natural-language triage, price shown as a fact, one Jev run passed the independent check; template and browser-form negatives retained.

@@ -56,7 +56,7 @@ def increment(amount):
 
 '''
 
-TOOLKIT_TEMPLATES = ("workspace", "http", "browser")
+TOOLKIT_TEMPLATES = ("workspace", "http", "browser", "surface", "records")
 
 QUICKSTART = {
     "name": "Jev Harness",
@@ -85,7 +85,8 @@ QUICKSTART = {
         "browser": "WebTools(CamofoxProvider(url=url, session=..., allowed_origins=...), store): observed links and sections",
         "evidence_task": "EvidenceTask([pack], store=store, labels=..., output=..., verify=..., record_checks=...)",
         "evidence_store": "EvidenceStore(): retained originals, source digests and bounded source windows",
-        "surface": "apixly_jev_harness.surfaces.SurfaceTask(surface, values=..., allowed_origins=..., verify=..., authorize=...): click/select/fill over fresh observed targets; click is irreversible",
+        "surface": "apixly_jev_harness.surfaces.SurfaceTask(surface, values=..., allowed_origins=..., verify=..., authorize=..., allow=...): click/select/fill over fresh observed targets; allow(target)->bool narrows offered controls by label/role/section/row/state; click is irreversible; scaffold with init-task --toolkit surface",
+        "records": "Engine().decide(records=[{'id','text'}], goal=question, analysis_spec={'questions': {...}, 'filter': {...}}) -> selected_ids/review_ids: one typed question over many records, packed into batched requests; scaffold with init-task --toolkit records",
         "validation": "Caller record_checks and verify establish the requested facts; schema marker presence alone does not establish semantic truth.",
     },
     "cli": {
@@ -101,6 +102,7 @@ QUICKSTART = {
         "mcp_routes": "run_task performs the Jev loop; operate performs one registered effect. Choose before the first effect; read_report reads saved quotes after either route.",
         "failure": "Partial, review and uncertain outcomes are retained; no automatic effect retries.",
         "usage": "Jev inference is billable; actual or unknown model usage is retained. Primary model usage is separate.",
+        "price": "Published TypeSafe price (2026-10-12, docs.typesafe.ai/models): jev-1.13.0 $0.042 per million input tokens; output tokens free. Check the source before relying on it.",
         "bounds": "Step and cooperative wall limits; caller callbacks bound their own I/O.",
     },
 }
@@ -520,6 +522,20 @@ SPEC = {
             "identity": "named_session_and_fixed_tab",
             "cleanup": "owned_tab_only",
             "origin_checks": "target_and_final_observation; not_network_firewall",
+        },
+        "records": {
+            "api": "Engine().decide",
+            "modes": ["filter", "analyze", "choose", "passthrough"],
+            "batching": "records packed into typed batch requests",
+            "output": "selected_ids, review_ids and per-request usage telemetry",
+        },
+        "surface": {
+            "class": "SurfaceTask",
+            "tools": ["click", "select", "fill"],
+            "targets": "fresh_observed_controls_with_label_role_section_row_and_state",
+            "target_filter": "optional allow(target) -> bool for caller business rules",
+            "fill_values": "caller_supplied_named_values_only",
+            "click": "irreversible_requires_authorize",
         },
         "raw_candidate_arguments": "program_bound_values_only",
         "model_generated_selectors_or_code": False,

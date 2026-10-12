@@ -4,10 +4,31 @@ The dependency owns observed target resolution and platform safety gates. This
 adapter owns tool/parameter contracts and the new generic agent loop.
 """
 
+import copy
 from urllib.parse import urlsplit
 
+from .callbacks import require_synchronous
 from .engine import DecisionStop
 from .task import Option, Parameter, Task
+
+TARGET_FIELDS = (
+    "id",
+    "kind",
+    "label",
+    "role",
+    "section",
+    "row",
+    "value",
+    "checked",
+    "selected",
+    "current_value",
+)
+
+TARGET_DESCRIPTION = (
+    "Observed control that advances the earliest unmet instruction: the control itself, or "
+    "the navigation that reveals it. Do not submit until every requested field and toggle "
+    "is satisfied"
+)
 
 
 def origin(url):
@@ -16,11 +37,43 @@ def origin(url):
 
 
 class SurfaceTask(Task):
-    def __init__(self, surface, *, verify, values=None, allowed_origins=None, authorize=None):
+    """Click/select/fill over fresh observed controls.
+
+    allow(target) -> bool optionally narrows which observed controls are offered, using
+    their label, role, section, row and state. Caller business rules belong there or in
+    authorize; Jev only chooses among what the program offers.
+
+    tools="split" (default) registers click, select and fill. tools="combined" registers
+    one irreversible "operate" tool whose targets are every offered control in page order,
+    so a form with several kinds of next control needs no separate tool-kind choice;
+    authorize then also receives select and fill actions.
+    """
+
+    def __init__(
+        self,
+        surface,
+        *,
+        verify,
+        values=None,
+        allowed_origins=None,
+        authorize=None,
+        allow=None,
+        tools="split",
+    ):
+        if tools not in ("split", "combined"):
+            raise ValueError("invalid_surface_tools")
+        if allow is not None:
+            if not callable(allow):
+                raise ValueError("target_filter_callable_required")
+            require_synchronous(allow, "allow")
+        self.allow = allow
         self.surface, self.snapshot = surface, None
         self.values = dict(values or {})
         self.allowed_origins = set(allowed_origins or [])
         super().__init__(observe=self._observe, verify=verify, authorize=authorize)
+        if tools == "combined":
+            self._register_combined()
+            return
         for kind, description in (
             ("click", "Click an observed button, link, checkbox or menu"),
             ("select", "Choose an observed dropdown option"),
@@ -39,12 +92,7 @@ class SurfaceTask(Task):
                 description,
                 irreversible=(kind == "click"),
                 name=kind,
-                parameters={
-                    "target": Parameter(
-                        "Observed control required by the earliest unmet instruction. Do not submit until every requested field and toggle is satisfied",
-                        targets(),
-                    )
-                },
+                parameters={"target": Parameter(TARGET_DESCRIPTION, targets())},
             )(register())
         if self.values:
             self.tool(
@@ -66,10 +114,40 @@ class SurfaceTask(Task):
                 },
             )(self._fill)
 
-    def _targets(self, kind):
+    def _register_combined(self):
+        kinds = ("click", "select", "fill") if self.values else ("click", "select")
+
+        def text_values(ctx, state, bound):
+            if bound["target"]["kind"] != "fill":
+                return [Option("none", "No text: the selected control is not a text field", None)]
+            return [
+                Option(key, key + ": " + str(value), value) for key, value in self.values.items()
+            ]
+
+        def operate(target, value):
+            return self._act(target, text=value if target["kind"] == "fill" else None)
+
+        self.tool(
+            "Operate one observed control: click a button, link or checkbox, choose a dropdown "
+            "option, or fill a text field with a supplied named value",
+            irreversible=True,
+            name="operate",
+            parameters={
+                "target": Parameter(TARGET_DESCRIPTION, lambda ctx, state: self._targets(kinds)),
+                "value": Parameter(
+                    "Supplied value appropriate for the selected text field",
+                    text_values,
+                    depends_on=("target",),
+                ),
+            },
+        )(operate)
+
+    def _targets(self, kinds):
+        kinds = (kinds,) if isinstance(kinds, str) else tuple(kinds)
         result = []
         for action in self.snapshot["actions"]:
-            if action["kind"] != kind or action.get("sensitive"):
+            kind = action["kind"]
+            if kind not in kinds or action.get("sensitive"):
                 continue
             if kind == "click" and action.get("role") in ("textbox", "searchbox"):
                 continue
@@ -86,13 +164,29 @@ class SurfaceTask(Task):
                 continue
             if kind == "select" and action.get("value") == action.get("current_value"):
                 continue
+            if self.allow is not None:
+                verdict = self.allow(
+                    {key: copy.deepcopy(action[key]) for key in TARGET_FIELDS if key in action}
+                )
+                if type(verdict) is not bool:
+                    raise ValueError("target_filter_must_return_bool")
+                if not verdict:
+                    continue
             result.append(
                 Option(
                     action["id"],
                     str(
                         {
                             key: action[key]
-                            for key in ("label", "role", "section", "value", "checked", "selected")
+                            for key in (
+                                "label",
+                                "role",
+                                "section",
+                                "row",
+                                "value",
+                                "checked",
+                                "selected",
+                            )
                             if key in action
                         }
                     ),
@@ -114,7 +208,16 @@ class SurfaceTask(Task):
             "controls": [
                 {
                     key: action[key]
-                    for key in ("id", "kind", "label", "role", "value", "checked", "selected")
+                    for key in (
+                        "id",
+                        "kind",
+                        "label",
+                        "role",
+                        "row",
+                        "value",
+                        "checked",
+                        "selected",
+                    )
                     if key in action
                 }
                 for action in snapshot["actions"]

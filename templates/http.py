@@ -1,7 +1,9 @@
 """Thin HTTP discovery task: inputs include url, optional allowed_origins, markers and output.
 
 Markers are known schema prefixes, not field answers or navigation routes.
-Customize verify for your source contract. Jev inference is billable.
+Customize verify for your source contract.
+Jev inference is billable (published 2026-10-12: $0.042 per million input tokens,
+output free).
 """
 
 import apixly_jev_harness as jev

@@ -194,7 +194,7 @@ def test_cli_dispatches_public_mcp_command_without_copying_its_parser(monkeypatc
 def test_machine_spec_exposes_toolkits_factories_and_single_path_mcp(capsys):
     assert task_cli.main(["spec"]) == 0
     spec = json.loads(capsys.readouterr().out)
-    assert spec["commands"]["init-task"]["toolkit_choices"] == list(TOOLKITS)
+    assert spec["commands"]["init-task"]["toolkit_choices"] == [*TOOLKITS, "surface", "records"]
     assert spec["commands"]["init-task"]["default"] == "counter"
     assert spec["script_contract"]["factory"]["inputs"] == "validated_runtime_inputs"
     assert spec["script_contract"]["parameters"]["Parameter"] == [
@@ -203,7 +203,7 @@ def test_machine_spec_exposes_toolkits_factories_and_single_path_mcp(capsys):
         "depends_on",
         "selection",
     ]
-    assert spec["toolkits"]["built_in"] == list(TOOLKITS)
+    assert spec["toolkits"]["built_in"] == [*TOOLKITS, "surface", "records"]
     assert spec["toolkits"]["observation"] == "stable_compact_source_references"
     assert spec["evidence"]["raw_text_read_limit"] == 1200
     assert spec["mcp"]["tools"] == ["observe", "arguments", "operate", "run_task", "read_report"]
@@ -346,3 +346,124 @@ def test_quickstart_documents_the_authorize_action_shape_it_actually_receives(ca
     result = Scripted().run(task, goal="Save the draft", archive=tmp_path / "run.jsonl")
     assert result["status"] == "needs_confirmation" and effects == []
     assert seen == [{"tool": "save", "arguments": {"target": {"id": 7}}}]
+
+
+class ControlSurface:
+    def __init__(self, text="Draft form"):
+        self.text = text
+        self.actions = [
+            {"id": "save", "kind": "click", "label": "Save draft", "role": "button"},
+            {"id": "send", "kind": "click", "label": "Send now", "role": "button"},
+            {"id": "title", "kind": "fill", "label": "Title", "role": "textbox", "value": ""},
+        ]
+
+    def observe(self):
+        return {
+            "fingerprint": self.text,
+            "url": "https://form.test/draft",
+            "text": self.text,
+            "actions": self.actions,
+        }
+
+    def fresh(self, state, target):
+        return True
+
+    def act(self, target, state, text=None):
+        return {"executed": target["id"]}
+
+    def settle(self, target):
+        pass
+
+
+def test_surface_scaffold_binds_named_values_scoped_clicks_and_a_verifier(
+    tmp_path, capsys, monkeypatch
+):
+    target = scaffold(tmp_path, capsys, "surface")
+    assert task_cli.main(["check-task", str(target)]) == 0
+    assert json.loads(capsys.readouterr().out)["code"] == "syntax_and_export_ok"
+    module = load(target)
+    assert isinstance(module.workflow, TaskScript) and module.workflow._task is None
+    surface = ControlSurface()
+    monkeypatch.setattr(module, "open_surface", lambda inputs: surface)
+    inputs = {
+        "url": "https://form.test/draft",
+        "values": {"title": "Weekly digest"},
+        "done_text": "Draft saved",
+    }
+    ctx = Context(goal="Save the draft", inputs=inputs, facts={})
+    task = module.workflow.materialize(ctx)
+    state = task.observe(ctx)
+    assert task.verify(ctx, state) is False
+    offered = {a.params["tool"]: a for a in task.candidates(ctx, state)}
+    assert set(offered) == {"click", "fill"}
+    choices = iter(["save", "send"])
+
+    def choose(records, goal, extra=None):
+        return {"ok": True, "complete": True, "selected_ids": [next(choices)]}
+
+    allowed = task.bind(ctx, state, offered["click"], choose)
+    assert task.authorize(ctx, allowed) is True
+    denied = task.bind(ctx, state, task.candidates(ctx, state)[0], choose)
+    assert denied.params["arguments"]["target"]["label"] == "Send now"
+    assert task.authorize(ctx, denied) is False
+    surface.text = "Draft saved"
+    assert task.verify(ctx, task.observe(ctx)) is True
+
+
+def test_surface_scaffold_requires_a_verifier_contract_before_opening_a_surface(
+    tmp_path, capsys, monkeypatch
+):
+    module = load(scaffold(tmp_path, capsys, "surface"))
+
+    def forbidden(inputs):
+        raise AssertionError("verify contract must be checked before surface I/O")
+
+    monkeypatch.setattr(module, "open_surface", forbidden)
+    with pytest.raises(ValueError, match="verify_contract_required"):
+        module.workflow.materialize(
+            Context(goal="Save", inputs={"url": "https://form.test/"}, facts={})
+        )
+
+
+def test_records_scaffold_judges_all_records_once_and_saves_matching_ids(
+    tmp_path, capsys, monkeypatch
+):
+    target = scaffold(tmp_path, capsys, "records")
+    assert task_cli.main(["check-task", str(target)]) == 0
+    assert json.loads(capsys.readouterr().out)["code"] == "syntax_and_export_ok"
+    module = load(target)
+    assert module.workflow._task is None
+    source = tmp_path / "records.jsonl"
+    lines = [json.dumps({"id": f"r{i}", "text": f"event {i}"}) for i in range(5)]
+    source.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    calls = []
+
+    def decide(self, records, *, goal, analysis_spec):
+        calls.append((len(records), goal, analysis_spec["filter"]))
+        return {"selected_ids": ["r1", "r3"], "review_ids": ["r4"], "complete": True}
+
+    monkeypatch.setattr("apixly_jev_harness.Engine.decide", decide)
+    output = tmp_path / "report.json"
+    inputs = {"records": str(source), "output": str(output), "question": "Is it odd?"}
+    ctx = Context(goal="Triage", inputs=inputs, facts={})
+    task = module.workflow.materialize(ctx)
+    state = task.observe(ctx)
+    assert task.verify(ctx, state) is False
+    action = task.candidates(ctx, state)[0]
+    bound = task.bind(ctx, state, action, lambda *args: None)
+    assert task.execute(ctx, bound) == {"ids": 2, "review_ids": 1, "complete": True}
+    assert task.verify(ctx, task.observe(ctx)) is True
+    assert json.loads(output.read_text())["ids"] == ["r1", "r3"]
+    assert calls == [(5, "Is it odd?", {"question": "match", "in": ["MATCH"]})]
+
+
+def test_records_scaffold_requires_question_and_unique_records(tmp_path, capsys):
+    module = load(scaffold(tmp_path, capsys, "records"))
+    source = tmp_path / "records.jsonl"
+    rows = [{"id": "a", "text": "x"}, {"id": "a", "text": "y"}]
+    source.write_text("\n".join(json.dumps(row) for row in rows) + "\n", encoding="utf-8")
+    base = {"records": str(source), "output": str(tmp_path / "out.json")}
+    with pytest.raises(ValueError, match="question_required"):
+        module.workflow.materialize(Context(goal="t", inputs=base, facts={}))
+    with pytest.raises(ValueError, match="unique_records_required"):
+        module.workflow.materialize(Context(goal="t", inputs={**base, "question": "q"}, facts={}))
