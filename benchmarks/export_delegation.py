@@ -26,7 +26,21 @@ def _jev_usd(input_tokens):
 def records_arm(directory, arm):
     result = _read(Path(directory) / f"{arm}-result.json")
     primary = _primary(result.get("primary") or {})
-    usage = result.get("jev_usage_total") or {}
+    # Recompute from per-execution usage: an incomplete run keeps its known tokens as a
+    # lower bound instead of counting as zero (older receipts summed it as zero).
+    rows = [e.get("actual_model_usage") or {} for e in result.get("script_executions") or []]
+
+    def tokens(row, key):
+        value = row.get(key)
+        return value if value is not None else (row.get("known_reported_tokens") or {}).get(key, 0)
+
+    usage = {
+        "requests": sum(row.get("requests") or 0 for row in rows),
+        "input_tokens": sum(tokens(row, "input_tokens") for row in rows),
+        "output_tokens": sum(tokens(row, "output_tokens") for row in rows),
+        "unknown_usage_attempts": sum(row.get("unknown_usage_attempts") or 0 for row in rows),
+        "tokens_are_lower_bound": not all(row.get("usage_complete") for row in rows),
+    }
     return {
         "arm": arm,
         "corpus": (result.get("case") or {}).get("name", "template"),
@@ -48,6 +62,20 @@ def records_arm(directory, arm):
         "route_preference_in_prompt": result.get("route_preference_in_prompt"),
         "product_skill_disabled": result.get("product_skill_disabled"),
         "primary": primary,
+        "seeded_work_files": [f.get("path") for f in (result.get("seeded_work_files") or [])],
+        "recovered_after_runner_error": result.get("recovered_after_runner_error"),
+    }
+
+
+def condition(name, directories, note):
+    arms = [records_arm(d, "optional") for d in directories]
+    return {
+        "condition": name,
+        "note": note,
+        "runs": len(arms),
+        "chose_jev": sum(a["route"] == "caller_authored_jev" for a in arms),
+        "passed": sum(bool((a["independent_check"] or {}).get("passed")) for a in arms),
+        "arms": arms,
     }
 
 
@@ -156,6 +184,10 @@ def main(argv=None):
     parser.add_argument("--batch-transport", type=Path, required=True)
     parser.add_argument("--batch-worker", type=Path, required=True)
     parser.add_argument("--batch-validation", type=Path, action="append", required=True)
+    parser.add_argument("--neutral-extra", type=Path, action="append", default=[])
+    parser.add_argument("--ops-noprice", type=Path, action="append", default=[])
+    parser.add_argument("--ops-price-quickstart", type=Path, action="append", default=[])
+    parser.add_argument("--day2", type=Path, action="append", default=[])
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     natural_fixture = _read(
@@ -207,6 +239,25 @@ def main(argv=None):
                 "pair": [records_arm(args.natural_pair, arm) for arm in ("native", "optional")],
                 "operator_price_note_run": records_arm(args.cost_run, "optional"),
                 "priced_tool_docs_run": records_arm(args.priced_run, "optional"),
+                "repeated_conditions": [
+                    condition(
+                        "neutral: no price anywhere, no ops context",
+                        [args.natural_pair, *args.neutral_extra],
+                        "first run is the pair's optional arm; two later runs use a runtime wheel with the price lines removed",
+                    ),
+                    condition(
+                        "ops context, no price anywhere",
+                        args.ops_noprice,
+                        "daily-routine context naming both routes; runtime wheel with the price lines removed",
+                    ),
+                    condition(
+                        "ops context, price visible in quickstart and templates",
+                        args.ops_price_quickstart,
+                        "tool description says only 'billable'; the SDK quickstart the primary read states the published price",
+                    ),
+                ],
+                "day2_reuse": [records_arm(d, "optional") for d in args.day2],
+                "day2_defect": "each day-2 session's first execution failed with FileExistsError because the seeded /work held a journal with the same name (0 provider requests); fixed by per-session journal names",
             },
             "development_probes_host": {
                 "source": "console output of local probe scripts during development (not file receipts)",

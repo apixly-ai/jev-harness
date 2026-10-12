@@ -133,3 +133,26 @@ def test_natural_fixture_is_frozen_labelled_and_states_the_correction_rule(recor
     written = (session.corpus / "records.jsonl").read_text(encoding="utf-8").splitlines()
     assert [json.loads(line) for line in written] == corpus
     assert not (session.corpus / "labels.json").exists()
+
+
+def test_ops_context_names_both_routes_and_seed_work_copies_only_regular_files(records, tmp_path):
+    pair = importlib.import_module("records_pair")
+    for key in ("ops", "ops_day2"):
+        note = pair.OBJECTIVES[key]
+        assert "work directly or use the Jev Harness tools" in note
+        assert "prefer" not in note.lower() and "cheap" not in note.lower()
+    source = tmp_path / "day1"
+    (source / "sub").mkdir(parents=True)
+    (source / "task.py").write_text("workflow = 1\n", encoding="utf-8")
+    (source / "sub" / "notes.txt").write_text("kept", encoding="utf-8")
+    (source / "report.json").write_text('{"ids": []}', encoding="utf-8")
+    session = records.RecordsSession(tmp_path / "s", tmp_path / "rt", optional=True)
+    rows = records.seed_work(source, session.work)
+    assert sorted(r["path"] for r in rows) == ["sub/notes.txt", "task.py"]
+    assert not (session.work / "report.json").exists()
+    assert (session.work / "sub" / "notes.txt").read_text(encoding="utf-8") == "kept"
+    arguments = pair.serve_arguments("d", "optional", wheel="w", seed_work=source)
+    assert Path(arguments[arguments.index("--seed-work") + 1]).is_absolute()
+    day2, labels = records.load_corpus(records.CASES["natural_day2"])
+    first, _ = records.load_corpus(records.CASES["natural"])
+    assert len(day2) == 1000 and not {r["id"] for r in day2} & {r["id"] for r in first}

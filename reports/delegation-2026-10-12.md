@@ -1,95 +1,115 @@
 # When a Claude primary delegates to Jev — 2026-10-12
 
-A Claude Code primary chose to hand work to Jev for the first time in these evaluations. It
-happened on a **large-volume semantic triage** task once the Jev price was visible. With
-the price stated as a plain fact in the tool description, the primary wrote one task
-script, ran Jev once and passed the independent check. Compared with the same tools
-without the price, total estimated cost was 29% ($0.274 vs $0.948) and whole operation
-time was 41% (60.7 s vs 147.3 s). Without the price, the same primary read all 1,000
-records itself.
+On a **large-volume semantic triage** task, a Claude Code primary with an optional Jev
+route chose to write a task script and hand the judging to Jev in **10 of 11 runs**, and
+every one of those passed the independent check. That includes 2 of 3 runs with neither a
+price nor any extra context in sight. On the earlier, smaller or rule-solvable tasks, it
+did the work itself every time. Task shape decided the route; price information and a
+daily-operations framing came along with Jev choices but cannot be separated from task
+shape at these sample sizes.
 
-| Natural triage corpus (1,000 events, 287 need a page) | Route | Precision / recall | Whole operation | Primary turns | Primary cost (CLI estimate) | Jev cost (published price) |
-|---|---|---:|---:|---:|---:|---:|
-| Control: no Jev tool | Read all records | 1.000 / 1.000 | 94.6 s | 26 | $0.812 | — |
-| Jev optional, neutral docs ("billable") | Read all records | 1.000 / 1.000 | 147.3 s | 28 | $0.948 | $0 |
-| Jev optional, price as a fact in the tool docs | Script + 1 Jev run | 1.000 / 1.000 | 60.7 s | 12 | $0.264 | $0.010 |
-| Jev optional, operator price note in the prompt | Script + 1 Jev run | 0.990 / 1.000 | 52.4 s | 9 | $0.214 | $0.012 |
+| Natural triage corpus, optional Jev route | Chose Jev | Passed | Note |
+|---|---:|---:|---|
+| Neutral: no price anywhere, no extra context | 2 / 3 | 3 / 3 | The first run read all records itself |
+| Daily-ops context, no price anywhere | 3 / 3 | 3 / 3 | |
+| Daily-ops context, price visible in the SDK quickstart | 3 / 3 | 3 / 3 | Tool description still says only "billable" |
+| Price stated in the `run_script` description | 1 / 1 | 1 / 1 | |
+| Operator price note in the prompt | 1 / 1 | 1 / 1 | |
+| **Total** | **10 / 11** | **11 / 11** | |
 
-The task: save the ids of notification events that report an ongoing, customer-facing
-production outage. Exclude staging/test environments, resolved incidents, internal-only
-impact, drills, maintenance, false alarms and questions or postmortems. When an event's
-text contains corrections, the latest statement decides. The independent check needs
-precision and recall of at least 0.95 against hidden labels.
+The task: from 1,000 notification events, save the ids of those that report an ongoing,
+customer-facing production outage. Exclude staging/test environments, resolved incidents,
+internal-only impact, drills, maintenance, false alarms and questions or postmortems. When
+an event's text contains corrections, the latest statement decides. The independent check
+needs precision and recall of at least 0.95 against hidden labels (287 events qualify).
 
-Each row is one observation, not a rate. The CLI cost fields are the Claude Code CLI's
-own estimates, not invoices. Jev cost is actual usage × $0.042 per million input tokens
-(output free; docs.typesafe.ai/models, checked 2026-10-12).
+| Route on this task | Runs | Precision / recall | Whole operation | Primary + Jev cost (estimate) |
+|---|---:|---|---:|---:|
+| Jev route (script + Jev run) | 10 | 0.990–1.000 / 0.9965–1.000 | median 64.9 s (52.4–193.8 s, n = 9) | median $0.27 ($0.20–$0.80) |
+| Read every record, Jev optional | 1 | 1.000 / 1.000 | 147.3 s | $0.948 |
+| Control without a Jev tool (read every record) | 1 | 1.000 / 1.000 | 94.6 s | $0.812 |
 
-## What changed the choice
+Primary cost is the Claude Code CLI's own estimate, not an invoice. Jev cost is actual usage
+× $0.042 per million input tokens (output free; docs.typesafe.ai/models, checked
+2026-10-12). Two Jev runs had one request with unknown usage, so their Jev cost is a lower
+bound. One Jev run has no whole-operation time; see retained defects below.
 
-- **The price, stated as a fact.** The neutral `run_script` description ends "Live Jev
-  inference is billable." The primary then avoided "billable Jev inference" and read
-  everything instead. One appended sentence fixed that; the prompt and everything else
-  were unchanged:
+## What the evidence supports
 
-  > Published Jev price: $0.042 per million input tokens; output tokens are free
-  > (TypeSafe jev-1.13.0).
+- **Delegation where it pays.** The shape is a thousand free-text events whose meaning
+  turns on corrections and decoys, a fixed accuracy bar, and a ready batch-judgment
+  scaffold. Stated reasons repeated one pattern: keyword rules would break on this
+  wording, and one batched Jev question covers every event in seconds for about a cent.
+- **Earlier readings came from one sample.** The first neutral run read everything itself.
+  The next run, with a price in the tool description, delegated, and an earlier draft of
+  this report credited the price. Two more neutral runs with no price anywhere also
+  delegated. The event streams show none of these runs ever saw a price, and the first
+  run had read the same quickstart. The difference was run-to-run variation, not
+  information.
+- **The daily-operations framing.** The context says the triage runs every day on a fresh
+  batch, asks for a reusable procedure in `/work`, and names both routes equally. It was
+  followed by Jev in 6 of 6 runs, against 2 of 3 without it: consistent with helping, not
+  established.
+- **Reuse the next day.** Two new sessions got a second frozen batch (1,000 different
+  events, 251 qualify) and the previous `/work`. Both re-ran the existing script and
+  passed:
+  - 0.996 / 0.996 and 1.000 / 1.000;
+  - 14 turns each;
+  - primary $0.270 and $0.260 plus about $0.010 Jev;
+  - 69.2 s and 67.9 s.
 
-  The primary then chose Jev. Its stated reason: the "latest statement decides" rule over
-  1,000 free-text events needs judgment that keyword rules would get wrong, and Jev
-  covered every event "in a few seconds for about a cent".
-- **The operator note works too.** This was an earlier variant listing Jev, Claude Haiku
-  5.5, GPT-5.6 Luna and Opus 5.5 prices plus the operator's expectation that delegating
-  lowers cost. The plain fact alone was enough, so the product docs now carry the dated
-  published price instead of only "billable".
-- **Task shape matters as much as price.** The same operator note did not move the
-  primary on a 13-control browser form
-  ([browser report](browser-cold-2026-10-12.md)): doing it directly was already cheap.
-  It did move it here, where reading everything directly cost about $0.8–0.95.
+  The primary still inspected and verified, so most of the next-day cost is the primary's.
+  A scheduler running the script alone would pay only the Jev share. That share is
+  measured per run (about 12 s and $0.01), not as a scheduled deployment.
 
 ## Task shapes that did not favour Jev
 
 **Template-generated triage (2,000 events).** Both arms noticed that the events came from
-a small set of sentence templates. Each wrote deterministic keyword rules in the
-container and passed with precision and recall of 1.0 (36.3 s / $0.229 and 47.5 s /
-$0.224), with no Jev usage. The optional arm's reason was that rules were "exact, quick to
-verify and cost nothing". That is the right call for enumerable text. It is why the
-counted corpus is natural language.
+a small set of sentence templates. Each wrote deterministic keyword rules and passed with
+precision and recall of 1.0 (36.3 s / $0.229 and 47.5 s / $0.224), with no Jev usage.
+Rules are the right tool for enumerable text, which is why the counted corpus is natural
+language.
 
-**Repeated browser form (six differing team workspaces).** The workspaces differ in
-navigation, labels, page split, pagination and a confirmation step, so one fixed click
-sequence does not fit every team. Zero-model transport passed: 93 effects on the host
-program path and in the container, plus two fake-provider executions with correct budget
-accounting. Live Jev with our reference `SurfaceTask` script still **completed no team in
-four development runs**. Every run stopped at `needs_review`: Jev's top choice was usually
-right but at 0.38–0.54 probability, below the unchanged 0.55 / 0.10 gate. It also
-initially ranked a staging project above a correct production one. Each fix (a target
-filter for business rules, an ordering hint, a single combined tool) moved further, up to
-15 correct steps for one team. No run saved a draft. Thresholds were not relaxed, so no
-primary pair was run on this task. Development runs cost $0.044 at the published price.
+**Repeated browser form (six differing team workspaces).** Zero-model transport passed: 93
+effects on the host program path and in the container, plus two fake-provider executions
+with correct budget accounting. Live Jev with our reference `SurfaceTask` script still
+**completed no team in four development runs**. Every run stopped at `needs_review`: Jev's
+top choice was usually right but at 0.38–0.54 probability, below the unchanged 0.55 / 0.10
+gate. It also initially ranked a staging project above a correct production one. A target
+filter, an ordering hint and a combined tool got one team to 15 correct steps, but no run
+saved a draft. Thresholds were not relaxed, so no primary pair ran on this task.
+Development runs cost $0.044.
 
-## Natural corpus
+**The 13-control browser form** ([report](browser-cold-2026-10-12.md)) stayed direct even
+with an operator price note: doing it directly was already cheap.
+
+## Corpora
 
 The controller samples each event's facts: environment, who is affected, status, whether
 it is real, and an optional late correction or misleading cue. The label comes from those
-facts alone. Claude Haiku 5.5 only wrote the wording ($0.16 CLI estimate for 1,000 events,
-none dropped). The frozen corpus, labels, specs and generation receipts are in
-`benchmarks/fixtures/triage-natural-v1/`. A reading check of 30 randomly sampled events
-from the frozen corpus (and of a separate 40-event trial batch) found no label/text
-mismatch; the full corpus was not hand-audited.
+facts alone; Claude Haiku 5.5 only wrote the wording. Each 1,000-event batch cost about
+$0.16 (CLI estimate), with none dropped. The frozen corpora, labels, specs and generation
+receipts are in `benchmarks/fixtures/triage-natural-v1/` and `triage-natural-v2/`.
+Reading checks found no label/text mismatch: 30 random events of v1, 20 of v2, and a
+separate 40-event trial batch. The corpora were not fully hand-audited.
 
-Jev accuracy on it (host probes, one question): precision 0.990, recall 1.000 in 2.6 s and
-16 requests. Splitting into four typed questions combined in code gave 0.997 / 1.000 with
-46 requests. On a harder rule-generated "thread" corpus, one question reached only 0.873
-precision; four typed questions reached 0.965. Through the isolated worker path, the
-**unedited** `init-task --toolkit records` scaffold scored 0.990 / 1.000 in 12.5 s with 17
-requests ($0.009).
+Jev accuracy probes on v1:
+
+| Setup | Precision | Recall | Requests | Time |
+|---|---:|---:|---:|---:|
+| One question, host | 0.990 | 1.000 | 16 | 2.6 s |
+| Four typed questions combined in code, host | 0.997 | 1.000 | 46 | — |
+| Unedited `init-task --toolkit records` scaffold, isolated worker | 0.990 | 1.000 | 17 | 12.5 s ($0.009) |
+
+On a harder rule-generated "thread" corpus, one question reached 0.873 precision and four
+typed questions 0.965.
 
 ## Product changes from this search
 
 - `init-task --toolkit records`: a batch-judgment `TaskScript` around `Engine().decide`.
   It runs one typed question over many records in packed requests and saves matching and
-  unclear ids. It is in the quickstart card and the spec.
+  unclear ids. It is in the quickstart card and the spec. Every Jev run above started
+  from it.
 - `init-task --toolkit surface`: an editable `SurfaceTask` scaffold.
 - `SurfaceTask` gains three features:
   - `allow(target)` lets caller business rules narrow the offered controls;
@@ -101,43 +121,54 @@ requests ($0.009).
 - Benchmarks:
   - `browser_batch.py` (repeated form) and `run_script` multi-execution with shared
     budgets and an optional per-run focus;
-  - `records_triage.py`, `triage_corpus.py`, `records_cold.py`, `records_pair.py` and
+  - `records_triage.py`, `triage_corpus.py`, `records_cold.py` (seeded `/work`,
+    per-session journals), `records_pair.py` (conditions, supplied wheel, `recover`) and
     `export_delegation.py`.
 
 ## Isolation, acceptance and spend
 
-Both arms used the same isolated container shell over the same read-only corpus, with a
-writable `/work`, no network and bounded shell output. They had the same `check_goal`,
-which returns pass/fail and counts and never labels. The optional arm additionally had
-`run_script`. Its budget was up to 3 executions; each with at most 8 Jev steps, 100 s and
-50 provider requests; at most 150 requests and 300 s per session. The credential and
-labels stayed host-only.
+Every arm used the same isolated container shell over a read-only corpus, with a writable
+`/work`, no network and bounded shell output. Every arm had the same `check_goal`, which
+returns pass/fail and counts and never labels. The optional arm also had `run_script`.
+Its budget was up to 3 executions; each with at most 8 Jev steps, 100 s and 50 provider
+requests; at most 150 requests and 300 s per session. The credential and labels stayed
+host-only.
 
-For each corpus, a zero-model canary covered shell I/O, check behaviour, scaffold
-generation and fake-provider plumbing. A live validation ran the unedited scaffold, and a
-foreign-working-directory serve rehearsal followed. All passed before the paid turns.
+"No price anywhere" runs used a runtime wheel built from the same commit with the price
+lines removed. A zero-model canary, a live validation with the unedited scaffold and a
+foreign-working-directory rehearsal passed for each corpus before the paid turns.
 
-The primary was `claude-opus-5-5` (effort high) in every arm, resolved identically, with
-no fallback. Primary usage (input / cache read / cache creation / output) in the counted
-natural rows was:
+The primary was `claude-opus-5-5` (effort high), resolved identically, with no fallback.
 
-- control: 48 / 833,851 / 65,410 / 6,075;
-- neutral: 52 / 942,112 / 70,873 / 9,604;
-- priced docs: 22 / 136,312 / 23,060 / 2,632;
-- price note: 16 / 86,439 / 18,447 / 2,456.
+Retained defects:
 
-Total Jev usage across every development probe, validation and run on 2026-10-12 was 506
-requests and 4.03 M input tokens, about $0.17 at the published price. No single session
-exceeded 98 requests.
+- **A runner crash after one session.** The runner deleted the CLI's scratch directory
+  under a Windows file lock and crashed after one finished session (ops, no price, run 3).
+  Its receipt was rebuilt from the saved stream with `records_pair.py recover`. Its
+  whole-operation time is unknown (the CLI reported 143 s). Scratch cleanup now ignores
+  that error.
+- **A disqualified turn in the same run.** That run first called its answer tool under a
+  wrong, prefixed name ("no such tool"), then the right one. The strict adapter
+  disqualifies the turn. The route and the saved report are still the run's own; the
+  table counts its choice.
+- **A failed first execution in each next-day session.** The seeded `/work` held a journal
+  with the same name, so the first execution failed with `FileExistsError` (0 requests).
+  The primary re-ran and passed. Journals are now per session.
+- **Undercounted totals.** Two receipts first summed a run with unknown usage as zero
+  tokens. The export now keeps known tokens as a lower bound.
+
+Total Jev usage across every development probe, validation and run on 2026-10-12 was
+753 requests and at least 7.24 M input tokens (two runs had one request with unknown
+usage), about $0.30 at the published price. No single
+session exceeded 98 requests.
 
 ## Scope
 
-One primary model and one sample per condition: these are observations of what this
-primary chose, not preference rates or cost distributions. The natural corpus is
-model-written synthetic text with controller-derived labels. The direct route was at
-least as accurate here (1.000 vs 0.990–1.000), so the advantage shown is cost and time,
-not quality. The template corpus shows that deterministic rules beat delegation when text
-is enumerable. The browser form shows that the current Jev calibration does not carry
-multi-step form operation under the unchanged gates.
+One primary model and small samples: 10 of 11 is a count on one task with one corpus
+family, not a population rate. The corpora are model-written synthetic text with
+controller-derived labels. The direct route was as accurate as the Jev route (1.000 vs
+0.990–1.000), so the advantage shown is cost and time, not quality. The template corpus
+shows rules beating delegation on enumerable text. The browser form shows the current Jev
+calibration does not carry multi-step form operation under the unchanged gates.
 
 Receipts: [delegation-2026-10-12.json](delegation-2026-10-12.json).

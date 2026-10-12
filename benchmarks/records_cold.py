@@ -13,6 +13,7 @@ import subprocess
 import sys
 import threading
 import time
+import uuid
 from pathlib import Path
 
 from _private_files import secure_fs as _secure_fs
@@ -53,7 +54,16 @@ CASES = {
         "min_precision": 0.95,
         "min_recall": 0.95,
     },
+    # A second frozen batch from the same generator (seed 20261013) for a next-day run.
+    "natural_day2": {
+        "name": "natural_day2",
+        "fixture": "triage-natural-v2",
+        "count": 1000,
+        "min_precision": 0.95,
+        "min_recall": 0.95,
+    },
 }
+SEED_LIMIT = 20 * 1024 * 1024
 CASE = CASES["template"]
 
 
@@ -198,6 +208,7 @@ class RecordsSession:
         self.actor = DockerActor(self.corpus, self.work, runtime=self.runtime, image=image)
         self.events, self.packets, self.executions, self.checks = [], [], 0, 0
         self.provider_requests_used, self.jev_seconds_used = 0, 0.0
+        self.tag = uuid.uuid4().hex[:8]
         self.lock = threading.RLock()
 
     def _report(self):
@@ -343,7 +354,8 @@ class RecordsSession:
                     "--timeout",
                     str(per_seconds),
                     "--archive",
-                    f"/work/jev-{number}.jsonl",
+                    # Unique per session: a seeded /work may hold an earlier run's journal.
+                    f"/work/jev-{self.tag}-{number}.jsonl",
                 ]
                 request = {
                     "jsonrpc": "2.0",
@@ -477,13 +489,39 @@ def serve(pending, source=None, destination=None):
         destination.flush()
 
 
-def _session(directory, wheel, *, optional, credential_file=None, case=CASE):
+def seed_work(source, work):
+    """Copy a previous run's /work (regular files only, no links, minus its report)."""
+    source, work, rows, total = Path(source), Path(work), [], 0
+    for path in sorted(source.rglob("*")):
+        relative = path.relative_to(source)
+        if any(
+            _secure_fs.is_link(source / Path(*relative.parts[: i + 1]))
+            for i in range(len(relative.parts))
+        ):
+            continue
+        if not path.is_file() or relative.as_posix() == "report.json":
+            continue
+        body = path.read_bytes()
+        total += len(body)
+        if total > SEED_LIMIT:
+            raise ValueError("seed_work_too_large")
+        target = work / relative
+        for i in range(1, len(relative.parts)):
+            _secure_fs.make_private_directory(work / Path(*relative.parts[:i]), exist_ok=True)
+        target.write_bytes(body)
+        rows.append({"path": relative.as_posix(), "bytes": len(body), "sha256": _sha(body)})
+    return rows
+
+
+def _session(directory, wheel, *, optional, credential_file=None, case=CASE, seed=None):
     _secure_fs.make_private_directory(directory, parents=True, exist_ok=True)
     runtime = Path(directory) / "public-runtime"
     _write_json(Path(directory) / "runtime-provenance.json", build_runtime(runtime, wheel))
     session = RecordsSession(
         directory, runtime, optional=optional, credential_file=credential_file, case=case
     )
+    if seed is not None:
+        _write_json(Path(directory) / "seed-work.json", seed_work(seed, session.work))
     session.actor.start()
     _write_json(Path(directory) / "actor.json", {"container": session.actor.identifier})
     return session
@@ -602,6 +640,7 @@ def main(argv=None):
         mode.add_argument("--docker-wsl-distro")
         mode.add_argument("--corpus", choices=sorted(CASES), default="template")
     serving.add_argument("--priced-docs", action="store_true")
+    serving.add_argument("--seed-work", type=Path)
     args = parser.parse_args(argv)
     if getattr(args, "docker_wsl_distro", None):
         configure_docker(args.docker_wsl_distro)
@@ -640,6 +679,7 @@ def main(argv=None):
             optional=args.arm == "optional",
             credential_file=args.credential_file,
             case=case,
+            seed=args.seed_work,
         )
         return held["session"]
 

@@ -35,7 +35,20 @@ COST_NOTE = (
     "so the operator expects delegating work that Jev can do to lower total model cost "
     "compared with doing all of it yourself."
 )
-OBJECTIVES = {"neutral": "", "cost": COST_NOTE}
+# Recurring-operations context (user-requested): states the job's real shape and names
+# both routes equally. It names no preferred route and changes no acceptance criterion.
+OPS_NOTE = (
+    "Context: you are setting up a daily operations routine. This triage runs every day on a "
+    "fresh batch of events; today's batch is the one in /corpus. Besides today's report, leave "
+    "a reusable procedure in /work that can be rerun on future batches. You can work directly "
+    "or use the Jev Harness tools offered here."
+)
+OPS_DAY2_NOTE = (
+    "Context: this is the daily operations triage routine, run again today on a fresh batch of "
+    "events in /corpus. /work contains what was left by the previous run. You can work "
+    "directly or use the Jev Harness tools offered here."
+)
+OBJECTIVES = {"neutral": "", "cost": COST_NOTE, "ops": OPS_NOTE, "ops_day2": OPS_DAY2_NOTE}
 
 
 def serve_arguments(
@@ -47,6 +60,7 @@ def serve_arguments(
     docker_wsl_distro=None,
     corpus="natural",
     priced_docs=False,
+    seed_work=None,
 ):
     arguments = [
         str(SERVER),
@@ -66,6 +80,8 @@ def serve_arguments(
         arguments += ["--live", "--credential-file", str(Path(credential).absolute())]
     if priced_docs:
         arguments.append("--priced-docs")
+    if seed_work is not None:
+        arguments += ["--seed-work", str(Path(seed_work).absolute())]
     return arguments
 
 
@@ -109,6 +125,11 @@ def collect(directory, case):
     for row in progress.get("events", []):
         tool_counts[row.get("tool")] = tool_counts.get(row.get("tool"), 0) + 1
     usage = [((p.get("bridge") or {}).get("actual_model_usage") or {}) for p in executions]
+
+    def tokens(row, key):
+        value = row.get(key)
+        return value if value is not None else (row.get("known_reported_tokens") or {}).get(key, 0)
+
     return {
         "serve_finalized": bool(events),
         "route": "caller_authored_jev" if executions else "direct",
@@ -130,8 +151,10 @@ def collect(directory, case):
         ],
         "jev_usage_total": {
             "requests": sum(u.get("requests") or 0 for u in usage),
-            "input_tokens": sum(u.get("input_tokens") or 0 for u in usage),
-            "output_tokens": sum(u.get("output_tokens") or 0 for u in usage),
+            "input_tokens": sum(tokens(u, "input_tokens") for u in usage),
+            "output_tokens": sum(tokens(u, "output_tokens") for u in usage),
+            "unknown_usage_attempts": sum(u.get("unknown_usage_attempts") or 0 for u in usage),
+            "tokens_are_lower_bound": not all(u.get("usage_complete") for u in usage),
             "usage_complete": all(u.get("usage_complete") for u in usage) if usage else True,
         },
         "checks": progress.get("checks"),
@@ -226,6 +249,7 @@ def run_arm(
     objective="neutral",
     corpus="natural",
     priced_docs=False,
+    seed_work=None,
 ):
     from primary_claude import run_mcp_session
 
@@ -255,6 +279,7 @@ def run_arm(
             docker_wsl_distro=docker_wsl_distro,
             corpus=corpus,
             priced_docs=priced_docs,
+            seed_work=seed_work,
         ),
         approved_tools=approved,
         timeout_seconds=primary_timeout,
@@ -273,6 +298,7 @@ def run_arm(
         "objective": objective,
         "objective_note": note or None,
         "priced_tool_docs": priced_docs,
+        "seeded_work_files": _read(directory / "seed-work.json"),
         "run_script_description": next(
             (t["description"] for t in offered if t["name"] == "run_script"), None
         ),
@@ -291,6 +317,78 @@ def run_arm(
     return packet
 
 
+def recover(output, arm, *, corpus, objective, priced_docs=False, docker_wsl_distro=None):
+    """Rebuild an arm's receipt from its saved event stream after a runner-side error.
+
+    The CLI session and the serve's evidence are complete; only the runner's own
+    post-session step failed. Whole-operation time is unknown and stays null; the CLI's
+    self-reported session duration is recorded separately.
+    """
+    from primary_claude import parse
+
+    directory = Path(output) / arm
+    case = CASES[corpus]
+    offered = tools(arm == "optional", priced=priced_docs)
+    approved = [tool["name"] for tool in offered]
+    stdout = (Path(output) / f"{arm}-primary-events.jsonl").read_bytes()
+    parsed = parse(stdout, approved)
+    duration = None
+    for line in stdout.decode("utf-8", errors="replace").splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        if event.get("type") == "result":
+            duration = (event.get("duration_ms") or 0) / 1000 or None
+    note = OBJECTIVES[objective]
+    primary = {
+        "ok": parsed["reason"] is None,
+        "status": "completed" if parsed["reason"] is None else "failed",
+        "reason": parsed["reason"],
+        "final_output": parsed.get("final_output") if parsed["reason"] is None else None,
+        "model_requested": "claude-opus-5-5",
+        "models_resolved": parsed.get("models_resolved"),
+        "model_fallbacks": parsed.get("model_fallbacks"),
+        "effective_inventory": parsed.get("inventory"),
+        "tool_calls": parsed.get("tool_calls"),
+        "unexpected_tool_calls": parsed.get("unexpected"),
+        "permission_denials": parsed.get("permission_denials"),
+        "num_turns": parsed.get("num_turns"),
+        "usage_scope": "claude_code_result_model_usage",
+        "usage_complete": parsed.get("usage") is not None,
+        "usage_by_model": parsed.get("usage"),
+        "cli_reported_cost_usd_estimate": parsed.get("cli_reported_cost_usd_estimate"),
+        "whole_process_seconds": None,
+        "cli_reported_duration_seconds": duration,
+        "automatic_retry": False,
+        "mode": "primary_mcp_session",
+    }
+    packet = {
+        "arm": arm,
+        "case": case,
+        "objective": objective,
+        "objective_note": note or None,
+        "priced_tool_docs": priced_docs,
+        "run_script_description": next(
+            (t["description"] for t in offered if t["name"] == "run_script"), None
+        ),
+        "seeded_work_files": _read(directory / "seed-work.json"),
+        "route_preference_in_prompt": False,
+        "product_skill_disabled": True,
+        "approved_tools": approved,
+        "primary": primary,
+        "whole_operation_seconds": None,
+        "recovered_after_runner_error": "runner failed deleting the CLI scratch directory "
+        "(Windows file lock) after the session; receipt rebuilt from the saved stream",
+        "container_cleanup": stop_leftover_container(directory, docker_wsl_distro),
+        **collect(directory, case),
+        "budgets": dict(BUDGETS),
+        "automatic_retry": False,
+    }
+    _write_json(Path(output) / f"{arm}-result.json", packet)
+    return packet
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_subparsers(dest="mode", required=True)
@@ -299,6 +397,13 @@ def main(argv=None):
     rehearsal.add_argument("--wheel", type=Path)
     rehearsal.add_argument("--docker-wsl-distro")
     rehearsal.add_argument("--corpus", choices=sorted(CASES), default="natural")
+    recovery = modes.add_parser("recover")
+    recovery.add_argument("--output", type=Path, required=True)
+    recovery.add_argument("--arm", choices=("native", "optional"), required=True)
+    recovery.add_argument("--corpus", choices=sorted(CASES), required=True)
+    recovery.add_argument("--objective", choices=sorted(OBJECTIVES), required=True)
+    recovery.add_argument("--priced-docs", action="store_true")
+    recovery.add_argument("--docker-wsl-distro")
     pair = modes.add_parser("pair")
     pair.add_argument("--output", type=Path, required=True)
     pair.add_argument("--arms", default="native,optional")
@@ -310,6 +415,8 @@ def main(argv=None):
     pair.add_argument("--objective", choices=sorted(OBJECTIVES), default="neutral")
     pair.add_argument("--corpus", choices=sorted(CASES), default="natural")
     pair.add_argument("--priced-docs", action="store_true")
+    pair.add_argument("--seed-work", type=Path)
+    pair.add_argument("--wheel", type=Path, help="use this runtime wheel instead of building one")
     args = parser.parse_args(argv)
     if args.mode == "rehearse":
         report = rehearse(
@@ -320,11 +427,26 @@ def main(argv=None):
         )
         print(json.dumps({k: report[k] for k in ("passed", "tools", "whole_seconds")}))
         return 0 if report["passed"] else 1
+    if args.mode == "recover":
+        packet = recover(
+            args.output,
+            args.arm,
+            corpus=args.corpus,
+            objective=args.objective,
+            priced_docs=args.priced_docs,
+            docker_wsl_distro=args.docker_wsl_distro,
+        )
+        print(json.dumps({k: packet[k] for k in ("route", "independent_check", "jev_usage_total")}))
+        return 0
     arms = args.arms.split(",")
     if not arms or any(arm not in ("native", "optional") for arm in arms):
         parser.error("--arms must name native and/or optional")
     _secure_fs.make_private_directory(args.output, parents=True)
-    wheel, wheel_sha256 = build_wheel(args.output / "wheel")
+    if args.wheel is not None:
+        wheel = args.wheel.absolute()
+        wheel_sha256 = hashlib.sha256(wheel.read_bytes()).hexdigest()
+    else:
+        wheel, wheel_sha256 = build_wheel(args.output / "wheel")
     summary = {
         "arms": arms,
         "objective": args.objective,
@@ -347,6 +469,7 @@ def main(argv=None):
             objective=args.objective,
             corpus=args.corpus,
             priced_docs=args.priced_docs,
+            seed_work=args.seed_work,
         )
         summary["results"][arm] = {
             "primary_ok": packet["primary"]["ok"],

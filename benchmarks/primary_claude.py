@@ -243,7 +243,9 @@ def run_mcp_session(
                 fd = _secure_fs.open_private_file(Path(value), "x")
                 streams[name] = stack.enter_context(os.fdopen(fd, "wb"))
         directory = working_directory or stack.enter_context(
-            tempfile.TemporaryDirectory(prefix="jev-claude-primary-")
+            # Windows can keep the CLI's working directory busy briefly after exit; a failed
+            # cleanup of this empty scratch directory must not discard a finished session.
+            tempfile.TemporaryDirectory(prefix="jev-claude-primary-", ignore_cleanup_errors=True)
         )
         argv = command(
             claude_launcher(claude_binary) if runner is None else [claude_binary],

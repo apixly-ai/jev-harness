@@ -5,14 +5,18 @@
 ## When a Claude primary delegates to Jev (2026-10-12)
 
 [Report](delegation-2026-10-12.md) · [receipts](delegation-2026-10-12.json).
-On a natural-language triage task (1,000 events, independent check precision and recall
->= 0.95 against hidden labels), a Claude Code primary (`claude-opus-5-5`) chose Jev
-once the published Jev price was visible. With the price stated as a plain fact in the
-`run_script` description, it wrote one script, ran Jev once (18 requests, $0.010 at the
-published price) and passed with precision and recall of 1.0. Primary CLI estimate: $0.264;
-whole operation: 60.7 s. With "billable" alone it read all 1,000 records itself: $0.948 and
-147.3 s, also 1.0 / 1.0. An operator price note gave the same Jev choice (0.990 / 1.0,
-52.4 s). The control without Jev read everything ($0.812, 94.6 s). One sample per row.
+On a natural-language triage task (1,000 free-text events with corrections and decoys;
+independent check precision and recall >= 0.95 against hidden labels), a Claude Code
+primary (`claude-opus-5-5`) with an optional Jev route **wrote a script and delegated the
+judging to Jev in 10 of 11 runs**, all passing (precision 0.990-1.000, recall
+0.9965-1.000). That includes 2 of 3 runs with no price and no extra context. Jev runs
+cost a median $0.27 (primary CLI estimate plus Jev at the published price) and took a
+median 65 s. The one run that read every record cost $0.948 and took 147 s.
+
+- A daily-operations framing preceded Jev in 6 of 6 runs.
+- Next-day sessions on a new batch reused the saved script and passed.
+- An earlier reading that price flipped the choice came from a single sample and is
+  withdrawn.
 
 Retained negatives:
 
@@ -1079,4 +1083,4 @@ scope; native desktop acceptance remains unverified.
 
 - [Browser cold start with a Claude primary — 2026-10-12](browser-cold-2026-10-12.md): real Camofox, runtime-evidence gate, both arms operated directly and passed the independent check; Jev usage zero, also after a price note.
 
-- [When a Claude primary delegates to Jev — 2026-10-12](delegation-2026-10-12.md): natural-language triage, price shown as a fact, one Jev run passed the independent check; template and browser-form negatives retained.
+- [When a Claude primary delegates to Jev — 2026-10-12](delegation-2026-10-12.md): natural-language triage, 10 of 11 optional-arm runs delegated to Jev and passed; template and browser-form negatives retained.
