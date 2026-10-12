@@ -109,6 +109,37 @@ def build_runtime(destination, wheel=None):
     }
 
 
+DOCKER = {"prefix": ["docker"], "wsl_distro": None}
+
+
+def configure_docker(wsl_distro=None):
+    """Select the container daemon: the local CLI, or dockerd inside a WSL distribution.
+
+    The WSL route keeps the same Linux containers and isolation flags; only the daemon
+    differs. Host paths are mapped to the distribution's /mnt/<drive> view.
+    """
+    if wsl_distro is not None and (
+        type(wsl_distro) is not str or not wsl_distro.replace("-", "").replace(".", "").isalnum()
+    ):
+        raise ValueError("invalid_wsl_distribution")
+    DOCKER["wsl_distro"] = wsl_distro
+    DOCKER["prefix"] = (
+        ["wsl.exe", "-d", wsl_distro, "-u", "root", "--", "docker"] if wsl_distro else ["docker"]
+    )
+    return dict(DOCKER)
+
+
+def docker_path(path):
+    """Mount source as the daemon sees it (unchanged unless dockerd runs inside WSL)."""
+    resolved = Path(path).resolve()
+    if DOCKER["wsl_distro"] is None:
+        return str(resolved)
+    drive, rest = resolved.drive, resolved.as_posix()[len(resolved.drive) :]
+    if len(drive) != 2 or drive[1] != ":":
+        raise ValueError("wsl_mount_requires_drive_path")
+    return "/mnt/" + drive[0].lower() + rest
+
+
 def container_user():
     """Unprivileged container identity: the caller's uid/gid on POSIX.
 
@@ -135,7 +166,7 @@ class DockerActor:
 
     def command(self, name):
         command = [
-            "docker",
+            *DOCKER["prefix"],
             "run",
             "--detach",
             "--rm",
@@ -163,14 +194,14 @@ class DockerActor:
             "--env",
             "PYTHONDONTWRITEBYTECODE=1",
             "--mount",
-            f"type=bind,source={self.corpus},target=/corpus,readonly",
+            f"type=bind,source={docker_path(self.corpus)},target=/corpus,readonly",
             "--mount",
-            f"type=bind,source={self.work},target=/work",
+            f"type=bind,source={docker_path(self.work)},target=/work",
         ]
         if self.runtime:
             command += [
                 "--mount",
-                f"type=bind,source={self.runtime},target=/runtime,readonly",
+                f"type=bind,source={docker_path(self.runtime)},target=/runtime,readonly",
                 "--env",
                 "PYTHONPATH=/runtime",
                 "--env",
@@ -179,7 +210,7 @@ class DockerActor:
         for source, target, readonly in self.extra_mounts:
             command += [
                 "--mount",
-                f"type=bind,source={Path(source).resolve()},target={target}"
+                f"type=bind,source={docker_path(source)},target={target}"
                 + (",readonly" if readonly else ""),
             ]
         for key, value in self.environment.items():
@@ -188,8 +219,14 @@ class DockerActor:
 
     def start(self):
         name = "jev-cold-" + uuid.uuid4().hex[:16]
+        # Never inherit stdin: the parent's stdin is the MCP stream, and wsl.exe relays it.
         completed = subprocess.run(
-            self.command(name), capture_output=True, text=True, check=True, timeout=30
+            self.command(name),
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=30,
         )
         self.identifier = completed.stdout.strip()
         return self
@@ -204,8 +241,8 @@ class DockerActor:
             raise ValueError("container_not_started")
         started = time.perf_counter()
         completed = subprocess.run(
-            ["docker", "exec", "-i", self.identifier, *argv],
-            input=input_text.encode() if input_text is not None else None,
+            [*DOCKER["prefix"], "exec", "-i", self.identifier, *argv],
+            input=input_text.encode() if input_text is not None else b"",
             capture_output=True,
             timeout=timeout,
         )
@@ -222,7 +259,8 @@ class DockerActor:
     def close(self):
         if self.identifier:
             subprocess.run(
-                ["docker", "stop", "--time", "1", self.identifier],
+                [*DOCKER["prefix"], "stop", "--time", "1", self.identifier],
+                stdin=subprocess.DEVNULL,
                 capture_output=True,
                 timeout=15,
                 check=False,
@@ -1060,7 +1098,11 @@ def main(argv=None):
     s.add_argument("--variant", type=int, choices=(0, 1), default=0)
     s.add_argument("--live", action="store_true")
     s.add_argument("--credential-file", type=Path)
+    for mode in (c, s):
+        mode.add_argument("--docker-wsl-distro")
     args = parser.parse_args(argv)
+    if args.docker_wsl_distro:
+        configure_docker(args.docker_wsl_distro)
     if args.mode == "canary":
         report = canary(args.output, args.wheel, image=args.image)
         print(

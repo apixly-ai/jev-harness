@@ -36,6 +36,7 @@ from cold_authoring import (
     _sha,
     _write_json,
     build_runtime,
+    configure_docker,
     freeze_script,
 )
 
@@ -1156,7 +1157,11 @@ def main(argv=None):
     serving.add_argument("--credential-file", type=Path)
     serving.add_argument("--headless-config", type=Path)
     serving.add_argument("--session-seconds", type=int, default=600)
+    for mode in (canary, worker, serving):
+        mode.add_argument("--docker-wsl-distro")
     args = parser.parse_args(argv)
+    if getattr(args, "docker_wsl_distro", None):
+        configure_docker(args.docker_wsl_distro)
     if args.mode == "describe":
         case = case_contract(args.variant)
         print(json.dumps({"case": case, "actor_prompt": actor_prompt(case)}, ensure_ascii=False))

@@ -558,3 +558,41 @@ def test_native_provider_refuses_a_credential_readable_by_others(cold, tmp_path)
     with pytest.raises(Exception) as raised:
         cold.NativeProvider(key, transport=object())
     assert "credential" in str(raised.value) or "permission" in str(raised.value)
+
+
+def test_wsl_daemon_keeps_isolation_flags_and_maps_drive_paths(cold, tmp_path, monkeypatch):
+    monkeypatch.setattr(cold, "DOCKER", {"prefix": ["docker"], "wsl_distro": None})
+    monkeypatch.setattr(cold.Path, "resolve", lambda self, strict=False: self)
+    direct = cold.DockerActor(tmp_path / "corpus", tmp_path / "work").command("n")
+    cold.configure_docker("Ubuntu")
+    actor = cold.DockerActor(cold.Path("C:/x/corpus"), cold.Path("C:/x/work"))
+    routed = actor.command("n")
+    assert routed[:7] == ["wsl.exe", "-d", "Ubuntu", "-u", "root", "--", "docker"]
+    assert routed[7:].count("--network") == 1 and "none" in routed
+    assert "type=bind,source=/mnt/c/x/corpus,target=/corpus,readonly" in routed
+    assert "type=bind,source=/mnt/c/x/work,target=/work" in routed
+    assert [x for x in routed[7:] if not x.startswith("type=bind")] == [
+        x for x in direct[1:] if not x.startswith("type=bind")
+    ]
+    for bad in ("Ubuntu; rm", "", 3):
+        with pytest.raises(ValueError):
+            cold.configure_docker(bad)
+
+
+def test_container_processes_never_inherit_the_mcp_stdin(cold, tmp_path, monkeypatch):
+    calls = []
+
+    def fake_run(argv, **kwargs):
+        calls.append(kwargs)
+        return cold.subprocess.CompletedProcess(
+            argv, 0, stdout=b"cid" if "text" not in kwargs else "cid", stderr=b""
+        )
+
+    monkeypatch.setattr(cold.subprocess, "run", fake_run)
+    actor = cold.DockerActor(tmp_path, tmp_path).start()
+    actor.shell("true")
+    actor.invoke(["cat"], input_text="payload")
+    actor.close()
+    assert calls[0]["stdin"] is cold.subprocess.DEVNULL
+    assert calls[1]["input"] == b"" and calls[2]["input"] == b"payload"
+    assert calls[3]["stdin"] is cold.subprocess.DEVNULL

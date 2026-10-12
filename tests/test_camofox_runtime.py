@@ -246,3 +246,16 @@ def test_existing_tabs_keep_context_alive_and_stuck_teardown_fails_closed(runtim
             timeout_seconds=0,
             sleep=lambda _: None,
         )
+
+
+def test_os_probes_never_read_the_mcp_stdin(runtime, monkeypatch):
+    seen = []
+
+    def fake_run(argv, **kwargs):
+        seen.append(kwargs.get("stdin"))
+        return runtime.subprocess.CompletedProcess(argv, 0, stdout="", stderr="")
+
+    monkeypatch.setattr(runtime.subprocess, "run", fake_run)
+    runtime.listener_pid(9378)
+    runtime.process_table()
+    assert seen and all(value is runtime.subprocess.DEVNULL for value in seen)

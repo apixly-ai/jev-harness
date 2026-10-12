@@ -58,7 +58,15 @@ def build_wheel(directory):
 
 
 def serve_arguments(
-    directory, arm, *, wheel, variant, headless_config, session_seconds, credential
+    directory,
+    arm,
+    *,
+    wheel,
+    variant,
+    headless_config,
+    session_seconds,
+    credential,
+    docker_wsl_distro=None,
 ):
     arguments = [
         str(SERVER),
@@ -76,6 +84,8 @@ def serve_arguments(
     ]
     if headless_config is not None:
         arguments += ["--headless-config", str(headless_config)]
+    if docker_wsl_distro is not None:
+        arguments += ["--docker-wsl-distro", docker_wsl_distro]
     if arm == "optional" and credential is not None:
         arguments += ["--live", "--credential-file", str(credential)]
     return arguments
@@ -152,7 +162,9 @@ def close_leftover_owned_tab(directory, base=None):
     return {"owned_tab_recorded": True, "left_open": True, "closed_by_runner": True}
 
 
-def rehearse(output, *, wheel=None, headless_config=None, session_seconds=600):
+def rehearse(
+    output, *, wheel=None, headless_config=None, session_seconds=600, docker_wsl_distro=None
+):
     """Zero-model serve rehearsal: scripted MCP client, observe/check only, no effects."""
     output = Path(output)
     _secure_fs.make_private_directory(output, parents=True)
@@ -170,6 +182,7 @@ def rehearse(output, *, wheel=None, headless_config=None, session_seconds=600):
                 headless_config=headless_config,
                 session_seconds=session_seconds,
                 credential=None,
+                docker_wsl_distro=docker_wsl_distro,
             ),
         ],
         stdin=subprocess.PIPE,
@@ -229,6 +242,7 @@ def run_arm(
     headless_config,
     session_seconds,
     primary_timeout,
+    docker_wsl_distro=None,
 ):
     from primary_claude import run_mcp_session
 
@@ -255,6 +269,7 @@ def run_arm(
             headless_config=headless_config,
             session_seconds=session_seconds,
             credential=credential,
+            docker_wsl_distro=docker_wsl_distro,
         ),
         approved_tools=approved,
         timeout_seconds=primary_timeout,
@@ -299,6 +314,7 @@ def main(argv=None):
     rehearsal.add_argument("--output", type=Path, required=True)
     rehearsal.add_argument("--wheel", type=Path)
     rehearsal.add_argument("--headless-config", type=Path)
+    rehearsal.add_argument("--docker-wsl-distro")
     pair = modes.add_parser("pair")
     pair.add_argument("--output", type=Path, required=True)
     pair.add_argument("--arms", default="native,optional")
@@ -309,9 +325,15 @@ def main(argv=None):
     pair.add_argument("--headless-config", type=Path)
     pair.add_argument("--session-seconds", type=int, default=600)
     pair.add_argument("--primary-timeout", type=int, default=900)
+    pair.add_argument("--docker-wsl-distro")
     args = parser.parse_args(argv)
     if args.mode == "rehearse":
-        report = rehearse(args.output, wheel=args.wheel, headless_config=args.headless_config)
+        report = rehearse(
+            args.output,
+            wheel=args.wheel,
+            headless_config=args.headless_config,
+            docker_wsl_distro=args.docker_wsl_distro,
+        )
         print(
             json.dumps(
                 {key: report[key] for key in ("passed", "observed_actions", "whole_seconds")}
@@ -337,6 +359,7 @@ def main(argv=None):
             headless_config=args.headless_config,
             session_seconds=args.session_seconds,
             primary_timeout=args.primary_timeout,
+            docker_wsl_distro=args.docker_wsl_distro,
         )
         summary["results"][arm] = {
             "primary_ok": packet["primary"]["ok"],

@@ -73,6 +73,7 @@ def listener_pid(port):
                     "-Command",
                     f"(Get-NetTCPConnection -LocalPort {int(port)} -State Listen).OwningProcess",
                 ],
+                stdin=subprocess.DEVNULL,
                 capture_output=True,
                 text=True,
                 timeout=20,
@@ -80,6 +81,7 @@ def listener_pid(port):
         else:
             output = subprocess.run(
                 ["lsof", "-nP", f"-iTCP:{int(port)}", "-sTCP:LISTEN", "-t"],
+                stdin=subprocess.DEVNULL,
                 capture_output=True,
                 text=True,
                 timeout=20,
@@ -100,6 +102,7 @@ def process_table():
             )
             output = subprocess.run(
                 ["powershell", "-NoProfile", "-Command", script],
+                stdin=subprocess.DEVNULL,
                 capture_output=True,
                 text=True,
                 encoding="utf-8",
@@ -118,7 +121,11 @@ def process_table():
                 for row in rows
             ]
         output = subprocess.run(
-            ["ps", "-axo", "pid=,ppid=,command="], capture_output=True, text=True, timeout=30
+            ["ps", "-axo", "pid=,ppid=,command="],
+            stdin=subprocess.DEVNULL,
+            capture_output=True,
+            text=True,
+            timeout=30,
         ).stdout
     except (OSError, subprocess.SubprocessError, ValueError):
         return []
