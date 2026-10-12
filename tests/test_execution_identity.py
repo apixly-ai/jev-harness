@@ -140,7 +140,8 @@ def test_cli_exit_two_preserves_current_action_for_reconciliation(monkeypatch, t
         "def reconcile_target():\n"
         f"    Path({str(marker)!r}).write_text('one effect')\n"
         "    print('PRIVATE_SYNTHETIC_OUTPUT')\n"
-        "    raise DecisionStop('needs_context','synthetic_stop')\n"
+        "    raise DecisionStop('needs_context','synthetic_stop')\n",
+        newline="\n",
     )
     assert main(["run", str(script), "--goal", "Synthetic effect"]) == 2
     captured = capsys.readouterr()

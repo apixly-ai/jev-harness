@@ -75,7 +75,7 @@ def test_argument_failure_does_not_create_init_script(tmp_path, capsys):
 
 def test_configuration_failure_remains_distinct_and_abbreviations_still_parse(tmp_path, capsys):
     script = tmp_path / "task.py"
-    script.write_text("raise AssertionError('Must not load')\n")
+    script.write_text("raise AssertionError('Must not load')\n", encoding="utf-8", newline="\n")
     assert main(["run", str(script), "--go", "Inspect", "--max-s", "0"]) == 2
     packet = json.loads(capsys.readouterr().out)
     assert packet["phase"] == "configuration"
@@ -84,7 +84,7 @@ def test_configuration_failure_remains_distinct_and_abbreviations_still_parse(tm
 
 def test_real_cli_parser_failure_has_exact_json_and_no_raw_stderr(tmp_path):
     script = tmp_path / "task.py"
-    script.write_text("raise AssertionError('Must not load')\n")
+    script.write_text("raise AssertionError('Must not load')\n", encoding="utf-8", newline="\n")
     env = {key: value for key, value in os.environ.items() if not key.startswith("TYPESAFE_")}
     result = subprocess.run(
         [

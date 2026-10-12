@@ -16,6 +16,8 @@ import urllib.request
 from pathlib import Path
 from unittest.mock import patch
 
+from _private_files import secure_fs as _secure_fs
+
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = "79d383dcf9ffedc535dc5182bfe5a17147f7e950"
 ZERO_USAGE = {
@@ -96,7 +98,7 @@ def _public(packet):
 
 def _write(path, value):
     body = json.dumps(value, ensure_ascii=False, sort_keys=True).encode()
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    fd = _secure_fs.open_private_file(path, "x")
     with os.fdopen(fd, "wb") as stream:
         stream.write(body)
         stream.flush()
@@ -290,7 +292,9 @@ def trial(name, source_dir):
             expected = {"goal": GOAL, "facts": FACTS, "messages": MESSAGES}
 
             def verify(ctx, state):
-                return output.is_file() and json.loads(output.read_text()) == expected
+                return (
+                    output.is_file() and json.loads(output.read_text(encoding="utf-8")) == expected
+                )
 
             task = CountingTask(observe=lambda c: dict(external), verify=verify)
 
@@ -424,7 +428,10 @@ def trial(name, source_dir):
                     )
             elapsed = time.perf_counter() - started
             journal_events = (
-                [json.loads(line)["event"] for line in archive.read_text().splitlines()]
+                [
+                    json.loads(line)["event"]
+                    for line in archive.read_text(encoding="utf-8").splitlines()
+                ]
                 if archive.exists()
                 else []
             )
@@ -651,7 +658,7 @@ def main(argv=None):
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     with (
-        output.open("x", encoding="utf-8") as stream,
+        output.open("x", encoding="utf-8", newline="\n") as stream,
         tempfile.TemporaryDirectory(prefix="jev-source-pair-") as directory,
     ):
         root = Path(directory)

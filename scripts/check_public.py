@@ -18,7 +18,7 @@ for path in root.rglob("*"):
     ):
         continue
     try:
-        text = path.read_text()
+        text = path.read_text(encoding="utf-8")
     except (UnicodeDecodeError, OSError):
         continue
     if any(p.search(text) for p in patterns):

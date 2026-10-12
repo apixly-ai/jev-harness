@@ -133,7 +133,9 @@ def test_machine_spec_exposes_current_selection_planner_deferral(capsys):
 
 def test_check_task_does_not_execute_module_code(tmp_path, capsys):
     script = tmp_path / "task.py"
-    script.write_text('raise RuntimeError("must not execute")\nworkflow = None\n')
+    script.write_text(
+        'raise RuntimeError("must not execute")\nworkflow = None\n', encoding="utf-8", newline="\n"
+    )
     assert main(["check-task", str(script)]) == 0
     assert json.loads(capsys.readouterr().out)["model_calls"] == 0
     script.write_text("workflow = (")

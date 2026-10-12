@@ -31,7 +31,7 @@ def offline_inference(monkeypatch):
 
 def run_script(tmp_path, source):
     script = tmp_path / "task.py"
-    script.write_text(source)
+    script.write_text(source, encoding="utf-8", newline="\n")
     stdout, stderr = io.StringIO(), io.StringIO()
     with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
         exit_code = main(["run", str(script), "--goal", "Inspect synthetic state"])
@@ -178,7 +178,9 @@ def test_stream_write_return_values_and_binary_units_are_preserved(tmp_path):
 @pytest.mark.parametrize("exception", ["SystemExit", "KeyboardInterrupt"])
 def test_cli_interrupts_restore_streams_and_raise_quiet_nonzero_exit(tmp_path, exception):
     script = tmp_path / "task.py"
-    script.write_text("print('PRIVATE_IMPORT')\nraise " + exception + "()\n")
+    script.write_text(
+        "print('PRIVATE_IMPORT')\nraise " + exception + "()\n", encoding="utf-8", newline="\n"
+    )
     stdout, stderr = io.StringIO(), io.StringIO()
     with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
         with pytest.raises(SystemExit) as interrupted:
@@ -205,7 +207,8 @@ def test_real_cli_interrupts_exit_quietly_without_success_or_terminal_packet(
     script = tmp_path / "task.py"
     script.write_text(
         "import sys\nprint('PRIVATE_IMPORT')\nprint('PRIVATE_STDERR',file=sys.stderr)\n"
-        + f"raise {exception}({argument})\n"
+        + f"raise {exception}({argument})\n",
+        newline="\n",
     )
     # Fixtures exit during import, before any workflow or inference; no credentials needed.
     env = {key: value for key, value in os.environ.items() if not key.startswith("TYPESAFE_")}

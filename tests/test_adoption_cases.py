@@ -34,7 +34,7 @@ def cited(case, label, text=None, source=None):
 
 def report(tmp_path, rows):
     path = tmp_path / "report.json"
-    path.write_text(json.dumps({"records": rows}))
+    path.write_text(json.dumps({"records": rows}), encoding="utf-8", newline="\n")
     return path
 
 
@@ -190,7 +190,9 @@ def test_mechanical_validator_rejects_unsupported_ast_without_execution(
 ):
     case = cases.fixture(tmp_path / "sources", "medium", 0)
     worker = Path(case["inputs"]["root"]) / "src/worker.py"
-    worker.write_text('import os\nos.system("SHOULD_NEVER_EXECUTE")\n')
+    worker.write_text(
+        'import os\nos.system("SHOULD_NEVER_EXECUTE")\n', encoding="utf-8", newline="\n"
+    )
     monkeypatch.setattr("os.system", lambda *a: pytest.fail("Fixture source must not execute"))
     assert cases.mechanical_check(case)["passed"] is False
 
@@ -200,7 +202,7 @@ def test_current_record_inconsistent_with_pure_transition_fails(cases, tmp_path)
     path = Path(case["inputs"]["root"]) / "tests/results/current.json"
     record = json.loads(path.read_text())
     record["actual_delivery_count"] = 1
-    path.write_text(json.dumps(record, indent=2))
+    path.write_text(json.dumps(record, indent=2), encoding="utf-8", newline="\n")
     assert cases.mechanical_check(case)["passed"] is False
     assert (
         cases.independent_check(
@@ -214,7 +216,7 @@ def test_fixture_never_overwrites_existing_source_directory(cases, tmp_path):
     root = tmp_path / "sources"
     root.mkdir()
     owner = root / "owner.txt"
-    owner.write_text("keep")
+    owner.write_text("keep", encoding="utf-8", newline="\n")
     with pytest.raises(FileExistsError):
         cases.fixture(root, "medium", 0)
     assert owner.read_text() == "keep"

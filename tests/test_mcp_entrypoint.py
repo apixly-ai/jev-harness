@@ -12,7 +12,8 @@ def test_public_mcp_loader_supports_dataclass_scripts_and_suppresses_cleanup(
     tmp_path, monkeypatch, capsys
 ):
     script = tmp_path / "task.py"
-    script.write_text("""from __future__ import annotations
+    script.write_text(
+        """from __future__ import annotations
 from dataclasses import dataclass
 from apixly_jev_harness import Task
 @dataclass
@@ -22,7 +23,9 @@ class Pack:
     def close(self): print('private cleanup')
 workflow = Task(observe=lambda c: {'value': Row().value}, verify=lambda c, s: False)
 workflow.toolkits = [Pack()]
-""")
+""",
+        newline="\n",
+    )
     monkeypatch.setattr(sys, "stdin", io.StringIO('{"id":1,"method":"initialize"}\n'))
     assert main([str(script), "--goal", "Inspect", "--direct-only"]) == 0
     rows = capsys.readouterr().out.splitlines()
@@ -93,7 +96,9 @@ def test_mcp_null_snapshot_cannot_bypass_advertised_string_contract():
 def test_mcp_null_json_configuration_does_not_import_script(tmp_path, field, capsys):
     marker = tmp_path / "imported"
     script = tmp_path / "task.py"
-    script.write_text(f"from pathlib import Path\nPath({str(marker)!r}).touch()\nworkflow = None\n")
+    script.write_text(
+        f"from pathlib import Path\nPath({str(marker)!r}).touch()\nworkflow = None\n", newline="\n"
+    )
     assert main([str(script), "--goal", "Inspect", field, "null"]) == 2
     assert not marker.exists()
     assert json.loads(capsys.readouterr().out)["phase"] == "configuration"
@@ -203,7 +208,9 @@ def test_caller_can_expose_a_purpose_named_goal_operation_without_changing_execu
 def test_invalid_execution_name_fails_before_loading_trusted_script(tmp_path, capsys):
     marker = tmp_path / "imported"
     script = tmp_path / "task.py"
-    script.write_text(f"from pathlib import Path\nPath({str(marker)!r}).touch()\nworkflow = None\n")
+    script.write_text(
+        f"from pathlib import Path\nPath({str(marker)!r}).touch()\nworkflow = None\n", newline="\n"
+    )
     assert main([str(script), "--goal", "Inspect", "--execution-name", "operate"]) == 2
     assert not marker.exists()
     assert json.loads(capsys.readouterr().out)["phase"] == "configuration"
@@ -220,3 +227,41 @@ def test_lazy_factory_does_not_change_advertised_tool_names_after_first_inspecti
     assert {x["name"] for x in describe_tools(client)} == before
     with pytest.raises(ValueError, match="evidence_report"):
         client.read_report()
+
+
+def test_stdio_mcp_is_utf8_even_when_the_locale_codec_is_not(tmp_path):
+    import os
+    import subprocess
+
+    script = tmp_path / "task.py"
+    script.write_text(
+        "from apixly_jev_harness import Task\n"
+        "workflow = Task(observe=lambda c: {'ok': True}, verify=lambda c, s: False)\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    goal = "保存草稿 → 预览收件箱 ✓"
+    environment = {
+        key: value
+        for key, value in os.environ.items()
+        if key not in ("PYTHONIOENCODING", "PYTHONUTF8")
+    }
+    environment.update(LC_ALL="C", LANG="C", PYTHONUTF8="0")
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "apixly_jev_harness.mcp",
+            str(script),
+            "--goal",
+            goal,
+        ],
+        input=b'{"id":1,"method":"initialize"}\n{"id":2,"method":"tools/list"}\n',
+        capture_output=True,
+        env=environment,
+        timeout=60,
+    )
+    assert completed.returncode == 0, completed.stderr[-400:]
+    rows = [json.loads(line) for line in completed.stdout.decode("utf-8").splitlines()]
+    assert [row["id"] for row in rows] == [1, 2]
+    assert goal in json.dumps(rows, ensure_ascii=False)

@@ -1,6 +1,7 @@
 import json
 
 import pytest
+from platform_support import broaden_access, make_symlink, owner_only, restore_owner_only
 
 from apixly_jev_harness.evidence import EvidenceStore
 from apixly_jev_harness.toolkit import EvidenceTask
@@ -69,7 +70,7 @@ def test_thin_task_installs_toolkit_and_saved_report_is_independently_checked(tm
     report = json.loads(output.read_text())
     assert report["records"][0]["source"] == "allowed-source"
     report["records"][0]["text"] = "fabricated"
-    output.write_text(json.dumps(report))
+    output.write_text(json.dumps(report), encoding="utf-8", newline="\n")
     assert task.verify(None, task.observe(None)) is False
 
 
@@ -106,7 +107,7 @@ def test_toolkit_names_and_output_ownership_are_explicit(tmp_path):
             verify=lambda c, s: False,
         )
     occupied = tmp_path / "existing.json"
-    occupied.write_text("owner document")
+    occupied.write_text("owner document", encoding="utf-8", newline="\n")
     with pytest.raises(FileExistsError):
         EvidenceTask(
             [], store=EvidenceStore(), labels=["x"], output=occupied, verify=lambda c, s: False
@@ -167,7 +168,9 @@ def test_workspace_search_keeps_source_index_compact_without_discarding_original
     bodies = {}
     for i in range(8):
         bodies[f"source-{i}.txt"] = f"needle record {i} with source provenance\n" * 10
-        (root / f"source-{i}.txt").write_text(bodies[f"source-{i}.txt"])
+        (root / f"source-{i}.txt").write_text(
+            bodies[f"source-{i}.txt"], encoding="utf-8", newline="\n"
+        )
     store = EvidenceStore()
     pack = WorkspaceTools(root, store, queries=["needle"])
     task = EvidenceTask(
@@ -399,14 +402,15 @@ def test_report_rewrite_refuses_changed_permissions_and_symlink(tmp_path):
     )
     task.record_evidence({"ref": ref, "offset": 0, "limit": 1200}, "fact")
     task.save_report()
-    task.output.chmod(0o644)
+    assert owner_only(task.output)
+    broaden_access(task.output)
     with pytest.raises(ValueError):
         task.save_report()
-    task.output.chmod(0o600)
+    restore_owner_only(task.output)
     task.output.unlink()
     other = tmp_path / "owner.txt"
-    other.write_text("owner data")
-    task.output.symlink_to(other)
+    other.write_text("owner data", encoding="utf-8", newline="\n")
+    make_symlink(task.output, other)
     with pytest.raises((ValueError, OSError)):
         task.save_report()
     assert other.read_text() == "owner data"
@@ -480,6 +484,6 @@ def test_saved_report_handoff_contains_original_quotes_and_rejects_changed_disk(
     assert packet["available"] is True
     assert packet["records"][0]["text"] == "Recorded observation: current version is 2.3."
     assert packet["records"][0]["sha256"] == store.describe(ref)["sha256"]
-    task.output.write_text("{}")
+    task.output.write_text("{}", encoding="utf-8", newline="\n")
     assert task.report_snapshot()["available"] is False
     assert task.report_snapshot()["records"] == []

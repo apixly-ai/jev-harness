@@ -138,6 +138,17 @@ def describe_tools(session, *, allow_delegate=True, execution_name="run_task"):
     return result
 
 
+def utf8_stream(stream):
+    """MCP stdio is UTF-8; a Windows pipe otherwise inherits the locale code page."""
+    reconfigure = getattr(stream, "reconfigure", None)
+    if reconfigure is not None and (getattr(stream, "encoding", "") or "").lower() not in (
+        "utf-8",
+        "utf8",
+    ):
+        reconfigure(encoding="utf-8")
+    return stream
+
+
 def serve(
     session,
     *,
@@ -148,8 +159,8 @@ def serve(
     execution_name="run_task",
 ):
     describe_tools(session, allow_delegate=allow_delegate, execution_name=execution_name)
-    source = source or sys.stdin
-    destination = destination or sys.stdout
+    source = source or utf8_stream(sys.stdin)
+    destination = destination or utf8_stream(sys.stdout)
     while True:
         line = source.readline(1_000_001)
         if not line:

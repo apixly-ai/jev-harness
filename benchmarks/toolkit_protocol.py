@@ -12,6 +12,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import httpx
+from _private_files import secure_fs as _secure_fs
 from jev_context.provider import Client
 
 from apixly_jev_harness import AgentLoop, Option, Parameter, Task, __version__
@@ -328,7 +329,11 @@ def trial(case, arm):
                 )
                 def record(label, passage):
                     effects.append("record")
-                    artifact.write_text(json.dumps({"label": label, "passage": passage}))
+                    artifact.write_text(
+                        json.dumps({"label": label, "passage": passage}),
+                        newline="\n",
+                        encoding="utf-8",
+                    )
                     state["done"] = True
                     return {"saved": True}
             else:
@@ -354,7 +359,9 @@ def trial(case, arm):
                 )
                 def inspect(target):
                     effects.append(target)
-                    artifact.write_text(json.dumps({"source": target}))
+                    artifact.write_text(
+                        json.dumps({"source": target}), encoding="utf-8", newline="\n"
+                    )
                     state["done"] = True
                     return {"saved": True}
 
@@ -405,12 +412,14 @@ def trial(case, arm):
                     archive=archive,
                 )
             if artifact.exists() and isinstance(task, EvidenceTask):
-                artifact_count = len(json.loads(artifact.read_text())["records"])
+                artifact_count = len(json.loads(artifact.read_text(encoding="utf-8"))["records"])
         if not client.closed:
             client.close()
         telemetry = packet.get("telemetry", {})
         if archive.exists() and not telemetry:
-            entries = [json.loads(line) for line in archive.read_text().splitlines()]
+            entries = [
+                json.loads(line) for line in archive.read_text(encoding="utf-8").splitlines()
+            ]
             telemetry = next(
                 (
                     entry["result"]["telemetry"]
@@ -542,8 +551,8 @@ def main():
     report = run_benchmark(args.repeats)
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-    with os.fdopen(fd, "w", encoding="utf-8") as stream:
+    fd = _secure_fs.open_private_file(path, "x")
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps({"mode": report["mode"], "summary": report["summary"]}))
     return 0 if all(row["expected_outcome_met"] for row in report["rows"]) else 1

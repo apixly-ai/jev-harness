@@ -240,7 +240,8 @@ def test_cli_numeric_boolean_observation_exits_nonzero_without_false_done(
     script.write_text(
         "from apixly_jev_harness import Task,verify_state\n"
         "workflow=Task(observe=lambda ctx:{'controls':[{'label':'Approved','checked':1}]},"
-        "verify=verify_state(controls=[{'label':'Approved','checked':True}]))\n"
+        "verify=verify_state(controls=[{'label':'Approved','checked':True}]))\n",
+        newline="\n",
     )
     assert main(["run", str(script), "--goal", "Observe typed approval"]) == 2
     captured = capsys.readouterr()

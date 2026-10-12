@@ -391,7 +391,7 @@ def trial(name, source_dir):
                 exception_type = type(error).__name__
         elapsed = time.perf_counter() - started
         events = (
-            [json.loads(line)["event"] for line in archive.read_text().splitlines()]
+            [json.loads(line)["event"] for line in archive.read_text(encoding="utf-8").splitlines()]
             if archive.exists()
             else []
         )
@@ -686,7 +686,7 @@ def main():
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("x") as stream:
+    with output.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps({"behavior_parity": behavior_parity, "summary": summaries}))
     return (

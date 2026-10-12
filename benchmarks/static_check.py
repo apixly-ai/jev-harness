@@ -206,7 +206,7 @@ def main():
     }
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("x") as stream:
+    with path.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps(summaries))
     return (

@@ -59,7 +59,7 @@ def test_toolkit_scaffold_is_thin_lazy_and_static_checkable(tmp_path, capsys, mo
 @pytest.mark.parametrize("toolkit", TOOLKITS)
 def test_toolkit_scaffold_does_not_replace_owned_script(tmp_path, capsys, toolkit):
     target = tmp_path / "task.py"
-    target.write_text("caller-owned source")
+    target.write_text("caller-owned source", encoding="utf-8", newline="\n")
     assert task_cli.main(["init-task", str(target), "--toolkit", toolkit]) == 2
     assert target.read_text() == "caller-owned source"
     assert json.loads(capsys.readouterr().out)["status"] == "failed"
@@ -122,7 +122,7 @@ def test_thin_factory_uses_runtime_inputs_and_independently_checks_saved_artifac
     if toolkit == "workspace":
         root = tmp_path / "sources"
         root.mkdir()
-        (root / "facts.txt").write_text(synthetic_page()["text"])
+        (root / "facts.txt").write_text(synthetic_page()["text"], encoding="utf-8", newline="\n")
         location = {"root": str(root), "queries": ["captured"]}
     else:
         monkeypatch.setattr("apixly_jev_harness.HttpProvider", Provider)
@@ -234,7 +234,8 @@ def test_cli_run_closes_owned_thin_toolkits_after_terminal_result(
 ):
     target = tmp_path / "thin.py"
     marker = tmp_path / "closed.txt"
-    target.write_text("""from pathlib import Path
+    target.write_text(
+        """from pathlib import Path
 from apixly_jev_harness import Task, TaskScript
 
 def build(inputs):
@@ -246,7 +247,9 @@ def build(inputs):
     task.toolkits = [Pack()]
     return task
 workflow = TaskScript(build)
-""")
+""",
+        newline="\n",
+    )
 
     def run(self, workflow, **kwargs):
         workflow.materialize(Context(goal=kwargs["goal"], inputs=kwargs["inputs"], facts={}))
@@ -277,7 +280,8 @@ workflow = TaskScript(build)
 
 def test_cleanup_failure_keeps_verified_terminal_and_unknown_usage(tmp_path, capsys, monkeypatch):
     target = tmp_path / "thin.py"
-    target.write_text("""from apixly_jev_harness import Task, TaskScript
+    target.write_text(
+        """from apixly_jev_harness import Task, TaskScript
 
 def build(inputs):
     class Pack:
@@ -287,7 +291,9 @@ def build(inputs):
     task.toolkits = [Pack()]
     return task
 workflow = TaskScript(build)
-""")
+""",
+        newline="\n",
+    )
 
     def run(self, workflow, **kwargs):
         workflow.materialize(Context(goal=kwargs["goal"], inputs=kwargs["inputs"], facts={}))
@@ -300,3 +306,43 @@ workflow = TaskScript(build)
     packet = json.loads(output)
     assert packet["status"] == "done" and packet["telemetry"]["usage_complete"] is False
     assert packet["cleanup_errors"] == [{"toolkit_type": "Pack", "error_type": "RuntimeError"}]
+
+
+def test_quickstart_documents_the_authorize_action_shape_it_actually_receives(capsys, tmp_path):
+    from apixly_jev_harness import Engine, Option, Parameter, Task
+
+    assert task_cli.main(["quickstart"]) == 0
+    packet = json.loads(capsys.readouterr().out)
+    authorization = packet["tools"]["authorization"]
+    assert "irreversible=True" in authorization and "authorize(ctx, action)" in authorization
+    assert "{'tool': name, 'arguments':" in authorization
+    assert "SurfaceTask(" in packet["toolkits"]["surface"]
+    seen, effects = [], []
+    task = Task(
+        observe=lambda ctx: {"done": bool(effects)},
+        verify=lambda ctx, state: state["done"],
+        authorize=lambda ctx, action: seen.append(action.params) or False,
+    )
+
+    @task.tool(
+        "Save the synthetic draft",
+        name="save",
+        irreversible=True,
+        parameters={"target": Parameter("Draft", lambda c, s: [Option("d", "draft", {"id": 7})])},
+    )
+    def save(target):
+        effects.append(target)
+
+    class Scripted(Engine):
+        def decide(self, records, goal, **kwargs):
+            return {
+                "ok": True,
+                "complete": True,
+                "selected_ids": ["save"],
+                "review_ids": [],
+                "telemetry": {"requests": 0, "usage_complete": False, "usage": None},
+            }
+
+    result = Scripted().run(task, goal="Save the draft", archive=tmp_path / "run.jsonl")
+    assert result["status"] == "needs_confirmation" and effects == []
+    assert seen == [{"tool": "save", "arguments": {"target": {"id": 7}}}]

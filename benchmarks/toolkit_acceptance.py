@@ -35,7 +35,9 @@ def trial(out, family, arm, variant, credential_file, primary_model, missing=Fal
         case["inputs"]["url"] = f"http://127.0.0.1:{http.server_port}/index.html"
     case_path = directory / "actor.json"
     # Never put hidden route oracle into the MCP server/actor configuration.
-    case_path.write_text(json.dumps({"goal": case["goal"], "inputs": case["inputs"]}))
+    case_path.write_text(
+        json.dumps({"goal": case["goal"], "inputs": case["inputs"]}), encoding="utf-8", newline="\n"
+    )
     provenance = {
         "runtime": {
             str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
@@ -55,7 +57,9 @@ def trial(out, family, arm, variant, credential_file, primary_model, missing=Fal
             if p.is_file()
         },
     }
-    (directory / "provenance.json").write_text(json.dumps(provenance, indent=2))
+    (directory / "provenance.json").write_text(
+        json.dumps(provenance, indent=2), encoding="utf-8", newline="\n"
+    )
     started = time.perf_counter()
     workflow = None
     try:
@@ -104,7 +108,7 @@ def trial(out, family, arm, variant, credential_file, primary_model, missing=Fal
                 private_diagnostics_path=directory / "primary-stderr.log",
             )
             server_result = (
-                json.loads((directory / "server.json").read_text())
+                json.loads((directory / "server.json").read_text(encoding="utf-8"))
                 if (directory / "server.json").exists()
                 else None
             )
@@ -118,7 +122,9 @@ def trial(out, family, arm, variant, credential_file, primary_model, missing=Fal
                         ref: {"source": row["source"], "sha256": row["sha256"], "text": row["text"]}
                         for ref, row in workflow._task.store._sources.items()
                     }
-                )
+                ),
+                newline="\n",
+                encoding="utf-8",
             )
         packet["independent_verification"] = independent_check(
             case, case["inputs"]["output"], captures_path=captures_path
@@ -131,7 +137,9 @@ def trial(out, family, arm, variant, credential_file, primary_model, missing=Fal
         packet["prompt_scope"] = (
             "goal plus saved-artifact result requirement; no instruction to inspect references or prefer a route"
         )
-        (directory / "result.json").write_text(json.dumps(packet, ensure_ascii=False, indent=2))
+        (directory / "result.json").write_text(
+            json.dumps(packet, ensure_ascii=False, indent=2), newline="\n", encoding="utf-8"
+        )
         return packet
     finally:
         if workflow is not None and workflow._task is not None:
@@ -144,7 +152,9 @@ def trial(out, family, arm, variant, credential_file, primary_model, missing=Fal
         if family == "browser" and arm != "jev" and receipt_path.exists():
             from jev_context.act.browser import CamofoxPage
 
-            for owned in json.loads(receipt_path.read_text()).get("owned_browser_tabs", []):
+            for owned in json.loads(receipt_path.read_text(encoding="utf-8")).get(
+                "owned_browser_tabs", []
+            ):
                 page = CamofoxPage("general", tab=owned["tab"], base=owned["base"])
                 page.api("DELETE", f"/tabs/{page.tab}", {"userId": page.user}, timeout=10)
         if http is not None:
@@ -189,7 +199,7 @@ def main():
             )
             rows.append(row)
             (args.output / "results.json").write_text(
-                json.dumps(rows, ensure_ascii=False, indent=2)
+                json.dumps(rows, ensure_ascii=False, indent=2), newline="\n", encoding="utf-8"
             )
             print(
                 json.dumps(

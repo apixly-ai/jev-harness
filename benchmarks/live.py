@@ -63,7 +63,9 @@ def run_browser(directory):
             (directory / "browser.png").write_bytes(pixels)
         except Exception:
             result["screenshot_status"] = "unavailable"
-        (directory / "browser-final.json").write_text(json.dumps(final, ensure_ascii=False))
+        (directory / "browser-final.json").write_text(
+            json.dumps(final, ensure_ascii=False), newline="\n", encoding="utf-8"
+        )
         return result
     finally:
         task.surface.close()
@@ -100,7 +102,7 @@ def run_desktop(directory):
             archive=directory / "desktop.jsonl",
         )
         (directory / "desktop-final.json").write_text(
-            json.dumps(task.observe(None), ensure_ascii=False)
+            json.dumps(task.observe(None), ensure_ascii=False), newline="\n", encoding="utf-8"
         )
         return result
     finally:
@@ -136,7 +138,9 @@ def main():
             }
             receipt = directory / (name + ".jsonl")
             if receipt.exists():
-                events = [json.loads(line) for line in receipt.read_text().splitlines()]
+                events = [
+                    json.loads(line) for line in receipt.read_text(encoding="utf-8").splitlines()
+                ]
                 if events[-1].get("event") == "terminal":
                     result = events[-1]["result"]
                     result["artifact_error_type"] = type(error).__name__
@@ -144,7 +148,9 @@ def main():
             result["archive"] = Path(result["archive"]).name
         report["cases"][name] = result
         print(json.dumps({"case": name, **result}, ensure_ascii=False))
-    (directory / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2))
+    (directory / "report.json").write_text(
+        json.dumps(report, ensure_ascii=False, indent=2), newline="\n", encoding="utf-8"
+    )
     return 0 if all(r.get("complete") for r in report["cases"].values()) else 2
 
 

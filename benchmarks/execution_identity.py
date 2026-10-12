@@ -214,7 +214,7 @@ def trial(name, source_dir):
                 archive=archive,
             )
         elapsed = time.perf_counter() - started
-        journal = [json.loads(line) for line in archive.read_text().splitlines()]
+        journal = [json.loads(line) for line in archive.read_text(encoding="utf-8").splitlines()]
     compact = {key: value for key, value in packet.items() if key != "archive"}
     intents = [entry for entry in journal if entry["event"] == "intent"]
     telemetry = packet["telemetry"]
@@ -431,7 +431,7 @@ def main():
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("x") as stream:
+    with output.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps({"behavior_parity": behavior_parity, "summary": summaries}))
     return (

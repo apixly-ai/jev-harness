@@ -15,7 +15,7 @@ def json_bytes(value):
 
 
 def project(row, directory):
-    actor = json.loads((directory / "actor.json").read_text())
+    actor = json.loads((directory / "actor.json").read_text(encoding="utf-8"))
     markers = actor["inputs"]["requirements"]
     terminal = row.get("terminal") or {}
     primary = row.get("primary") or {}
@@ -34,7 +34,7 @@ def project(row, directory):
     activity = []
     events = directory / "primary-events.jsonl"
     if events.exists():
-        for line in events.read_text().splitlines():
+        for line in events.read_text(encoding="utf-8").splitlines():
             event = json.loads(line)
             item = event.get("item") or {}
             if event.get("type") == "item.completed" and item.get("type") == "mcp_tool_call":
@@ -43,7 +43,7 @@ def project(row, directory):
     intents = []
     journal = directory / "jev.jsonl"
     if journal.exists():
-        for line in journal.read_text().splitlines():
+        for line in journal.read_text(encoding="utf-8").splitlines():
             event = json.loads(line)
             if event.get("event") == "intent":
                 intents.append(event["params"].get("tool", event.get("action_id")))
@@ -51,7 +51,7 @@ def project(row, directory):
     verification = row.get("independent_verification")
     verification_scope = "original trial checker"
     if strengthened.exists():
-        supplemental = json.loads(strengthened.read_text())
+        supplemental = json.loads(strengthened.read_text(encoding="utf-8"))
         verification = supplemental["result"]
         verification_scope = supplemental["browser_capture_scope"]
     fixture_root = directory / "sources"
@@ -63,7 +63,7 @@ def project(row, directory):
     report = directory / "report.json"
     artifact = None
     if report.exists():
-        data = json.loads(report.read_text())
+        data = json.loads(report.read_text(encoding="utf-8"))
         artifact = {
             "sha256": hashlib.sha256(report.read_bytes()).hexdigest(),
             "records": [
@@ -145,7 +145,7 @@ def project(row, directory):
 def export(directories):
     groups = []
     for directory in directories:
-        rows = json.loads((directory / "results.json").read_text())
+        rows = json.loads((directory / "results.json").read_text(encoding="utf-8"))
         projected = [
             project(r, directory / f"{r['case']}-{r['variant']}-{r['route']}") for r in rows
         ]
@@ -199,7 +199,7 @@ def main():
     args = p.parse_args()
     report = export(args.directories)
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    with args.output.open("x") as out:
+    with args.output.open("x", encoding="utf-8", newline="\n") as out:
         json.dump(report, out, ensure_ascii=False, indent=2)
 
 

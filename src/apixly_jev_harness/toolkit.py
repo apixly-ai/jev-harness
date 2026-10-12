@@ -4,9 +4,9 @@ import copy
 import hashlib
 import json
 import os
-import stat
 from pathlib import Path
 
+from . import _secure_fs
 from .engine import Workflow
 from .task import Option, Parameter, Task
 
@@ -58,7 +58,7 @@ class EvidenceTask(Task):
             else {**HOSTED_DEFAULT, "min_top_probability": 0.30, "min_margin": 0.0}
         )
         self.store, self.output = store, Path(output).expanduser().absolute()
-        if self.output.exists() or self.output.is_symlink():
+        if self.output.exists() or _secure_fs.is_link(self.output):
             raise FileExistsError("report_output_already_exists")
         self.record_checks = dict(record_checks or {})
         if any(not callable(check) for check in self.record_checks.values()):
@@ -233,7 +233,7 @@ class EvidenceTask(Task):
         ).encode("utf-8")
 
     def _artifact_matches(self):
-        if self._saved_hash is None or self.output.is_symlink():
+        if self._saved_hash is None or _secure_fs.is_link(self.output):
             return False
         try:
             data = self.output.read_bytes()
@@ -328,24 +328,21 @@ class EvidenceTask(Task):
         if self._saved_hash is not None and not self._artifact_matches():
             # Records may have changed since save, but the on-disk owner must still match.
             if (
-                self.output.is_symlink()
+                _secure_fs.is_link(self.output)
                 or not self.output.is_file()
                 or hashlib.sha256(self.output.read_bytes()).hexdigest() != self._saved_hash
             ):
                 raise ValueError("report_output_changed")
         if self._saved_hash is None:
-            fd = os.open(self.output, os.O_RDWR | os.O_CREAT | os.O_EXCL, 0o600)
+            fd = _secure_fs.open_private_file(self.output, "x+")
         else:
-            if not hasattr(os, "O_NOFOLLOW"):
+            if not _secure_fs.WINDOWS and not hasattr(os, "O_NOFOLLOW"):
                 raise ValueError("secure_report_update_not_supported")
-            fd = os.open(self.output, os.O_RDWR | os.O_NOFOLLOW)
+            fd = _secure_fs.open_private_file(self.output, "r+")
         with os.fdopen(fd, "r+b") as stream:
-            info = os.fstat(stream.fileno())
-            if (
-                not stat.S_ISREG(info.st_mode)
-                or stat.S_IMODE(info.st_mode) != 0o600
-                or (hasattr(os, "getuid") and info.st_uid != os.getuid())
-            ):
+            # POSIX: regular 0600 file owned by this uid. Windows: regular file whose
+            # protected DACL grants only the current user.
+            if not _secure_fs.owner_only(stream.fileno()):
                 raise ValueError("report_output_owner_changed")
             existing = stream.read()
             if (

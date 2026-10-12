@@ -27,7 +27,7 @@ class RemoteSurface:
         if len(body.encode()) > 65536:
             raise ValueError("surface_request_too_large")
         temporary = self.directory / "requests" / (identifier + ".pending")
-        with temporary.open("x", encoding="utf-8") as stream:
+        with temporary.open("x", encoding="utf-8", newline="\n") as stream:
             stream.write(body)
             stream.flush()
             os.fsync(stream.fileno())

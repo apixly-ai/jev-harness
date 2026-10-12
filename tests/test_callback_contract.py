@@ -242,7 +242,8 @@ def test_cli_reports_safe_callback_role_and_kind(tmp_path, capsys, monkeypatch):
     monkeypatch.setattr("apixly_jev_harness.backend.native_run", forbidden)
     script = tmp_path / "task.py"
     script.write_text(
-        "from apixly_jev_harness import Task\nworkflow=Task(observe=lambda ctx: {}, verify=lambda ctx, state: False)\n@workflow.tool('Inspect')\nasync def inspect():\n    raise RuntimeError('PRIVATE_CALLBACK_TEXT')\n"
+        "from apixly_jev_harness import Task\nworkflow=Task(observe=lambda ctx: {}, verify=lambda ctx, state: False)\n@workflow.tool('Inspect')\nasync def inspect():\n    raise RuntimeError('PRIVATE_CALLBACK_TEXT')\n",
+        newline="\n",
     )
     assert main(["run", str(script), "--goal", "Inspect"]) == 2
     packet = json.loads(capsys.readouterr().out)

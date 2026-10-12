@@ -18,7 +18,7 @@ if os.environ.get("COLD_BRIDGE_DIR"):
             identifier = uuid.uuid4().hex
             packet = {"id": identifier, "body": json.loads(request.content)}
             temporary = root / "requests" / (identifier + ".pending")
-            with temporary.open("x", encoding="utf-8") as stream:
+            with temporary.open("x", encoding="utf-8", newline="\n") as stream:
                 json.dump(packet, stream, ensure_ascii=False)
                 stream.flush()
                 os.fsync(stream.fileno())

@@ -455,7 +455,7 @@ def rewrite_links(content, zh=False, source="docs/agent-contract.md"):
 def document(source, title, description, slug, zh=False):
     language = "zh-CN" if zh else "en"
     content = markdown.markdown(
-        (ROOT / source).read_text(), extensions=["fenced_code", "tables", "toc"]
+        (ROOT / source).read_text(encoding="utf-8"), extensions=["fenced_code", "tables", "toc"]
     )
     links = "".join(
         f'<a href="{name}.html"'
@@ -500,9 +500,11 @@ def discovery_files():
         '<?xml version="1.0" encoding="UTF-8"?>'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'
         + "".join(entries)
-        + "</urlset>\n"
+        + "</urlset>\n",
+        encoding="utf-8",
+        newline="\n",
     )
-    (OUT / "sitemap.txt").write_text("\n".join(urls) + "\n")
+    (OUT / "sitemap.txt").write_text("\n".join(urls) + "\n", encoding="utf-8", newline="\n")
     sections = [
         "# Jev Harness",
         "Apixly’s independent MIT Python runtime for open goals through reusable toolkits, thin scripts and Jev agent loops. Not an official TypeSafe AI product.",
@@ -535,7 +537,7 @@ def discovery_files():
         f"- [Media provenance]({BASE}media/showcase.json)",
         f"- [Repository]({REPO})",
     ]
-    (OUT / "llms.txt").write_text("\n\n".join(sections) + "\n")
+    (OUT / "llms.txt").write_text("\n\n".join(sections) + "\n", encoding="utf-8", newline="\n")
     return len(urls)
 
 
@@ -552,18 +554,20 @@ def main():
         dirs_exist_ok=True,
         ignore=shutil.ignore_patterns("*.py"),
     )
-    key = (ROOT / "web/indexnow-key.txt").read_text().strip()
-    (OUT / (key + ".txt")).write_text(key)
-    (OUT / "index.html").write_text(home())
-    (OUT / "zh/index.html").write_text(home(True))
+    key = (ROOT / "web/indexnow-key.txt").read_text(encoding="utf-8").strip()
+    (OUT / (key + ".txt")).write_text(key, encoding="utf-8", newline="\n")
+    (OUT / "index.html").write_text(home(), encoding="utf-8", newline="\n")
+    (OUT / "zh/index.html").write_text(home(True), encoding="utf-8", newline="\n")
     for slug, variants in PAGES.items():
         for language, (source, title, description) in variants.items():
             zh = language == "zh-CN"
             target = OUT / ("zh" if zh else "") / (slug + ".html")
-            target.write_text(document(source, title, description, slug, zh))
+            target.write_text(
+                document(source, title, description, slug, zh), encoding="utf-8", newline="\n"
+            )
     from apixly_jev_harness.task_cli import SPEC
 
-    (OUT / "spec.json").write_text(json.dumps(SPEC, indent=2))
+    (OUT / "spec.json").write_text(json.dumps(SPEC, indent=2), encoding="utf-8", newline="\n")
     shutil.copy(ROOT / "reports/acceptance.json", OUT / "acceptance.json")
     for report in (
         "parameter-prompt-ab.json",

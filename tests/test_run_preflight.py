@@ -38,7 +38,8 @@ def test_invalid_run_options_never_load_the_script(tmp_path, capsys, monkeypatch
         "from pathlib import Path\n"
         f"Path({str(marker)!r}).write_text('import happened')\n"
         "from apixly_jev_harness import Task\n"
-        "workflow = Task(observe=lambda ctx: {'done': True}, verify=lambda ctx, seen: seen['done'])\n"
+        "workflow = Task(observe=lambda ctx: {'done': True}, verify=lambda ctx, seen: seen['done'])\n",
+        newline="\n",
     )
     model_calls = []
     loader_calls = []
@@ -85,7 +86,8 @@ def test_valid_configuration_still_loads_and_runs_trusted_module(tmp_path, capsy
         "from pathlib import Path\n"
         f"Path({str(marker)!r}).write_text('trusted import')\n"
         "from apixly_jev_harness import Task\n"
-        "workflow=Task(observe=lambda ctx: {'done': True}, verify=lambda ctx, seen: seen['done'])\n"
+        "workflow=Task(observe=lambda ctx: {'done': True}, verify=lambda ctx, seen: seen['done'])\n",
+        newline="\n",
     )
     assert main(["run", str(script), "--goal", "Observe completed fixture"]) == 0
     packet = json.loads(capsys.readouterr().out)
@@ -97,7 +99,8 @@ def test_valid_configuration_still_loads_and_runs_trusted_module(tmp_path, capsy
 def test_missing_required_fact_remains_runtime_needs_context(tmp_path, capsys):
     script = tmp_path / "task.py"
     script.write_text(
-        "from apixly_jev_harness import Task\nworkflow=Task(observe=lambda ctx: {}, verify=lambda ctx, state: True)\n"
+        "from apixly_jev_harness import Task\nworkflow=Task(observe=lambda ctx: {}, verify=lambda ctx, state: True)\n",
+        newline="\n",
     )
     assert main(["run", str(script), "--goal", "Observe", "--required-context", "tenant.id"]) == 2
     packet = json.loads(capsys.readouterr().out)
@@ -117,7 +120,9 @@ def test_one_pass_required_paths_are_not_consumed_twice(tmp_path):
 
 def test_invalid_config_does_not_echo_input_or_exception_text(tmp_path, capsys):
     script = tmp_path / "task.py"
-    script.write_text("raise RuntimeError('must not load')\nworkflow=None\n")
+    script.write_text(
+        "raise RuntimeError('must not load')\nworkflow=None\n", encoding="utf-8", newline="\n"
+    )
     assert (
         main(["run", str(script), "--goal", "Observe", "--messages", "PRIVATE_JSON_FRAGMENT"]) == 2
     )

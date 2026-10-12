@@ -135,7 +135,7 @@ def trial(name, source_dir):
         script, new_script, archive = (
             fixture / file for file in ("task.py", "new-task.py", "run.jsonl")
         )
-        script.write_text(SCRIPT, encoding="utf-8")
+        script.write_text(SCRIPT, encoding="utf-8", newline="\n")
         script_resolved = script.resolve()
         initial_files = {path.relative_to(fixture) for path in fixture.rglob("*") if path.is_file()}
         values = {"$SCRIPT": str(script), "$NEW": str(new_script), "$ARCHIVE": str(archive)}
@@ -467,7 +467,7 @@ def main():
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("x") as stream:
+    with output.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps(summaries))
     return 0 if all(row["correct"] for row in rows if row["arm"] == "candidate") else 1

@@ -77,6 +77,7 @@ QUICKSTART = {
         "candidate": "Option(id, description, value)",
         "dependent_params": "Parameter(..., depends_on=(parent_name,))",
         "selection": "Jev chooses a tool then parameter references from fresh observations; code binds actual values.",
+        "authorization": "irreversible=True tools run only when Task(authorize=...) returns True for authorize(ctx, action); action.params == {'tool': name, 'arguments': {param: bound value}}",
     },
     "toolkits": {
         "workspace": "WorkspaceTools(root, store, queries=...): permitted file discovery, search and evidence capture",
@@ -84,6 +85,7 @@ QUICKSTART = {
         "browser": "WebTools(CamofoxProvider(url=url, session=..., allowed_origins=...), store): observed links and sections",
         "evidence_task": "EvidenceTask([pack], store=store, labels=..., output=..., verify=..., record_checks=...)",
         "evidence_store": "EvidenceStore(): retained originals, source digests and bounded source windows",
+        "surface": "apixly_jev_harness.surfaces.SurfaceTask(surface, values=..., allowed_origins=..., verify=..., authorize=...): click/select/fill over fresh observed targets; click is irreversible",
         "validation": "Caller record_checks and verify establish the requested facts; schema marker presence alone does not establish semantic truth.",
     },
     "cli": {
@@ -188,9 +190,11 @@ def main(argv=None):
     if args.command == "skill":
         bundled = files("apixly_jev_harness").joinpath("skill/SKILL.md")
         body = (
-            bundled.read_text()
+            bundled.read_text(encoding="utf-8")
             if bundled.is_file()
-            else (Path(__file__).resolve().parents[2] / "skills/jev-harness/SKILL.md").read_text()
+            else (Path(__file__).resolve().parents[2] / "skills/jev-harness/SKILL.md").read_text(
+                encoding="utf-8"
+            )
         )
         print(body)
         return 0
@@ -267,7 +271,7 @@ def main(argv=None):
         path = Path(args.script).expanduser().resolve(strict=args.command == "run")
         if args.command == "init-task":
             body = _template(args.toolkit)
-            with path.open("x", encoding="utf-8") as stream:
+            with path.open("x", encoding="utf-8", newline="\n") as stream:
                 stream.write(body)
             packet = {"status": "created", "script": str(path), "model_calls": 0}
             if args.toolkit is not None:

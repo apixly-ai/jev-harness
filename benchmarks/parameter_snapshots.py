@@ -452,7 +452,9 @@ def trial(name, source_dir, arm):
                 archive=archive,
             )
         elapsed = time.perf_counter() - started
-        events = [json.loads(line)["event"] for line in archive.read_text().splitlines()]
+        events = [
+            json.loads(line)["event"] for line in archive.read_text(encoding="utf-8").splitlines()
+        ]
     compact = {key: value for key, value in packet.items() if key != "archive"}
     is_failure = mode in {"duplicate", "oversize"} or mode == "hook_failure" and arm == "candidate"
     expected_status = "needs_review" if mode == "oversize" else "failed" if is_failure else "done"
@@ -756,7 +758,7 @@ def main():
     }
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("x") as stream:
+    with output.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps({"compatibility_parity": compatibility_parity, "summary": summaries}))
     return (

@@ -259,7 +259,7 @@ def trial(name, source_dir):
     previous_stdout, previous_stderr = sys.stdout, sys.stderr
     with tempfile.TemporaryDirectory() as directory:
         script = Path(directory) / "task.py"
-        script.write_text(SOURCES[name], encoding="utf-8")
+        script.write_text(SOURCES[name], encoding="utf-8", newline="\n")
         expected_metadata = expected_output(name, script)
         try:
             os.chdir(directory)
@@ -506,7 +506,7 @@ def main():
     }
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("x") as stream:
+    with path.open("x", encoding="utf-8", newline="\n") as stream:
         json.dump(report, stream, indent=2)
     print(json.dumps(summaries))
     return 0 if all(row["correct"] for row in rows if row["arm"] == "candidate") else 1

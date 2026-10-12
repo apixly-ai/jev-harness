@@ -2,14 +2,13 @@
 
 import copy
 import hashlib
-import itertools
 import json
 import os
 import re
-import stat
 from collections import deque
 from pathlib import Path, PurePosixPath
 
+from . import _secure_fs
 from .task import Option, Parameter
 
 
@@ -20,8 +19,9 @@ class _SourceError(Exception):
 class WorkspaceTools:
     """Discover permitted regular files and capture source text without importing it.
 
-    Reads use a caller-selected directory descriptor and reject all symlinks. Platforms
-    without descriptor-relative, no-follow opens fail closed. Private evidence writes
+    Reads use a caller-selected directory descriptor or handle and reject all symlinks
+    and Windows reparse points. Platforms without descriptor-relative, no-follow opens
+    fail closed. Private evidence writes
     belong to the supplied store; source files are never written or executed.
     """
 
@@ -42,27 +42,21 @@ class WorkspaceTools:
         self._queries_truncated = False
         for query in queries:
             self._add_query(query, required=True)
-        if (
-            os.open not in os.supports_dir_fd
-            or os.scandir not in os.supports_fd
-            or not hasattr(os, "O_NOFOLLOW")
-            or not hasattr(os, "O_DIRECTORY")
-        ):
+        if not _secure_fs.available():
             raise ValueError("workspace_secure_open_unavailable")
         selected = Path(root).expanduser().absolute()
-        if selected.is_symlink() or not selected.is_dir():
+        if _secure_fs.is_link(selected) or not selected.is_dir():
             raise ValueError("workspace_root_directory_required")
         self.root, self.store, self.max_files = selected.resolve(), store, max_files
-        self._directory_flags = os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
         try:
-            self._root_fd = os.open(self.root, self._directory_flags)
+            self._root_fd = _secure_fs.open_directory(self.root)
         except OSError:
             raise ValueError("workspace_root_directory_required") from None
         self._files, self._captured, self._last = {}, {}, {}
 
     def close(self):
         if self._root_fd is not None:
-            os.close(self._root_fd)
+            self._root_fd.close()
             self._root_fd = None
 
     def __del__(self):
@@ -97,15 +91,15 @@ class WorkspaceTools:
         parts = PurePosixPath(relative).parts
         if PurePosixPath(relative).is_absolute() or any(x in ("..", ".") for x in parts):
             raise _SourceError("workspace_path_not_allowed")
-        fd = os.dup(self._root_fd)
+        directory = self._root_fd.duplicate()
         try:
             for part in parts:
-                child = os.open(part, self._directory_flags, dir_fd=fd)
-                os.close(fd)
-                fd = child
-            return fd
+                child = directory.child(part)
+                directory.close()
+                directory = child
+            return directory
         except OSError:
-            os.close(fd)
+            directory.close()
             raise _SourceError("workspace_path_not_allowed") from None
 
     def _scan(self):
@@ -114,34 +108,33 @@ class WorkspaceTools:
         while queue and remaining > 0:
             relative = queue.popleft()
             try:
-                fd = self._directory(relative)
+                directory = self._directory(relative)
             except _SourceError:
                 skipped["unreadable"] += 1
                 continue
             try:
-                with os.scandir(fd) as entries:
-                    rows = list(itertools.islice(entries, remaining + 1))
+                rows = directory.entries(remaining)
                 if len(rows) > remaining:
                     truncated = True
                     rows = rows[:remaining]
                 remaining -= len(rows)
-                for entry in sorted(rows, key=lambda row: row.name):
-                    path = "/".join(x for x in (relative, entry.name) if x)
+                for name, kind, size in sorted(rows):
+                    path = "/".join(x for x in (relative, name) if x)
                     try:
                         path.encode("utf-8")
-                        info = entry.stat(follow_symlinks=False)
-                    except (OSError, UnicodeError):
+                    except UnicodeError:
+                        kind = "unreadable"
+                    if kind == "unreadable":
                         skipped["unreadable"] += 1
-                        continue
-                    if stat.S_ISLNK(info.st_mode):
+                    elif kind == "link":
                         skipped["symlink"] += 1
-                    elif stat.S_ISDIR(info.st_mode):
-                        if entry.name in self._EXCLUDED_DIRECTORIES:
+                    elif kind == "directory":
+                        if name in self._EXCLUDED_DIRECTORIES:
                             skipped["excluded"] += 1
                         else:
                             queue.append(path)
-                    elif stat.S_ISREG(info.st_mode):
-                        if entry.name == ".env" or entry.name.startswith(".env."):
+                    elif kind == "file":
+                        if name == ".env" or name.startswith(".env."):
                             skipped["excluded"] += 1
                             continue
                         if len(files) >= self.max_files:
@@ -151,14 +144,14 @@ class WorkspaceTools:
                             {
                                 "id": "file:" + hashlib.sha256(path.encode()).hexdigest()[:24],
                                 "path": path,
-                                "bytes": info.st_size,
+                                "bytes": size,
                             }
                         )
                         self._add_query(PurePosixPath(path).stem)
             except OSError:
                 skipped["unreadable"] += 1
             finally:
-                os.close(fd)
+                directory.close()
         return files, skipped, truncated or bool(queue)
 
     def list_files(self):
@@ -183,14 +176,8 @@ class WorkspaceTools:
         parent = self._directory(relative.parent.as_posix() if len(relative.parts) > 1 else "")
         fd = None
         try:
-            fd = os.open(
-                relative.name,
-                os.O_RDONLY | os.O_NOFOLLOW | getattr(os, "O_NONBLOCK", 0),
-                dir_fd=parent,
-            )
+            fd = parent.open_file(relative.name)
             info = os.fstat(fd)
-            if not stat.S_ISREG(info.st_mode):
-                raise _SourceError("workspace_path_not_allowed")
             if info.st_size > self._MAX_BYTES:
                 raise _SourceError("workspace_source_too_large")
             limit = self._MAX_BYTES if remaining is None else min(self._MAX_BYTES, remaining)
@@ -213,7 +200,7 @@ class WorkspaceTools:
         finally:
             if fd is not None:
                 os.close(fd)
-            os.close(parent)
+            parent.close()
 
     def _capture(self, file, text, *, metadata=None):
         row = self._files[file]

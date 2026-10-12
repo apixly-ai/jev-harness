@@ -2,6 +2,7 @@
 
 import importlib
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -87,6 +88,10 @@ def test_exact_baseline_snapshot_contains_the_entire_package(lifecycle, tmp_path
     assert '__version__ = "0.2.0"' in (source / "apixly_jev_harness/__init__.py").read_text()
 
 
+@pytest.mark.skipif(
+    os.name == "nt",
+    reason="historical baseline 79d383d predates Windows owner-only report support",
+)
 def test_paired_report_retains_baseline_failures_and_compatibility(lifecycle, tmp_path):
     output = tmp_path / "report.json"
     assert lifecycle.main(["--output", str(output)]) == 0
@@ -108,7 +113,7 @@ def test_paired_report_retains_baseline_failures_and_compatibility(lifecycle, tm
 
 def test_existing_output_is_never_replaced_or_used_for_new_trials(lifecycle, tmp_path, monkeypatch):
     output = tmp_path / "owner.json"
-    output.write_text("owner retained evidence")
+    output.write_text("owner retained evidence", encoding="utf-8", newline="\n")
 
     def forbidden(*args, **kwargs):
         raise AssertionError("Existing output must fail before subprocess trials")

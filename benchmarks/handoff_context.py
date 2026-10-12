@@ -103,7 +103,7 @@ def run():
                 task.store._get(row["ref"])["sha256"]
                 == hashlib.sha256(task.store._get(row["ref"])["text"].encode()).hexdigest()
                 and task.store._get(row["ref"])["text"]
-                == (root / "sources" / row["metadata"]["path"]).read_text()
+                == (root / "sources" / row["metadata"]["path"]).read_text(encoding="utf-8")
                 for row in complete_source_cards
             )
             search = task._tools["files.search"]["parameters"]["query"]
@@ -139,7 +139,9 @@ def main():
     args = parser.parse_args()
     packet = run()
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(packet, ensure_ascii=False, indent=2) + "\n")
+    args.output.write_text(
+        json.dumps(packet, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     print(json.dumps(packet))
 
 

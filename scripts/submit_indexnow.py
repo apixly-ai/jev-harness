@@ -34,7 +34,7 @@ def main():
     args = parser.parse_args()
     if args.output.exists():
         raise SystemExit("Use a new output path; preserve any previous or uncertain receipt.")
-    key = (ROOT / "web/indexnow-key.txt").read_text().strip()
+    key = (ROOT / "web/indexnow-key.txt").read_text(encoding="utf-8").strip()
     proof = BASE + key + ".txt"
     if fetch(proof).decode().strip() != key:
         raise RuntimeError("public_key_proof_mismatch")
@@ -68,10 +68,10 @@ def main():
         "indexing": "unknown",
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(receipt, indent=2) + "\n")
+    args.output.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8", newline="\n")
     if args.submit:
         receipt.update(notification_sent=True, disposition="attempt_started_outcome_unknown")
-        args.output.write_text(json.dumps(receipt, indent=2) + "\n")
+        args.output.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8", newline="\n")
         request = urllib.request.Request(
             ENDPOINT,
             data=json.dumps(
@@ -91,7 +91,7 @@ def main():
             receipt.update(http_status=error.code, disposition="rejected")
         except (urllib.error.URLError, TimeoutError):
             receipt["disposition"] = "uncertain_no_automatic_retry"
-        args.output.write_text(json.dumps(receipt, indent=2) + "\n")
+        args.output.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(json.dumps({key: value for key, value in receipt.items() if key != "urls"}, indent=2))
     return (
         0

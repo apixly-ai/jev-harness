@@ -54,7 +54,7 @@ class Page(HTMLParser):
 
 def audit(root):
     root = root.resolve()
-    pages = {path: Page(path.read_text()) for path in root.rglob("*.html")}
+    pages = {path: Page(path.read_text(encoding="utf-8")) for path in root.rglob("*.html")}
     problems = []
     checked = 0
     canonical_urls = set()
@@ -127,7 +127,7 @@ def audit(root):
         }
         if actual != pairs:
             problems.append({"url": url, "reason": "incorrect sitemap language counterparts"})
-    text_sitemap = (root / "sitemap.txt").read_text().splitlines()
+    text_sitemap = (root / "sitemap.txt").read_text(encoding="utf-8").splitlines()
     if text_sitemap != listed:
         problems.append({"reason": "text and XML sitemap URL sets differ"})
     return {

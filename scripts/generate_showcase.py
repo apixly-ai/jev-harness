@@ -148,7 +148,9 @@ def encode(frames, destination, suffix):
             f"file '{index:02}.png'\nduration {duration}\n"
             for index, duration in enumerate(DURATIONS)
         )
-        + "file '05.png'\n"
+        + "file '05.png'\n",
+        encoding="utf-8",
+        newline="\n",
     )
     common = ["ffmpeg", "-hide_banner", "-loglevel", "error", "-y"]
     subprocess.run(
@@ -347,7 +349,9 @@ def main():
         "verification": verification,
         "files": files,
     }
-    (OUT / "showcase.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+    (OUT / "showcase.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     print(json.dumps({"kind": manifest["kind"], "files": files}, indent=2))
 
 

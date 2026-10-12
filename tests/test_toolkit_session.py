@@ -421,7 +421,7 @@ def test_report_quotes_remain_readable_after_delegation_without_route_transfer(
 def test_first_inspection_prepares_source_catalog_without_committing_route(tmp_path):
     from apixly_jev_harness import EvidenceStore, EvidenceTask, TaskScript, WorkspaceTools
 
-    (tmp_path / "a.txt").write_text("one source")
+    (tmp_path / "a.txt").write_text("one source", encoding="utf-8", newline="\n")
     store = EvidenceStore()
     pack = WorkspaceTools(tmp_path, store)
     task = EvidenceTask(

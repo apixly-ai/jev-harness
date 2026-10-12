@@ -19,7 +19,7 @@ from apixly_jev_harness.task_cli import main
 )
 def test_parseable_but_uncompilable_script_is_rejected(tmp_path, capsys, source, line):
     script = tmp_path / "task.py"
-    script.write_text(source)
+    script.write_text(source, encoding="utf-8", newline="\n")
     assert main(["check-task", str(script)]) == 2
     packet = json.loads(capsys.readouterr().out)
     assert packet["code"] == "invalid_python"
@@ -30,10 +30,10 @@ def test_parseable_but_uncompilable_script_is_rejected(tmp_path, capsys, source,
 
 def test_annotation_without_assignment_does_not_export_workflow(tmp_path, capsys):
     script = tmp_path / "task.py"
-    script.write_text("workflow: object\n")
+    script.write_text("workflow: object\n", encoding="utf-8", newline="\n")
     assert main(["check-task", str(script)]) == 2
     assert json.loads(capsys.readouterr().out)["code"] == "workflow_export_missing"
-    script.write_text("workflow: object = None\n")
+    script.write_text("workflow: object = None\n", encoding="utf-8", newline="\n")
     assert main(["check-task", str(script)]) == 0
 
 
@@ -52,7 +52,8 @@ def test_compilation_never_executes_imports_effects_or_model_calls(tmp_path, mon
         "from pathlib import Path\n"
         f"Path({str(marker)!r}).write_text('must never run')\n"
         "raise RuntimeError('PRIVATE_EXCEPTION_TEXT')\n"
-        "workflow = None\n"
+        "workflow = None\n",
+        newline="\n",
     )
     assert main(["check-task", str(script)]) == 0
     packet = json.loads(capsys.readouterr().out)
@@ -73,7 +74,8 @@ def test_non_utf8_source_returns_compact_failure(tmp_path, capsys):
 def test_compiler_warning_does_not_print_source(tmp_path):
     script = tmp_path / "task.py"
     script.write_text(
-        "workflow = None\nif 'PRIVATE_SOURCE_FRAGMENT' is 'PRIVATE_SOURCE_FRAGMENT':\n    pass\n"
+        "workflow = None\nif 'PRIVATE_SOURCE_FRAGMENT' is 'PRIVATE_SOURCE_FRAGMENT':\n    pass\n",
+        newline="\n",
     )
     result = subprocess.run(
         [

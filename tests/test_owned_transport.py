@@ -182,7 +182,8 @@ def test_cli_local_credential_rejection_reports_zero_owned_attempts_but_unknown_
         "workflow=Task(observe=lambda ctx: {}, verify=lambda ctx,state: False)\n"
         "@workflow.tool('Synthetic bounded effect')\n"
         "def effect():\n"
-        "    raise AssertionError('Must not execute')\n"
+        "    raise AssertionError('Must not execute')\n",
+        newline="\n",
     )
     assert main(["run", str(script), "--goal", "Synthetic goal"]) == 2
     captured = capsys.readouterr()

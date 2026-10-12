@@ -22,7 +22,7 @@ def export(root):
     rows = []
     for directory in sorted(root.glob("adoption-*20261012")):
         for path in sorted(directory.glob("**/result.json")):
-            packet = json.loads(path.read_text())
+            packet = json.loads(path.read_text(encoding="utf-8"))
             primary, server = packet.get("primary"), packet.get("server")
             if not primary or not server:
                 continue
@@ -30,7 +30,7 @@ def export(root):
             telemetry = None
             trace = path.parent / "server.rpc.jsonl"
             if trace.exists():
-                for reply in map(json.loads, trace.read_text().splitlines()):
+                for reply in map(json.loads, trace.read_text(encoding="utf-8").splitlines()):
                     data = reply.get("result", {}).get("structuredContent", {})
                     if "telemetry" in data:
                         telemetry = data["telemetry"]
@@ -67,7 +67,7 @@ def export(root):
             )
     functional = []
     for directory in sorted(root.glob("*jev-functionality-20261012")):
-        packet = json.loads((directory / "result.json").read_text())
+        packet = json.loads((directory / "result.json").read_text(encoding="utf-8"))
         result = packet.get("result", packet.get("journal_recovered_terminal"))
         functional.append(
             {
@@ -85,7 +85,9 @@ def export(root):
                 "source_sha256": packet.get("source_sha256"),
             }
         )
-    context = json.loads((root / "handoff-context-history-ab-20261012.json").read_text())
+    context = json.loads(
+        (root / "handoff-context-history-ab-20261012.json").read_text(encoding="utf-8")
+    )
     return {
         "scope": "prepared-script source investigations; authoring and unrestricted native operation excluded",
         "historical_baseline": {
@@ -114,7 +116,9 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     args.output.write_text(
-        json.dumps(export(args.private_root), ensure_ascii=False, indent=2) + "\n"
+        json.dumps(export(args.private_root), ensure_ascii=False, indent=2) + "\n",
+        newline="\n",
+        encoding="utf-8",
     )
 
 

@@ -14,6 +14,8 @@ import sys
 import time
 from pathlib import Path
 
+from _private_files import secure_fs as _secure_fs
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 BASELINE = "eec0d58f52ce157bfcb1fca669a21c3068eefa19"
@@ -65,7 +67,7 @@ def server(args):
 
     from apixly_jev_harness import TaskScript, ToolkitSession, mcp
 
-    actor = json.loads(Path(args.actor).read_text())
+    actor = json.loads(Path(args.actor).read_text(encoding="utf-8"))
     if args.credential_file:
         os.environ["TYPESAFE_API_KEY_FILE"] = args.credential_file
     script = TaskScript(build)
@@ -95,12 +97,12 @@ def server(args):
         if task is not None:
             packet["complete"] = task.verify(session.ctx, task.observe(session.ctx))
             packet["artifact"] = task.artifact_receipt()
-        Path(args.result).write_text(json.dumps(packet))
+        Path(args.result).write_text(json.dumps(packet), encoding="utf-8", newline="\n")
 
     trace = Path(args.result).with_suffix(".rpc.jsonl")
-    fd = os.open(trace, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    fd = _secure_fs.open_private_file(trace, "x")
     try:
-        with os.fdopen(fd, "w") as ledger:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as ledger:
             mcp.serve(
                 session,
                 execution_name="collect_source_evidence"
@@ -136,7 +138,9 @@ def trial(
     case = fixture(directory / "sources", level, variant)
     case["inputs"]["output"] = str(directory / "report.json")
     actor = directory / "actor.json"
-    actor.write_text(json.dumps({"goal": case["goal"], "inputs": case["inputs"]}))
+    actor.write_text(
+        json.dumps({"goal": case["goal"], "inputs": case["inputs"]}), encoding="utf-8", newline="\n"
+    )
     provenance = {
         str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
         for p in (ROOT / "src/apixly_jev_harness").glob("*.py")
@@ -186,7 +190,7 @@ def trial(
     )
     seconds = time.perf_counter() - started
     checkpoint = (
-        json.loads((directory / "server.json").read_text())
+        json.loads((directory / "server.json").read_text(encoding="utf-8"))
         if (directory / "server.json").exists()
         else None
     )
@@ -209,7 +213,9 @@ def trial(
         "product_skill_disabled": True,
         "route_preference_in_prompt": False,
     }
-    (directory / "result.json").write_text(json.dumps(packet, indent=2))
+    (directory / "result.json").write_text(
+        json.dumps(packet, indent=2), encoding="utf-8", newline="\n"
+    )
     return packet
 
 
@@ -256,7 +262,9 @@ def main():
                 args.record_contract,
             )
             rows.append(row)
-            (out / "results.json").write_text(json.dumps(rows, indent=2))
+            (out / "results.json").write_text(
+                json.dumps(rows, indent=2), encoding="utf-8", newline="\n"
+            )
             routes = (row["server"] or {}).get("routes", [])
             print(
                 json.dumps(

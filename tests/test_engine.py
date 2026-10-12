@@ -189,7 +189,7 @@ def test_parameters_are_not_sent_to_model(engine, monkeypatch):
 
 def test_archive_never_overwritten(engine, tmp_path):
     archive = tmp_path / "existing.jsonl"
-    archive.write_text("original")
+    archive.write_text("original", encoding="utf-8", newline="\n")
     with pytest.raises(FileExistsError):
         engine.run(Counter(), goal="Increment", archive=archive)
     assert archive.read_text() == "original"

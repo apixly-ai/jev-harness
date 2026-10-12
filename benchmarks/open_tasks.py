@@ -67,7 +67,7 @@ def fixture(directory, family, variant=0, missing=False):
         for name, text in files.items():
             p = directory / name
             p.parent.mkdir(parents=True, exist_ok=True)
-            p.write_text(text)
+            p.write_text(text, encoding="utf-8", newline="\n")
         return {
             "goal": "Investigate the current worker duplicate-submission failure. Find source evidence for the cause and a recorded reproduction; save both under cause and proof.",
             "inputs": {
@@ -123,7 +123,7 @@ def fixture(directory, family, variant=0, missing=False):
                 f'<h1>{label.title()} reference</h1><p>{text}</p><a href="{salt}-index.html">Other current resources</a>'
             )
     for name, text in pages.items():
-        (directory / name).write_text(text)
+        (directory / name).write_text(text, encoding="utf-8", newline="\n")
     return {
         "goal": goal,
         "inputs": {
@@ -137,13 +137,13 @@ def fixture(directory, family, variant=0, missing=False):
 
 def independent_check(case, report_path, *, captures_path=None):
     try:
-        report = json.loads(Path(report_path).read_text())
+        report = json.loads(Path(report_path).read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return {"passed": False, "reason": "artifact_missing_or_invalid"}
     captures = {}
     if captures_path is not None:
         try:
-            captures = json.loads(Path(captures_path).read_text())
+            captures = json.loads(Path(captures_path).read_text(encoding="utf-8"))
         except (OSError, ValueError):
             pass
     matches = {}
@@ -154,7 +154,11 @@ def independent_check(case, report_path, *, captures_path=None):
     )
     for label, expected in case["expected"].items():
         rows = [x for x in report.get("records", []) if x.get("label") == label]
-        original = (source_root / expected).read_text() if (source_root / expected).exists() else ""
+        original = (
+            (source_root / expected).read_text(encoding="utf-8")
+            if (source_root / expected).exists()
+            else ""
+        )
         if case["inputs"]["kind"] == "http":
             from apixly_jev_harness.web_tools import _TextPage
 
@@ -212,7 +216,7 @@ def server(args):
     from apixly_jev_harness.mcp import serve
     from apixly_jev_harness.toolkit import TaskScript, ToolkitSession
 
-    case = json.loads(Path(args.case).read_text())
+    case = json.loads(Path(args.case).read_text(encoding="utf-8"))
     # The server receives inputs only; expected-route oracle is not admitted to actor tools.
     inputs = case["inputs"]
     if args.credential_file:
@@ -250,8 +254,10 @@ def server(args):
                 ref: {"source": row["source"], "sha256": row["sha256"], "text": row["text"]}
                 for ref, row in task.store._sources.items()
             }
-            Path(args.result).with_suffix(".captures.json").write_text(json.dumps(captures))
-        Path(args.result).write_text(json.dumps(packet, indent=2))
+            Path(args.result).with_suffix(".captures.json").write_text(
+                json.dumps(captures), newline="\n", encoding="utf-8"
+            )
+        Path(args.result).write_text(json.dumps(packet, indent=2), encoding="utf-8", newline="\n")
 
     try:
         serve(session, allow_delegate=args.mode == "choice", checkpoint=checkpoint)

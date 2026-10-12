@@ -11,7 +11,9 @@ def test_mcp_server_can_initialize_from_an_unrelated_working_directory(tmp_path)
     case = fixture(tmp_path / "sources", "files")
     case["inputs"]["output"] = str(tmp_path / "artifact.json")
     manifest = tmp_path / "actor.json"
-    manifest.write_text(json.dumps({"goal": case["goal"], "inputs": case["inputs"]}))
+    manifest.write_text(
+        json.dumps({"goal": case["goal"], "inputs": case["inputs"]}), encoding="utf-8", newline="\n"
+    )
     result = tmp_path / "server.json"
     root = Path(__file__).resolve().parents[1]
     request = (
@@ -63,7 +65,7 @@ def test_independent_verifier_rejects_a_fabricated_source_checksum(tmp_path):
         for label, name in case["expected"].items()
     ]
     report = tmp_path / "report.json"
-    report.write_text(json.dumps({"records": rows}))
+    report.write_text(json.dumps({"records": rows}), encoding="utf-8", newline="\n")
     assert independent_check(case, report)["passed"] is False
 
 
@@ -98,6 +100,6 @@ def test_browser_verifier_rejects_valid_length_fabricated_checksum(tmp_path):
         "sha256": "a" * 64,
     }
     report = tmp_path / "report.json"
-    report.write_text(json.dumps({"records": [row]}))
+    report.write_text(json.dumps({"records": [row]}), encoding="utf-8", newline="\n")
     result = independent_check(case, report, captures_path=captures)
     assert result["labels"]["dependency"] is False

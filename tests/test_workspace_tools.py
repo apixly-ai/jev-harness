@@ -4,8 +4,9 @@ import json
 import os
 
 import pytest
+from platform_support import make_junction, make_symlink, posix_only, requires_fifo, windows_only
 
-from apixly_jev_harness import Context, Engine, Task
+from apixly_jev_harness import Context, Engine, Task, _secure_fs
 from apixly_jev_harness.evidence import EvidenceStore
 from apixly_jev_harness.workspace import WorkspaceTools
 
@@ -24,10 +25,14 @@ def file_id(packet, path):
 def test_listing_discovers_unknown_nested_files_and_excludes_private_metadata(tmp_path):
     root, store, tools = workspace(tmp_path)
     (root / "feature").mkdir()
-    (root / "feature" / "answer.py").write_text("def inspect_me(): pass\n")
+    (root / "feature" / "answer.py").write_text(
+        "def inspect_me(): pass\n", encoding="utf-8", newline="\n"
+    )
     (root / ".git").mkdir()
-    (root / ".git" / "config").write_text("private git configuration")
-    (root / ".env").write_text("SECRET=fixture-only")
+    (root / ".git" / "config").write_text(
+        "private git configuration", encoding="utf-8", newline="\n"
+    )
+    (root / ".env").write_text("SECRET=fixture-only", encoding="utf-8", newline="\n")
     before = tools.observe()
     packet = tools.list_files()
     assert [row["path"] for row in packet["files"]] == ["feature/answer.py"]
@@ -41,7 +46,7 @@ def test_read_retains_full_source_but_returns_only_reference_and_summary(tmp_pat
     root, store, tools = workspace(tmp_path)
     marker = "FULL_SOURCE_TAIL_MARKER"
     text = "Header for semantic investigation\n" + "x" * 5000 + marker
-    (root / "large.txt").write_text(text)
+    (root / "large.txt").write_text(text, encoding="utf-8", newline="\n")
     target = file_id(tools.list_files(), "large.txt")
     packet = tools.read_file(target)
     assert store.describe(packet["ref"])["characters"] == len(text)
@@ -53,7 +58,7 @@ def test_read_retains_full_source_but_returns_only_reference_and_summary(tmp_pat
 
 def test_observe_and_providers_do_not_capture_or_read_source(tmp_path, monkeypatch):
     root, store, tools = workspace(tmp_path, queries=("entry",))
-    (root / "entry.py").write_text("def entry(): return 42\n")
+    (root / "entry.py").write_text("def entry(): return 42\n", encoding="utf-8", newline="\n")
     tools.list_files()
     task = Task(observe=lambda ctx: tools.observe(), verify=lambda ctx, state: False)
     tools.install(task)
@@ -76,7 +81,7 @@ def test_search_discovers_source_refs_and_terms_without_executing_code(tmp_path)
         f"Path({str(marker)!r}).write_text('executed')\n"
         "class TraceBeacon: pass\n"
     )
-    (root / "unknown.py").write_text(source)
+    (root / "unknown.py").write_text(source, encoding="utf-8", newline="\n")
     packet = tools.search_files("TraceBeacon")
     assert packet["count"] == 1
     match = packet["matches"][0]
@@ -89,7 +94,9 @@ def test_search_discovers_source_refs_and_terms_without_executing_code(tmp_path)
 
 def test_new_terms_from_read_source_become_dynamic_search_choices(tmp_path):
     root, store, tools = workspace(tmp_path)
-    (root / "entry.txt").write_text("Next dependency is StellarBoundary\n")
+    (root / "entry.txt").write_text(
+        "Next dependency is StellarBoundary\n", encoding="utf-8", newline="\n"
+    )
     tools.read_file(file_id(tools.list_files(), "entry.txt"))
     task = Task(observe=lambda ctx: tools.observe(), verify=lambda ctx, state: False)
     tools.install(task)
@@ -111,9 +118,9 @@ def test_symlink_sources_and_directories_are_not_discovered(tmp_path):
     root, store, tools = workspace(tmp_path)
     outside = tmp_path / "outside"
     outside.mkdir()
-    (outside / "secret.txt").write_text("outside secret marker")
-    (root / "link.txt").symlink_to(outside / "secret.txt")
-    (root / "linked-directory").symlink_to(outside, target_is_directory=True)
+    (outside / "secret.txt").write_text("outside secret marker", encoding="utf-8", newline="\n")
+    make_symlink(root / "link.txt", outside / "secret.txt")
+    make_symlink(root / "linked-directory", outside, directory=True)
     packet = tools.list_files()
     assert packet["files"] == []
     assert packet["skipped"]["symlink"] == 2
@@ -123,12 +130,12 @@ def test_symlink_sources_and_directories_are_not_discovered(tmp_path):
 def test_replacing_discovered_file_with_symlink_cannot_escape_root(tmp_path):
     root, store, tools = workspace(tmp_path)
     source = root / "source.txt"
-    source.write_text("permitted source")
+    source.write_text("permitted source", encoding="utf-8", newline="\n")
     target = file_id(tools.list_files(), "source.txt")
     outside = tmp_path / "secret.txt"
-    outside.write_text("outside secret marker")
+    outside.write_text("outside secret marker", encoding="utf-8", newline="\n")
     source.unlink()
-    source.symlink_to(outside)
+    make_symlink(source, outside)
     packet = tools.read_file(target)
     assert packet["status"] == "unreadable"
     assert packet["code"] == "workspace_path_not_allowed"
@@ -140,14 +147,47 @@ def test_replacing_parent_directory_with_symlink_cannot_escape_root(tmp_path):
     root, store, tools = workspace(tmp_path)
     directory = root / "nested"
     directory.mkdir()
-    (directory / "source.txt").write_text("permitted source")
+    (directory / "source.txt").write_text("permitted source", encoding="utf-8", newline="\n")
     target = file_id(tools.list_files(), "nested/source.txt")
     (directory / "source.txt").unlink()
     directory.rmdir()
     outside = tmp_path / "outside"
     outside.mkdir()
-    (outside / "source.txt").write_text("outside secret marker")
-    directory.symlink_to(outside, target_is_directory=True)
+    (outside / "source.txt").write_text("outside secret marker", encoding="utf-8", newline="\n")
+    make_symlink(directory, outside, directory=True)
+    assert tools.read_file(target)["code"] == "workspace_path_not_allowed"
+    assert store.references() == []
+
+
+@windows_only
+def test_junction_directories_are_not_discovered_or_used_as_root(tmp_path):
+    root, store, tools = workspace(tmp_path)
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (outside / "secret.txt").write_text("outside secret marker", encoding="utf-8", newline="\n")
+    make_junction(root / "linked-directory", outside)
+    packet = tools.list_files()
+    assert packet["files"] == []
+    assert packet["skipped"]["symlink"] == 1
+    make_junction(tmp_path / "junction-root", outside)
+    with pytest.raises(ValueError, match="workspace_root_directory_required"):
+        WorkspaceTools(tmp_path / "junction-root", EvidenceStore())
+    assert store.references() == []
+
+
+@windows_only
+def test_replacing_parent_directory_with_junction_cannot_escape_root(tmp_path):
+    root, store, tools = workspace(tmp_path)
+    directory = root / "nested"
+    directory.mkdir()
+    (directory / "source.txt").write_text("permitted source", encoding="utf-8", newline="\n")
+    target = file_id(tools.list_files(), "nested/source.txt")
+    (directory / "source.txt").unlink()
+    directory.rmdir()
+    outside = tmp_path / "outside"
+    outside.mkdir()
+    (outside / "source.txt").write_text("outside secret marker", encoding="utf-8", newline="\n")
+    make_junction(directory, outside)
     assert tools.read_file(target)["code"] == "workspace_path_not_allowed"
     assert store.references() == []
 
@@ -166,8 +206,8 @@ def test_binary_and_overlarge_files_have_explicit_bounded_outcomes(tmp_path):
 
 def test_listing_limit_is_reported_without_claiming_complete_search(tmp_path):
     root, store, tools = workspace(tmp_path, max_files=1)
-    (root / "a.txt").write_text("a")
-    (root / "b.txt").write_text("b")
+    (root / "a.txt").write_text("a", encoding="utf-8", newline="\n")
+    (root / "b.txt").write_text("b", encoding="utf-8", newline="\n")
     packet = tools.list_files()
     assert packet["count"] == 1
     assert packet["truncated"] is True
@@ -177,12 +217,12 @@ def test_listing_limit_is_reported_without_claiming_complete_search(tmp_path):
 def test_search_read_budget_uses_actual_source_size_after_listing(tmp_path, monkeypatch):
     root, store, tools = workspace(tmp_path, queries=("needle",))
     source = root / "changing.txt"
-    source.write_text("needle")
+    source.write_text("needle", encoding="utf-8", newline="\n")
     tools._MAX_SEARCH_BYTES = 20
     original = tools._read_text
 
     def grow(path, **kwargs):
-        source.write_text("needle " * 20)
+        source.write_text("needle " * 20, encoding="utf-8", newline="\n")
         return original(path, **kwargs)
 
     monkeypatch.setattr(tools, "_read_text", grow)
@@ -199,10 +239,10 @@ def test_given_query_limit_rejects_instead_of_silently_dropping_candidates(tmp_p
 def test_read_observes_changed_source_instead_of_reusing_an_old_capture(tmp_path):
     root, store, tools = workspace(tmp_path)
     source = root / "changing.txt"
-    source.write_text("first source")
+    source.write_text("first source", encoding="utf-8", newline="\n")
     target = file_id(tools.list_files(), "changing.txt")
     first = tools.read_file(target)
-    source.write_text("second source")
+    source.write_text("second source", encoding="utf-8", newline="\n")
     second = tools.read_file(target)
     assert first["ref"] != second["ref"]
     assert first["sha256"] != second["sha256"]
@@ -210,10 +250,11 @@ def test_read_observes_changed_source_instead_of_reusing_an_old_capture(tmp_path
     assert store.read(second["ref"])["text"] == "second source"
 
 
+@requires_fifo
 def test_discovered_file_replaced_by_fifo_is_rejected_without_blocking(tmp_path):
     root, store, tools = workspace(tmp_path)
     source = root / "changing.txt"
-    source.write_text("regular file")
+    source.write_text("regular file", encoding="utf-8", newline="\n")
     target = file_id(tools.list_files(), "changing.txt")
     source.unlink()
     os.mkfifo(source)
@@ -221,8 +262,15 @@ def test_discovered_file_replaced_by_fifo_is_rejected_without_blocking(tmp_path)
     assert store.references() == []
 
 
+@posix_only
 def test_unsupported_secure_open_has_no_unsafe_path_fallback(tmp_path, monkeypatch):
     monkeypatch.setattr(os, "supports_dir_fd", set())
+    with pytest.raises(ValueError, match="workspace_secure_open_unavailable"):
+        WorkspaceTools(tmp_path, EvidenceStore())
+
+
+def test_missing_secure_backend_fails_closed_on_every_platform(tmp_path, monkeypatch):
+    monkeypatch.setattr(_secure_fs, "available", lambda: False)
     with pytest.raises(ValueError, match="workspace_secure_open_unavailable"):
         WorkspaceTools(tmp_path, EvidenceStore())
 
@@ -235,7 +283,9 @@ def test_invalid_file_bounds_are_not_silently_defaulted(tmp_path, bad):
 
 def test_workspace_reuses_task_and_engine_with_scripted_selection_only(tmp_path):
     root, store, tools = workspace(tmp_path)
-    (root / "unexpected.txt").write_text("Evidence for the requested investigation")
+    (root / "unexpected.txt").write_text(
+        "Evidence for the requested investigation", encoding="utf-8", newline="\n"
+    )
     task = Task(
         observe=lambda ctx: tools.observe(),
         verify=lambda ctx, state: bool(store.references()),

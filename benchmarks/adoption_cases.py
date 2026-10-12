@@ -318,7 +318,7 @@ def fixture(directory, level="medium", variant=0):
     for relative, text in files.items():
         path = directory / relative
         path.parent.mkdir(parents=True, exist_ok=True)
-        with path.open("x", encoding="utf-8") as stream:
+        with path.open("x", encoding="utf-8", newline="\n") as stream:
             stream.write(text)
     return {
         "family": "repository_sources",
@@ -354,9 +354,9 @@ def fixture(directory, level="medium", variant=0):
 def mechanical_check(case):
     root = Path(case["source_directory"])
     try:
-        manifest = json.loads((root / "package.json").read_text())
+        manifest = json.loads((root / "package.json").read_text(encoding="utf-8"))
         hashes = {
-            relative: _sha((root / relative).read_text())
+            relative: _sha((root / relative).read_text(encoding="utf-8"))
             for relative in case["oracle"]["source_sha256"]
         }
         same_sources = hashes == case["oracle"]["source_sha256"]
@@ -368,13 +368,14 @@ def mechanical_check(case):
                 "profile": None,
                 "simulation": None,
             }
-        worker = (root / "src/worker.py").read_text()
+        worker = (root / "src/worker.py").read_text(encoding="utf-8")
         profile, simulation = analyze_worker(worker)
-        test_valid = _test_contract((root / "tests/test_worker.py").read_text())
+        test_valid = _test_contract((root / "tests/test_worker.py").read_text(encoding="utf-8"))
         path = root / "tests/results/current.json"
         present = path.exists()
         record_ok = (
-            json.loads(path.read_text()) == _current_record(manifest["version"], worker, simulation)
+            json.loads(path.read_text(encoding="utf-8"))
+            == _current_record(manifest["version"], worker, simulation)
             if present
             else None
         )
@@ -403,7 +404,7 @@ def independent_check(case, report_path, *, captures_path=None):
     checked = mechanical_check(case)
     try:
         base = original_check(case, report_path, captures_path=captures_path)
-        records = json.loads(Path(report_path).read_text())["records"]
+        records = json.loads(Path(report_path).read_text(encoding="utf-8"))["records"]
         if type(records) is not list:
             raise ValueError("records_required")
     except (OSError, ValueError, KeyError, TypeError, AttributeError):
@@ -420,7 +421,7 @@ def independent_check(case, report_path, *, captures_path=None):
             if type(row) is not dict or row.get("label") != label:
                 continue
             try:
-                body = (root / relative).read_text()
+                body = (root / relative).read_text(encoding="utf-8")
                 offset, end = row.get("offset"), row.get("end")
                 if (
                     row.get("source") != "workspace:" + relative
@@ -438,7 +439,7 @@ def independent_check(case, report_path, *, captures_path=None):
                     record = json.loads(quote)
                     semantic = record == _current_record(
                         case["oracle"]["version"],
-                        (root / "src/worker.py").read_text(),
+                        (root / "src/worker.py").read_text(encoding="utf-8"),
                         case["oracle"]["simulation"],
                     )
                 else:

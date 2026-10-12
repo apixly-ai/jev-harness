@@ -13,7 +13,7 @@ from types import SimpleNamespace
 
 from jev_filter import analysis as core_analysis
 
-from . import backend
+from . import _secure_fs, backend
 from .callbacks import CallbackContractError, project_contract_error, require_synchronous
 from .context import ContextPolicy, measure_context_budget
 from .diagnostics import provider_failure_code, selection_diagnostic, stage_context
@@ -282,7 +282,7 @@ class Engine:
             path = Path(name)
         else:
             path = Path(archive).expanduser().absolute()
-            fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            fd = _secure_fs.open_private_file(path, "x")
         started = time.monotonic()
         telemetry = {
             "requests": 0,
@@ -296,7 +296,7 @@ class Engine:
         executed_bindings = set()
         diagnostic = None
         context_budget = None
-        with os.fdopen(fd, "w", encoding="utf-8") as journal:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as journal:
 
             def log(event, **data):
                 journal.write(_json({"event": event, "step": steps, **data}) + "\n")

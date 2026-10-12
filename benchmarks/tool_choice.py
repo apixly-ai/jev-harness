@@ -13,6 +13,7 @@ import time
 from pathlib import Path
 from unittest.mock import patch
 
+from _private_files import secure_fs as _secure_fs
 from progress import snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -93,7 +94,7 @@ def trial(case, reverse, archive, live):
             archive=archive,
         )
     elapsed = time.perf_counter() - started
-    events = [json.loads(line) for line in archive.read_text().splitlines()]
+    events = [json.loads(line) for line in archive.read_text(encoding="utf-8").splitlines()]
     effects = sum(event["event"] in ("intent", "executed") for event in events)
     calls = result["telemetry"]["calls"]
     meta = calls[0] if calls else {}
@@ -222,7 +223,7 @@ def main():
     parser.add_argument("--result-file", help=argparse.SUPPRESS)
     parser.add_argument("--reverse", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
-    fixture = json.loads(CASES.read_text())
+    fixture = json.loads(CASES.read_text(encoding="utf-8"))
     cases = fixture["cases"]
     if len(cases) != 6 or any(len(case["candidates"]) != 3 for case in cases):
         parser.error("bounded_fixture_requires_six_cases_with_three_candidates")
@@ -230,8 +231,8 @@ def main():
         sys.path.insert(0, args.source_dir)
         case = next(case for case in cases if case["id"] == args.worker)
         result = trial(case, args.reverse, Path(args.archive), args.live)
-        fd = os.open(args.result_file, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-        with os.fdopen(fd, "w") as stream:
+        fd = _secure_fs.open_private_file(args.result_file, "x")
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
             json.dump(result, stream)
             stream.flush()
             os.fsync(stream.fileno())
@@ -241,7 +242,7 @@ def main():
         parser.error("--output is required")
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    fd = _secure_fs.open_private_file(path, "x")
     os.close(fd)
     started = time.perf_counter()
     report = {
@@ -267,7 +268,7 @@ def main():
         def checkpoint():
             temporary_fd, temporary_name = tempfile.mkstemp(dir=path.parent, prefix=".tool-choice-")
             try:
-                with os.fdopen(temporary_fd, "w", encoding="utf-8") as stream:
+                with os.fdopen(temporary_fd, "w", encoding="utf-8", newline="\n") as stream:
                     json.dump(report, stream, indent=2)
                     stream.flush()
                     os.fsync(stream.fileno())
@@ -329,7 +330,9 @@ def main():
                                 command, env=env, text=True, check=True, capture_output=True
                             )
                             row = json.loads(
-                                (root / f"{case_index}-{reverse}-{arm}.result.json").read_text()
+                                (root / f"{case_index}-{reverse}-{arm}.result.json").read_text(
+                                    encoding="utf-8"
+                                )
                             )
                         except Exception as error:
                             report.update(
