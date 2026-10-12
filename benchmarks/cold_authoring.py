@@ -14,7 +14,6 @@ import json
 import os
 import re
 import shutil
-import stat
 import subprocess
 import sys
 import threading
@@ -22,6 +21,10 @@ import time
 import uuid
 import zipfile
 from pathlib import Path
+
+from _private_files import secure_fs as _secure_fs
+
+from apixly_jev_harness.mcp import utf8_stream
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGE = "python:3.12-slim"
@@ -33,8 +36,8 @@ def _sha(body):
 
 
 def _write_json(path, value):
-    fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
-    with os.fdopen(fd, "w", encoding="utf-8") as stream:
+    fd = _secure_fs.open_private_file(path, "x")
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
         json.dump(value, stream, ensure_ascii=False, indent=2)
         stream.flush()
         os.fsync(stream.fileno())
@@ -42,7 +45,7 @@ def _write_json(path, value):
 
 def build_runtime(destination, wheel=None):
     """Extract a fresh wheel plus audited installed pure-Python dependency packages."""
-    destination = Path(destination)
+    destination = Path(destination).absolute()
     destination.mkdir(parents=True, exist_ok=False)
     if wheel is None:
         artifacts = destination.parent / "isolated-wheel"
@@ -90,7 +93,9 @@ def build_runtime(destination, wheel=None):
         raise ValueError("runtime_dependency_not_pure_python")
     (destination / "bin").mkdir()
     launcher = destination / "bin/jev-harness"
-    launcher.write_text('#!/bin/sh\nexec python -m apixly_jev_harness.cli "$@"\n')
+    launcher.write_text(
+        '#!/bin/sh\nexec python -m apixly_jev_harness.cli "$@"\n', encoding="utf-8", newline="\n"
+    )
     launcher.chmod(0o755)
     return {
         "wheel_sha256": _sha(wheel.read_bytes()),
@@ -102,6 +107,17 @@ def build_runtime(destination, wheel=None):
         },
         "scope": "isolated wheel and public pure-Python packages only; no repo/venv/bin/oracle/auth copied",
     }
+
+
+def container_user():
+    """Unprivileged container identity: the caller's uid/gid on POSIX.
+
+    Docker Desktop on Windows has no host uid; bind mounts are brokered by the
+    current user's Docker backend, so a fixed non-root uid is used instead.
+    """
+    if hasattr(os, "getuid"):
+        return f"{os.getuid()}:{os.getgid()}"
+    return "1000:1000"
 
 
 class DockerActor:
@@ -139,7 +155,7 @@ class DockerActor:
             "--cpus",
             "1",
             "--user",
-            f"{os.getuid()}:{os.getgid()}",
+            container_user(),
             "--tmpfs",
             "/tmp:rw,nosuid,size=67108864",
             "--workdir",
@@ -230,22 +246,23 @@ def freeze_script(work, reference, destination):
         raise ValueError("owned_script_reference_required")
     work = Path(work).resolve()
     selected = work / reference
-    if selected.is_symlink() or not selected.resolve().is_relative_to(work):
+    if _secure_fs.is_link(selected) or not selected.resolve().is_relative_to(work):
         raise ValueError("owned_script_reference_required")
     # Anchor each component, rather than resolving and later following a changed
     # parent symlink. The controller must never open an actor-chosen host path.
-    parent_fd = os.open(work, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    # Windows rejects every reparse point, including container-made LX symlinks.
+    parent = _secure_fs.open_directory(work)
     try:
         for part in Path(reference).parts[:-1]:
-            next_fd = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=parent_fd)
-            os.close(parent_fd)
-            parent_fd = next_fd
-        fd = os.open(Path(reference).name, os.O_RDONLY | os.O_NOFOLLOW, dir_fd=parent_fd)
+            child = parent.child(part)
+            parent.close()
+            parent = child
+        fd = parent.open_file(Path(reference).name)
+    except OSError:
+        raise ValueError("owned_script_reference_required") from None
     finally:
-        os.close(parent_fd)
+        parent.close()
     with os.fdopen(fd, "rb") as stream:
-        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
-            raise ValueError("owned_script_reference_required")
         body = stream.read(65537)
     if len(body) > 65536:
         raise ValueError("script_too_large")
@@ -262,7 +279,7 @@ def freeze_script(work, reference, destination):
     )
     if not exported:
         raise ValueError("workflow_export_missing")
-    destination = Path(destination)
+    destination = Path(destination).absolute()
     destination.mkdir(parents=True, exist_ok=False)
     path = destination / "task.py"
     path.write_bytes(body)
@@ -333,6 +350,10 @@ class NativeProvider:
             or not 0 < timeout_seconds <= 100
         ):
             raise ValueError("invalid_native_budget")
+        if _secure_fs.WINDOWS and not _secure_fs.path_owner_only(credential_file):
+            # jev_context only rejects symlinks on Windows; require the protected
+            # owner-only DACL that matches the POSIX 0600 check before reading a key.
+            raise ValueError("invalid_host_credential")
         key = _read_private_file(Path(credential_file))
         if not key or len(key) > 8192 or any(c.isspace() for c in key):
             raise ValueError("invalid_host_credential")
@@ -456,17 +477,13 @@ class FileBridge:
         ):
             raise ValueError("invalid_bridge_budget")
         self.directory, self.provider = Path(directory), provider
-        self.directory.mkdir(parents=True, exist_ok=True)
+        _secure_fs.make_private_directory(self.directory, parents=True, exist_ok=True)
         for name in ("requests", "responses"):
-            (self.directory / name).mkdir(exist_ok=True)
+            _secure_fs.make_private_directory(self.directory / name, exist_ok=True)
         self.max_requests, self.deadline = max_requests, time.monotonic() + timeout_seconds
         self.seen, self.rows, self.stop = set(), [], threading.Event()
-        self._request_fd = os.open(
-            self.directory / "requests", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
-        )
-        self._response_fd = os.open(
-            self.directory / "responses", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
-        )
+        self._request_fd = _secure_fs.open_directory(self.directory / "requests")
+        self._response_fd = _secure_fs.open_directory(self.directory / "responses")
         self.thread = None
 
     def submit(self, request):
@@ -529,30 +546,22 @@ class FileBridge:
 
     def _serve(self):
         while not self.stop.is_set():
-            for name in os.listdir(self._request_fd):
+            for name in self._request_fd.names():
                 if re.fullmatch(r"[a-f0-9]{32}\.json", name) is None:
                     continue
                 try:
-                    fd = os.open(
-                        name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=self._request_fd
-                    )
+                    fd = self._request_fd.open_file(name)
                     with os.fdopen(fd, "rb") as stream:
-                        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
-                            continue
                         body = stream.read(70000)
-                    os.unlink(name, dir_fd=self._request_fd)
+                    self._request_fd.unlink(name)
                     response = self.submit(json.loads(body))
                     temp = name + ".pending"
-                    fd = os.open(
-                        temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600, dir_fd=self._response_fd
-                    )
-                    with os.fdopen(fd, "w") as stream:
+                    fd = self._response_fd.create_private(temp)
+                    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
                         json.dump(response, stream)
                         stream.flush()
                         os.fsync(stream.fileno())
-                    os.rename(
-                        temp, name, src_dir_fd=self._response_fd, dst_dir_fd=self._response_fd
-                    )
+                    self._response_fd.rename(temp, name)
                 except (OSError, ValueError, TypeError):
                     continue
             self.stop.wait(0.02)
@@ -571,8 +580,8 @@ class FileBridge:
                 # IPC descriptors underneath it or turn that outcome into zero usage.
                 return
         if self._request_fd is not None:
-            os.close(self._request_fd)
-            os.close(self._response_fd)
+            self._request_fd.close()
+            self._response_fd.close()
             self._request_fd = self._response_fd = None
         if self.mode == "live":
             self.provider.close()
@@ -611,7 +620,7 @@ class ColdSession:
     ):
         self.directory, self.case, self.runtime = Path(directory), case, Path(runtime)
         self.work = self.directory / "work"
-        self.work.mkdir(mode=0o700, exist_ok=False)
+        _secure_fs.make_private_directory(self.work)
         self.optional, self.image = optional, image
         self.credential_file = Path(credential_file) if credential_file is not None else None
         self.live = self.credential_file is not None
@@ -917,7 +926,8 @@ def score_report(case, report_path, *, normalized_output):
 
 
 def serve(session, source=None, destination=None):
-    source, destination = source or sys.stdin, destination or sys.stdout
+    source = source or utf8_stream(sys.stdin)
+    destination = destination or utf8_stream(sys.stdout)
     with session.actor:
         for line in source:
             if len(line) > 100000:
@@ -976,10 +986,12 @@ def canary(output, wheel, *, image=IMAGE):
     from adoption_cases import fixture, mechanical_check
 
     output = Path(output)
-    output.mkdir(parents=True, exist_ok=False, mode=0o700)
+    _secure_fs.make_private_directory(output, parents=True)
     case = fixture(output / "corpus", "medium", 0)
     _write_json(output / "controller-oracle.json", case)
-    (output / "controller-credential-canary").write_text("PRIVATE_CREDENTIAL_CANARY_DO_NOT_EXPOSE")
+    (output / "controller-credential-canary").write_text(
+        "PRIVATE_CREDENTIAL_CANARY_DO_NOT_EXPOSE", newline="\n", encoding="utf-8"
+    )
     runtime = output / "public-runtime"
     provenance = build_runtime(runtime, wheel)
     session = ColdSession(output, case, runtime, image=image)
@@ -1065,7 +1077,7 @@ def main(argv=None):
 
     if args.live != (args.credential_file is not None) or (args.live and args.arm != "optional"):
         parser.error("--live requires --arm optional and an explicit host-only --credential-file")
-    args.directory.mkdir(parents=True, exist_ok=False, mode=0o700)
+    _secure_fs.make_private_directory(args.directory, parents=True)
     case = fixture(args.directory / "corpus", args.level, args.variant)
     _write_json(args.directory / "controller-oracle.json", case)
     runtime = args.directory / "public-runtime"

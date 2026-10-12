@@ -12,7 +12,6 @@ import copy
 import json
 import os
 import re
-import stat
 import subprocess
 import sys
 import threading
@@ -24,6 +23,8 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from _private_files import secure_fs as _secure_fs
+from camofox_runtime import await_session_ready
 from cold_authoring import (
     IMAGE,
     ROOT,
@@ -37,6 +38,8 @@ from cold_authoring import (
     build_runtime,
     freeze_script,
 )
+
+from apixly_jev_harness.mcp import utf8_stream
 
 
 def case_contract(variant=0):
@@ -84,6 +87,12 @@ class DraftState:
             self.projects[1]["status"], self.projects[2]["status"] = "archived", "active"
         self._saved, self.save_attempts, self.rejected_requests = None, 0, 0
         self.lock = threading.RLock()
+        # Optional durable mirror, so a terminated serve process cannot erase the truth.
+        self.on_change = None
+
+    def changed(self):
+        if self.on_change is not None:
+            self.on_change()
 
     def expected(self):
         return {
@@ -102,6 +111,12 @@ class DraftState:
         }
 
     def save(self, draft):
+        try:
+            return self._save(draft)
+        finally:
+            self.changed()
+
+    def _save(self, draft):
         with self.lock:
             self.save_attempts += 1
             expected_keys = {
@@ -181,6 +196,18 @@ async function saveDraft(){const button=document.querySelector('#content button'
 go('home');</script></body></html>"""
 
 
+def _replace_json(path, value):
+    """Atomically replace a private JSON mirror (new owner-only file, then rename)."""
+    path = Path(path)
+    temporary = path.with_name(path.name + "." + uuid.uuid4().hex + ".tmp")
+    fd = _secure_fs.open_private_file(temporary, "x")
+    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
+        json.dump(value, stream, ensure_ascii=False, indent=2)
+        stream.flush()
+        os.fsync(stream.fileno())
+    os.replace(temporary, path)
+
+
 class DraftServer:
     def __init__(self, case):
         self.state = DraftState(case)
@@ -209,6 +236,7 @@ class DraftServer:
                 if self.path != "/draft":
                     with state.lock:
                         state.rejected_requests += 1
+                    state.changed()
                     self.respond(405, b'{"error":"operation_not_allowed"}')
                     return
                 try:
@@ -384,20 +412,16 @@ class SurfaceBridge:
 
     def __init__(self, directory, broker):
         self.directory, self.broker = Path(directory), broker
-        self.directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+        _secure_fs.make_private_directory(self.directory, parents=True, exist_ok=True)
         for name in ("requests", "responses"):
-            (self.directory / name).mkdir(mode=0o700, exist_ok=True)
+            _secure_fs.make_private_directory(self.directory / name, exist_ok=True)
         _write_json(
             self.directory / "contract.json",
             {"values": broker.values, "allowed_origin": broker.allowed_origin},
         )
         self.seen, self.stop, self.thread = set(), threading.Event(), None
-        self.request_fd = os.open(
-            self.directory / "requests", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
-        )
-        self.response_fd = os.open(
-            self.directory / "responses", os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW
-        )
+        self.request_fd = _secure_fs.open_directory(self.directory / "requests")
+        self.response_fd = _secure_fs.open_directory(self.directory / "responses")
 
     def submit(self, request):
         try:
@@ -433,36 +457,22 @@ class SurfaceBridge:
 
     def _serve(self):
         while not self.stop.is_set():
-            for name in os.listdir(self.request_fd):
+            for name in self.request_fd.names():
                 if re.fullmatch(r"[a-f0-9]{32}\.json", name) is None:
                     continue
                 try:
-                    fd = os.open(
-                        name, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=self.request_fd
-                    )
+                    fd = self.request_fd.open_file(name)
                     with os.fdopen(fd, "rb") as stream:
-                        if not stat.S_ISREG(os.fstat(stream.fileno()).st_mode):
-                            continue
                         body = stream.read(65537)
-                    os.unlink(name, dir_fd=self.request_fd)
+                    self.request_fd.unlink(name)
                     packet = self.submit(json.loads(body))
                     temporary = name + ".pending"
-                    fd = os.open(
-                        temporary,
-                        os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW,
-                        0o600,
-                        dir_fd=self.response_fd,
-                    )
-                    with os.fdopen(fd, "w", encoding="utf-8") as stream:
+                    fd = self.response_fd.create_private(temporary)
+                    with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
                         json.dump(packet, stream, ensure_ascii=False)
                         stream.flush()
                         os.fsync(stream.fileno())
-                    os.rename(
-                        temporary,
-                        name,
-                        src_dir_fd=self.response_fd,
-                        dst_dir_fd=self.response_fd,
-                    )
+                    self.response_fd.rename(temporary, name)
                 except (OSError, ValueError, TypeError):
                     continue
             self.stop.wait(0.02)
@@ -479,10 +489,10 @@ class SurfaceBridge:
             if self.thread.is_alive():
                 return
         if self.request_fd is not None:
-            os.close(self.request_fd)
+            self.request_fd.close()
             self.request_fd = None
         if self.response_fd is not None:
-            os.close(self.response_fd)
+            self.response_fd.close()
             self.response_fd = None
 
 
@@ -570,7 +580,8 @@ click/select/fill tools with fresh parameter candidates. Click needs explicit au
 within the supplied synthetic-site scope. verify must return a builtin bool.
 TaskScript(build) receives a copied dict of bound inputs; build must return a Task.
 To execute a script via the optional run_script tool, first write it into /work and
-export workflow. SDK discovery is available through python -m apixly_jev_harness.cli spec.
+export workflow. SDK discovery: python -m apixly_jev_harness.cli quickstart (compact card)
+or spec (detailed protocol).
 """
 
 
@@ -587,14 +598,14 @@ class BrowserColdSession:
         self.optional, self.credential_file, self.image = optional, credential_file, image
         self.live = credential_file is not None
         self.work, self.corpus = self.directory / "work", self.directory / "public-corpus"
-        self.work.mkdir(mode=0o700)
-        self.corpus.mkdir(mode=0o700)
+        _secure_fs.make_private_directory(self.work)
+        _secure_fs.make_private_directory(self.corpus)
         self.inputs = {
             "values": case["values"],
             "allowed_origin": broker.allowed_origin,
             "output": "/work/report.json",
         }
-        (self.corpus / "README.md").write_text(API_NOTES)
+        (self.corpus / "README.md").write_text(API_NOTES, encoding="utf-8", newline="\n")
         _write_json(self.corpus / "inputs.json", self.inputs)
         self.surface_bridge = SurfaceBridge(self.directory / "surface-ipc", broker).start()
         self.executions, self.events = 0, []
@@ -733,7 +744,8 @@ class BrowserColdSession:
 
 
 def serve(session, source=None, destination=None):
-    source, destination = source or sys.stdin, destination or sys.stdout
+    source = source or utf8_stream(sys.stdin)
+    destination = destination or utf8_stream(sys.stdout)
     with session.actor:
         for line in source:
             if len(line) > 100000:
@@ -778,6 +790,15 @@ def serve(session, source=None, destination=None):
                         session.events.append({"tool": name, "effects": session.broker.effects})
                     else:
                         raise ValueError("browser_tool_not_registered")
+                    _replace_json(
+                        session.directory / "session-progress.json",
+                        {
+                            "events": session.events,
+                            "effects": session.broker.effects,
+                            "broker_events": session.broker.events,
+                            "uncertain": session.broker.uncertain,
+                        },
+                    )
                     result = {
                         "content": [
                             {"type": "text", "text": json.dumps(packet, ensure_ascii=False)}
@@ -803,55 +824,84 @@ def serve(session, source=None, destination=None):
             else:
                 raise ValueError("unsupported_browser_rpc")
             response = {"jsonrpc": "2.0", "id": request["id"], "result": result}
-            with (session.directory / "rpc.jsonl").open("a", encoding="utf-8") as audit:
+            fd = _secure_fs.open_private_file(session.directory / "rpc.jsonl", "a")
+            with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as audit:
                 audit.write(
                     json.dumps({"method": method, "response": response}, ensure_ascii=False) + "\n"
                 )
-            (session.directory / "rpc.jsonl").chmod(0o600)
             destination.write(json.dumps(response, ensure_ascii=False) + "\n")
             destination.flush()
 
 
-def check_camofox(base="http://127.0.0.1:9378", *, headless_config=None, require_running=False):
+CAMOFOX_BASE = os.environ.get("JEV_CAMOFOX_URL", "http://127.0.0.1:9378")
+
+
+def _configured_headless(headless_config):
+    import plistlib
+
+    path = Path(headless_config)
+    config = (
+        plistlib.loads(path.read_bytes())
+        if path.suffix == ".plist"
+        else json.loads(path.read_text(encoding="utf-8"))
+    )
+    environment = config.get("EnvironmentVariables", config)
+    if environment.get("CAMOFOX_INTERACTIVE") == "off":
+        return {"kind": "caller_supplied_service_configuration", "interactive": "off"}
+    if str(environment.get("CAMOFOX_HEADLESS", "")).lower() in ("true", "1"):
+        return {"kind": "caller_supplied_service_configuration", "headless": "true"}
+    raise RuntimeError("headless_configuration_not_confirmed")
+
+
+def check_camofox(
+    base=None, *, headless_config=None, require_running=False, runtime=None, session="general"
+):
+    """Read-only gate: open only after a headless precondition, run only on runtime proof.
+
+    Before a tab exists, a service-reported headless state or explicit service
+    configuration is a precondition for opening a tab, labelled as such. After the
+    owned tab exists, only runtime observations count: the session's context is
+    active, its browser processes carry -headless without visible windows, and a
+    pointer probe in the same session shows humanized movement. Configuration never
+    substitutes for those observations, and shared configuration is never changed.
+    """
+    base = base or CAMOFOX_BASE
     with urllib.request.urlopen(base + "/health", timeout=5) as response:
         health = json.load(response)
-    # Read only: never change shared browser configuration to satisfy a canary.
     if health.get("headless") is True or health.get("interactive") == "off":
         headless = {"kind": "service_health", "interactive": "off"}
     elif headless_config is not None:
-        import plistlib
-
-        path = Path(headless_config)
-        config = (
-            plistlib.loads(path.read_bytes())
-            if path.suffix == ".plist"
-            else json.loads(path.read_text())
-        )
-        interactive = config.get("EnvironmentVariables", config).get("CAMOFOX_INTERACTIVE")
-        if interactive != "off":
-            raise RuntimeError("headless_configuration_not_confirmed")
-        # This is configuration evidence, never mislabelled as a browser-process observation.
-        headless = {"kind": "caller_supplied_service_configuration", "interactive": "off"}
+        headless = _configured_headless(headless_config)
     else:
         raise RuntimeError("headless_health_or_explicit_configuration_required")
-    if health.get("humanize") is False or (require_running and health.get("humanize") is not True):
+    if health.get("humanize") is False:
         raise RuntimeError("live_humanize_not_confirmed")
-    if health.get("humanize") is None and health.get("browserRunning") is not False:
-        raise RuntimeError("humanize_state_unknown")
     health["headless_evidence"] = headless
+    if not require_running:
+        return health
+    if runtime is None:
+        from camofox_runtime import runtime_evidence as runtime
+    evidence = runtime(base, session)
+    if evidence.get("passed") is not True:
+        raise RuntimeError(
+            "camofox_runtime_not_confirmed:" + ",".join(evidence.get("problems") or ["unknown"])
+        )
+    health["runtime_evidence"] = evidence
     return health
 
 
-def transport_canary(output, *, base="http://127.0.0.1:9378", headless_config=None):
+def transport_canary(output, *, base=None, headless_config=None):
     """Known program steps verify only transport/effects; zero inference or authorship."""
     from jev_context.act.browser import CamofoxPage
 
     output = Path(output)
-    output.mkdir(mode=0o700, parents=True, exist_ok=False)
+    _secure_fs.make_private_directory(output, parents=True)
+    base = base or CAMOFOX_BASE
     started, rows, page = time.perf_counter(), [], None
     health = check_camofox(base, headless_config=headless_config)
     with DraftServer(case_contract(0)) as fixture:
         try:
+            ready = await_session_ready(base, "camofox-general")
             page = CamofoxPage("general", url=fixture.url, base=base)
             health = check_camofox(base, headless_config=headless_config, require_running=True)
             broker = BrowserBroker(
@@ -899,6 +949,7 @@ def transport_canary(output, *, base="http://127.0.0.1:9378", headless_config=No
                 "actual_model_usage": dict(ZERO),
                 "scope": "zero-model real Camofox transport canary; known program path, not AI authorship or preference",
                 "health": health,
+                "session_ready": ready,
             }
             _write_json(output / "report.json", report)
             return report
@@ -920,6 +971,170 @@ def transport_canary(output, *, base="http://127.0.0.1:9378", headless_config=No
                 page.close()
 
 
+DIRECT_CANARY = """
+import json
+from browser_surface import RemoteSurface
+
+surface = RemoteSurface()
+values = surface.values
+
+
+def pick(predicate):
+    seen = surface.observe()
+    chosen = [a for a in seen["actions"] if predicate(a)]
+    if len(chosen) != 1:
+        raise SystemExit("canary_target_not_unique")
+    return seen, chosen[0]
+
+
+def perform(kind, label=None, starts=None, ends=None, text=None):
+    def predicate(action):
+        name = action.get("label", "")
+        return action["kind"] == kind and (
+            name == label if label is not None else name.startswith(starts) and name.endswith(ends)
+        )
+
+    seen, action = pick(predicate)
+    surface.act(action, seen, text=text)
+    surface.settle(action)
+
+
+perform("click", "Projects")
+perform("click", "Include Aurora")
+perform("click", "Include Cedar")
+perform("click", "Digest settings")
+perform("fill", "Digest title", text=values["title"])
+perform("fill", "Preview note", text=values["note"])
+perform("select", starts="Timezone", ends="Asia/Shanghai")
+perform("select", starts="Frequency", ends="Weekdays")
+perform("click", "Successful events")
+perform("click", "Delivery")
+perform("select", starts="Existing mailbox", ends="Preview inbox")
+perform("click", "Review draft")
+perform("click", "Save draft")
+print(json.dumps(surface.check_goal()))
+"""
+
+PLUMBING_SCRIPT = """
+from apixly_jev_harness import TaskScript
+from apixly_jev_harness.surfaces import SurfaceTask
+from browser_surface import RemoteSurface
+
+
+def build(inputs):
+    surface = RemoteSurface()
+
+    def authorize(ctx, action):
+        target = action.params["arguments"].get("target")
+        return isinstance(target, dict) and target.get("kind") == "click"
+
+    return SurfaceTask(
+        surface,
+        values=inputs["values"],
+        allowed_origins=[inputs["allowed_origin"]],
+        verify=lambda ctx, state: surface.check_goal()["passed"],
+        authorize=authorize,
+    )
+
+
+workflow = TaskScript(build)
+"""
+
+
+def _worker_phase(directory, wheel, runtime, headless_config, run):
+    from jev_context.act.browser import CamofoxPage
+
+    case = case_contract(0)
+    page, session, broker = None, None, None
+    _secure_fs.make_private_directory(directory)
+    with DraftServer(case) as fixture:
+        try:
+            ready = await_session_ready(CAMOFOX_BASE, "camofox-general")
+            page = CamofoxPage("general", url=fixture.url, base=CAMOFOX_BASE)
+            health = check_camofox(headless_config=headless_config, require_running=True)
+            broker = BrowserBroker(
+                page,
+                allowed_origin=fixture.url.rstrip("/"),
+                values=case["values"],
+                check_goal=fixture.state.check_goal,
+            )
+            session = BrowserColdSession(directory, case, runtime, broker, optional=True)
+            with session.actor:
+                result = run(session)
+            return {
+                **result,
+                "independent_check": broker.check_goal(),
+                "effects": broker.effects,
+                "uncertain": broker.uncertain,
+                "backend": fixture.state.snapshot(),
+                "runtime_evidence_passed": health["runtime_evidence"]["passed"],
+                "session_ready": ready,
+                "owned_tab_closed": True,
+            }
+        finally:
+            if session is not None:
+                session.close()
+            if page is not None and page.owned:
+                page.close()
+
+
+def worker_canary(output, *, wheel=None, headless_config=None):
+    """Container IPC transport: direct program path, then fake-provider worker plumbing.
+
+    Zero inference. The direct phase is a known program path through RemoteSurface in
+    the isolated container. The worker phase executes run_script with the offline fake
+    provider; completion is not expected and is never reported as task success.
+    """
+    output = Path(output)
+    _secure_fs.make_private_directory(output, parents=True)
+    started = time.perf_counter()
+    runtime = output / "public-runtime"
+    provenance = build_runtime(runtime, wheel)
+
+    def direct(session):
+        packet = session.actor.shell("python - <<'PY'" + DIRECT_CANARY + "PY", timeout=120)
+        return {"route": "direct_container_script", "process": packet}
+
+    def worker(session):
+        authored = session.actor.shell("cat > /work/task.py <<'PY'" + PLUMBING_SCRIPT + "PY")
+        packet = session.run_script("task.py")
+        return {"route": "worker_fake_provider", "authored": authored, "packet": packet}
+
+    phases = {}
+    for name, run in (("direct", direct), ("worker", worker)):
+        try:
+            phases[name] = _worker_phase(output / name, wheel, runtime, headless_config, run)
+        except Exception as error:
+            phases[name] = {"error_type": type(error).__name__, "error": str(error)[:200]}
+    direct_ok = (
+        phases["direct"].get("process", {}).get("exit_code") == 0
+        and phases["direct"].get("independent_check", {}).get("passed") is True
+        and phases["direct"].get("effects") == 13
+    )
+    packet = phases["worker"].get("packet") or {}
+    bridge = packet.get("bridge") or {}
+    worker_ok = (
+        packet.get("terminal") is not None
+        and packet.get("process", {}).get("exit_code") == 0
+        and bridge.get("mock_submissions", 0) >= 1
+        and bridge.get("unknown_mock_usage_attempts") == 0
+        and phases["worker"].get("uncertain") is False
+        and 0 < phases["worker"].get("effects", 0) <= 24
+    )
+    report = {
+        "passed": direct_ok and worker_ok,
+        "direct_transport_passed": direct_ok,
+        "worker_plumbing_passed": worker_ok,
+        "phases": phases,
+        "runtime_provenance": provenance,
+        "whole_seconds": time.perf_counter() - started,
+        "actual_model_usage": dict(ZERO),
+        "scope": "zero-model Docker IPC transport; direct phase is a known program path and the worker phase uses an offline fake provider, neither is AI authorship, preference or live Jev acceptance",
+    }
+    _write_json(output / "worker-canary.json", report)
+    return report
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     modes = parser.add_subparsers(dest="mode", required=True)
@@ -928,6 +1143,10 @@ def main(argv=None):
     canary = modes.add_parser("canary")
     canary.add_argument("--output", type=Path, required=True)
     canary.add_argument("--headless-config", type=Path)
+    worker = modes.add_parser("worker-canary")
+    worker.add_argument("--output", type=Path, required=True)
+    worker.add_argument("--wheel", type=Path)
+    worker.add_argument("--headless-config", type=Path)
     serving = modes.add_parser("serve")
     serving.add_argument("--directory", type=Path, required=True)
     serving.add_argument("--arm", choices=("native", "optional"), required=True)
@@ -936,11 +1155,25 @@ def main(argv=None):
     serving.add_argument("--live", action="store_true")
     serving.add_argument("--credential-file", type=Path)
     serving.add_argument("--headless-config", type=Path)
+    serving.add_argument("--session-seconds", type=int, default=600)
     args = parser.parse_args(argv)
     if args.mode == "describe":
         case = case_contract(args.variant)
         print(json.dumps({"case": case, "actor_prompt": actor_prompt(case)}, ensure_ascii=False))
         return 0
+    if args.mode == "worker-canary":
+        report = worker_canary(args.output, wheel=args.wheel, headless_config=args.headless_config)
+        print(
+            json.dumps(
+                {
+                    "passed": report["passed"],
+                    "direct_transport_passed": report["direct_transport_passed"],
+                    "worker_plumbing_passed": report["worker_plumbing_passed"],
+                    "actual_model_usage": report["actual_model_usage"],
+                }
+            )
+        )
+        return 0 if report["passed"] else 1
     if args.mode == "canary":
         report = transport_canary(args.output, headless_config=args.headless_config)
         print(
@@ -957,7 +1190,7 @@ def main(argv=None):
         parser.error("--live requires optional arm and explicit host-only --credential-file")
     from jev_context.act.browser import CamofoxPage
 
-    args.directory.mkdir(mode=0o700, parents=True, exist_ok=False)
+    _secure_fs.make_private_directory(args.directory, parents=True)
     case = case_contract(args.variant)
     _write_json(args.directory / "case-contract.json", case)
     health = check_camofox(headless_config=args.headless_config)
@@ -966,8 +1199,14 @@ def main(argv=None):
     _write_json(args.directory / "runtime-provenance.json", build_runtime(runtime, args.wheel))
     page, session = None, None
     with DraftServer(case) as fixture:
+        fixture.state.on_change = lambda: _replace_json(
+            args.directory / "backend-live.json",
+            {"backend": fixture.state.snapshot(), "check": fixture.state.check_goal()},
+        )
         try:
-            page = CamofoxPage("general", url=fixture.url, base="http://127.0.0.1:9378")
+            ready = await_session_ready(CAMOFOX_BASE, "camofox-general")
+            page = CamofoxPage("general", url=fixture.url, base=CAMOFOX_BASE)
+            _write_json(args.directory / "session-ready.json", ready)
             _write_json(
                 args.directory / "browser-running-health.json",
                 check_camofox(headless_config=args.headless_config, require_running=True),
@@ -981,6 +1220,7 @@ def main(argv=None):
                 allowed_origin=fixture.url.rstrip("/"),
                 values=case["values"],
                 check_goal=fixture.state.check_goal,
+                timeout_seconds=args.session_seconds,
             )
             session = BrowserColdSession(
                 args.directory,

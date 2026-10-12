@@ -6,6 +6,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
+from platform_support import WINDOWS, make_symlink, owner_only
 
 TOOLS = [
     {
@@ -96,7 +97,10 @@ def test_choice_binds_only_allowed_refs_and_keeps_resolved_model_unknown(primary
         assert schema["additionalProperties"] is False
         assert schema["required"] == ["tool", "arguments"]
         assert schema["properties"]["tool"]["enum"] == ["read", "finish"]
-        assert schema_path.stat().st_mode & 0o077 == 0
+        if WINDOWS:
+            assert owner_only(schema_path)
+        else:
+            assert schema_path.stat().st_mode & 0o077 == 0
         assert Path(kwargs["cwd"]).samefile(schema_path.parent)
         return run_result()
 
@@ -350,7 +354,10 @@ def test_failed_cli_private_logs_are_exact_opt_in_and_owner_only(primary, tmp_pa
     )
     assert event_path.read_text() == stdout and diagnostic_path.read_text() == stderr
     for path in (event_path, diagnostic_path):
-        assert path.stat().st_mode & 0o777 == 0o600
+        if WINDOWS:
+            assert owner_only(path)
+        else:
+            assert path.stat().st_mode & 0o777 == 0o600
     assert result["reason"] == "cli_failed" and result["usage"] is None
     assert result["usage_complete"] is False and result["reported_terminal_usage"] is None
     assert PRIVATE_MARKER not in json.dumps(result)
@@ -417,12 +424,12 @@ def test_private_log_destination_never_overwrites_and_fails_before_launch(
     primary, tmp_path, symlink
 ):
     owner = tmp_path / "owner.txt"
-    owner.write_text("owner evidence")
+    owner.write_text("owner evidence", encoding="utf-8", newline="\n")
     destination = tmp_path / "occupied.log"
     if symlink:
-        destination.symlink_to(owner)
+        make_symlink(destination, owner)
     else:
-        destination.write_text("prior private log")
+        destination.write_text("prior private log", encoding="utf-8", newline="\n")
     with pytest.raises(FileExistsError):
         primary.choose_tool(
             TOOLS,
@@ -501,3 +508,76 @@ def test_owned_synthetic_mcp_scope_is_usable_under_noninteractive_approval_polic
         runner=lambda command, **kwargs: commands.append(command) or run_result(),
     )
     assert 'mcp_servers.jev_eval.default_tools_approval_mode="auto"' in commands[0]
+
+
+def test_windows_batch_shim_is_never_executed_through_cmd(primary, monkeypatch, tmp_path):
+    shim = tmp_path / "codex.cmd"
+    shim.write_text("@echo off\n", encoding="utf-8", newline="\n")
+    entry = tmp_path / "node_modules/@openai/codex/bin/codex.js"
+    monkeypatch.setattr(primary.os, "name", "nt")
+    monkeypatch.setattr(
+        primary.shutil, "which", lambda name: {"codex": str(shim), "node": "node-bin"}.get(name)
+    )
+    with pytest.raises(ValueError, match="node_entrypoint"):
+        primary.codex_launcher("codex")
+    entry.parent.mkdir(parents=True)
+    entry.write_text("// entry\n", encoding="utf-8", newline="\n")
+    assert primary.codex_launcher("codex") == ["node-bin", str(entry)]
+    monkeypatch.setattr(primary.shutil, "which", lambda name: None)
+    assert primary.codex_launcher("codex") == ["codex"]
+
+
+def test_every_installed_user_skill_is_disabled(primary, monkeypatch, tmp_path):
+    for name in ("jev-zgame", "typesafe-jev", "unrelated"):
+        (tmp_path / ".codex/skills" / name).mkdir(parents=True)
+        (tmp_path / ".codex/skills" / name / "SKILL.md").write_text("x", encoding="utf-8")
+    (tmp_path / ".codex/skills/_archive").mkdir()
+    monkeypatch.setattr(primary.Path, "home", lambda: tmp_path)
+    command = primary._command(["codex"], "model", "high", tmp_path / "schema.json")
+    rendered = next(item for item in command if item.startswith("skills.config="))
+    for name in ("jev-zgame", "typesafe-jev", "unrelated", "jev-harness", "jev-filter"):
+        assert '{name="' + name + '",enabled=false}' in rendered
+    assert "_archive" not in rendered and "path=" not in rendered
+    assert "skills.include_instructions=false" in command
+    assert "skills.bundled.enabled=false" in command
+
+
+def test_pre_turn_cli_notice_is_retained_but_in_turn_error_item_stays_unexpected(primary):
+    notice = {"type": "item.completed", "item": {"type": "error", "message": "Code Mode off"}}
+    stream = events().split("\n")
+    pre_turn = "\n".join([stream[0], json.dumps(notice), *stream[1:]])
+    accepted = primary.choose_tool(
+        TOOLS, CONTEXT, model="gpt-6-astra", runner=lambda *a, **k: run_result(pre_turn)
+    )
+    assert accepted["ok"] is True and accepted["choice"] == CHOICE
+    assert accepted["pre_turn_cli_notices"] == 1 and accepted["unexpected_item_count"] == 0
+    in_turn = primary.choose_tool(
+        TOOLS,
+        CONTEXT,
+        model="gpt-6-astra",
+        runner=lambda *a, **k: run_result(events(extra=[notice])),
+    )
+    assert not in_turn["ok"] and in_turn["reason"] == "unexpected_item_activity"
+    assert in_turn["unexpected_item_count"] == 1
+
+
+def test_owned_server_tools_are_approved_by_exact_name_only(primary):
+    commands = []
+    primary.run_mcp_session(
+        "Inspect",
+        {},
+        model="gpt-6-astra",
+        mcp_command="python",
+        mcp_args=[],
+        approved_tools=["act", "run_script"],
+        runner=lambda command, **kwargs: commands.append(command) or run_result(),
+    )
+    rendered = commands[0]
+    for name in ("act", "run_script", "run_task"):
+        assert f'mcp_servers.jev_eval.tools.{name}.approval_mode="approve"' in rendered
+    assert 'mcp_servers.jev_eval.default_tools_approval_mode="auto"' in rendered
+    for bad in ("act;rm", ["a.b"], "act"):
+        with pytest.raises(ValueError):
+            primary.run_mcp_session(
+                "Inspect", {}, model="m", mcp_command="python", mcp_args=[], approved_tools=bad
+            )

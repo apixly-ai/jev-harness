@@ -2,9 +2,13 @@
 
 import importlib
 import json
+import os
 from pathlib import Path
 
 import pytest
+from platform_support import broaden_access, make_junction, make_symlink, windows_only
+
+from apixly_jev_harness import _secure_fs
 
 
 @pytest.fixture
@@ -44,9 +48,9 @@ def test_script_snapshot_is_owned_regular_file_and_source_exact(cold, tmp_path):
     work.mkdir()
     script = work / "task.py"
     body = "workflow = None\n"
-    script.write_text(body)
+    script.write_text(body, encoding="utf-8", newline="\n")
     frozen = cold.freeze_script(work, "task.py", tmp_path / "frozen")
-    script.write_text('workflow = "changed"\n')
+    script.write_text('workflow = "changed"\n', encoding="utf-8", newline="\n")
     assert frozen["path"].read_text() == body
     assert len(frozen["sha256"]) == 64
     assert frozen["static_check"] == "syntax_and_export_ok"
@@ -62,8 +66,8 @@ def test_script_symlink_is_rejected_before_loading(cold, tmp_path):
     work = tmp_path / "work"
     work.mkdir()
     outside = tmp_path / "outside.py"
-    outside.write_text("workflow = None\n")
-    (work / "task.py").symlink_to(outside)
+    outside.write_text("workflow = None\n", encoding="utf-8", newline="\n")
+    make_symlink(work / "task.py", outside)
     with pytest.raises(ValueError, match="script_reference"):
         cold.freeze_script(work, "task.py", tmp_path / "frozen")
 
@@ -71,10 +75,21 @@ def test_script_symlink_is_rejected_before_loading(cold, tmp_path):
 def test_script_parent_symlink_is_rejected_even_when_target_is_owned(cold, tmp_path):
     work = tmp_path / "work"
     (work / "owned").mkdir(parents=True)
-    (work / "owned/task.py").write_text("workflow = None\n")
-    (work / "alias").symlink_to(work / "owned", target_is_directory=True)
+    (work / "owned/task.py").write_text("workflow = None\n", encoding="utf-8", newline="\n")
+    make_symlink(work / "alias", work / "owned", directory=True)
     with pytest.raises((ValueError, OSError)):
         cold.freeze_script(work, "alias/task.py", tmp_path / "frozen")
+
+
+@windows_only
+def test_script_parent_junction_is_rejected_even_when_target_is_owned(cold, tmp_path):
+    work = tmp_path / "work"
+    (work / "owned").mkdir(parents=True)
+    (work / "owned/task.py").write_text("workflow = None\n", encoding="utf-8", newline="\n")
+    make_junction(work / "alias", work / "owned")
+    with pytest.raises(ValueError, match="script_reference"):
+        cold.freeze_script(work, "alias/task.py", tmp_path / "frozen")
+    assert not (tmp_path / "frozen").exists()
 
 
 def test_bridge_calls_fake_provider_once_and_rejects_duplicate(cold, tmp_path):
@@ -237,7 +252,9 @@ def test_posthoc_score_never_overwrites_the_original_or_prior_normalized_artifac
 
     case = fixture(tmp_path / "corpus", "short", 0)
     raw = tmp_path / "raw.json"
-    raw.write_text(json.dumps({label: [row] for label, row in _quoted_sources(case).items()}))
+    raw.write_text(
+        json.dumps({label: [row] for label, row in _quoted_sources(case).items()}), newline="\n"
+    )
     original = raw.read_bytes()
     with pytest.raises(FileExistsError):
         cold.score_report(case, raw, normalized_output=raw)
@@ -253,7 +270,7 @@ def test_controller_posthoc_score_preserves_raw_failure_and_scores_unchanged_fac
     case = fixture(tmp_path / "corpus", "medium", variant)
     grouped = {label: [row] for label, row in _quoted_sources(case).items()}
     raw = tmp_path / "raw.json"
-    raw.write_text(json.dumps(grouped))
+    raw.write_text(json.dumps(grouped), encoding="utf-8", newline="\n")
     before = raw.read_bytes()
     result = cold.score_report(case, raw, normalized_output=tmp_path / "normalized.json")
     assert result["raw_format"]["passed"] is False
@@ -300,7 +317,7 @@ def test_posthoc_adapter_never_repairs_unsupported_or_incomplete_facts(cold, tmp
     elif damage == "header_only":
         row.update(text="def submit(", offset=0, end=len("def submit("))
     raw = tmp_path / "raw.json"
-    raw.write_text(json.dumps(grouped))
+    raw.write_text(json.dumps(grouped), encoding="utf-8", newline="\n")
     result = cold.score_report(case, raw, normalized_output=tmp_path / "normalized.json")
     assert result["normalized_independent_check"]["passed"] is False
 
@@ -320,9 +337,7 @@ def test_output_directory_is_exclusive_before_build_or_docker(cold, tmp_path, mo
 def test_native_sdk_provider_keeps_key_on_host_and_records_actual_response_usage(cold, tmp_path):
     import httpx
 
-    key = tmp_path / "host-test-key"
-    key.write_text("synthetic-private-host-key")
-    key.chmod(0o600)
+    key = private_key(tmp_path / "host-test-key")
     captured = []
 
     def respond(request):
@@ -364,9 +379,7 @@ def test_native_sdk_provider_keeps_key_on_host_and_records_actual_response_usage
 def test_native_sdk_retry_is_not_a_second_physical_submission(cold, tmp_path):
     import httpx
 
-    key = tmp_path / "host-test-key"
-    key.write_text("synthetic-private-host-key")
-    key.chmod(0o600)
+    key = private_key(tmp_path / "host-test-key")
     calls = []
     provider = cold.NativeProvider(
         key,
@@ -432,7 +445,7 @@ def test_cold_execution_uses_public_mcp_and_retains_artifact_and_original_quotes
         "inputs": {"root": str(corpus), "queries": {}, "requirements": {}},
     }
     session = cold.ColdSession(tmp_path, case, tmp_path / "runtime")
-    (session.work / "task.py").write_text("workflow = None\n")
+    (session.work / "task.py").write_text("workflow = None\n", encoding="utf-8", newline="\n")
     terminal = {
         "complete": True,
         "status": "done",
@@ -468,7 +481,7 @@ def test_worker_timeout_is_preserved_as_terminal_unknown_and_never_retried(
         "inputs": {"root": str(corpus), "queries": {}, "requirements": {}},
     }
     session = cold.ColdSession(tmp_path, case, tmp_path / "runtime")
-    (session.work / "task.py").write_text("workflow = None\n")
+    (session.work / "task.py").write_text("workflow = None\n", encoding="utf-8", newline="\n")
     calls = []
 
     def invoke(self, argv, **kwargs):
@@ -504,7 +517,7 @@ def test_caller_can_fix_syntax_before_the_single_execution_is_consumed(cold, tmp
     assert bad["phase"] == "script_preflight" and bad["execution_attempted"] is False
     assert session.executions == 0
     assert session.events[-1]["phase"] == "script_preflight"
-    (session.work / "task.py").write_text("workflow = None\n")
+    (session.work / "task.py").write_text("workflow = None\n", encoding="utf-8", newline="\n")
     monkeypatch.setattr(cold.DockerActor, "start", lambda self: self)
     monkeypatch.setattr(cold.DockerActor, "close", lambda self: None)
     monkeypatch.setattr(
@@ -530,3 +543,18 @@ def test_host_absolute_reference_is_preflight_failure_without_consuming_executio
     result = session.run_script("/controller/secret.py")
     assert result["execution_attempted"] is False and session.executions == 0
     assert result["model_calls"] == 0
+
+
+def private_key(path):
+    fd = _secure_fs.open_private_file(path, "x")
+    os.write(fd, b"synthetic-private-host-key")
+    os.close(fd)
+    return path
+
+
+def test_native_provider_refuses_a_credential_readable_by_others(cold, tmp_path):
+    key = private_key(tmp_path / "host-test-key")
+    broaden_access(key)
+    with pytest.raises(Exception) as raised:
+        cold.NativeProvider(key, transport=object())
+    assert "credential" in str(raised.value) or "permission" in str(raised.value)

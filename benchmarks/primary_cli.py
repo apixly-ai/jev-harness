@@ -9,11 +9,14 @@ Reported terminal tokens do not establish resolved model, retries or invoice cha
 import json
 import math
 import os
+import shutil
 import subprocess
 import tempfile
 import time
 from contextlib import ExitStack
 from pathlib import Path
+
+from _private_files import secure_fs as _secure_fs
 
 DISABLED_FEATURES = (
     "shell_tool",
@@ -29,6 +32,12 @@ DISABLED_FEATURES = (
     "image_generation",
     "memories",
     "workspace_dependencies",
+    "goals",
+    "sleep_tool",
+    "view_image",
+    "tool_suggest",
+    "skill_search",
+    "skill_mcp_dependency_install",
 )
 _PROVIDER_ENV = {
     "OPENAI_BASE_URL",
@@ -140,23 +149,25 @@ def _parse(stdout, allowed_mcp_server=None):
         try:
             stdout = stdout.decode("utf-8")
         except UnicodeError:
-            return None, None, 0, "invalid_event_stream"
+            return None, None, 0, "invalid_event_stream", 0
     if not isinstance(stdout, str):
-        return None, None, 0, "invalid_event_stream"
+        return None, None, 0, "invalid_event_stream", 0
     try:
         events = [json.loads(line) for line in stdout.splitlines() if line.strip()]
     except (TypeError, ValueError):
-        return None, None, 0, "invalid_event_stream"
+        return None, None, 0, "invalid_event_stream", 0
     if any(type(event) is not dict or type(event.get("type")) is not str for event in events):
-        return None, None, 0, "invalid_event_stream"
+        return None, None, 0, "invalid_event_stream", 0
     terminals = [event for event in events if event["type"] == "turn.completed"]
     if len(terminals) != 1:
-        return None, None, 0, "missing_or_multiple_terminal_events"
+        return None, None, 0, "missing_or_multiple_terminal_events", 0
     reported = _usage(terminals[0].get("usage"))
-    messages, unexpected = [], 0
-    failed = False
+    messages, unexpected, notices = [], 0, 0
+    failed = started = False
     for event in events:
         kind = event["type"]
+        if kind == "turn.started":
+            started = True
         if kind in {"turn.failed", "error"}:
             failed = True
         if kind.startswith("item."):
@@ -165,6 +176,11 @@ def _parse(stdout, allowed_mcp_server=None):
                 unexpected += 1
                 continue
             item_kind = item.get("type")
+            if item_kind == "error" and not started:
+                # CLI configuration notices precede the model turn; they are retained as a
+                # count, never as model activity. In-turn error items remain unexpected.
+                notices += 1
+                continue
             permitted = type(item_kind) is str and (
                 item_kind in _PASSIVE_ITEMS
                 or (
@@ -178,15 +194,15 @@ def _parse(stdout, allowed_mcp_server=None):
             if kind == "item.completed" and item_kind == "agent_message":
                 messages.append(item.get("text"))
     if failed:
-        return None, reported, unexpected, "failed_event"
+        return None, reported, unexpected, "failed_event", notices
     if unexpected:
-        return None, reported, unexpected, "unexpected_item_activity"
+        return None, reported, unexpected, "unexpected_item_activity", notices
     try:
         output = json.loads(messages[-1])
         _json(output)
     except (IndexError, TypeError, ValueError, UnicodeError):
-        return None, reported, unexpected, "invalid_final_output"
-    return output, reported, unexpected, None
+        return None, reported, unexpected, "invalid_final_output", notices
+    return output, reported, unexpected, None, notices
 
 
 def _environment():
@@ -200,9 +216,49 @@ def _environment():
     }
 
 
-def _command(binary, model, effort, schema, mcp_command=None, mcp_args=None):
+def codex_launcher(binary="codex"):
+    """Argument-safe launcher prefix for the Codex CLI.
+
+    npm installs a ``codex.cmd`` shim on Windows. Batch files run through cmd.exe,
+    whose metacharacter parsing would reinterpret JSON configuration arguments, so the
+    shim is never executed: its Node entrypoint is launched directly instead.
+    """
+    resolved = shutil.which(binary) or binary
+    if os.name == "nt" and Path(resolved).suffix.lower() in (".cmd", ".bat"):
+        entry = Path(resolved).parent / "node_modules/@openai/codex/bin/codex.js"
+        node = shutil.which("node")
+        if not entry.is_file() or node is None:
+            raise ValueError("codex_batch_shim_requires_node_entrypoint")
+        return [node, str(entry)]
+    return [resolved]
+
+
+def _skill_names():
+    """Every installed user skill, so no evaluated or related skill can suggest a route."""
+    root = Path.home() / ".codex/skills"
+    names = {"jev-harness", "jev", "jev-filter"}
+    try:
+        entries = list(root.iterdir())
+    except OSError:
+        entries = []
+    for entry in entries:
+        manifest = entry / "SKILL.md"
+        if entry.name.startswith((".", "_")) or not manifest.is_file():
+            continue
+        names.add(entry.name)
+        try:
+            for line in manifest.read_text(encoding="utf-8", errors="replace").splitlines()[1:20]:
+                if line.startswith("name:"):
+                    names.add(line.split(":", 1)[1].strip().strip("'\""))
+                    break
+        except OSError:
+            pass
+    return sorted(name for name in names if name)
+
+
+def _command(binary, model, effort, schema, mcp_command=None, mcp_args=None, approved_tools=()):
     command = [
-        binary,
+        *(binary if isinstance(binary, list) else [binary]),
         "exec",
         "--ignore-user-config",
         "--ignore-rules",
@@ -244,27 +300,31 @@ def _command(binary, model, effort, schema, mcp_command=None, mcp_args=None):
             )
         )
     if mcp_command is not None:
-        for name in (
-            "observe",
-            "arguments",
-            "operate",
-            "run_task",
-            "read_report",
-            "collect_source_evidence",
+        for name in dict.fromkeys(
+            (
+                "observe",
+                "arguments",
+                "operate",
+                "run_task",
+                "read_report",
+                "collect_source_evidence",
+                *approved_tools,
+            )
         ):
             command.extend(
                 ("--config", f'mcp_servers.jev_eval.tools.{name}.approval_mode="approve"')
             )
-    # Remove the evaluated product's skill hints from this local opt-in experiment.
-    disabled = [
-        {"path": str(Path.home() / ".codex/skills" / name), "enabled": False}
-        for name in ("jev-harness", "jev", "jev-filter")
-    ]
+    # Remove the evaluated product's and all other user/bundled skill hints from this
+    # experiment: no skill instructions, no bundled skills, and every user skill disabled.
     command.extend(
         (
             "--config",
+            "skills.include_instructions=false",
+            "--config",
+            "skills.bundled.enabled=false",
+            "--config",
             "skills.config=["
-            + ",".join("{path=" + _json(row["path"]) + ",enabled=false}" for row in disabled)
+            + ",".join("{name=" + _json(name) + ",enabled=false}" for name in _skill_names())
             + "]",
         )
     )
@@ -278,7 +338,7 @@ def _private_streams(stack, events_path, diagnostics_path):
             continue
         path = Path(value).expanduser().absolute()
         path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-        fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        fd = _secure_fs.open_private_file(path, "x")
         streams[name] = stack.enter_context(os.fdopen(fd, "wb", buffering=0))
     return streams
 
@@ -319,6 +379,7 @@ def _invoke(
     mcp_args=None,
     private_events_path=None,
     private_diagnostics_path=None,
+    approved_tools=(),
 ):
     if (
         type(model) is not str
@@ -337,10 +398,13 @@ def _invoke(
         streams = _private_streams(stack, private_events_path, private_diagnostics_path)
         directory = stack.enter_context(tempfile.TemporaryDirectory(prefix="jev-primary-choice-"))
         schema_path = Path(directory) / "output-schema.json"
-        with schema_path.open("x", encoding="utf-8") as stream:
-            os.chmod(schema_path, 0o600)
+        fd = _secure_fs.open_private_file(schema_path, "x")
+        with os.fdopen(fd, "w", encoding="utf-8", newline="\n") as stream:
             stream.write(_json(schema))
-        command = _command(codex_binary, model, effort, schema_path, mcp_command, mcp_args)
+        launcher = codex_launcher(codex_binary)
+        command = _command(
+            launcher, model, effort, schema_path, mcp_command, mcp_args, approved_tools
+        )
         started = time.perf_counter()
         stdout, stderr, returncode, reason, status = None, None, None, None, "failed"
         try:
@@ -367,7 +431,7 @@ def _invoke(
             reason = "cli_launch_failed"
         elapsed = time.perf_counter() - started
         log_failures = _write_private_streams(streams, stdout, stderr)
-    output, reported, unexpected, parse_reason = _parse(
+    output, reported, unexpected, parse_reason, notices = _parse(
         stdout, "jev_eval" if mcp_command is not None else None
     )
     interrupted = status == "interrupted" or returncode is None or bool(returncode)
@@ -390,6 +454,7 @@ def _invoke(
         "reported_terminal_usage": reported,
         "whole_process_seconds": elapsed,
         "unexpected_item_count": unexpected,
+        "pre_turn_cli_notices": notices,
         "cli_returncode": returncode,
         "automatic_retry": False,
         **({"private_log_failures": log_failures} if log_failures else {}),
@@ -458,6 +523,7 @@ def run_mcp_session(
     runner=None,
     private_events_path=None,
     private_diagnostics_path=None,
+    approved_tools=(),
 ):
     """One complete CLI turn with only the caller's configured jev_eval MCP server.
 
@@ -465,6 +531,7 @@ def run_mcp_session(
     budgets and verifies saved artifacts. Final JSON is parsed, not locally schema-
     validated; output_schema is sent to Codex. No task-success or resolved-model claim.
     Optional private log paths retain raw stdout/stderr at 0600; never publish those logs.
+    approved_tools names the owned synthetic server's tools that run without a prompt.
     """
     if (
         type(prompt) is not str
@@ -473,6 +540,10 @@ def run_mcp_session(
         or not mcp_command
         or type(mcp_args) is not list
         or any(type(arg) is not str for arg in mcp_args)
+        or isinstance(approved_tools, str)
+        or any(
+            type(name) is not str or not name.replace("_", "").isalnum() for name in approved_tools
+        )
     ):
         raise ValueError("invalid_mcp_session_configuration")
     packet = _invoke(
@@ -488,6 +559,7 @@ def run_mcp_session(
         mcp_args=mcp_args,
         private_events_path=private_events_path,
         private_diagnostics_path=private_diagnostics_path,
+        approved_tools=tuple(approved_tools),
     )
     packet["mode"] = "primary_mcp_session"
     packet["completion_scope"] = "cli_process_not_task_artifact"

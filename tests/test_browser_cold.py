@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 
 import pytest
+from platform_support import WINDOWS, make_junction
 
 
 @pytest.fixture
@@ -232,8 +233,13 @@ def test_idle_health_needs_explicit_headless_config_and_live_humanize_after_open
     result = browser.check_camofox(headless_config=config)
     assert "do_not_return" not in json.dumps(result)
     assert result["headless_evidence"]["interactive"] == "off"
+    unhumanized = {"passed": False, "problems": ["humanized_pointer_not_observed"]}
     with pytest.raises(RuntimeError, match="humanize"):
-        browser.check_camofox(headless_config=config, require_running=True)
+        browser.check_camofox(
+            headless_config=config,
+            require_running=True,
+            runtime=lambda base, session: unhumanized,
+        )
 
 
 def test_surface_response_parent_replacement_cannot_write_outside_owned_ipc(browser, tmp_path):
@@ -244,10 +250,13 @@ def test_surface_response_parent_replacement_cannot_write_outside_owned_ipc(brow
     bridge = browser.SurfaceBridge(root, broker_for(browser))
     original = root / "original-responses"
     (root / "responses").rename(original)
-    (root / "responses").symlink_to(outside, target_is_directory=True)
+    if WINDOWS:
+        make_junction(root / "responses", outside)
+    else:
+        (root / "responses").symlink_to(outside, target_is_directory=True)
     identifier = "c" * 32
     (root / "requests" / (identifier + ".json")).write_text(
-        json.dumps({"id": identifier, "op": "observe", "args": {}})
+        json.dumps({"id": identifier, "op": "observe", "args": {}}), newline="\n"
     )
     bridge.start()
     deadline = time.monotonic() + 2
