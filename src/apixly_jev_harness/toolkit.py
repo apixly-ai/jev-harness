@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 
 from . import _secure_fs
+from .backend import DEFAULT_MODEL, validate_model
 from .engine import Workflow
 from .task import Option, Parameter, Task
 
@@ -460,6 +461,7 @@ class ToolkitSession:
         max_steps=20,
         timeout_seconds=120,
         archive=None,
+        model=DEFAULT_MODEL,
     ):
         import time
 
@@ -467,6 +469,7 @@ class ToolkitSession:
 
         if not isinstance(task, (Task, TaskScript)):
             raise TypeError("registered_task_required")
+        self.model = validate_model(model)
         self.report_tool_advertised = isinstance(task, (EvidenceTask, TaskScript))
         self.ctx, _ = validate_run_options(
             goal=goal,
@@ -680,7 +683,7 @@ class ToolkitSession:
         self._delegated = True
         self.events.append({"route": "jev"})
         delegated = _DelegatedWorkflow(self)
-        result = AgentLoop().run(
+        result = AgentLoop(model=self.model).run(
             delegated,
             goal=self.ctx.goal,
             inputs=self.ctx.inputs,

@@ -1,0 +1,4874 @@
+{
+  "mode": "live-paired-models",
+  "status": "completed",
+  "models": [
+    "jev-1.13.0",
+    "jev-1.14.0"
+  ],
+  "repeats": 3,
+  "planned_probes": 78,
+  "reproduction": "python benchmarks/model_pair.py --live --output local-results/model-pair.json",
+  "scope": "Same harness code and floors; arms differ only in the requested model. Six development next-tool cases in both orders plus one two-stage counter task per repeat, model order alternated. Synthetic, saturated on the earlier model; no held-out, calibration or browser/desktop claim.",
+  "cost_conversion": "Actual resolved model and provider token usage, not invoice amounts. Unknown attempts remain unknown, not zero.",
+  "rows": [
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5390738330315799,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5294314590282738,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4637677501887083,
+      "request_bytes": 3737,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1234,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1234,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46592041687108576,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c2",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.6094094999134541,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c2",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4602328329347074,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c0",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.45262083294801414,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c0",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.43117304192855954,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c0",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4517905409447849,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c0",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.45616575004532933,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c2",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4975354999769479,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c2",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5101927081122994,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.44127124990336597,
+      "request_bytes": 3753,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1292,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1292,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5445612501353025,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.44138962496072054,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4850210421718657,
+      "request_bytes": 3753,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1292,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1292,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c0",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.45657745795324445,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c0",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4467567920219153,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c2",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.44752179202623665,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c2",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.432692457921803,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c2",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.47948908410035074,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1240,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1240,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c2",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4600293750409037,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c0",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5478462500032037,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1240,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1240,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 0
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c0",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46230966690927744,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 0
+    },
+    {
+      "probe": "counter",
+      "model_requested": "jev-1.13.0",
+      "status": "done",
+      "complete": true,
+      "steps": 2,
+      "amounts": [
+        2,
+        1
+      ],
+      "fewest_calls": true,
+      "calls": [
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c0",
+          "top_probability": 1.0,
+          "margin": 1.0,
+          "confidence": 1.0,
+          "probabilities": {
+            "c0": 1.0,
+            "c1": 0.0,
+            "c2": 0.0,
+            "c3": 0.0,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1011,
+            "output_tokens": 65
+          }
+        },
+        {
+          "stage": "parameter_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c1",
+          "top_probability": 0.76,
+          "margin": 0.64,
+          "confidence": 0.68,
+          "probabilities": {
+            "c0": 0.12,
+            "c1": 0.76,
+            "NONE": 0.06,
+            "REVIEW": 0.06
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 786,
+            "output_tokens": 49
+          }
+        },
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c0",
+          "top_probability": 0.97,
+          "margin": 0.95,
+          "confidence": 0.96,
+          "probabilities": {
+            "c0": 0.97,
+            "c1": 0.0,
+            "c2": 0.02,
+            "c3": 0.01,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1055,
+            "output_tokens": 65
+          }
+        }
+      ],
+      "usage_complete": true,
+      "whole_operation_seconds": 1.1636279590893537,
+      "repeat": 0
+    },
+    {
+      "probe": "counter",
+      "model_requested": "jev-1.14.0",
+      "status": "done",
+      "complete": true,
+      "steps": 2,
+      "amounts": [
+        2,
+        1
+      ],
+      "fewest_calls": true,
+      "calls": [
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c0",
+          "top_probability": 1.0,
+          "margin": 1.0,
+          "confidence": 1.0,
+          "probabilities": {
+            "c0": 1.0,
+            "c1": 0.0,
+            "c2": 0.0,
+            "c3": 0.0,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1012,
+            "output_tokens": 65
+          }
+        },
+        {
+          "stage": "parameter_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c1",
+          "top_probability": 0.57,
+          "margin": 0.31999999999999995,
+          "confidence": 0.43,
+          "probabilities": {
+            "c0": 0.09,
+            "c1": 0.57,
+            "NONE": 0.09,
+            "REVIEW": 0.25
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 787,
+            "output_tokens": 49
+          }
+        },
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c0",
+          "top_probability": 0.98,
+          "margin": 0.97,
+          "confidence": 0.98,
+          "probabilities": {
+            "c0": 0.98,
+            "c1": 0.0,
+            "c2": 0.01,
+            "c3": 0.01,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1056,
+            "output_tokens": 65
+          }
+        }
+      ],
+      "usage_complete": true,
+      "whole_operation_seconds": 1.0813989590387791,
+      "repeat": 0
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.45232587517239153,
+      "request_bytes": 3737,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1234,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1234,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4532860000617802,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.47357116686180234,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.43629675009287894,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c2",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4312730000820011,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c2",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 0.99,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 0.99,
+          "c3": 0.0,
+          "c4": 0.01,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.43454400007613003,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1430,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c0",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.45573008293285966,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c0",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.44586829212494195,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c0",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 0.99,
+        "probabilities": {
+          "c0": 0.99,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.01,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.44641679082997143,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c0",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.44445037515833974,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c2",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46256062504835427,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c2",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4811019580811262,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.43776287510991096,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.482829166110605,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5652601250912994,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5113862501457334,
+      "request_bytes": 3752,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1291,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1291,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c0",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5287342499941587,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c0",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4435115419328213,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c2",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5565037080086768,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c2",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.498762666946277,
+      "request_bytes": 3568,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1197,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1197,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c2",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4608977499883622,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c2",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46863649995066226,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c0",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46066229115240276,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 1
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c0",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5140952081419528,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 1
+    },
+    {
+      "probe": "counter",
+      "model_requested": "jev-1.14.0",
+      "status": "needs_review",
+      "complete": false,
+      "steps": 0,
+      "amounts": [],
+      "fewest_calls": false,
+      "calls": [
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c0",
+          "top_probability": 1.0,
+          "margin": 1.0,
+          "confidence": 1.0,
+          "probabilities": {
+            "c0": 1.0,
+            "c1": 0.0,
+            "c2": 0.0,
+            "c3": 0.0,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1012,
+            "output_tokens": 65
+          }
+        },
+        {
+          "stage": "parameter_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c1",
+          "top_probability": 0.51,
+          "margin": 0.24,
+          "confidence": 0.35,
+          "probabilities": {
+            "c0": 0.13,
+            "c1": 0.51,
+            "NONE": 0.09,
+            "REVIEW": 0.27
+          },
+          "review_reasons": [
+            {
+              "reason": "below_min_top_probability",
+              "actual": 0.51,
+              "threshold": 0.55
+            }
+          ],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 787,
+            "output_tokens": 49
+          }
+        }
+      ],
+      "usage_complete": true,
+      "whole_operation_seconds": 0.7576772498432547,
+      "repeat": 1
+    },
+    {
+      "probe": "counter",
+      "model_requested": "jev-1.13.0",
+      "status": "done",
+      "complete": true,
+      "steps": 2,
+      "amounts": [
+        2,
+        1
+      ],
+      "fewest_calls": true,
+      "calls": [
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c0",
+          "top_probability": 1.0,
+          "margin": 1.0,
+          "confidence": 1.0,
+          "probabilities": {
+            "c0": 1.0,
+            "c1": 0.0,
+            "c2": 0.0,
+            "c3": 0.0,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1012,
+            "output_tokens": 65
+          }
+        },
+        {
+          "stage": "parameter_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c1",
+          "top_probability": 0.65,
+          "margin": 0.44000000000000006,
+          "confidence": 0.53,
+          "probabilities": {
+            "c0": 0.21,
+            "c1": 0.65,
+            "NONE": 0.07,
+            "REVIEW": 0.07
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 787,
+            "output_tokens": 49
+          }
+        },
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c0",
+          "top_probability": 0.96,
+          "margin": 0.9299999999999999,
+          "confidence": 0.95,
+          "probabilities": {
+            "c0": 0.96,
+            "c1": 0.0,
+            "c2": 0.03,
+            "c3": 0.01,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1056,
+            "output_tokens": 65
+          }
+        }
+      ],
+      "usage_complete": true,
+      "whole_operation_seconds": 1.1171409578528255,
+      "repeat": 1
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46256262506358325,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4685473751742393,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4620892498642206,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "artifact_integrity_before_handoff",
+      "family": "synthetic_artifact_handoff",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "artifact.verify_digest",
+      "raw_choice": "c1",
+      "raw_selected_id": "artifact.verify_digest",
+      "raw_choice_expected": true,
+      "admitted_id": "artifact.verify_digest",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5262877910863608,
+      "request_bytes": 3738,
+      "returned_context_bytes": 1424,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1235,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1235,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c2",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 0.99,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 0.99,
+          "c3": 0.0,
+          "c4": 0.01,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46906733396463096,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1429,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c2",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4281292920932174,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c0",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.49875770788639784,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "record_provenance_before_approval",
+      "family": "structured_record_review",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "record.reconcile",
+      "raw_choice": "c0",
+      "raw_selected_id": "record.reconcile",
+      "raw_choice_expected": true,
+      "admitted_id": "record.reconcile",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.43477287515997887,
+      "request_bytes": 3725,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1205,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1205,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c0",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5597950420342386,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c0",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4467723751440644,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c2",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5643477921839803,
+      "request_bytes": 3762,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1239,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1239,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "pipeline_compute_before_format",
+      "family": "calculation_dependency_pipeline",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "pipeline.compute",
+      "raw_choice": "c2",
+      "raw_selected_id": "pipeline.compute",
+      "raw_choice_expected": true,
+      "admitted_id": "pipeline.compute",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4620559171307832,
+      "request_bytes": 3764,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4737100419588387,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4879436669871211,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.42264141608029604,
+      "request_bytes": 3754,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1293,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1293,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "query_evidence_identifies_next_read",
+      "family": "read_only_evidence_progress",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "job.read_stage_log",
+      "raw_choice": "c1",
+      "raw_selected_id": "job.read_stage_log",
+      "raw_choice_expected": true,
+      "admitted_id": "job.read_stage_log",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c1",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 1.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.48198649985715747,
+      "request_bytes": 3753,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1292,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1292,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c0",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.5947014580015093,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1425,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c0",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.43050933303311467,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c2",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4288973747752607,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "browser_required_name_before_submit",
+      "family": "synthetic_browser_form_precondition",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "form.fill_name",
+      "raw_choice": "c2",
+      "raw_selected_id": "form.fill_name",
+      "raw_choice_expected": true,
+      "admitted_id": "form.fill_name",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.48929325002245605,
+      "request_bytes": 3570,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1199,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1199,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c2",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4423274591099471,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "original",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c2",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c2",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 0.0,
+          "c1": 0.0,
+          "c2": 1.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.4498233338817954,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1426,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c0",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.13.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.47452979208901525,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1428,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.13.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.13.0",
+      "repeat": 2
+    },
+    {
+      "case": "explicit_priority_over_candidate_order",
+      "family": "user_priority_not_listing_order",
+      "order": "reverse",
+      "runtime_version": "0.3.0",
+      "expected_id": "preview.set_title",
+      "raw_choice": "c0",
+      "raw_selected_id": "preview.set_title",
+      "raw_choice_expected": true,
+      "admitted_id": "preview.set_title",
+      "admitted_expected": true,
+      "status": "max_steps",
+      "reason": "decision_probe_no_execution",
+      "diagnostic": null,
+      "review_reasons": [],
+      "selection": {
+        "type": "choice",
+        "choice": "c0",
+        "confidence": 1.0,
+        "probabilities": {
+          "c0": 1.0,
+          "c1": 0.0,
+          "c2": 0.0,
+          "c3": 0.0,
+          "c4": 0.0,
+          "c5": 0.0,
+          "NONE": 0.0,
+          "REVIEW": 0.0
+        }
+      },
+      "provider_failure_codes": [],
+      "reported_model_resolved": "jev-1.14.0",
+      "protocol": {
+        "decision_stage": "tool_selection",
+        "next_step_question": true,
+        "assumed_form_rule": false,
+        "scope_correct": true
+      },
+      "intent_or_effect_events": 0,
+      "whole_operation_seconds": 0.46671170904301107,
+      "request_bytes": 3739,
+      "returned_context_bytes": 1427,
+      "actual_model_usage": {
+        "network_attempts": 1,
+        "models": {
+          "jev-1.14.0": {
+            "input_tokens": 1241,
+            "output_tokens": 81
+          }
+        },
+        "usage_complete": true,
+        "usage": {
+          "input_tokens": 1241,
+          "output_tokens": 81
+        }
+      },
+      "probe": "tool_choice",
+      "model_requested": "jev-1.14.0",
+      "repeat": 2
+    },
+    {
+      "probe": "counter",
+      "model_requested": "jev-1.13.0",
+      "status": "done",
+      "complete": true,
+      "steps": 2,
+      "amounts": [
+        2,
+        1
+      ],
+      "fewest_calls": true,
+      "calls": [
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c0",
+          "top_probability": 1.0,
+          "margin": 1.0,
+          "confidence": 1.0,
+          "probabilities": {
+            "c0": 1.0,
+            "c1": 0.0,
+            "c2": 0.0,
+            "c3": 0.0,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1012,
+            "output_tokens": 65
+          }
+        },
+        {
+          "stage": "parameter_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c1",
+          "top_probability": 0.75,
+          "margin": 0.62,
+          "confidence": 0.67,
+          "probabilities": {
+            "c0": 0.13,
+            "c1": 0.75,
+            "NONE": 0.06,
+            "REVIEW": 0.06
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 787,
+            "output_tokens": 49
+          }
+        },
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.13.0",
+          "choice": "c0",
+          "top_probability": 0.96,
+          "margin": 0.94,
+          "confidence": 0.95,
+          "probabilities": {
+            "c0": 0.96,
+            "c1": 0.01,
+            "c2": 0.02,
+            "c3": 0.01,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1056,
+            "output_tokens": 65
+          }
+        }
+      ],
+      "usage_complete": true,
+      "whole_operation_seconds": 1.1252557500265539,
+      "repeat": 2
+    },
+    {
+      "probe": "counter",
+      "model_requested": "jev-1.14.0",
+      "status": "done",
+      "complete": true,
+      "steps": 2,
+      "amounts": [
+        2,
+        1
+      ],
+      "fewest_calls": true,
+      "calls": [
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c0",
+          "top_probability": 1.0,
+          "margin": 1.0,
+          "confidence": 1.0,
+          "probabilities": {
+            "c0": 1.0,
+            "c1": 0.0,
+            "c2": 0.0,
+            "c3": 0.0,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1012,
+            "output_tokens": 65
+          }
+        },
+        {
+          "stage": "parameter_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c1",
+          "top_probability": 0.56,
+          "margin": 0.28,
+          "confidence": 0.41,
+          "probabilities": {
+            "c0": 0.08,
+            "c1": 0.56,
+            "NONE": 0.08,
+            "REVIEW": 0.28
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 787,
+            "output_tokens": 49
+          }
+        },
+        {
+          "stage": "tool_selection",
+          "model_resolved": "jev-1.14.0",
+          "choice": "c0",
+          "top_probability": 0.98,
+          "margin": 0.97,
+          "confidence": 0.98,
+          "probabilities": {
+            "c0": 0.98,
+            "c1": 0.0,
+            "c2": 0.01,
+            "c3": 0.01,
+            "NONE": 0.0,
+            "REVIEW": 0.0
+          },
+          "review_reasons": [],
+          "provider_failure_codes": [],
+          "usage": {
+            "input_tokens": 1054,
+            "output_tokens": 65
+          }
+        }
+      ],
+      "usage_complete": true,
+      "whole_operation_seconds": 1.0265061249956489,
+      "repeat": 2
+    }
+  ],
+  "pending": null,
+  "whole_benchmark_seconds": 41.0313046250958,
+  "summary": {
+    "jev-1.13.0": {
+      "tool_choice": {
+        "runs": 36,
+        "raw_choice_expected": 36,
+        "admitted_expected": 36,
+        "statuses": {
+          "max_steps": 36
+        },
+        "median_whole_operation_seconds": 0.46230827108956873
+      },
+      "counter": {
+        "runs": 3,
+        "complete": 3,
+        "fewest_calls": 3,
+        "decisions": 9
+      },
+      "gates": {
+        "decisions": 45,
+        "min_top_probability": 0.65,
+        "min_margin": 0.44000000000000006,
+        "review_reasons": {}
+      },
+      "resolved_models": [
+        "jev-1.13.0"
+      ],
+      "known_reported_usage_by_model": {
+        "jev-1.13.0": {
+          "input_tokens": 53043,
+          "output_tokens": 3453
+        }
+      },
+      "usage_complete": true
+    },
+    "jev-1.14.0": {
+      "tool_choice": {
+        "runs": 36,
+        "raw_choice_expected": 36,
+        "admitted_expected": 36,
+        "statuses": {
+          "max_steps": 36
+        },
+        "median_whole_operation_seconds": 0.46303870854899287
+      },
+      "counter": {
+        "runs": 3,
+        "complete": 2,
+        "fewest_calls": 2,
+        "decisions": 8
+      },
+      "gates": {
+        "decisions": 44,
+        "min_top_probability": 0.51,
+        "min_margin": 0.24,
+        "review_reasons": {
+          "below_min_top_probability": 1
+        }
+      },
+      "resolved_models": [
+        "jev-1.14.0"
+      ],
+      "known_reported_usage_by_model": {
+        "jev-1.14.0": {
+          "input_tokens": 51981,
+          "output_tokens": 3388
+        }
+      },
+      "usage_complete": true
+    }
+  }
+}

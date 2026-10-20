@@ -2,6 +2,18 @@
 
 [简体中文](README.zh-CN.md)
 
+## Jev 1.14.0 against 1.13.0 (2026-10-20)
+
+[Report](model-pair-2026-10-20.md) · [receipt](model-pair-2026-10-20.json) ·
+[development receipt](model-pair-2026-10-20-dev.json).
+On unchanged harness code, with only the requested model differing, Jev 1.14.0 (released
+2026-10-14; `jev-preview`) matched 1.13.0 (`jev-latest`) on **60 of 60 next-tool
+decisions** each. On a two-stage counter task it always ranked the correct parameter value
+first but with top probability 0.45–0.57 against the 0.55 floor tuned on 1.13.0
+(1.13.0: 0.65–0.76), so **3 of its 5 runs stopped for review** (1.13.0: 0 of 5). The default
+stays `jev-1.13.0`; select 1.14.0 explicitly with `--model` or `AgentLoop(model=...)`.
+Moving aliases are rejected. Synthetic development fixtures; no retuning measured.
+
 ## When a Claude primary delegates to Jev (2026-10-12)
 
 [Report](delegation-2026-10-12.md) · [receipts](delegation-2026-10-12.json).

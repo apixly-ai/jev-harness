@@ -69,7 +69,8 @@ the verifier receives all records after the real artifact matches current record
 Captured text and the session do not automatically resume in another process.
 
 For stdio MCP, use `python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...`
-with optional `--context`, `--max-steps`, `--timeout` and `--archive`. `observe` returns
+with optional `--context`, `--max-steps`, `--timeout`, `--archive` and `--model` (a
+versioned Jev ID; default `jev-1.13.0`). `observe` returns
 the current goal, tools, argument references, `state_ref` and delegation/artifact details.
 Advertised `arguments` and `operate` require that exact `state_ref`; supply parent option
 IDs to `arguments` before selecting dependent child IDs. `operate` accepts offered IDs,

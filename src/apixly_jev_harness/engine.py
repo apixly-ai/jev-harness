@@ -197,9 +197,14 @@ class Workflow:
 
 
 class Engine:
+    def __init__(self, *, model=backend.DEFAULT_MODEL):
+        self.model = backend.validate_model(model)
+
     def decide(self, records, *, goal, context=None, analysis_spec=None):
         """Filter/classify/select records using the existing typed analysis core."""
-        spec = analysis.validate({**(analysis_spec or {}), "context": context or {}})
+        # The backend names the default model; only a non-default choice joins the spec.
+        chosen = {} if self.model == backend.DEFAULT_MODEL else {"model": self.model}
+        spec = analysis.validate({**chosen, **(analysis_spec or {}), "context": context or {}})
         missing = missing_context(spec)
         if missing:
             return {

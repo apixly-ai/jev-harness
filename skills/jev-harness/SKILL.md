@@ -59,7 +59,8 @@ packs discover files/links, capture originals and offer bounded read references.
 owns the independent completion check. `check-task` is static syntax/export checking.
 
 Submit one authorized run with `--goal`, JSON `--inputs`, `--max-steps`, `--timeout` and a
-private `--archive`. Use caller-approved inference credentials. Explain what goal,
+private `--archive`. `--model` takes a versioned Jev ID (default `jev-1.13.0`); aliases
+are rejected. Use caller-approved inference credentials. Explain what goal,
 observation and tool/argument candidates Jev will receive before a live call.
 
 Alternatively expose the same task to an AI client:

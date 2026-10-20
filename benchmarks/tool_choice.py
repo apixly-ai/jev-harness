@@ -21,7 +21,7 @@ BASELINE = "b51614e8acfbac5a64bbad3c7da34a5a3698fa27"
 CASES = ROOT / "benchmarks/tool-choice-cases.json"
 
 
-def trial(case, reverse, archive, live):
+def trial(case, reverse, archive, live, model=None):
     from apixly_jev_harness import Action, AgentLoop, Workflow, __version__, backend
     from apixly_jev_harness.context import ContextPolicy
     from apixly_jev_harness.engine import DecisionStop
@@ -85,7 +85,8 @@ def trial(case, reverse, archive, live):
 
     started = time.perf_counter()
     with patch("apixly_jev_harness.backend.provider_evaluate", evaluate):
-        result = AgentLoop().run(
+        # Baseline sources predate model selection; only the model pair passes one.
+        result = AgentLoop(**({"model": model} if model else {})).run(
             Probe(),
             goal=case["goal"],
             context=case["facts"],
@@ -139,6 +140,7 @@ def trial(case, reverse, archive, live):
         "reason": result.get("reason"),
         "diagnostic": result.get("diagnostic"),
         "review_reasons": meta.get("selection_review_reasons", []),
+        "selection": meta.get("selection"),
         "provider_failure_codes": meta.get("provider_failure_codes", []),
         "reported_model_resolved": meta.get("model_resolved"),
         "protocol": {

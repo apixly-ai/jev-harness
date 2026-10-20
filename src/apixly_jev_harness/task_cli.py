@@ -12,6 +12,7 @@ from importlib.resources import files
 from pathlib import Path
 
 from . import __version__
+from .backend import DEFAULT_MODEL
 from .callbacks import (
     CALLBACK_CODES,
     CALLBACK_KINDS,
@@ -92,7 +93,7 @@ QUICKSTART = {
     "cli": {
         "init": "jev-harness init-task task.py --toolkit workspace",
         "check": "jev-harness check-task task.py",
-        "run": "jev-harness run task.py --goal GOAL --inputs JSON --max-steps 20 --timeout 120 --archive NEW_PATH",
+        "run": "jev-harness run task.py --goal GOAL --inputs JSON --max-steps 20 --timeout 120 --archive NEW_PATH [--model jev-1.14.0]",
         "mcp": "jev-harness mcp task.py --goal GOAL --inputs JSON --execution-name run_task",
         "detailed_protocol": "jev-harness spec",
     },
@@ -102,7 +103,8 @@ QUICKSTART = {
         "mcp_routes": "run_task performs the Jev loop; operate performs one registered effect. Choose before the first effect; read_report reads saved quotes after either route.",
         "failure": "Partial, review and uncertain outcomes are retained; no automatic effect retries.",
         "usage": "Jev inference is billable; actual or unknown model usage is retained. Primary model usage is separate.",
-        "price": "Published TypeSafe price (2026-10-12, docs.typesafe.ai/models): jev-1.13.0 $0.042 per million input tokens; output tokens free. Check the source before relying on it.",
+        "model": "Default jev-1.13.0 (stable). --model accepts versioned IDs such as jev-1.14.0 (released 2026-10-14 as jev-preview); moving aliases are rejected.",
+        "price": "Published TypeSafe price (2026-10-20, docs.typesafe.ai/models): jev-1.13.0 and jev-1.14.0 $0.042 per million input tokens; output tokens free. Check the source before relying on it.",
         "bounds": "Step and cooperative wall limits; caller callbacks bound their own I/O.",
     },
 }
@@ -173,6 +175,9 @@ def main(argv=None):
     run.add_argument("--max-steps", type=int, default=20)
     run.add_argument("--timeout", type=float, default=120)
     run.add_argument("--archive", help="New private journal path; never overwritten")
+    run.add_argument(
+        "--model", default=DEFAULT_MODEL, help="Versioned Jev model ID; aliases are rejected"
+    )
     try:
         args = parser.parse_args(argv)
     except _CLIArgumentError:
@@ -269,6 +274,7 @@ def main(argv=None):
                 max_steps=args.max_steps,
                 timeout_seconds=args.timeout,
             )
+            loop = AgentLoop(model=args.model)
             phase = "script_loading"
         path = Path(args.script).expanduser().resolve(strict=args.command == "run")
         if args.command == "init-task":
@@ -294,7 +300,7 @@ def main(argv=None):
                     workflow = getattr(module, "workflow", None)
                     if not isinstance(workflow, Workflow):
                         raise ValueError("script_must_export_workflow")
-                    packet = AgentLoop().run(
+                    packet = loop.run(
                         workflow,
                         goal=args.goal,
                         inputs=admitted.inputs,
@@ -406,6 +412,7 @@ SPEC = {
                 "archive",
                 "direct-only",
                 "execution-name",
+                "model",
             ],
             "transport": "stdio_json_rpc",
             "task_source": "caller_trusted_script",
@@ -474,7 +481,15 @@ SPEC = {
                 "max-steps",
                 "timeout",
                 "archive",
+                "model",
             ],
+            "model": {
+                "default": DEFAULT_MODEL,
+                "accepted": "versioned Jev model ID jev-MAJOR.MINOR.PATCH",
+                "moving_aliases_accepted": False,
+                "reason": "hosted uncertainty floors are tuned per version; an alias can move",
+                "telemetry": ["model_requested", "model_resolved"],
+            },
         },
     },
     "script_contract": {

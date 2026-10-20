@@ -333,6 +333,14 @@ single-decision cases with normal and reversed candidate order. The probe stops 
 intent, so these reports cannot prove full-task, browser or desktop completion. Read the
 reports for measured outcomes and usage; no general quality or cost benefit is established.
 
+The harness pins a versioned Jev model. The default is `jev-1.13.0`, the stable release
+that `jev-latest` points to and the one the uncertainty floors were tuned on. Select another
+versioned ID with `AgentLoop(model=...)`, `Engine(model=...)`, `ToolkitSession(model=...)`
+or `--model` on `run` and `mcp`; moving aliases (`jev-latest`, `jev-preview`) are rejected
+before any call. In a [paired live probe](reports/model-pair-2026-10-20.md), Jev 1.14.0
+(released 2026-10-14) matched 1.13.0 on 60 of 60 next-tool decisions, but its correct
+parameter choices fell below the unchanged 0.55 floor in 3 of 5 runs, so the default stays.
+
 A live Jev/Camofox synthetic form reached the independently checked final state in
 four tool executions. Early attempts requiring review are retained. In a 2026-10-12
 browser cold start, a Claude primary chose direct operation both without and with an

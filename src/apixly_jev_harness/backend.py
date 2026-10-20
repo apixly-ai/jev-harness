@@ -1,5 +1,6 @@
 """Native Choice backend on the public Jev Filter typed-batch API."""
 
+import re
 from contextvars import ContextVar
 from functools import wraps
 
@@ -10,6 +11,8 @@ from jev_filter.batch import run as native_run
 
 from .diagnostics import PLANNING_STATUS_CODES, provider_failure_code
 
+# Stable release (jev-latest on 2026-10-20); the hosted uncertainty floors were tuned on it.
+DEFAULT_MODEL = "jev-1.13.0"
 _ACTIVE = ContextVar("apixly_jev_harness_transport", default=None)
 _COUNTER_FIELDS = {
     "requests": "request_attempts",
@@ -32,6 +35,13 @@ def _client_counters(client):
     except Exception:
         # Instrumentation failures must not change a task's terminal status or expose text.
         return dict.fromkeys(_COUNTER_FIELDS)
+
+
+def validate_model(model):
+    """Admit a versioned Jev ID only: a moving alias can change answers under tuned floors."""
+    if not isinstance(model, str) or not re.fullmatch(r"jev-[0-9]+\.[0-9]+\.[0-9]+", model):
+        raise ValueError("versioned_jev_model_required")
+    return model
 
 
 def owned_transport():
@@ -125,6 +135,8 @@ def session_run(function):
 
 
 def evaluate(parts, task, workers, spec):
+    # Name the pinned default here rather than inherit the dependency's own default.
+    spec = {"model": DEFAULT_MODEL, **spec}
     if spec.get("mode") != "choose":
         return core.evaluate(parts, task, workers, spec)
     planned = core.plan(parts, task, spec)
@@ -246,7 +258,7 @@ def evaluate(parts, task, workers, spec):
         telemetry["usage"] = None
     telemetry.update(
         selection=answer,
-        model_requested=spec.get("model", "jev-1.13.0"),
+        model_requested=spec["model"],
         model_resolved=model,
         models={model: result.get("usage")} if model and result.get("usage_complete") else {},
         selection_review_reasons=reasons,

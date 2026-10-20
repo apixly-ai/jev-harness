@@ -273,6 +273,7 @@ def main(argv=None):
     import importlib.util
     from pathlib import Path
 
+    from .backend import DEFAULT_MODEL, validate_model
     from .engine import validate_run_options
     from .task_cli import _ArgumentParser, _CLIArgumentError
     from .toolkit import ToolkitSession
@@ -287,11 +288,13 @@ def main(argv=None):
     parser.add_argument("--archive")
     parser.add_argument("--direct-only", action="store_true")
     parser.add_argument("--execution-name", default="run_task")
+    parser.add_argument("--model", default=DEFAULT_MODEL)
     phase = "configuration"
     session = None
     try:
         args = parser.parse_args(argv)
         validate_execution_name(args.execution_name)
+        validate_model(args.model)
         inputs, context = json.loads(args.inputs), json.loads(args.context)
         if type(inputs) is not dict or type(context) is not dict:
             raise ValueError("json_objects_required")
@@ -326,6 +329,7 @@ def main(argv=None):
                 max_steps=args.max_steps,
                 timeout_seconds=args.timeout,
                 archive=args.archive,
+                model=args.model,
             )
         phase = "serving"
         serve(session, allow_delegate=not args.direct_only, execution_name=args.execution_name)

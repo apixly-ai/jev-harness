@@ -65,7 +65,8 @@ TaskScript(build) 根据已校验的 ctx.inputs 构建一次注册任务，这�
 matches_records/record_count/sha256/sources。采集文本和 session 不自动跨进程续接。
 
 stdio MCP 使用 python -m apixly_jev_harness.mcp task.py --goal ... --inputs ...，可加
---context、--max-steps、--timeout、--archive。observe 返回当前目标、工具、参数引用、
+--context、--max-steps、--timeout、--archive、--model（带版本号的 Jev ID，默认
+jev-1.13.0）。observe 返回当前目标、工具、参数引用、
 state_ref 及委托/产物详情。广告的 arguments/operate 必须带这个 state_ref；先给
 arguments 父 option ID，再选依赖子 ID。operate 接受已提供 ID，不接受任意绑定值。
 一个 session 内顺序操作。既有 Python 方法的 state_ref 参数保持可选兼容，MCP 客户端必传。
