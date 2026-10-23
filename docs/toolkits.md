@@ -125,6 +125,20 @@ python -m apixly_jev_harness.mcp examples/workspace_task.py --goal 'Investigate 
 | `run_task` | Hand the registered task to the Jev loop within the session budget |
 | `read_report` | Read a saved, matching evidence report in pages of up to four original quotes; no tool effects or inference |
 
+Every advertised tool declares all four boolean [MCP annotation hints](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations).
+`observe` and `arguments` invoke caller-owned observation, preparation, verification or
+candidate callbacks, which can perform I/O and change state. Like `operate` and `run_task`,
+they therefore use conservative hints: `readOnlyHint: false`, `destructiveHint: true`,
+`idempotentHint: false`, `openWorldHint: true`. This describes possible behavior of the
+generic callback contract, not a claim that every inspection performs a destructive action.
+`read_report` only checks and reads the already saved local report; its hints are
+`true`, `false`, `true`, `false`, respectively. Hints do not authorize an action or replace
+freshness, permissions, irreversible-action gates or independent completion checks.
+The list contains three to five tools: `--direct-only` omits the execution tool, and
+report reads are advertised only for evidence tasks or lazy task scripts.
+The [fixed synthetic stdio A/B](../reports/mcp-annotations-ab.json) checks listing hints,
+callback/effect parity and local protocol bytes without model calls; it is not a security audit.
+
 For a dependent tool, call `arguments` with the tool name and already selected parent
 reference IDs; choose a child from the returned domain. `operate` requires all parameter
 IDs from the current offer. Advertised MCP `arguments` and `operate` also require the

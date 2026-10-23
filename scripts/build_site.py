@@ -595,6 +595,7 @@ def main():
         "toolkit-protocol-ab.json",
         "lazy-delegation-live.json",
         "delegation-lifecycle-ab.json",
+        "mcp-annotations-ab.json",
         "geo-bilingual-2026-10-11.json",
         "browser-cold-2026-10-12.json",
         "delegation-2026-10-12.json",
