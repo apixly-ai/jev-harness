@@ -123,6 +123,8 @@ session; arguments and operations carry the current `observe.state_ref` and run 
 sequence. See the [interface contract](docs/agent-contract.md#toolkit-and-mcp-interface)
 and [acceptance evidence](reports/README.md).
 
+See the [Glama directory](https://glama.ai/mcp/servers/apixly-ai/jev-harness) for tool schemas and installation details.
+
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
 `script_loaded: false` and `model_calls: 0`. Raw argument values, detailed error text and

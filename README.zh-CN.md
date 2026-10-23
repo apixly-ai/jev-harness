@@ -111,6 +111,8 @@ Marker 检查演示接入点，业务正确性由调用方 verifier 负责。
 [接口契约](docs/agent-contract.zh-CN.md#toolkit-and-mcp-interface)与
 [验收证据](reports/README.zh-CN.md)。
 
+可在 [Glama 目录](https://glama.ai/mcp/servers/apixly-ai/jev-harness) 查看工具 schema 与安装资料。
+
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
 script_loaded: false、model_calls: 0。不输出参数原值、详细错误或 usage；应参考
