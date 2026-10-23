@@ -40,6 +40,7 @@ jobs:
       - run: python benchmarks/toolkit_protocol.py --output local-results/toolkit-protocol-ab.json
       - run: python benchmarks/delegation_lifecycle.py --output local-results/delegation-lifecycle-ab.json
       - run: python benchmarks/handoff_context.py --output local-results/handoff-context-ab.json
+      - run: python benchmarks/mcp_annotations.py --output local-results/mcp-annotations-ab.json
       - run: python -m build
       - run: python scripts/check_public.py
       - run: python scripts/build_site.py

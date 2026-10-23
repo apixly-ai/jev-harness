@@ -1,0 +1,3013 @@
+{
+  "mode": "offline-synthetic-real-stdio-mcp-annotations",
+  "baseline_commit": "f667e102c568b3b555e87217b9a40371587cb361",
+  "mcp_source_sha256": {
+    "baseline": "94d29f307121de2b681527faf1941a68167e2e3f35f4094e83689a3d424b52df",
+    "candidate": "8d3a2e39b4570314a400da40d86cd59806e2322e416853aaa2984ccf7b4982c5"
+  },
+  "runner_sha256": "2916e1fc07d55874b5a6f9e00f4c7273b8bbf011fc92556f7f08bb76fd2b3d17",
+  "python_version": "3.14.2",
+  "expected_behavior": {
+    "plain_direct": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    },
+    "plain_default": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    },
+    "lazy_default": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    },
+    "lazy_direct": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    },
+    "lazy_named": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    },
+    "callback_reads": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    },
+    "direct_effect": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1
+    },
+    "irreversible_gate": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2
+    },
+    "saved_report": {
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0
+    }
+  },
+  "reproduction": "python benchmarks/mcp_annotations.py --output local-results/mcp-annotations-ab.json",
+  "scope": "Nine fixed synthetic stdio sessions, three paired repeats by default with alternating arm order. Covers plain/lazy, direct-only/delegation, renamed execution discovery, callback reads, direct effects with stale retry, irreversible authorization denial and repeated saved-report reads. run_task is listed but never invoked; no inference quality or live caller callbacks are measured.",
+  "negative_results": "Explicit hints add returned bytes and local metadata-copy work. No speed, security-score or fee improvement is claimed. Callback-capable tools retain conservative MCP default values; only saved-report reads are declared read-only. Annotation hints do not authorize execution. Report reads include a fixture setup write in both arms, separately counted.",
+  "cost_conversion": "No tariff conversion or savings assumed. Actual model usage is zero only for these guarded offline sessions when no inference/network guard fires; this says nothing about live or previous unknown usage. Whole-operation timing includes process startup, imports, fixture setup, all stdio requests, output and exit/count flush; it excludes Git snapshot extraction and final report aggregation. Returned bytes are complete UTF-8 protocol stdout, not provider token estimates.",
+  "action_and_protocol_parity": true,
+  "summary": {
+    "baseline": {
+      "runs": 27,
+      "behavior_passes": 27,
+      "annotation_contract_passes": 0,
+      "effects": 3,
+      "inference_attempts": 0,
+      "network_attempts": 0,
+      "returned_context_bytes": 117834,
+      "median_whole_operation_seconds": 0.1022192919626832
+    },
+    "candidate": {
+      "runs": 27,
+      "behavior_passes": 27,
+      "annotation_contract_passes": 27,
+      "effects": 3,
+      "inference_attempts": 0,
+      "network_attempts": 0,
+      "returned_context_bytes": 130716,
+      "median_whole_operation_seconds": 0.10226779198274016
+    }
+  },
+  "rows": [
+    {
+      "arm": "baseline",
+      "case": "plain_direct",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "c5470c25bfbe3de0ed288bdf0d64332573e696959f5587d29ac01d77a88c0668",
+      "fixture_sha256": "fce08b4843d2a8b2873dcc8a70d3d021872f3dc56d6fbc2205ed093361f0652c",
+      "input_bytes": 162,
+      "returned_context_bytes": 1533,
+      "whole_operation_seconds": 0.11040145898004994,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "plain_direct",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "c5470c25bfbe3de0ed288bdf0d64332573e696959f5587d29ac01d77a88c0668",
+      "fixture_sha256": "fce08b4843d2a8b2873dcc8a70d3d021872f3dc56d6fbc2205ed093361f0652c",
+      "input_bytes": 162,
+      "returned_context_bytes": 1872,
+      "whole_operation_seconds": 0.10851616703439504,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "plain_default",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "cc3537a8977bf83d2877bf92eb68a9065a8654a39f57a7dc8300590d8d74e3fd",
+      "fixture_sha256": "b8801018937b728ccb527da7aca592ada0c36087be15e5fbe8fd4d0e1ed2a242",
+      "input_bytes": 162,
+      "returned_context_bytes": 3458,
+      "whole_operation_seconds": 0.10789237497374415,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "plain_default",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "cc3537a8977bf83d2877bf92eb68a9065a8654a39f57a7dc8300590d8d74e3fd",
+      "fixture_sha256": "b8801018937b728ccb527da7aca592ada0c36087be15e5fbe8fd4d0e1ed2a242",
+      "input_bytes": 162,
+      "returned_context_bytes": 3910,
+      "whole_operation_seconds": 0.10066175000974908,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_default",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "9673b0d093c900fc8e55f31fe6952424155ce264f69dcadb6dfaedc0f2bedf65",
+      "fixture_sha256": "3d5f295ae204f0349655934d6d4c0ec6501eb889833017d511deca8207db0120",
+      "input_bytes": 162,
+      "returned_context_bytes": 3927,
+      "whole_operation_seconds": 0.09870450000744313,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_default",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "9673b0d093c900fc8e55f31fe6952424155ce264f69dcadb6dfaedc0f2bedf65",
+      "fixture_sha256": "3d5f295ae204f0349655934d6d4c0ec6501eb889833017d511deca8207db0120",
+      "input_bytes": 162,
+      "returned_context_bytes": 4492,
+      "whole_operation_seconds": 0.09427766600856557,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_direct",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "1ef63501328b9f3896dba70235acdd77deb770ab4665374815a6f166a992895a",
+      "fixture_sha256": "a298160f9fea78154d92764956fa92acb031fabfd0051c4d925bee77b8991274",
+      "input_bytes": 162,
+      "returned_context_bytes": 2002,
+      "whole_operation_seconds": 0.09500766603741795,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_direct",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "1ef63501328b9f3896dba70235acdd77deb770ab4665374815a6f166a992895a",
+      "fixture_sha256": "a298160f9fea78154d92764956fa92acb031fabfd0051c4d925bee77b8991274",
+      "input_bytes": 162,
+      "returned_context_bytes": 2454,
+      "whole_operation_seconds": 0.0976731670089066,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_named",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "collect_evidence": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "d9b326b17e670b60371e9bd19f002c884e95ab46f4db5b021faa3f472efe3ec2",
+      "fixture_sha256": "937396060013e6b395b6447cc85687a876d2ed92abc9f7bec2c83ca467361994",
+      "input_bytes": 162,
+      "returned_context_bytes": 3943,
+      "whole_operation_seconds": 0.09456983301788568,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_named",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "collect_evidence": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "d9b326b17e670b60371e9bd19f002c884e95ab46f4db5b021faa3f472efe3ec2",
+      "fixture_sha256": "937396060013e6b395b6447cc85687a876d2ed92abc9f7bec2c83ca467361994",
+      "input_bytes": 162,
+      "returned_context_bytes": 4508,
+      "whole_operation_seconds": 0.0980460419668816,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "callback_reads",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "27c9715d6420093ec6dec78e8fb74aed3b1bf2cb4cb5831b488151645a7a7ea4",
+      "fixture_sha256": "e08dd8e7d5e7f90833aff03801cf735db6c9078a0a201d80ff0121e8d3cd8fa7",
+      "input_bytes": 726,
+      "returned_context_bytes": 7170,
+      "whole_operation_seconds": 0.11244120803894475,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "callback_reads",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "27c9715d6420093ec6dec78e8fb74aed3b1bf2cb4cb5831b488151645a7a7ea4",
+      "fixture_sha256": "e08dd8e7d5e7f90833aff03801cf735db6c9078a0a201d80ff0121e8d3cd8fa7",
+      "input_bytes": 726,
+      "returned_context_bytes": 7622,
+      "whole_operation_seconds": 0.09847379196435213,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "direct_effect",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "297d7a50d63a0381545cc7eeadd538c4f512afb0fa98578e6078c5ae49aad774",
+      "fixture_sha256": "02e63de9978dff8bafbb78ad95c3f1e95d48117e3599cf95a840ae01e51bd441",
+      "input_bytes": 670,
+      "returned_context_bytes": 6134,
+      "whole_operation_seconds": 0.10065699997358024,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "direct_effect",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "297d7a50d63a0381545cc7eeadd538c4f512afb0fa98578e6078c5ae49aad774",
+      "fixture_sha256": "02e63de9978dff8bafbb78ad95c3f1e95d48117e3599cf95a840ae01e51bd441",
+      "input_bytes": 670,
+      "returned_context_bytes": 6586,
+      "whole_operation_seconds": 0.10020629200153053,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "irreversible_gate",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "918136b7f3ce9882e6ebee6ca457fbf79528d7f1bf0afd75a599935f2262ca71",
+      "fixture_sha256": "d231030897d812a609b8922f7d8788e979f23c9efbd0443613cebe1625bdee9d",
+      "input_bytes": 670,
+      "returned_context_bytes": 5264,
+      "whole_operation_seconds": 0.09991920896572992,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "irreversible_gate",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "918136b7f3ce9882e6ebee6ca457fbf79528d7f1bf0afd75a599935f2262ca71",
+      "fixture_sha256": "d231030897d812a609b8922f7d8788e979f23c9efbd0443613cebe1625bdee9d",
+      "input_bytes": 670,
+      "returned_context_bytes": 5716,
+      "whole_operation_seconds": 0.10340920800808817,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "saved_report",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "ee42b543849a0a2056e5347907145122c4e83bbadd9b82d7bad65818197013c1",
+      "fixture_sha256": "0010aafd480583d4bce6369ff319fed60156f30b076c5a07eb0ba41d36234378",
+      "input_bytes": 352,
+      "returned_context_bytes": 5847,
+      "whole_operation_seconds": 0.0996792500372976,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "saved_report",
+      "repeat": 1,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "ee42b543849a0a2056e5347907145122c4e83bbadd9b82d7bad65818197013c1",
+      "fixture_sha256": "0010aafd480583d4bce6369ff319fed60156f30b076c5a07eb0ba41d36234378",
+      "input_bytes": 352,
+      "returned_context_bytes": 6412,
+      "whole_operation_seconds": 0.11344820796512067,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "plain_direct",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "c5470c25bfbe3de0ed288bdf0d64332573e696959f5587d29ac01d77a88c0668",
+      "fixture_sha256": "fce08b4843d2a8b2873dcc8a70d3d021872f3dc56d6fbc2205ed093361f0652c",
+      "input_bytes": 162,
+      "returned_context_bytes": 1872,
+      "whole_operation_seconds": 0.09749366698088124,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "plain_direct",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "c5470c25bfbe3de0ed288bdf0d64332573e696959f5587d29ac01d77a88c0668",
+      "fixture_sha256": "fce08b4843d2a8b2873dcc8a70d3d021872f3dc56d6fbc2205ed093361f0652c",
+      "input_bytes": 162,
+      "returned_context_bytes": 1533,
+      "whole_operation_seconds": 0.09654266596771777,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "plain_default",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "cc3537a8977bf83d2877bf92eb68a9065a8654a39f57a7dc8300590d8d74e3fd",
+      "fixture_sha256": "b8801018937b728ccb527da7aca592ada0c36087be15e5fbe8fd4d0e1ed2a242",
+      "input_bytes": 162,
+      "returned_context_bytes": 3910,
+      "whole_operation_seconds": 0.09443187498254701,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "plain_default",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "cc3537a8977bf83d2877bf92eb68a9065a8654a39f57a7dc8300590d8d74e3fd",
+      "fixture_sha256": "b8801018937b728ccb527da7aca592ada0c36087be15e5fbe8fd4d0e1ed2a242",
+      "input_bytes": 162,
+      "returned_context_bytes": 3458,
+      "whole_operation_seconds": 0.09790537494700402,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_default",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "9673b0d093c900fc8e55f31fe6952424155ce264f69dcadb6dfaedc0f2bedf65",
+      "fixture_sha256": "3d5f295ae204f0349655934d6d4c0ec6501eb889833017d511deca8207db0120",
+      "input_bytes": 162,
+      "returned_context_bytes": 4492,
+      "whole_operation_seconds": 0.11928387498483062,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_default",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "9673b0d093c900fc8e55f31fe6952424155ce264f69dcadb6dfaedc0f2bedf65",
+      "fixture_sha256": "3d5f295ae204f0349655934d6d4c0ec6501eb889833017d511deca8207db0120",
+      "input_bytes": 162,
+      "returned_context_bytes": 3927,
+      "whole_operation_seconds": 0.11198841599980369,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_direct",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "1ef63501328b9f3896dba70235acdd77deb770ab4665374815a6f166a992895a",
+      "fixture_sha256": "a298160f9fea78154d92764956fa92acb031fabfd0051c4d925bee77b8991274",
+      "input_bytes": 162,
+      "returned_context_bytes": 2454,
+      "whole_operation_seconds": 0.09902783395955339,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_direct",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "1ef63501328b9f3896dba70235acdd77deb770ab4665374815a6f166a992895a",
+      "fixture_sha256": "a298160f9fea78154d92764956fa92acb031fabfd0051c4d925bee77b8991274",
+      "input_bytes": 162,
+      "returned_context_bytes": 2002,
+      "whole_operation_seconds": 0.10061279201181605,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_named",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "collect_evidence": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "d9b326b17e670b60371e9bd19f002c884e95ab46f4db5b021faa3f472efe3ec2",
+      "fixture_sha256": "937396060013e6b395b6447cc85687a876d2ed92abc9f7bec2c83ca467361994",
+      "input_bytes": 162,
+      "returned_context_bytes": 4508,
+      "whole_operation_seconds": 0.15665058296872303,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_named",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "collect_evidence": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "d9b326b17e670b60371e9bd19f002c884e95ab46f4db5b021faa3f472efe3ec2",
+      "fixture_sha256": "937396060013e6b395b6447cc85687a876d2ed92abc9f7bec2c83ca467361994",
+      "input_bytes": 162,
+      "returned_context_bytes": 3943,
+      "whole_operation_seconds": 0.2012866250006482,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "callback_reads",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "27c9715d6420093ec6dec78e8fb74aed3b1bf2cb4cb5831b488151645a7a7ea4",
+      "fixture_sha256": "e08dd8e7d5e7f90833aff03801cf735db6c9078a0a201d80ff0121e8d3cd8fa7",
+      "input_bytes": 726,
+      "returned_context_bytes": 7622,
+      "whole_operation_seconds": 0.2535866249818355,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "callback_reads",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "27c9715d6420093ec6dec78e8fb74aed3b1bf2cb4cb5831b488151645a7a7ea4",
+      "fixture_sha256": "e08dd8e7d5e7f90833aff03801cf735db6c9078a0a201d80ff0121e8d3cd8fa7",
+      "input_bytes": 726,
+      "returned_context_bytes": 7170,
+      "whole_operation_seconds": 0.18772062502102926,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "direct_effect",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "297d7a50d63a0381545cc7eeadd538c4f512afb0fa98578e6078c5ae49aad774",
+      "fixture_sha256": "02e63de9978dff8bafbb78ad95c3f1e95d48117e3599cf95a840ae01e51bd441",
+      "input_bytes": 670,
+      "returned_context_bytes": 6586,
+      "whole_operation_seconds": 0.11742887500440702,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "direct_effect",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "297d7a50d63a0381545cc7eeadd538c4f512afb0fa98578e6078c5ae49aad774",
+      "fixture_sha256": "02e63de9978dff8bafbb78ad95c3f1e95d48117e3599cf95a840ae01e51bd441",
+      "input_bytes": 670,
+      "returned_context_bytes": 6134,
+      "whole_operation_seconds": 0.1538980839541182,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "irreversible_gate",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "918136b7f3ce9882e6ebee6ca457fbf79528d7f1bf0afd75a599935f2262ca71",
+      "fixture_sha256": "d231030897d812a609b8922f7d8788e979f23c9efbd0443613cebe1625bdee9d",
+      "input_bytes": 670,
+      "returned_context_bytes": 5716,
+      "whole_operation_seconds": 0.13509337499272078,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "irreversible_gate",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "918136b7f3ce9882e6ebee6ca457fbf79528d7f1bf0afd75a599935f2262ca71",
+      "fixture_sha256": "d231030897d812a609b8922f7d8788e979f23c9efbd0443613cebe1625bdee9d",
+      "input_bytes": 670,
+      "returned_context_bytes": 5264,
+      "whole_operation_seconds": 0.1167923750472255,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "saved_report",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "ee42b543849a0a2056e5347907145122c4e83bbadd9b82d7bad65818197013c1",
+      "fixture_sha256": "0010aafd480583d4bce6369ff319fed60156f30b076c5a07eb0ba41d36234378",
+      "input_bytes": 352,
+      "returned_context_bytes": 6412,
+      "whole_operation_seconds": 0.10670062497956678,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "saved_report",
+      "repeat": 2,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "ee42b543849a0a2056e5347907145122c4e83bbadd9b82d7bad65818197013c1",
+      "fixture_sha256": "0010aafd480583d4bce6369ff319fed60156f30b076c5a07eb0ba41d36234378",
+      "input_bytes": 352,
+      "returned_context_bytes": 5847,
+      "whole_operation_seconds": 0.13445675000548363,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "plain_direct",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "c5470c25bfbe3de0ed288bdf0d64332573e696959f5587d29ac01d77a88c0668",
+      "fixture_sha256": "fce08b4843d2a8b2873dcc8a70d3d021872f3dc56d6fbc2205ed093361f0652c",
+      "input_bytes": 162,
+      "returned_context_bytes": 1533,
+      "whole_operation_seconds": 0.1203630410018377,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "plain_direct",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "c5470c25bfbe3de0ed288bdf0d64332573e696959f5587d29ac01d77a88c0668",
+      "fixture_sha256": "fce08b4843d2a8b2873dcc8a70d3d021872f3dc56d6fbc2205ed093361f0652c",
+      "input_bytes": 162,
+      "returned_context_bytes": 1872,
+      "whole_operation_seconds": 0.11478674999671057,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "plain_default",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "cc3537a8977bf83d2877bf92eb68a9065a8654a39f57a7dc8300590d8d74e3fd",
+      "fixture_sha256": "b8801018937b728ccb527da7aca592ada0c36087be15e5fbe8fd4d0e1ed2a242",
+      "input_bytes": 162,
+      "returned_context_bytes": 3458,
+      "whole_operation_seconds": 0.1071393329766579,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "plain_default",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "cc3537a8977bf83d2877bf92eb68a9065a8654a39f57a7dc8300590d8d74e3fd",
+      "fixture_sha256": "b8801018937b728ccb527da7aca592ada0c36087be15e5fbe8fd4d0e1ed2a242",
+      "input_bytes": 162,
+      "returned_context_bytes": 3910,
+      "whole_operation_seconds": 0.11721620900789276,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_default",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "9673b0d093c900fc8e55f31fe6952424155ce264f69dcadb6dfaedc0f2bedf65",
+      "fixture_sha256": "3d5f295ae204f0349655934d6d4c0ec6501eb889833017d511deca8207db0120",
+      "input_bytes": 162,
+      "returned_context_bytes": 3927,
+      "whole_operation_seconds": 0.10027266602264717,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_default",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "9673b0d093c900fc8e55f31fe6952424155ce264f69dcadb6dfaedc0f2bedf65",
+      "fixture_sha256": "3d5f295ae204f0349655934d6d4c0ec6501eb889833017d511deca8207db0120",
+      "input_bytes": 162,
+      "returned_context_bytes": 4492,
+      "whole_operation_seconds": 0.10563566599739715,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_direct",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "1ef63501328b9f3896dba70235acdd77deb770ab4665374815a6f166a992895a",
+      "fixture_sha256": "a298160f9fea78154d92764956fa92acb031fabfd0051c4d925bee77b8991274",
+      "input_bytes": 162,
+      "returned_context_bytes": 2002,
+      "whole_operation_seconds": 0.09814533405005932,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_direct",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "1ef63501328b9f3896dba70235acdd77deb770ab4665374815a6f166a992895a",
+      "fixture_sha256": "a298160f9fea78154d92764956fa92acb031fabfd0051c4d925bee77b8991274",
+      "input_bytes": 162,
+      "returned_context_bytes": 2454,
+      "whole_operation_seconds": 0.10378416703315452,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "lazy_named",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "collect_evidence": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "d9b326b17e670b60371e9bd19f002c884e95ab46f4db5b021faa3f472efe3ec2",
+      "fixture_sha256": "937396060013e6b395b6447cc85687a876d2ed92abc9f7bec2c83ca467361994",
+      "input_bytes": 162,
+      "returned_context_bytes": 3943,
+      "whole_operation_seconds": 0.1022192919626832,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "lazy_named",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "collect_evidence",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "collect_evidence": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "d9b326b17e670b60371e9bd19f002c884e95ab46f4db5b021faa3f472efe3ec2",
+      "fixture_sha256": "937396060013e6b395b6447cc85687a876d2ed92abc9f7bec2c83ca467361994",
+      "input_bytes": 162,
+      "returned_context_bytes": 4508,
+      "whole_operation_seconds": 0.09810245799599215,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "callback_reads",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "27c9715d6420093ec6dec78e8fb74aed3b1bf2cb4cb5831b488151645a7a7ea4",
+      "fixture_sha256": "e08dd8e7d5e7f90833aff03801cf735db6c9078a0a201d80ff0121e8d3cd8fa7",
+      "input_bytes": 726,
+      "returned_context_bytes": 7170,
+      "whole_operation_seconds": 0.0960532920435071,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "callback_reads",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 4,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "27c9715d6420093ec6dec78e8fb74aed3b1bf2cb4cb5831b488151645a7a7ea4",
+      "fixture_sha256": "e08dd8e7d5e7f90833aff03801cf735db6c9078a0a201d80ff0121e8d3cd8fa7",
+      "input_bytes": 726,
+      "returned_context_bytes": 7622,
+      "whole_operation_seconds": 0.09453916602069512,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "direct_effect",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "297d7a50d63a0381545cc7eeadd538c4f512afb0fa98578e6078c5ae49aad774",
+      "fixture_sha256": "02e63de9978dff8bafbb78ad95c3f1e95d48117e3599cf95a840ae01e51bd441",
+      "input_bytes": 670,
+      "returned_context_bytes": 6134,
+      "whole_operation_seconds": 0.09926570899551734,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "direct_effect",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 4,
+        "domain": 2,
+        "effects": 1,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 1,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "297d7a50d63a0381545cc7eeadd538c4f512afb0fa98578e6078c5ae49aad774",
+      "fixture_sha256": "02e63de9978dff8bafbb78ad95c3f1e95d48117e3599cf95a840ae01e51bd441",
+      "input_bytes": 670,
+      "returned_context_bytes": 6586,
+      "whole_operation_seconds": 0.09518591698724777,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "irreversible_gate",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "918136b7f3ce9882e6ebee6ca457fbf79528d7f1bf0afd75a599935f2262ca71",
+      "fixture_sha256": "d231030897d812a609b8922f7d8788e979f23c9efbd0443613cebe1625bdee9d",
+      "input_bytes": 670,
+      "returned_context_bytes": 5264,
+      "whole_operation_seconds": 0.10424341598991305,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "irreversible_gate",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task"
+      ],
+      "counts": {
+        "factory": 1,
+        "observe": 3,
+        "domain": 3,
+        "effects": 0,
+        "report_writes": 0,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 2,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "918136b7f3ce9882e6ebee6ca457fbf79528d7f1bf0afd75a599935f2262ca71",
+      "fixture_sha256": "d231030897d812a609b8922f7d8788e979f23c9efbd0443613cebe1625bdee9d",
+      "input_bytes": 670,
+      "returned_context_bytes": 5716,
+      "whole_operation_seconds": 0.10226779198274016,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "baseline",
+      "case": "saved_report",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": null,
+        "observe": null,
+        "operate": null,
+        "run_task": null,
+        "read_report": null
+      },
+      "annotations_correct": false,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "ee42b543849a0a2056e5347907145122c4e83bbadd9b82d7bad65818197013c1",
+      "fixture_sha256": "0010aafd480583d4bce6369ff319fed60156f30b076c5a07eb0ba41d36234378",
+      "input_bytes": 352,
+      "returned_context_bytes": 5847,
+      "whole_operation_seconds": 0.10505895898677409,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    },
+    {
+      "arm": "candidate",
+      "case": "saved_report",
+      "repeat": 3,
+      "tool_names": [
+        "arguments",
+        "observe",
+        "operate",
+        "run_task",
+        "read_report"
+      ],
+      "counts": {
+        "factory": 0,
+        "observe": 0,
+        "domain": 0,
+        "effects": 0,
+        "report_writes": 1,
+        "native_inference_attempts": 0,
+        "real_network_attempts": 0
+      },
+      "tool_errors": 0,
+      "behavior_correct": true,
+      "annotations": {
+        "arguments": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "observe": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "operate": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "run_task": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "read_report": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      "annotations_correct": true,
+      "protocol_sha256_excluding_annotations_and_capture_ids": "ee42b543849a0a2056e5347907145122c4e83bbadd9b82d7bad65818197013c1",
+      "fixture_sha256": "0010aafd480583d4bce6369ff319fed60156f30b076c5a07eb0ba41d36234378",
+      "input_bytes": 352,
+      "returned_context_bytes": 6412,
+      "whole_operation_seconds": 0.0999055840075016,
+      "actual_model_usage": {
+        "requests": 0,
+        "models": {},
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "usage_complete": true
+      }
+    }
+  ]
+}

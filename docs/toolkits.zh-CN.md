@@ -112,6 +112,18 @@ python -m apixly_jev_harness.mcp examples/workspace_task.py --goal 'Investigate 
 | run_task | 在 session 预算内把注册任务交给 Jev loop |
 | read_report | 每页读取最多四条已保存且匹配的原始引用，不执行任务工具或推理 |
 
+每个广告的工具都明确声明四个布尔值 [MCP annotation hints](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations)。
+`observe` 和 `arguments` 会调用使用方定义的观察、准备、校验或候选回调，这些回调可能
+执行 I/O 或改变状态。因此它们与 `operate`、`run_task` 一样保守声明：
+`readOnlyHint: false`、`destructiveHint: true`、`idempotentHint: false`、`openWorldHint: true`。
+这描述通用回调契约可能具备的行为，不表示每次检查都会执行破坏性动作。
+`read_report` 仅核对并读取已保存的本地报告，四项依次为 `true`、`false`、`true`、`false`。
+这些提示不构成动作授权，也不替代新鲜度、权限、不可逆动作门禁或独立完成检查。
+实际工具列表为三至五项：`--direct-only` 不广告执行工具，只有证据任务或延迟加载的
+task script 才广告报告读取工具。
+[固定合成 stdio A/B](../reports/mcp-annotations-ab.json) 核对列表提示、回调与动作一致性
+及本地协议字节数，未调用模型；它不是安全审计。
+
 对于带依赖的工具，调用 arguments 时传入工具名和已选父引用 ID，再从返回域选子候选。
 operate 需要当前提供的全部参数 ID；广告的 MCP arguments/operate 还必须带最近
 observe.state_ref 中的指纹。操作后刷新观察，一个 session 内顺序执行。旧状态、未提供

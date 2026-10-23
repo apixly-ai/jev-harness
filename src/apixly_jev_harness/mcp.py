@@ -12,10 +12,19 @@ import sys
 from . import __version__
 from .output import TaskOutput
 
+# Inspection callbacks are caller-owned Python: factories, observers, verifiers and
+# dynamic candidate providers may perform I/O or change their environment. Preserve
+# conservative hints for those routes as well as execution; hints never grant permission.
 TOOLS = [
     {
         "name": "arguments",
         "description": "Inspect current argument references for a tool, resolving dependent candidates after supplied parent references.",
+        "annotations": {
+            "readOnlyHint": False,
+            "destructiveHint": True,
+            "idempotentHint": False,
+            "openWorldHint": True,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -30,11 +39,23 @@ TOOLS = [
     {
         "name": "observe",
         "description": "Read the task state and currently available tools and argument references.",
+        "annotations": {
+            "readOnlyHint": False,
+            "destructiveHint": True,
+            "idempotentHint": False,
+            "openWorldHint": True,
+        },
         "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
     },
     {
         "name": "operate",
         "description": "Execute one currently available tool using its supplied argument references.",
+        "annotations": {
+            "readOnlyHint": False,
+            "destructiveHint": True,
+            "idempotentHint": False,
+            "openWorldHint": True,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -49,6 +70,12 @@ TOOLS = [
     {
         "name": "run_task",
         "description": "Run the CURRENT goal with its already registered task script, tools, inputs and independent completion check. This performs the multi-step task in one call and returns status, artifact location, source references and usage. Available before any operate call; either route can be selected at the start.",
+        "annotations": {
+            "readOnlyHint": False,
+            "destructiveHint": True,
+            "idempotentHint": False,
+            "openWorldHint": True,
+        },
         "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
     },
 ]
@@ -57,6 +84,12 @@ TOOLS.append(
     {
         "name": "read_report",
         "description": "Read up to four original quoted records from the current saved evidence report, with source references, character windows and SHA-256. Requires an already saved report that matches this task's records. Available after either route; this does not execute task tools or inference.",
+        "annotations": {
+            "readOnlyHint": True,
+            "destructiveHint": False,
+            "idempotentHint": True,
+            "openWorldHint": False,
+        },
         "inputSchema": {
             "type": "object",
             "properties": {"page": {"type": "integer", "minimum": 0}},
