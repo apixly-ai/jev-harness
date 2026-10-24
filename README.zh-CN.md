@@ -2,7 +2,9 @@
 
 # Jev Harness
 
-[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [工具包](docs/toolkits.zh-CN.md) · [常见问题](docs/faq.zh-CN.md) · [使用案例](docs/use-cases.zh-CN.md) · [AI 接口](docs/agent-contract.zh-CN.md) · [验收证据](reports/README.zh-CN.md)
+<p><a href="https://mcpservers.org/servers/apixly-ai/jev-harness"><img src="https://mcpservers.org/badge.svg" alt="已收录于 mcpservers.org" height="20"></a></p>
+
+[English](README.md) · [文档](https://apixly-ai.github.io/jev-harness/zh/) · [MCP 目录](https://mcpservers.org/servers/apixly-ai/jev-harness) · [工具包](docs/toolkits.zh-CN.md) · [常见问题](docs/faq.zh-CN.md) · [使用案例](docs/use-cases.zh-CN.md) · [AI 接口](docs/agent-contract.zh-CN.md) · [验收证据](reports/README.zh-CN.md)
 
 **给开放目标，AI 定义工具，Jev 自主选择下一步。**
 
@@ -108,10 +110,11 @@ Marker 检查演示接入点，业务正确性由调用方 verifier 负责。
 暴露同一脚本。MCP 广告 observe、arguments、operate、run_task；直接引用操作与 Jev
 托管使用相同工具、目标和产物检查。同一 session 选择一条路线，arguments/operate
 传入当前 observe.state_ref 并顺序调用。见
-[接口契约](docs/agent-contract.zh-CN.md#toolkit-and-mcp-interface)与
+[接口契约](docs/agent-contract.zh-CN.md#工具包与-mcp-接口)与
 [验收证据](reports/README.zh-CN.md)。
 
-可在 [Glama 目录](https://glama.ai/mcp/servers/apixly-ai/jev-harness) 查看工具 schema 与安装资料。
+**发现与接入 MCP：** [mcpservers.org 收录页](https://mcpservers.org/servers/apixly-ai/jev-harness) · [Glama 目录](https://glama.ai/mcp/servers/apixly-ai/jev-harness) · [MCP 接入与接口契约](docs/agent-contract.zh-CN.md#工具包与-mcp-接口)。
+目录收录提供发现入口；任务脚本、输入和权限仍由调用方提供。
 
 任一命令的参数 parser 报错时，CLI 返回固定的
 failed/arguments/invalid_command_arguments packet，退出码为 2，并标记
