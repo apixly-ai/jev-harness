@@ -2,7 +2,9 @@
 
 # Jev Harness
 
-[简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [Toolkits](docs/toolkits.md) · [FAQ](docs/faq.md) · [Use cases](docs/use-cases.md) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
+<p><a href="https://mcpservers.org/servers/apixly-ai/jev-harness"><img src="https://mcpservers.org/badge.svg" alt="Listed on mcpservers.org" height="20"></a></p>
+
+[简体中文](README.zh-CN.md) · [Documentation](https://apixly-ai.github.io/jev-harness/) · [MCP listing](https://mcpservers.org/servers/apixly-ai/jev-harness) · [Toolkits](docs/toolkits.md) · [FAQ](docs/faq.md) · [Use cases](docs/use-cases.md) · [Agent contract](docs/agent-contract.md) · [Evidence](reports/README.md)
 
 **Give an open goal. Let AI define the tools. Let Jev explore the next step.**
 
@@ -123,7 +125,8 @@ session; arguments and operations carry the current `observe.state_ref` and run 
 sequence. See the [interface contract](docs/agent-contract.md#toolkit-and-mcp-interface)
 and [acceptance evidence](reports/README.md).
 
-See the [Glama directory](https://glama.ai/mcp/servers/apixly-ai/jev-harness) for tool schemas and installation details.
+**Find the MCP server:** [mcpservers.org listing](https://mcpservers.org/servers/apixly-ai/jev-harness) · [Glama directory](https://glama.ai/mcp/servers/apixly-ai/jev-harness) · [MCP setup & interface contract](docs/agent-contract.md#toolkit-and-mcp-interface).
+The directory listing provides a discovery link; task scripts, inputs and permissions remain caller-supplied.
 
 When any command's argument parser reports an error, the CLI returns a fixed
 `failed/arguments/invalid_command_arguments` packet and exits 2, with
